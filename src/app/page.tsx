@@ -1,8 +1,17 @@
+"use client"
 import './globals.css'
-import MainBody from "@/app/components/main/body";
+import MainBody from "@/components/main/body";
+import { useRouter } from 'next/navigation';
 import {IoIosSearch, IoLogoJavascript} from "react-icons/io";
 
 export default function Home() {
+
+  const router = useRouter();
+
+  const OnClick = () => {
+    router.push("/login");
+  }
+
   return (
     // tailwindcss test
     <div className="flex">
@@ -11,6 +20,10 @@ export default function Home() {
             <input type="text"/>
             <button><IoIosSearch /></button>
         </form>
+
+        <div>
+          <button onClick={OnClick}>Login</button>
+        </div>
 
         {/* Carousel */}
         <div>
