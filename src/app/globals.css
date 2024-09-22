@@ -1,11 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Custom";
+  font-family: "Custom", serif;
 }
 
 @font-face {
   font-family: "Custom";
   src: url(/font.ttf);
+}
+
+body {
+  width: 100%;
+  margin: 0;
 }
