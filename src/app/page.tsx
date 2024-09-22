@@ -1,5 +1,5 @@
 import './globals.css'
-import MainBody from "@/components/main/body";
+// import MainBody from "@/components/main/body";
 import {IoIosSearch, IoLogoJavascript} from "react-icons/io";
 import Search from "@/components/main/search";
 import Carousel from "@/components/main/carousel";
