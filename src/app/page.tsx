@@ -3,7 +3,7 @@ import './globals.css'
 import {IoIosSearch, IoLogoJavascript} from "react-icons/io";
 import Search from "@/components/main/search";
 import Carousel from "@/components/main/carousel";
-import TeamCard from "@/components/main/teamCard";
+import MainTabMenu from "@/components/main/mainTabMenu";
 
 export default function Home() {
   return (
@@ -17,16 +17,7 @@ export default function Home() {
             <Carousel/>
         </section>
 
-        {/* Item List Component */}
-        <TeamCard/>
-        <TeamCard/>
-        <TeamCard/>
-        <TeamCard/>
-        <TeamCard/>
-        <TeamCard/>
-        <TeamCard/>
-        <TeamCard/>
-        <TeamCard/>
+        <MainTabMenu/>
     </div>
   );
 }
