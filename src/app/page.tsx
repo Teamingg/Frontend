@@ -1,9 +1,11 @@
-import MainBody from "@/components/main/body";
+import './globals.css'
+import MainBody from "@/app/components/main/body";
 import {IoIosSearch, IoLogoJavascript} from "react-icons/io";
 
 export default function Home() {
   return (
-    <>
+    // tailwindcss test
+    <div className="flex">
         {/* Search Component */}
         <form>
             <input type="text"/>
@@ -23,6 +25,6 @@ export default function Home() {
             <div>name</div>
             <div>date</div>
         </div>
-    </>
+    </div>
   );
 }
