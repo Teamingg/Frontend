@@ -18,17 +18,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="w-full">
+      <div className="mx-32">
         <header>
-          <Header />
+          <Header/>
         </header>
 
-        <main>
-        {children}
+        <main className="border border-black">
+          {children}
         </main>
 
         <footer>
-          <Footer />
+          <Footer/>
         </footer>
+      </div>
       </body>
     </html>
   );

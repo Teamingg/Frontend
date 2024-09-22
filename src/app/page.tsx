@@ -12,10 +12,20 @@ export default function Home() {
         {/* Search Component */}
         <Search/>
 
-        {/* Carousel */}
-        <Carousel/>
+        {/* Carousel (개발용 테두리선) */}
+        <section className="w-11/12 h-32 m-auto my-5 border border-black">
+            <Carousel/>
+        </section>
 
         {/* Item List Component */}
+        <TeamCard/>
+        <TeamCard/>
+        <TeamCard/>
+        <TeamCard/>
+        <TeamCard/>
+        <TeamCard/>
+        <TeamCard/>
+        <TeamCard/>
         <TeamCard/>
     </div>
   );
