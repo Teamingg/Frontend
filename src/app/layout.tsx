@@ -25,12 +25,12 @@ export default async function RootLayout({
     <html lang="ko">
       <body className="w-full">
         <div id="modal-root">{modal}</div>
-        <div className="mx-32 pt-[90px]">
-          <header className="fixed top-0 left-0 w-full z-50 bg-white">
+        <div className="mx-40 pt-[90px]">
+          <header className="w-full mx-40 fixed top-0 left-0 z-50 bg-white">
             <Header isLoggedIn={isLoggedIn} />
           </header>
 
-          <main className="max-w-[1200px] mx-auto border border-black">
+          <main className="max-w-[1200px] mt-16 mx-auto border border-black">
             <AppProvider>{children}</AppProvider>
           </main>
 

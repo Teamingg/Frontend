@@ -3,7 +3,7 @@ import React from 'react';
 const SlugItem = () => {
     return (
         <div>
-            <div>
+            <div className="flex justify-between">
                 <p>
                     <time dateTime="2024-11-11">2024.11.11</time>
                     <span>~</span>
@@ -13,7 +13,7 @@ const SlugItem = () => {
             </div>
             <h3>title</h3>
             <p>content</p>
-            <div>
+            <div className="flex justify-between">
                 <p>tag</p>
                 <p>team name</p>
             </div>
