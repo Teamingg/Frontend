@@ -4,10 +4,6 @@ import Header from "@/components/main/header";
 import Footer from "@/components/main/footer";
 
 import AppProvider from '@/components/provider/AppProvider';
-
-import Header from '@/components/main/header';
-import Footer from '@/components/main/footer';
-
 import checkCookie from '@/shared/auth/checkCookie';
 
 export const metadata: Metadata = {
