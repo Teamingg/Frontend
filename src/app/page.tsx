@@ -7,6 +7,7 @@ import {IoIosSearch, IoLogoJavascript} from "react-icons/io";
 import Search from "@/components/main/search";
 import Carousel from "@/components/main/carousel";
 import MainTabMenu from "@/components/main/mainTabMenu";
+import TeamProjectNavigation from "@/components/TeamProjectNavigation";
 
 export default function Home() {
 
@@ -19,6 +20,8 @@ export default function Home() {
   return (
     // tailwindcss test
     <div className="flex-col">
+        <TeamProjectNavigation/>
+
         {/* Search Component */}
         <Search/>
 
@@ -30,6 +33,8 @@ export default function Home() {
         <div>
           <button onClick={OnClick}>Login</button>
         </div>
+
+        <div>test</div>
 
         {/* Carousel */}
         <div>
