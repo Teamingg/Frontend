@@ -1,5 +1,7 @@
-import type { Metadata } from 'next';
-import './globals.css';
+import type { Metadata } from "next";
+import "./globals.css";
+import Header from "@/components/main/header";
+import Footer from "@/components/main/footer";
 
 import AppProvider from '@/components/provider/AppProvider';
 
