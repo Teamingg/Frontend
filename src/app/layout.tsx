@@ -1,12 +1,13 @@
-import type { Metadata } from "next";
-import "./globals.css";
+import type { Metadata } from 'next';
+import './globals.css';
 
-import checkCookie from "@/shared/utils/auth/checkCookie";
+import AppProvider from '@/components/provider/AppProvider';
 
-import AppProvider from "@/components/provider/AppProvider";
+import Header from '@/components/main/header';
+import Footer from '@/components/main/footer';
 
-import Header from "@/components/main/header";
-import Footer from "@/components/main/footer";
+import checkCookie from '@/shared/utils/auth/checkCookie';
+
 
 export const metadata: Metadata = {
   title: "티밍",
