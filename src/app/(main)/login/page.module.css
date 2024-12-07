@@ -1,0 +1,18 @@
+.container {
+    height: 90dvh;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.kakaoContainer {
+    position: relative;
+    width: 100px;
+    height: 50px;
+}
+
+.kakaoContainer:hover {
+    cursor: pointer;
+}
