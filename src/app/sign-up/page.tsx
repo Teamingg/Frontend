@@ -1,5 +1,5 @@
 import SignUpUserForm from "@/features/SignUp/components/SignUpUserForm";
-const Page = () => {
+const SignUpPage = () => {
   return (
     <section className="flex justify-center items-center w-full h-full">
       {/* Desc */}
@@ -15,4 +15,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default SignUpPage;

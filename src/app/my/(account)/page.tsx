@@ -6,7 +6,7 @@ import { getUserInfo } from "@/entities/user/api/getUserInfo";
 
 import UserInfoSection from "@/features/myPage/account/components/UserInfoSection";
 
-const Page = async () => {
+const AccountPage = async () => {
   await queryclient.prefetchQuery({
     queryKey: ["user"],
     queryFn: getUserInfo,
@@ -36,4 +36,4 @@ const Page = async () => {
   );
 };
 
-export default Page;
+export default AccountPage;

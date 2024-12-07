@@ -1,7 +1,7 @@
 import React from "react";
 
-const page = () => {
+const MentoringPage = () => {
   return <div>멘토링</div>;
 };
 
-export default page;
+export default MentoringPage;
