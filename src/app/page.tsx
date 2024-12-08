@@ -18,7 +18,7 @@ export default function Home() {
     <>
       <TeamProjectNavigation />
 
-      <section className="flex flex-col gap-8">
+      <section className="flex flex-col gap-8 pb-8">
         {/* team project */}
         <div className="p-8 rounded-xl bg-[#f5f5f5]">
           <SectioHeader title="팀 프로젝트" />
