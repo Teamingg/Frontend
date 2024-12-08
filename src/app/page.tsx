@@ -4,40 +4,48 @@ import {IoIosSearch, IoLogoJavascript} from "react-icons/io";
 import Search from "@/components/main/search";
 import Carousel from "@/components/main/carousel";
 import MainTabMenu from "@/components/main/mainTabMenu";
+import TeamProjectNavigation from "@/components/TeamProjectNavigation";
+import SlugItem from "@/components/SlugItem";
+import SectioHeader from "@/components/SectioHeader";
 
 export default function Home() {
-  // const router = useRouter();
 
-  const OnClick = () => {
-  //  router.push("/login");
-  const router = useRouter();
 
-  const OnClick = () => {
-    router.push("/login");
-  }
+    // const router = useRouter();
 
-  return (
-    // tailwindcss test
-    <div className="flex-col">
-        {/* Search Component */}
-        <Search/>
+    const OnClick = () => {
+        //  router.push("/login");
+    }
 
-        {/* Carousel (개발용 테두리선) */}
-        <section className="w-11/12 h-32 m-auto my-5 border border-black">
-            <Carousel/>
-        </section>
+    return (
+        // tailwindcss test
+        <>
+            <TeamProjectNavigation/>
 
-        <div>
-          <button onClick={OnClick}>Login</button>
-        </div>
+            <div>
+                {/* team project */}
+                <div>
+                    <SectioHeader title="팀 프로젝트"/>
+                    <div className="p-5 grid grid-cols-2 gap-5">
+                        <SlugItem/>
+                        <SlugItem/>
+                        <SlugItem/>
+                        <SlugItem/>
+                    </div>
+                </div>
 
-        {/* Carousel */}
-        <div>
-            <div>Item 1</div>
-            <div>Item 2</div>
-            <div>Item 3</div>
-        </div>
-        <MainTabMenu/>
-    </div>
-  );
+                {/* mentoring */}
+                <div>
+                    <SectioHeader title="멘토링"/>
+                    <div className="p-5 grid grid-cols-2 gap-5">
+                        <SlugItem/>
+                        <SlugItem/>
+                        <SlugItem/>
+                        <SlugItem/>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+
 }

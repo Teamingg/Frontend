@@ -4,11 +4,11 @@ import LogoutButton from '../LogoutButton';
 
 const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
-    <div className="max-w-[1200px] mx-auto my-5 flex justify-between items-center">
+    <nav className="my-5 flex justify-between items-center">
       {/* 로고 */}
       <Link href="/">
         <h1 className="relative w-[150px] h-[30px]">
-          <Image src="/Logo.png" fill alt="Teaming" sizes="150px" priority />
+          <Image src="/Logo.svg" fill alt="Teaming" sizes="150px" priority />
         </h1>
       </Link>
 
@@ -28,7 +28,7 @@ const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
         </li>
         <li>알림</li>
       </ul>
-    </div>
+    </nav>
   );
 };
 
