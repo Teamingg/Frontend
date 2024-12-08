@@ -1,28 +1,28 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 
-import Modal from '@/shared/ui/Modal';
+import Modal from "@/shared/ui/Modal";
 
 const oAuthList = [
   {
-    name: 'kakao',
-    imageSrc: 'oAuthLogo/kakao.svg',
+    name: "kakao",
+    imageSrc: "oAuthLogo/kakao.svg",
   },
   {
-    name: 'naver',
-    imageSrc: 'oAuthLogo/naver.svg',
+    name: "naver",
+    imageSrc: "oAuthLogo/naver.svg",
   },
   {
-    name: 'google',
-    imageSrc: 'oAuthLogo/google.svg',
+    name: "google",
+    imageSrc: "oAuthLogo/google.svg",
   },
 ];
 
-const page = () => {
+const Page = () => {
   const router = useRouter();
   const closeModal = () => {
     router.back();
@@ -77,4 +77,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;

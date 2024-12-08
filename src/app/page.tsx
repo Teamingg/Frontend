@@ -1,8 +1,5 @@
 "use client"
 import './globals.css'
-// import MainBody from "@/components/main/body";
-import MainBody from "@/components/main/body";
-// import { useRouter } from 'next/navigation';
 import {IoIosSearch, IoLogoJavascript} from "react-icons/io";
 import Search from "@/components/main/search";
 import Carousel from "@/components/main/carousel";
@@ -12,6 +9,7 @@ import SlugItem from "@/components/SlugItem";
 import SectioHeader from "@/components/SectioHeader";
 
 export default function Home() {
+
 
     // const router = useRouter();
 
@@ -49,4 +47,5 @@ export default function Home() {
             </div>
         </>
     );
+
 }

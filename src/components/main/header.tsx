@@ -16,7 +16,7 @@ const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
       <ul className="flex gap-4">
         <li>
           {!isLoggedIn ? (
-            <Link href="/auth" scroll={false}>
+            <Link href="/login" scroll={false}>
               로그인
             </Link>
           ) : (
