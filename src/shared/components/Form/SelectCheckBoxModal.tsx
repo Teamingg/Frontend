@@ -1,4 +1,4 @@
-import { SelectBoxField } from "../../Model/SelectBoxList";
+import SelectBoxField from "@/shared/types/SelectField";
 
 import Modal from "../../ui/Modal";
 import CloseButton from "../../ui/CloseButton";

@@ -14,7 +14,7 @@ import Modal from "@/shared/ui/Modal";
 import EditUserForm from "./EditUserForm";
 import UserInfoContent from "./UserInfoContent";
 import { useRouter } from "next/navigation";
-import { STACK_LIST } from "@/shared/Model/SelectBoxList";
+import STACK_LIST from "@/shared/constant/stackList";
 
 const UserInfoSection = () => {
   const router = useRouter();

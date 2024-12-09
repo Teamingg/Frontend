@@ -1,4 +1,4 @@
-import { SelectBoxField } from "@/shared/Model/SelectBoxList";
+import SelectBoxField from "@/shared/types/SelectField";
 import React from "react";
 
 interface UserInfoContentProps {
