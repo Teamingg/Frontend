@@ -35,7 +35,7 @@ export default function Home() {
                 </div>
 
                 {/* mentoring */}
-                <div>
+                <div className="mt-20">
                     <SectioHeader title="멘토링"/>
                     <div className="p-5 grid grid-cols-2 gap-5">
                         <SlugItem/>
