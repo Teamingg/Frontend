@@ -31,7 +31,6 @@ const Page = () => {
                         type="text"
                         id="name"
                         placeholder="팀 이름을 입력해주세요."/>
-                    <input type="text" id="name" name="name" placeholder="팀 이름을 입력해주세요."/>
                     {errors.name && <p>{errors.name.message}</p>}
                 </div>
                 <div>
