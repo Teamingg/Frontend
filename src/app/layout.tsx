@@ -30,7 +30,7 @@ export default async function RootLayout({
         <div id="modal-root">{modal}</div>
 
         <div className="mx-40 pt-[90px]">
-          <header className="w-full mx-40 fixed top-0 left-0 z-50 bg-white">
+          <header className="mx-40 fixed top-0 left-0 z-50 bg-white">
             <Header isLoggedIn={isLoggedIn} />
           </header>
 

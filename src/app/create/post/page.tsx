@@ -1,12 +1,13 @@
 'use client';
 import React from 'react';
 import {useForm} from "react-hook-form";
+import {instance} from "@/shared/api/axiosInstance";
 
 interface PostFormData {
     projectName: string;
     deadline: string;
     memberCnt: string;
-    tags: string;
+    link: string;
     contents: string;
 }
 
@@ -17,8 +18,18 @@ const Page = () => {
         formState: {errors}
     } = useForm<PostFormData>();
 
-    const onSubmit = (formData: PostFormData) => {
-        console.log('test', formData)
+    const onSubmit = async (formData: PostFormData) => {
+        const response = await instance.post(
+            "/mentoring/1/post", {
+                projectName: formData.projectName,
+                deadline: formData.deadline,
+                memberCnt: formData.memberCnt,
+                tags: formData.link,
+                contents: formData.contents,
+            });
+
+        console.log('Submitted Data: ', formData)
+        console.log('response: ', response.data)
     }
 
     return (
@@ -30,22 +41,20 @@ const Page = () => {
                 <div>
                     <label htmlFor="projectName">제목</label>
                     <input
-                        {...register("projectName", { required: "제목은 필수 항목입니다." })}
+                        {...register("projectName", {required: "제목은 필수 항목입니다."})}
                         type="text"
                         id="projectName"
-                        placeholder="제목을 입력해주세요."
-                    />
+                        placeholder="제목을 입력해주세요."/>
                     {errors.projectName && <p>{errors.projectName.message}</p>}
                 </div>
 
                 {/* 모집 마감일 */}
                 <div>
                     <label htmlFor="deadline">모집마감</label>
-                    <textarea
-                        {...register("deadline", { required: "모집 마감일은 필수 항목입니다." })}
+                    <input
+                        {...register("deadline", {required: "모집 마감일은 필수 항목입니다."})}
                         id="deadline"
-                        placeholder="마감 일자를 입력해 주세요."
-                    ></textarea>
+                        placeholder="마감 일자를 입력해 주세요."/>
                     {errors.deadline && <p>{errors.deadline.message}</p>}
                 </div>
 
@@ -53,34 +62,31 @@ const Page = () => {
                 <div>
                     <label htmlFor="memberCnt">모집인원</label>
                     <input
-                        {...register("memberCnt", { required: "모집 인원은 필수 항목입니다." })}
+                        {...register("memberCnt", {required: "모집 인원은 필수 항목입니다."})}
                         type="text"
                         id="memberCnt"
-                        placeholder="모집인원을 입력해 주세요."
-                    />
+                        placeholder="모집인원을 입력해 주세요."/>
                     {errors.memberCnt && <p>{errors.memberCnt.message}</p>}
                 </div>
 
-                {/* 연락 방법 */}
+                {/* 연락 방법 (오픈카톡 링크) */}
                 <div>
-                    <label htmlFor="tags">연락 방법</label>
+                    <label htmlFor="link">연락 방법</label>
                     <input
-                        {...register("tags", { required: "연락 방법은 필수 항목입니다." })}
+                        {...register("link", {required: "연락 방법은 필수 항목입니다."})}
                         type="text"
-                        id="tags"
-                        placeholder="연락방법을 입력해 주세요."
-                    />
-                    {errors.tags && <p>{errors.tags.message}</p>}
+                        id="link"
+                        placeholder="연락방법을 입력해 주세요."/>
+                    {errors.link && <p>{errors.link.message}</p>}
                 </div>
 
                 {/* 프로젝트 소개 */}
                 <div>
                     <label htmlFor="contents">소개</label>
                     <textarea
-                        {...register("contents", { required: "소개는 필수 항목입니다." })}
+                        {...register("contents", {required: "소개는 필수 항목입니다."})}
                         id="contents"
-                        placeholder="프로젝트 소개를 입력해 주세요."
-                    ></textarea>
+                        placeholder="프로젝트 소개를 입력해 주세요."/>
                     {errors.contents && <p>{errors.contents.message}</p>}
                 </div>
 
