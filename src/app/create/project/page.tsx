@@ -10,7 +10,7 @@ interface ProjectFormData {
   startDate: string;
   endDate: string;
   memberCnt: string;
-  contents: string;
+  contents: string; // 필드 이름과 타입 확인
   stacks: number[];
   recruitCategoryIds: number[];
 }
@@ -59,7 +59,7 @@ const Page = () => {
         <h2>팀을 생성하기에 앞서 간단한 정보를 입력해주세요.</h2>
         <div>
           <input
-            {...register('projectName', {required: '팀 이름은 필수 항목입니다.'})}
+            {...register<'projectName'>('projectName', {required: '팀 이름은 필수 항목입니다.'})}
             type="text"
             id="name"
             placeholder="팀 이름을 입력해주세요."
@@ -69,7 +69,7 @@ const Page = () => {
         <div>
           <label htmlFor="deadline">모집 마감일</label>
           <input
-            {...register('deadline', {required: '모집 마감일을 입력해주세요.'})}
+            {...register<'deadline'>('deadline', {required: '모집 마감일을 입력해주세요.'})}
             id="deadline"
             placeholder="마감 일자를 입력해 주세요."
             value="2024-12-28"/>
@@ -79,7 +79,7 @@ const Page = () => {
           <div>
             <label htmlFor="startDate">프로젝트 시작일</label>
             <input
-              {...register('startDate', {required: '시작일을 입력해주세요.'})}
+              {...register<'startDate'>('startDate', {required: '시작일을 입력해주세요.'})}
               type="text"
               id="startDate"
               placeholder="프로젝트 시작일을 선택해 주세요."
@@ -89,7 +89,7 @@ const Page = () => {
           <div>
             <label htmlFor="endDate">프로젝트 종료일</label>
             <input
-              {...register('endDate', {required: '종료일을 입력해주세요.'})}
+              {...register<'endDate'>('endDate', {required: '종료일을 입력해주세요.'})}
               type="text"
               id="endDate"
               placeholder="프로젝트 종료일을 선택해 주세요."
@@ -111,7 +111,7 @@ const Page = () => {
           <div>
             <label htmlFor="memberCnt">모집인원</label>
             <input
-              {...register('memberCnt', {required: '모집인원을 입력해주세요.'})}
+              {...register<'memberCnt'>('memberCnt', {required: '모집인원을 입력해주세요.'})}
               type="number"
               id="memberCnt"
               placeholder="모집인원을 입력해 주세요."/>
@@ -130,9 +130,9 @@ const Page = () => {
         </div>
         <div>
           <div>
-            <label htmlFor="content">소개</label>
+            <label htmlFor="contents">소개</label>
             <textarea
-              {...register('contents', {required: '프로젝트 소개를 입력해주세요.'})}
+              {...register<'contents'>('contents', { required: '프로젝트 소개를 입력해주세요.' })}
               id="contents"
               placeholder="프로젝트 소개를 입력해 주세요."/>
             {errors.contents && <p>{errors.contents.message}</p>}

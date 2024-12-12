@@ -64,7 +64,7 @@ const Page = () => {
         <h2>팀을 생성하기에 앞서 간단한 정보를 입력해주세요.</h2>
         <div>
           <input
-            {...register('name', {required: '팀 이름은 필수 항목입니다.'})}
+            {...register<'name'>('name', {required: '팀 이름은 필수 항목입니다.'})}
             type="text"
             id="name"
             placeholder="팀 이름을 입력해주세요."
@@ -74,7 +74,7 @@ const Page = () => {
         <div>
           <label htmlFor="deadline">모집 마감일</label>
           <input
-            {...register('deadline', {required: '모집 마감일을 입력해주세요.'})}
+            {...register<'deadline'>('deadline', {required: '모집 마감일을 입력해주세요.'})}
             id="deadline"
             placeholder="마감 일자를 입력해 주세요."
             value="2024-12-28"/>
@@ -84,7 +84,7 @@ const Page = () => {
           <div>
             <label htmlFor="startDate">멘토링 시작일</label>
             <input
-              {...register('startDate', {required: '시작일을 입력해주세요.'})}
+              {...register<'startDate'>('startDate', {required: '시작일을 입력해주세요.'})}
               type="text"
               id="startDate"
               placeholder="프로젝트 시작일을 선택해 주세요."
@@ -94,7 +94,7 @@ const Page = () => {
           <div>
             <label htmlFor="endDate">멘토링 종료일</label>
             <input
-              {...register('endDate', {required: '종료일을 입력해주세요.'})}
+              {...register<'endDate'>('endDate', {required: '종료일을 입력해주세요.'})}
               type="text"
               id="endDate"
               placeholder="프로젝트 종료일을 선택해 주세요."
@@ -113,7 +113,7 @@ const Page = () => {
           <div>
             <label htmlFor="mentoringCnt">모집인원</label>
             <input
-              {...register('mentoringCnt', {required: '모집인원을 입력해주세요.'})}
+              {...register<'mentoringCnt'>('mentoringCnt', {required: '모집인원을 입력해주세요.'})}
               type="number"
               id="mentoringCnt"
               placeholder="모집인원을 입력해 주세요."/>
@@ -134,7 +134,7 @@ const Page = () => {
           <div>
             <label htmlFor="content">소개</label>
             <textarea
-              {...register('content', {required: '프로젝트 소개를 입력해주세요.'})}
+              {...register<'content'>('content', {required: '프로젝트 소개를 입력해주세요.'})}
               id="content"
               placeholder="프로젝트 소개를 입력해 주세요."/>
             {errors.content && <p>{errors.content.message}</p>}
