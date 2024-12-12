@@ -4,7 +4,7 @@ import {instance} from "@/shared/api/axiosInstance";
 import {STACK_LIST} from "@/shared/Model/SelectBoxList";
 import SelectCheckBox from "@/shared/components/Form/SelectCheckBox";
 
-interface TeamFormData {
+interface ProjectFormData {
   projectName: string;
   deadline: string;
   startDate: string;
@@ -21,7 +21,7 @@ const Page = () => {
     register,
     handleSubmit,
     formState: {errors}
-  } = useForm<TeamFormData>({
+  } = useForm<ProjectFormData>({
     defaultValues: {
       projectName: "",
       deadline: "",
@@ -33,7 +33,7 @@ const Page = () => {
       recruitCategoryIds: [],
     }});
 
-  const onSubmit = async (formData: TeamFormData) => {
+  const onSubmit = async (formData: ProjectFormData) => {
     const payload = {
       projectName: formData.projectName,
       deadline: formData.deadline,
