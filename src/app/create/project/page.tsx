@@ -138,9 +138,10 @@ const Page = () => {
           {errors.contents && <p>{errors.contents.message}</p>}
         </div>
       </div>
-      <div>
-        <button>닫기</button>
-        <button>게시글 작성하기</button>
+
+      <div className="text-center">
+        <button className="w-[300px] h-[50px] mx-5 rounded-l border-2">닫기</button>
+        <button className="w-[300px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">게시글 작성하기</button>
       </div>
     </form>
   );

@@ -79,48 +79,54 @@ const Page = () => {
         register={register}
         error={errors.deadline?.message}/>
 
-      <InputField
-        label="멘토링 시작일"
-        name="startDate"
-        placeholder="멘토링 시작일을 입력해 주세요."
-        register={register}
-        error={errors.startDate?.message}/>
+      <div className="flex gap-5">
+        <InputField
+          label="멘토링 시작일"
+          name="startDate"
+          placeholder="멘토링 시작일을 입력해 주세요."
+          register={register}
+          error={errors.startDate?.message}/>
 
-      <InputField
-        label="멘토링 종료일"
-        name="endDate"
-        placeholder="멘토링 종료일을 입력해 주세요."
-        register={register}
-        error={errors.endDate?.message}/>
-
-      <div>
-        <label htmlFor="role">내역할</label>
-        <select name="role" id="role">
-          <option value="MENTOR">멘토</option>
-          <option value="MENTEE">멘티</option>
-        </select>
+        <InputField
+          label="멘토링 종료일"
+          name="endDate"
+          placeholder="멘토링 종료일을 입력해 주세요."
+          register={register}
+          error={errors.endDate?.message}/>
       </div>
 
-      <InputField
-        label="모집인원"
-        name="mentoringCnt"
-        placeholder="모집인원을 입력해 주세요."
-        register={register}
-        error={errors.mentoringCnt?.message}/>
+      <div className="flex gap-5">
+        <div>
+          <label htmlFor="role">내역할</label>
+          <select name="role" id="role" className="block">
+            <option value="MENTOR">멘토</option>
+            <option value="MENTEE">멘티</option>
+          </select>
+        </div>
 
-      <InputField
-        label="모집 카테고리"
-        name="categories"
-        placeholder="멘토링 종료일을 입력해 주세요."
-        register={register}
-        error={errors.categories?.message}/>
+        <InputField
+          label="모집인원"
+          name="mentoringCnt"
+          placeholder="모집인원을 입력해 주세요."
+          register={register}
+          error={errors.mentoringCnt?.message}/>
+      </div>
 
-      <InputField
-        label="연락 방법"
-        name="link"
-        placeholder="멘토링 종료일을 입력해 주세요."
-        register={register}
-        error={errors.link?.message}/>
+      <div className="flex gap-5">
+        <InputField
+          label="모집 카테고리"
+          name="categories"
+          placeholder="멘토링 종료일을 입력해 주세요."
+          register={register}
+          error={errors.categories?.message}/>
+
+        <InputField
+          label="연락 방법"
+          name="link"
+          placeholder="멘토링 종료일을 입력해 주세요."
+          register={register}
+          error={errors.link?.message}/>
+      </div>
 
       <TextareaField
         label="소개"

@@ -91,9 +91,9 @@ const Page = () => {
                 </div>
 
                 {/* 버튼 */}
-                <div>
-                    <button type="button">닫기</button>
-                    <button type="submit">게시글 작성하기</button>
+                <div className="text-center">
+                    <button className="w-[300px] h-[50px] mx-5 rounded-l border-2">닫기</button>
+                    <button className="w-[300px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">게시글 작성하기</button>
                 </div>
             </form>
         </div>
