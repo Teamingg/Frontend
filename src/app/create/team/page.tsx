@@ -3,6 +3,9 @@ import {Control, Controller, FieldValues, useForm} from "react-hook-form";
 import {instance} from "@/shared/api/axiosInstance";
 import {STACK_LIST} from "@/shared/Model/SelectBoxList";
 import SelectCheckBox from "@/shared/components/Form/SelectCheckBox";
+import FormTitle from "@/features/create/components/FormTitle";
+import InputField from "@/features/create/components/InputField";
+import TextareaField from "@/features/create/components/TextareaField";
 
 interface TeamFormData {
   name: string;
@@ -14,7 +17,7 @@ interface TeamFormData {
   status: string;
   link: string;
   role: string;
-  category: number[];
+  categories: number[];
 }
 
 const Page = () => {
@@ -33,7 +36,7 @@ const Page = () => {
       content: "",
       link: "",
       role: "",
-      category: [],
+      categories: [],
     }});
 
   const onSubmit = async (formData: TeamFormData) => {
@@ -46,7 +49,7 @@ const Page = () => {
       content: formData.content,
       link: formData.link,
       role: formData.role,
-      category: formData.category,
+      categories: formData.categories,
       status: "RECRUITING",
     };
 
@@ -59,93 +62,78 @@ const Page = () => {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <h2>팀을 생성하기에 앞서 간단한 정보를 입력해주세요.</h2>
-        <div>
-          <input
-            {...register<'name'>('name', {required: '팀 이름은 필수 항목입니다.'})}
-            type="text"
-            id="name"
-            placeholder="팀 이름을 입력해주세요."
-            value="test"/>
-          {errors.name && <p>{errors.name.message}</p>}
-        </div>
-        <div>
-          <label htmlFor="deadline">모집 마감일</label>
-          <input
-            {...register<'deadline'>('deadline', {required: '모집 마감일을 입력해주세요.'})}
-            id="deadline"
-            placeholder="마감 일자를 입력해 주세요."
-            value="2024-12-28"/>
-          {errors.deadline && <p>{errors.deadline.message}</p>}
-        </div>
-        <div>
-          <div>
-            <label htmlFor="startDate">멘토링 시작일</label>
-            <input
-              {...register<'startDate'>('startDate', {required: '시작일을 입력해주세요.'})}
-              type="text"
-              id="startDate"
-              placeholder="프로젝트 시작일을 선택해 주세요."
-              value="2024-12-28"/>
-            {errors.startDate && <p>{errors.startDate.message}</p>}
-          </div>
-          <div>
-            <label htmlFor="endDate">멘토링 종료일</label>
-            <input
-              {...register<'endDate'>('endDate', {required: '종료일을 입력해주세요.'})}
-              type="text"
-              id="endDate"
-              placeholder="프로젝트 종료일을 선택해 주세요."
-              value="2025-12-25"/>
-            {errors.endDate && <p>{errors.endDate.message}</p>}
-          </div>
-        </div>
-        <div>
-          <div>
-            <label htmlFor="role">내역할</label>
-            <select name="role" id="role">
-              <option value="MENTOR">멘토</option>
-              <option value="MENTEE">멘티</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="mentoringCnt">모집인원</label>
-            <input
-              {...register<'mentoringCnt'>('mentoringCnt', {required: '모집인원을 입력해주세요.'})}
-              type="number"
-              id="mentoringCnt"
-              placeholder="모집인원을 입력해 주세요."/>
-            {errors.mentoringCnt && <p>{errors.mentoringCnt.message}</p>}
-          </div>
-        </div>
-        <div>
-          <div>
-            <label htmlFor="categories">모집 카테고리</label>
-            <input type="text" id="categories" name="categories"/>
-          </div>
-          <div>
-            <label htmlFor="link">연락 방법</label>
-            <input type="text" id="link" name="link"/>
-          </div>
-        </div>
-        <div>
-          <div>
-            <label htmlFor="content">소개</label>
-            <textarea
-              {...register<'content'>('content', {required: '프로젝트 소개를 입력해주세요.'})}
-              id="content"
-              placeholder="프로젝트 소개를 입력해 주세요."/>
-            {errors.content && <p>{errors.content.message}</p>}
-          </div>
-        </div>
-        <div>
-          <button>닫기</button>
-          <button>게시글 작성하기</button>
-        </div>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <FormTitle/>
+
+      <InputField
+        label="팀 이름"
+        name="name"
+        placeholder="팀 이름을 입력해주세요."
+        register={register}
+        error={errors.name?.message}/>
+
+      <InputField
+        label="모집 마감일"
+        name="deadline"
+        placeholder="마감 일자를 입력해 주세요."
+        register={register}
+        error={errors.deadline?.message}/>
+
+      <InputField
+        label="멘토링 시작일"
+        name="startDate"
+        placeholder="멘토링 시작일을 입력해 주세요."
+        register={register}
+        error={errors.startDate?.message}/>
+
+      <InputField
+        label="멘토링 종료일"
+        name="endDate"
+        placeholder="멘토링 종료일을 입력해 주세요."
+        register={register}
+        error={errors.endDate?.message}/>
+
+      <div>
+        <label htmlFor="role">내역할</label>
+        <select name="role" id="role">
+          <option value="MENTOR">멘토</option>
+          <option value="MENTEE">멘티</option>
+        </select>
+      </div>
+
+      <InputField
+        label="모집인원"
+        name="mentoringCnt"
+        placeholder="모집인원을 입력해 주세요."
+        register={register}
+        error={errors.mentoringCnt?.message}/>
+
+      <InputField
+        label="모집 카테고리"
+        name="categories"
+        placeholder="멘토링 종료일을 입력해 주세요."
+        register={register}
+        error={errors.categories?.message}/>
+
+      <InputField
+        label="연락 방법"
+        name="link"
+        placeholder="멘토링 종료일을 입력해 주세요."
+        register={register}
+        error={errors.link?.message}/>
+
+      <TextareaField
+        label="소개"
+        name="content"
+        placeholder="프로젝트 소개를 입력해 주세요."
+        register={register}
+        error={errors.content?.message}/>
+
+      <div className="text-center">
+        <button className="w-[300px] h-[50px] mx-5 rounded-l border-2">닫기</button>
+        <button className="w-[300px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">게시글 작성하기</button>
+      </div>
+    </form>
   );
 };
 
