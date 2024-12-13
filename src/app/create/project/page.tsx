@@ -4,6 +4,9 @@ import {instance} from "@/shared/api/axiosInstance";
 import {STACK_LIST} from "@/shared/Model/SelectBoxList";
 import SelectCheckBox from "@/shared/components/Form/SelectCheckBox";
 import FormTitle from "@/features/create/components/FormTitle";
+import React from "react";
+import InputField from "@/features/create/components/InputField";
+import TextareaField from "@/features/create/components/TextareaField";
 
 interface ProjectFormData {
   projectName: string;
@@ -12,6 +15,7 @@ interface ProjectFormData {
   endDate: string;
   memberCnt: string;
   contents: string; // 필드 이름과 타입 확인
+  link: string;
   stacks: number[];
   recruitCategoryIds: number[];
 }
@@ -30,6 +34,7 @@ const Page = () => {
       endDate: "",
       memberCnt: "",
       contents: "",
+      link: "",
       stacks: [],
       recruitCategoryIds: [],
     }});
@@ -43,6 +48,7 @@ const Page = () => {
       memberCnt: Number(formData.memberCnt), // 문자열에서 숫자로 변환
       contents: formData.contents,
       stackIds: formData.stacks,
+      link: formData.link,
       recruitCategoryIds: formData.recruitCategoryIds,
     };
 
@@ -56,49 +62,40 @@ const Page = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormTitle/>
-      <div>
-        <input
-          {...register<'projectName'>('projectName', {required: '팀 이름은 필수 항목입니다.'})}
-          type="text"
-          id="name"
-          placeholder="팀 이름을 입력해주세요."
-          value="test"/>
-        {errors.projectName && <p>{errors.projectName.message}</p>}
+      <FormTitle highlight="팀" title="을 생성하기에 앞서 간단한 정보를 입력해주세요."/>
+
+      <InputField
+        label="팀 이름"
+        name="projectName"
+        placeholder="팀 이름을 입력해주세요."
+        register={register}
+        error={errors.projectName?.message}/>
+
+      <InputField
+        label="모집 마감일"
+        name="deadline"
+        placeholder="마감 일자를 입력해 주세요."
+        register={register}
+        error={errors.deadline?.message}/>
+
+      <div className="w-full flex gap-5">
+        <InputField
+          label="프로젝트 시작일"
+          name="startDate"
+          placeholder="프로젝트 시작일을 선택해 주세요."
+          register={register}
+          error={errors.startDate?.message}/>
+
+        <InputField
+          label="프로젝트 종료일"
+          name="endDate"
+          placeholder="프로젝트 종료일을 입력해 주세요."
+          register={register}
+          error={errors.endDate?.message}/>
       </div>
-      <div>
-        <label htmlFor="deadline">모집 마감일</label>
-        <input
-          {...register<'deadline'>('deadline', {required: '모집 마감일을 입력해주세요.'})}
-          id="deadline"
-          placeholder="마감 일자를 입력해 주세요."
-          value="2024-12-28"/>
-        {errors.deadline && <p>{errors.deadline.message}</p>}
-      </div>
-      <div>
-        <div>
-          <label htmlFor="startDate">프로젝트 시작일</label>
-          <input
-            {...register<'startDate'>('startDate', {required: '시작일을 입력해주세요.'})}
-            type="text"
-            id="startDate"
-            placeholder="프로젝트 시작일을 선택해 주세요."
-            value="2024-12-28"/>
-          {errors.startDate && <p>{errors.startDate.message}</p>}
-        </div>
-        <div>
-          <label htmlFor="endDate">프로젝트 종료일</label>
-          <input
-            {...register<'endDate'>('endDate', {required: '종료일을 입력해주세요.'})}
-            type="text"
-            id="endDate"
-            placeholder="프로젝트 종료일을 선택해 주세요."
-            value="2025-12-25"/>
-          {errors.endDate && <p>{errors.endDate.message}</p>}
-        </div>
-      </div>
-      <div>
-        <div>
+
+      <div className="w-full flex gap-5">
+        <div className="w-full">
           <label htmlFor="stacks">기술스택</label>
           <SelectCheckBox
             name="stacks"
@@ -108,40 +105,42 @@ const Page = () => {
             maximum={8}
           />
         </div>
-        <div>
-          <label htmlFor="memberCnt">모집인원</label>
-          <input
-            {...register<'memberCnt'>('memberCnt', {required: '모집인원을 입력해주세요.'})}
-            type="number"
-            id="memberCnt"
-            placeholder="모집인원을 입력해 주세요."/>
-          {errors.memberCnt && <p>{errors.memberCnt.message}</p>}
-        </div>
-      </div>
-      <div>
-        <div>
-          <label htmlFor="recruitCategoryIds">모집 구분</label>
-          <input type="text" id="recruitCategoryIds" name="recruitCategoryIds"/>
-        </div>
-        <div>
-          <label htmlFor="link">연락 방법</label>
-          <input type="text" id="link" name="link"/>
-        </div>
-      </div>
-      <div>
-        <div>
-          <label htmlFor="contents">소개</label>
-          <textarea
-            {...register<'contents'>('contents', {required: '프로젝트 소개를 입력해주세요.'})}
-            id="contents"
-            placeholder="프로젝트 소개를 입력해 주세요."/>
-          {errors.contents && <p>{errors.contents.message}</p>}
-        </div>
+
+        <InputField
+          label="모집인원"
+          name="memberCnt"
+          placeholder="모집인원을 입력해 주세요."
+          register={register}
+          error={errors.memberCnt?.message}/>
       </div>
 
-      <div className="text-center">
-        <button className="w-[300px] h-[50px] mx-5 rounded-l border-2">닫기</button>
-        <button className="w-[300px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">게시글 작성하기</button>
+      <div className="w-full flex gap-5">
+        <InputField
+          label="모집 구분"
+          name="recruitCategoryIds"
+          placeholder="모집 구분을 입력해 주세요."
+          register={register}
+          error={errors.recruitCategoryIds?.message}/>
+
+        <InputField
+          label="연락 방법"
+          name="link"
+          placeholder="연락 방법을 입력해 주세요."
+          register={register}
+          error={errors.link?.message}/>
+      </div>
+
+      <TextareaField
+        label="소개"
+        name="contents"
+        placeholder="프로젝트 소개를 입력해 주세요."
+        register={register}
+        error={errors.contents?.message}/>
+
+      {/* 버튼 */}
+      <div className="mt-16 text-center">
+        <button className="w-[320px] h-[50px] mx-5 rounded-l border-2">닫기</button>
+        <button className="w-[320px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">게시글 작성하기</button>
       </div>
     </form>
   );

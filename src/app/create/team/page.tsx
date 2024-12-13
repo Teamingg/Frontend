@@ -63,7 +63,7 @@ const Page = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <FormTitle/>
+      <FormTitle highlight="팀" title="을 생성하기에 앞서 간단한 정보를 입력해주세요."/>
 
       <InputField
         label="팀 이름"
@@ -135,6 +135,7 @@ const Page = () => {
         register={register}
         error={errors.content?.message}/>
 
+      {/* 버튼 */}
       <div className="mt-16 text-center">
         <button className="w-[320px] h-[50px] mx-5 rounded-l border-2">닫기</button>
         <button className="w-[320px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">게시글 작성하기</button>
