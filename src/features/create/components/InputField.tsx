@@ -18,7 +18,7 @@ const InputField = (
     register,
     error,
   }: InputFieldProps) => (
-  <div className="mb-4">
+  <div className="w-full mb-4">
     <label htmlFor={name} className="block mb-2">{label}</label>
     <input
       {...register(name, {required: `${label}은(는) 필수 항목입니다.`})}

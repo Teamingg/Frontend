@@ -79,7 +79,7 @@ const Page = () => {
         register={register}
         error={errors.deadline?.message}/>
 
-      <div className="flex gap-5">
+      <div className="w-full flex gap-5">
         <InputField
           label="멘토링 시작일"
           name="startDate"
@@ -96,9 +96,9 @@ const Page = () => {
       </div>
 
       <div className="flex gap-5">
-        <div>
-          <label htmlFor="role">내역할</label>
-          <select name="role" id="role" className="block">
+        <div className="w-full">
+          <label htmlFor="role" className="block mb-2">내역할</label>
+          <select name="role" id="role" className="w-full p-2 border block">
             <option value="MENTOR">멘토</option>
             <option value="MENTEE">멘티</option>
           </select>
@@ -112,7 +112,7 @@ const Page = () => {
           error={errors.mentoringCnt?.message}/>
       </div>
 
-      <div className="flex gap-5">
+      <div className="w-full flex gap-5">
         <InputField
           label="모집 카테고리"
           name="categories"
@@ -135,9 +135,9 @@ const Page = () => {
         register={register}
         error={errors.content?.message}/>
 
-      <div className="text-center">
-        <button className="w-[300px] h-[50px] mx-5 rounded-l border-2">닫기</button>
-        <button className="w-[300px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">게시글 작성하기</button>
+      <div className="mt-16 text-center">
+        <button className="w-[320px] h-[50px] mx-5 rounded-l border-2">닫기</button>
+        <button className="w-[320px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">게시글 작성하기</button>
       </div>
     </form>
   );
