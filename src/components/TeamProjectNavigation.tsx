@@ -10,8 +10,8 @@ const TeamProjectNavigation = () => {
                 <li><Link href="/">멘토링</Link></li>
             </ul>
             <ul className="flex gap-5">
-                <li><Link href="/create/team">팀 생성하기</Link></li>
-                <li><Link href="/create/post">글 작성하기</Link></li>
+                <li><Link href="/create/mentoring">팀 생성하기</Link></li>
+                <li><Link href="/create/project/post">글 작성하기</Link></li>
             </ul>
         </nav>
     );

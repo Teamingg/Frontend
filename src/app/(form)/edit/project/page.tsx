@@ -1,18 +1,11 @@
-'use client';
+"use client";
 import React from 'react';
-import {useForm} from "react-hook-form";
-import {instance} from "@/shared/api/axiosInstance";
+import FormTitle from "@/features/create/components/FormTitle";
 import InputField from "@/features/create/components/InputField";
 import TextareaField from "@/features/create/components/TextareaField";
-import FormTitle from "@/features/create/components/FormTitle";
-
-interface PostFormData {
-  projectName: string;
-  deadline: string;
-  memberCnt: string;
-  link: string;
-  contents: string;
-}
+import {useForm} from "react-hook-form";
+import {instance} from "@/shared/api/axiosInstance";
+import {PostFormData} from "@/app/(form)/create/project/post/page";
 
 const Page = () => {
   const {
@@ -38,7 +31,7 @@ const Page = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <FormTitle highlight="프로젝트" title="게시글 작성에 필요한 정보를 입력해주세요."/>
+        <FormTitle highlight="프로젝트" title="게시글 수정에 필요한 정보를 입력해주세요."/>
 
         {/* 프로젝트 제목 */}
         <InputField
