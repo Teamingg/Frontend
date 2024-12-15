@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
   const url = request.nextUrl;
 
   // 로그인 상태
-  const isLoggedIn = checkCookie("accessToken");
+  const isLoggedIn = checkCookie("accessToken") || checkCookie("refreshToken");
 
   // 정적파일 일 때 검사를 진행하지 않도록
   const isStaticFile = /\.(.*)$/.test(url.pathname);
