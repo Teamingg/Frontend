@@ -10,7 +10,7 @@ const CloseButton = ({ onClick, size }: CloseButtonProps) => {
   return (
     <button onClick={onClick} type="button" className={`size-${size}`}>
       <Image
-        src="icons/close.svg"
+        src="/icons/close.svg"
         width={18}
         height={18}
         priority={false}
