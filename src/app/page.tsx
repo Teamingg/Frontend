@@ -1,6 +1,8 @@
+
 "use client";
 
 import "./globals.css";
+
 
 import TeamProjectNavigation from "@/components/TeamProjectNavigation";
 import SlugItem from "@/components/SlugItem";
@@ -11,6 +13,7 @@ export default function Home() {
 
   const OnClick = () => {
     //  router.push("/login");
+
   };
 
   return (
@@ -43,4 +46,5 @@ export default function Home() {
       </section>
     </>
   );
+
 }

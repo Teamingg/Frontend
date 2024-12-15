@@ -5,6 +5,7 @@ import LogoutButton from "../LogoutButton";
 
 const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
+
     <header className="w-full fixed top-0 left-0 z-50 bg-white">
       <div className="max-w-[1200px] mx-auto flex justify-between items-center py-6">
         {/* 로고 */}
@@ -12,6 +13,7 @@ const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
           <Link href="/">
             <Image src="/Logo.png" fill alt="Teaming" sizes="150px" priority />
           </Link>
+
         </h1>
 
         {/* 네비게이션 */}

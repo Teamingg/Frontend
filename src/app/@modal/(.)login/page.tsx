@@ -28,6 +28,8 @@ const Page = () => {
     router.back();
   };
 
+    console.log("process.env.NEXT_PUBLIC_AUTH_URL : ", process.env.NEXT_PUBLIC_AUTH_URL)
+
   return (
     <Modal onClose={closeModal}>
       <button onClick={closeModal} className="relative self-start">

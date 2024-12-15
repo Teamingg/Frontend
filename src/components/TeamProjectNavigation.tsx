@@ -19,26 +19,24 @@ const NavPath = [
 
 const TeamProjectNavigation = () => {
   return (
-    <nav className="py-6 flex justify-between items-center ">
+    <nav className="h-[58px] flex justify-between items-center ">
       <ul className="flex gap-5">
-        {NavPath.map((path) => (
-          <li key={path.path}>
-            <NavLink
-              href={path.path}
-              className="text-black hover:text-primary transition-colors"
-              activeClassName="text-primary"
-            >
-              {path.name}
-            </NavLink>
-          </li>
-        ))}
+        <li>
+          <Link href="/">전체</Link>
+        </li>
+        <li>
+          <Link href="/">팀 프로젝트</Link>
+        </li>
+        <li>
+          <Link href="/">멘토링</Link>
+        </li>
       </ul>
       <ul className="flex gap-5">
         <li>
-          <Link href="/">팀 생성하기</Link>
+          <Link href="/create/mentoring">팀 생성하기</Link>
         </li>
         <li>
-          <Link href="/">글 작성하기</Link>
+          <Link href="/create/project/post">글 작성하기</Link>
         </li>
       </ul>
     </nav>
