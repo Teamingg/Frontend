@@ -1,7 +1,8 @@
-import React from 'react';
+import React from "react";
 import Link from "next/link";
 
 const TeamProjectNavigation = () => {
+
     return (
         <nav className="h-[58px] flex justify-between items-center ">
             <ul className="flex gap-5">
@@ -15,6 +16,8 @@ const TeamProjectNavigation = () => {
             </ul>
         </nav>
     );
+
+
 };
 
 export default TeamProjectNavigation;
