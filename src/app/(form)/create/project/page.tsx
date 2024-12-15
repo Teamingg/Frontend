@@ -3,10 +3,10 @@ import {Control, Controller, FieldValues, useForm} from "react-hook-form";
 import {instance} from "@/shared/api/axiosInstance";
 import {STACK_LIST} from "@/shared/Model/SelectBoxList";
 import SelectCheckBox from "@/shared/components/Form/SelectCheckBox";
-import FormTitle from "@/features/create/components/FormTitle";
+import FormTitle from "@/features/form/components/FormTitle";
 import React from "react";
-import InputField from "@/features/create/components/InputField";
-import TextareaField from "@/features/create/components/TextareaField";
+import InputField from "@/features/form/components/InputField";
+import TextareaField from "@/features/form/components/TextareaField";
 
 interface ProjectFormData {
   projectName: string;

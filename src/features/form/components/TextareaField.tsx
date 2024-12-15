@@ -1,6 +1,7 @@
 import {FieldValues, UseFormRegister} from "react-hook-form";
 
 interface TextareaFieldProps {
+  key?: string | number;
   label: string;
   name: string;
   placeholder: string;
@@ -8,8 +9,16 @@ interface TextareaFieldProps {
   error?: string;
 }
 
-const TextareaField = ({ label, name, placeholder, register, error }: TextareaFieldProps) => (
-  <div className="w-full h-32 mb-4">
+const TextareaField = (
+  {
+    key,
+    label,
+    name,
+    placeholder,
+    register,
+    error
+  }: TextareaFieldProps) => (
+    <div className="w-full h-32 mb-4" key={key}>
     <label htmlFor={name} className="block mb-2">{label}</label>
     <textarea
       {...register(name, { required: `${label}은(는) 필수 항목입니다.` })}

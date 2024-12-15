@@ -1,6 +1,7 @@
 import {FieldValues, UseFormRegister} from "react-hook-form";
 
 interface InputFieldProps {
+  key?: string | number;
   label: string;
   name: string;
   type?: string;
@@ -11,6 +12,7 @@ interface InputFieldProps {
 
 const InputField = (
   {
+    key,
     label,
     name,
     type = "text",
@@ -18,7 +20,7 @@ const InputField = (
     register,
     error,
   }: InputFieldProps) => (
-  <div className="w-full mb-4">
+  <div className="w-full mb-4" key={key}>
     <label htmlFor={name} className="block mb-2">{label}</label>
     <input
       {...register(name, {required: `${label}은(는) 필수 항목입니다.`})}
