@@ -1,14 +1,25 @@
-"use client";
-import {Control, Controller, FieldValues, useForm} from "react-hook-form";
+'use client';
+import React from "react";
 import {instance} from "@/shared/api/axiosInstance";
 import {STACK_LIST} from "@/shared/Model/SelectBoxList";
-import SelectCheckBox from "@/shared/components/Form/SelectCheckBox";
-import FormTitle from "@/features/form/components/FormTitle";
-import React from "react";
-import InputField from "@/features/form/components/InputField";
-import TextareaField from "@/features/form/components/TextareaField";
+import FormTitle from "@/app/(form)/components/FormTitle";
+import CreateTeamForm from "@/app/(form)/components/CreateTeamForm";
 
-interface ProjectFormData {
+interface ProjectFormFields {
+  label: string;
+  name: string;
+  required?: boolean;
+  rules?: object;
+  options?: { value: string; label: string }[];
+}
+
+interface ProjectFormRow {
+  row: ProjectFormFields[];
+}
+
+export type ProjectForm = ProjectFormFields | ProjectFormRow;
+
+export interface ProjectFormData {
   projectName: string;
   deadline: string;
   startDate: string;
@@ -20,25 +31,83 @@ interface ProjectFormData {
   recruitCategoryIds: number[];
 }
 
-const Page = () => {
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: {errors}
-  } = useForm<ProjectFormData>({
-    defaultValues: {
-      projectName: "",
-      deadline: "",
-      startDate: "",
-      endDate: "",
-      memberCnt: "",
-      contents: "",
-      link: "",
-      stacks: [],
-      recruitCategoryIds: [],
-    }});
+const ProjectFormFields: ProjectForm[] = [
+  {
+    label: "팀 이름",
+    name: "projectName" as keyof ProjectFormData,
+    required: true,
+    rules: {required: "팀 이름은 필수 항목입니다."},
+  },
+  {
+    label: "모집 마감일",
+    name: "deadline" as keyof ProjectFormData,
+    required: true,
+    rules: {required: "모집 마감일은 필수 항목입니다."},
+  },
+  {
+    row: [
+      {
+        label: "프로젝트 시작일",
+        name: "startDate" as keyof ProjectFormData,
+        required: true,
+        rules: {required: "프로젝트 시작일은 필수 항목입니다."},
+      },
+      {
+        label: "프로젝트 종료일",
+        name: "endDate" as keyof ProjectFormData,
+        required: true,
+        rules: {required: "프로젝트 종료일은 필수 항목입니다."},
+      },
+    ],
+  },
+  {
+    row: [
+      {
+        label: "기술스택",
+        name: "stacks" as keyof ProjectFormData,
+        options: STACK_LIST,
+        required: true,
+        rules: {required: "기술스택은 필수 항목입니다."},
+      },
+      {
+        label: "모집인원",
+        name: "memberCnt" as keyof ProjectFormData,
+        required: true,
+        rules: {required: "모집인원은 필수 항목입니다."},
+      },
+    ]
+  },
+  {
+    row: [
+      {
+        label: "연락 방법",
+        name: "link" as keyof ProjectFormData,
+        required: true,
+        rules: {required: "연락 방법은 필수 항목입니다."},
+      },
+      {
+        label: "모집 구분",
+        name: "recruitCategoryIds" as keyof ProjectFormData,
+        required: true,
+        rules: {required: "모집 구분은 필수 항목입니다."},
+      },
+    ]
+  }
+];
 
+const defaultValues = {
+  projectName: "",
+  deadline: "",
+  startDate: "",
+  endDate: "",
+  memberCnt: "",
+  contents: "",
+  link: "",
+  stacks: [],
+  recruitCategoryIds: [],
+};
+
+const Page = () => {
   const onSubmit = async (formData: ProjectFormData) => {
     const payload = {
       projectName: formData.projectName,
@@ -61,88 +130,15 @@ const Page = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <>
       <FormTitle highlight="팀" title="을 생성하기에 앞서 간단한 정보를 입력해주세요."/>
-
-      <InputField
-        label="팀 이름"
-        name="projectName"
-        placeholder="팀 이름을 입력해주세요."
-        register={register}
-        error={errors.projectName?.message}/>
-
-      <InputField
-        label="모집 마감일"
-        name="deadline"
-        placeholder="마감 일자를 입력해 주세요."
-        register={register}
-        error={errors.deadline?.message}/>
-
-      <div className="w-full flex gap-5">
-        <InputField
-          label="프로젝트 시작일"
-          name="startDate"
-          placeholder="프로젝트 시작일을 선택해 주세요."
-          register={register}
-          error={errors.startDate?.message}/>
-
-        <InputField
-          label="프로젝트 종료일"
-          name="endDate"
-          placeholder="프로젝트 종료일을 입력해 주세요."
-          register={register}
-          error={errors.endDate?.message}/>
-      </div>
-
-      <div className="w-full flex gap-5">
-        <div className="w-full">
-          <label htmlFor="stacks">기술스택</label>
-          <SelectCheckBox
-            name="stacks"
-            placeholder="사용가능한 기술스택을 선택해주세요."
-            checkBoxList={STACK_LIST}
-            control={control as unknown as Control<FieldValues>}
-            maximum={8}
-          />
-        </div>
-
-        <InputField
-          label="모집인원"
-          name="memberCnt"
-          placeholder="모집인원을 입력해 주세요."
-          register={register}
-          error={errors.memberCnt?.message}/>
-      </div>
-
-      <div className="w-full flex gap-5">
-        <InputField
-          label="모집 구분"
-          name="recruitCategoryIds"
-          placeholder="모집 구분을 입력해 주세요."
-          register={register}
-          error={errors.recruitCategoryIds?.message}/>
-
-        <InputField
-          label="연락 방법"
-          name="link"
-          placeholder="연락 방법을 입력해 주세요."
-          register={register}
-          error={errors.link?.message}/>
-      </div>
-
-      <TextareaField
-        label="소개"
-        name="contents"
-        placeholder="프로젝트 소개를 입력해 주세요."
-        register={register}
-        error={errors.contents?.message}/>
-
-      {/* 버튼 */}
-      <div className="mt-16 text-center">
-        <button className="w-[320px] h-[50px] mx-5 rounded-l border-2">닫기</button>
-        <button className="w-[320px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">게시글 작성하기</button>
-      </div>
-    </form>
+      <CreateTeamForm
+        onSubmit={onSubmit}
+        defaultValues={defaultValues}
+        formFields={ProjectFormFields}
+        division="stacks"
+      />
+    </>
   );
 };
 
