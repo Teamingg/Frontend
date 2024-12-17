@@ -1,9 +1,8 @@
 "use client";
-import {Control, FieldValues, useForm} from "react-hook-form";
 import {instance} from "@/shared/api/axiosInstance";
-import InputField from "@/shared/components/Form/InputField";
 import FormTitle from "@/features/form/components/FormTitle";
-import TextareaField from "@/features/form/components/TextareaField";
+import CreateTeamForm from "@/app/(form)/components/CreateTeamForm";
+import React from "react";
 
 interface MentoringFormFields {
   label: string;
@@ -103,7 +102,7 @@ const MentoringFormFields: MentoringForm[] = [
   },
 ];
 
-const DefaultValues = {
+const defaultValues = {
   name: "",
   deadline: "",
   startDate: "",
@@ -116,15 +115,6 @@ const DefaultValues = {
 };
 
 const Page = () => {
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: {errors}
-  } = useForm<MentoringFormData>({
-    defaultValues: DefaultValues
-  });
-
   const onSubmit = async (formData: MentoringFormData) => {
     const payload = {
       name: formData.name,
@@ -148,94 +138,15 @@ const Page = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <>
       <FormTitle highlight="팀" title="을 생성하기에 앞서 간단한 정보를 입력해주세요."/>
-
-      {MentoringFormFields.map((field, index) => {
-        // 같은 줄에 두 개의 필드가 있는 경우 (row)
-        if ("row" in field) {
-          return (
-            <div key={index} className="flex gap-5 mb-4">
-              {field.row.map((rowField, subIndex) => {
-                // options 속성이 존재하면 select 박스 렌더링
-                if (rowField.options) {
-                  return (
-                    <div key={subIndex} className="w-full">
-                      <label htmlFor={rowField.name} className="block mb-2">{rowField.label}</label>
-                      <select
-                        {...register(rowField.name)}
-                        id={rowField.name}
-                        className="w-full p-2 border block"
-                      >
-                        {rowField.options.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  );
-                }
-
-                return (
-                  <InputField
-                    key={subIndex}
-                    label={rowField.label}
-                    name={rowField.name}
-                    control={control as unknown as Control<FieldValues>}
-                    rules={rowField.rules}
-                  />
-                );
-              })}
-            </div>
-          );
-        }
-
-        // 단일 필드 렌더링
-        if (field.options) {
-          return (
-            <div key={index} className="w-full mb-4">
-              <label htmlFor={field.name} className="block mb-2">{field.label}</label>
-              <select
-                {...register(field.name)}
-                id={field.name}
-                className="w-full p-2 border block"
-              >
-                {field.options.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          );
-        }
-
-        return (
-          <div key={index} className="w-full mb-4">
-            <InputField
-              label={field.label}
-              name={field.name}
-              control={control as unknown as Control<FieldValues>}
-              rules={field.rules}
-            />
-          </div>
-        );
-      })}
-
-      <TextareaField
-        label="소개"
-        name="content"
-        placeholder="프로젝트 소개를 입력해 주세요."
-        register={register}
-        error={errors.content?.message}/>
-
-      {/* 버튼 */}
-      <div className="mt-16 text-center">
-        <button className="w-[320px] h-[50px] mx-5 rounded-l border-2">닫기</button>
-        <button className="w-[320px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">게시글 작성하기</button>
-      </div>
-    </form>
+      <CreateTeamForm
+        onSubmit={onSubmit}
+        defaultValues={defaultValues}
+        formFields={MentoringFormFields}
+        division={"select"}
+      />
+    </>
   );
 };
 

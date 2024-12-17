@@ -1,12 +1,9 @@
-"use client";
+'use client';
 import React from "react";
-import {Control, FieldValues, useForm} from "react-hook-form";
 import {instance} from "@/shared/api/axiosInstance";
 import {STACK_LIST} from "@/shared/Model/SelectBoxList";
-import SelectCheckBox from "@/shared/components/Form/SelectCheckBox";
 import FormTitle from "@/features/form/components/FormTitle";
-import InputField from "@/shared/components/Form/InputField";
-import TextareaField from "@/features/form/components/TextareaField";
+import CreateTeamForm from "@/app/(form)/components/CreateTeamForm";
 
 interface ProjectFormFields {
   label: string;
@@ -20,9 +17,9 @@ interface ProjectFormRow {
   row: ProjectFormFields[];
 }
 
-type ProjectForm = ProjectFormFields | ProjectFormRow;
+export type ProjectForm = ProjectFormFields | ProjectFormRow;
 
-interface ProjectFormData {
+export interface ProjectFormData {
   projectName: string;
   deadline: string;
   startDate: string;
@@ -98,7 +95,7 @@ const ProjectFormFields: ProjectForm[] = [
   }
 ];
 
-const DefaultValues = {
+const defaultValues = {
   projectName: "",
   deadline: "",
   startDate: "",
@@ -111,15 +108,6 @@ const DefaultValues = {
 };
 
 const Page = () => {
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: {errors}
-  } = useForm<ProjectFormData>({
-    defaultValues: DefaultValues,
-  });
-
   const onSubmit = async (formData: ProjectFormData) => {
     const payload = {
       projectName: formData.projectName,
@@ -142,99 +130,15 @@ const Page = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <>
       <FormTitle highlight="팀" title="을 생성하기에 앞서 간단한 정보를 입력해주세요."/>
-
-      {ProjectFormFields.map((field, index) => {
-        if ("row" in field) {
-          return (
-            <div className="w-full flex gap-5" key={index}>
-              {field.row.map((rowField, index) => {
-                if (rowField.options) {
-                  return (
-                    <div className="w-full" key={index}>
-                      <label htmlFor={rowField.name}>
-                        {rowField.label}
-                      </label>
-                      <SelectCheckBox
-                        name={rowField.name}
-                        placeholder="선택해주세요."
-                        checkBoxList={rowField.options}
-                        control={control as unknown as Control<FieldValues>}
-                      />
-                    </div>
-                  );
-                }
-
-                return (
-                  <div key={index} className="w-full mb-4">
-                    <InputField
-                      key={index}
-                      label={rowField.label}
-                      name={rowField.name}
-                      control={control as unknown as Control<FieldValues>}
-                      rules={rowField.rules}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          )
-        }
-
-        if (field.options) {
-          return (
-            <div className="w-full" key={index}>
-              <label htmlFor={field.name}>{field.label}</label>
-              <SelectCheckBox
-                name={field.name}
-                placeholder="선택해주세요."
-                checkBoxList={field.options}
-                control={control as unknown as Control<FieldValues>}
-              />
-            </div>
-          );
-        }
-
-        return (
-          <div key={index} className="w-full mb-4">
-            <InputField
-              key={index}
-              label={field.label}
-              name={field.name}
-              control={control as unknown as Control<FieldValues>}
-              rules={field.rules}
-            />
-          </div>
-        )
-      })}
-
-      <div className="w-full flex gap-5">
-        <div className="w-full">
-          <label htmlFor="stacks">기술스택</label>
-          <SelectCheckBox
-            name="stacks"
-            placeholder="사용가능한 기술스택을 선택해주세요."
-            checkBoxList={STACK_LIST}
-            control={control as unknown as Control<FieldValues>}
-            maximum={8}
-          />
-        </div>
-      </div>
-
-      <TextareaField
-        label="소개"
-        name="contents"
-        placeholder="프로젝트 소개를 입력해 주세요."
-        register={register}
-        error={errors.contents?.message}/>
-
-      {/* 버튼 */}
-      <div className="mt-16 text-center">
-        <button className="w-[320px] h-[50px] mx-5 rounded-l border-2">닫기</button>
-        <button className="w-[320px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">게시글 작성하기</button>
-      </div>
-    </form>
+      <CreateTeamForm
+        onSubmit={onSubmit}
+        defaultValues={defaultValues}
+        formFields={ProjectFormFields}
+        division="stacks"
+      />
+    </>
   );
 };
 
