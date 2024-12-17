@@ -1,4 +1,4 @@
-import TeamProjectNavigation from "@/components/TeamProjectNavigation";
+import TeamProjectNavigation from "@/components/layout/Layout/Header/GlobalNavigation";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (

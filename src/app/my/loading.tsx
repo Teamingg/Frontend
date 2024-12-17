@@ -1,4 +1,4 @@
-import LoadingIndicator from "@/shared/ui/LoadingIndicator";
+import LoadingIndicator from "@/components/common/LoadingIndicator";
 
 const Loading = () => {
   return (

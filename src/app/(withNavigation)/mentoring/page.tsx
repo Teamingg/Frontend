@@ -1,10 +1,10 @@
-import SectionHeader from "@/components/SectionHeader";
+import CategoryHeader from "@/components/layout/Main/CatrgoryHeader";
 
 const MentoringPage = () => {
   return (
     <>
       <>
-        <SectionHeader title="멘토링" />
+        <CategoryHeader title="멘토링" />
       </>
     </>
   );

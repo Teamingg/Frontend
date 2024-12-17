@@ -1,8 +1,9 @@
 "use client";
-import {instance} from "@/shared/api/axiosInstance";
-import FormTitle from "@/app/(form)/components/FormTitle";
-import CreateTeamForm from "@/app/(form)/components/CreateTeamForm";
-import React from "react";
+
+import { instance } from "@/service/api/instance/axiosInstance";
+
+import FormTitle from "../../_components/FormTitle";
+import CreateTeamForm from "../../_components/CreateTeamForm";
 
 export interface FormFields {
   label: string;
@@ -135,11 +136,14 @@ const Page = () => {
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
     }
-  }
+  };
 
   return (
     <>
-      <FormTitle highlight="팀" title="을 생성하기에 앞서 간단한 정보를 입력해주세요."/>
+      <FormTitle
+        highlight="팀"
+        title="을 생성하기에 앞서 간단한 정보를 입력해주세요."
+      />
       <CreateTeamForm
         onSubmit={onSubmit}
         defaultValues={defaultValues}

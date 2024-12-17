@@ -1,4 +1,4 @@
-import getMyProjectTeam from "@/service/api/shared/getMyProjectTeam";
+import getMyProjectTeam from "@/service/api/getMyProjectTeam";
 import ProjectTeamList from "@/app/my/project/_components/ProjectTeamList";
 import { queryclient } from "@/lib/getQueryClient";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
