@@ -7,7 +7,6 @@ import SelectCheckBox from "@/shared/components/Form/SelectCheckBox";
 import FormTitle from "@/features/form/components/FormTitle";
 import InputField from "@/shared/components/Form/InputField";
 import TextareaField from "@/features/form/components/TextareaField";
-import CreateForm from "@/app/(form)/components/CreateForm";
 
 interface ProjectFormFields {
   label: string;
