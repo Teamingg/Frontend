@@ -1,13 +1,24 @@
 "use client";
-import {Control, Controller, FieldValues, useForm} from "react-hook-form";
 import {instance} from "@/shared/api/axiosInstance";
-import {STACK_LIST} from "@/shared/Model/SelectBoxList";
-import SelectCheckBox from "@/shared/components/Form/SelectCheckBox";
-import FormTitle from "@/features/form/components/FormTitle";
-import InputField from "@/features/form/components/InputField";
-import TextareaField from "@/features/form/components/TextareaField";
+import FormTitle from "@/app/(form)/components/FormTitle";
+import CreateTeamForm from "@/app/(form)/components/CreateTeamForm";
+import React from "react";
 
-interface TeamFormData {
+export interface FormFields {
+  label: string;
+  name: string;
+  required?: boolean;
+  rules?: object;
+  options?: { value: string; label: string }[];
+}
+
+interface MentoringFormRow {
+  row: FormFields[];
+}
+
+type MentoringForm = FormFields | MentoringFormRow;
+
+export interface MentoringFormData {
   name: string;
   deadline: string;
   startDate: string;
@@ -20,26 +31,91 @@ interface TeamFormData {
   categories: number[];
 }
 
-const Page = () => {
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: {errors}
-  } = useForm<TeamFormData>({
-    defaultValues: {
-      name: "",
-      deadline: "",
-      startDate: "",
-      endDate: "",
-      mentoringCnt: "",
-      content: "",
-      link: "",
-      role: "",
-      categories: [],
-    }});
+const MentoringFormFields: MentoringForm[] = [
+  {
+    label: "팀 이름",
+    name: "name" as keyof MentoringFormData,
+    required: true,
+    rules: { required: "팀 이름은 필수 항목입니다." },
+  },
+  {
+    label: "모집 마감일",
+    name: "deadline" as keyof MentoringFormData,
+    required: true,
+    rules: { required: "모집 마감일은 필수 항목입니다." },
+  },
+  {
+    row: [
+      {
+        label: "멘토링 시작일",
+        name: "startDate" as keyof MentoringFormData,
+        required: true,
+        rules: { required: "멘토링 시작일은 필수 항목입니다." },
+      },
+      {
+        label: "멘토링 종료일",
+        name: "endDate" as keyof MentoringFormData,
+        required: true,
+        rules: { required: "멘토링 종료일은 필수 항목입니다." },
+      },
+    ],
+  },
+  {
+    row: [
+      {
+        label: "내 역할",
+        name: "role" as keyof MentoringFormData,
+        options: [
+          { value: "MENTOR", label: "멘토" },
+          { value: "MENTEE", label: "멘티" },
+        ],
+        required: true,
+      },
+      {
+        label: "모집인원",
+        name: "mentoringCnt" as keyof MentoringFormData,
+        required: true,
+        rules: { required: "모집인원은 필수 항목입니다." },
+      },
+    ],
+  },
+  {
+    row: [
+      {
+        label: "모집 카테고리",
+        name: "categories" as keyof MentoringFormData,
+        required: true,
+      },
+      {
+        label: "연락 방법",
+        name: "link" as keyof MentoringFormData,
+        required: true,
+        rules: { required: "연락 방법은 필수 항목입니다." },
+      },
+    ],
+  },
+  {
+    label: "팀 소개",
+    name: "content" as keyof MentoringFormData,
+    required: true,
+    rules: { required: "팀 소개는 필수 항목입니다." },
+  },
+];
 
-  const onSubmit = async (formData: TeamFormData) => {
+const defaultValues = {
+  name: "",
+  deadline: "",
+  startDate: "",
+  endDate: "",
+  mentoringCnt: "",
+  content: "",
+  link: "",
+  role: "",
+  categories: [],
+};
+
+const Page = () => {
+  const onSubmit = async (formData: MentoringFormData) => {
     const payload = {
       name: formData.name,
       deadline: formData.deadline,
@@ -62,85 +138,15 @@ const Page = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <>
       <FormTitle highlight="팀" title="을 생성하기에 앞서 간단한 정보를 입력해주세요."/>
-
-      <InputField
-        label="팀 이름"
-        name="name"
-        placeholder="팀 이름을 입력해주세요."
-        register={register}
-        error={errors.name?.message}/>
-
-      <InputField
-        label="모집 마감일"
-        name="deadline"
-        placeholder="마감 일자를 입력해 주세요."
-        register={register}
-        error={errors.deadline?.message}/>
-
-      <div className="w-full flex gap-5">
-        <InputField
-          label="멘토링 시작일"
-          name="startDate"
-          placeholder="멘토링 시작일을 입력해 주세요."
-          register={register}
-          error={errors.startDate?.message}/>
-
-        <InputField
-          label="멘토링 종료일"
-          name="endDate"
-          placeholder="멘토링 종료일을 입력해 주세요."
-          register={register}
-          error={errors.endDate?.message}/>
-      </div>
-
-      <div className="flex gap-5">
-        <div className="w-full">
-          <label htmlFor="role" className="block mb-2">내역할</label>
-          <select name="role" id="role" className="w-full p-2 border block">
-            <option value="MENTOR">멘토</option>
-            <option value="MENTEE">멘티</option>
-          </select>
-        </div>
-
-        <InputField
-          label="모집인원"
-          name="mentoringCnt"
-          placeholder="모집인원을 입력해 주세요."
-          register={register}
-          error={errors.mentoringCnt?.message}/>
-      </div>
-
-      <div className="w-full flex gap-5">
-        <InputField
-          label="모집 카테고리"
-          name="categories"
-          placeholder="멘토링 종료일을 입력해 주세요."
-          register={register}
-          error={errors.categories?.message}/>
-
-        <InputField
-          label="연락 방법"
-          name="link"
-          placeholder="멘토링 종료일을 입력해 주세요."
-          register={register}
-          error={errors.link?.message}/>
-      </div>
-
-      <TextareaField
-        label="소개"
-        name="content"
-        placeholder="프로젝트 소개를 입력해 주세요."
-        register={register}
-        error={errors.content?.message}/>
-
-      {/* 버튼 */}
-      <div className="mt-16 text-center">
-        <button className="w-[320px] h-[50px] mx-5 rounded-l border-2">닫기</button>
-        <button className="w-[320px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">게시글 작성하기</button>
-      </div>
-    </form>
+      <CreateTeamForm
+        onSubmit={onSubmit}
+        defaultValues={defaultValues}
+        formFields={MentoringFormFields}
+        division={"select"}
+      />
+    </>
   );
 };
 

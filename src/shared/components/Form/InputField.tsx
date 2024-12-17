@@ -10,12 +10,11 @@ import {
 import TextInput from "../../ui/Input/TextInput";
 
 interface InputFieldProps<TFieldValues extends FieldValues> {
-  // name 은 TFieldValues(폼 값의 키) 여야 함
-  name: keyof TFieldValues;
+  key?: string | number;
+  name: keyof TFieldValues; // name 은 TFieldValues(폼 값의 키) 여야 함
   control: Control<TFieldValues>;
   label: string;
-  // 해당 인풋의 validation
-  rules: object;
+  rules: object;  // 해당 인풋의 validation
 }
 const InputField = <TFieldValues extends FieldValues>({
   name,
@@ -34,7 +33,12 @@ const InputField = <TFieldValues extends FieldValues>({
       <label htmlFor={name as string} className="mb-2">
         {label}
       </label>
-      <TextInput error={fieldState.invalid} {...field} id={name} />
+
+      <TextInput
+        id={name}
+        {...field}
+        error={fieldState.invalid}
+      />
 
       {/* 오류메세지 */}
       {fieldState.invalid && fieldState.error && (

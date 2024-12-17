@@ -3,7 +3,7 @@
 import React, { ComponentProps, forwardRef } from "react";
 
 interface TextInputProps extends ComponentProps<"input"> {
-  error: boolean;
+  error?: boolean;
 }
 
 const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
