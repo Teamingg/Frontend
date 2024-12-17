@@ -1,4 +1,5 @@
-import SignUpUserForm from "@/features/SignUp/components/SignUpUserForm";
+import SignUpUserForm from "@/app/sign-up/_components/SignUpUserForm";
+
 const SignUpPage = () => {
   return (
     <section className="flex justify-center items-center w-full h-full">
