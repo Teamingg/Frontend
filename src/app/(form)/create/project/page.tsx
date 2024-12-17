@@ -2,7 +2,7 @@
 import React from "react";
 import {instance} from "@/shared/api/axiosInstance";
 import {STACK_LIST} from "@/shared/Model/SelectBoxList";
-import FormTitle from "@/features/form/components/FormTitle";
+import FormTitle from "@/app/(form)/components/FormTitle";
 import CreateTeamForm from "@/app/(form)/components/CreateTeamForm";
 
 interface ProjectFormFields {

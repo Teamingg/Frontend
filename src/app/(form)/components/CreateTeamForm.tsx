@@ -4,8 +4,14 @@ import SelectCheckBox from "@/shared/components/Form/SelectCheckBox";
 import {Control, FieldValues, useForm} from "react-hook-form";
 import InputField from "@/shared/components/Form/InputField";
 import {STACK_LIST} from "@/shared/Model/SelectBoxList";
-import TextareaField from "@/features/form/components/TextareaField";
+import TextareaField from "@/app/(form)/components/TextareaField";
 import {ProjectFormData} from "@/app/(form)/create/project/page";
+import {MentoringFormData} from "@/app/(form)/create/mentoring/page";
+
+type CustomErrors = {
+  contents?: { message: string };
+  content?: { message: string };
+};
 
 const CreateTeamForm = ({onSubmit, defaultValues, formFields, division}) => {
   const {
@@ -13,9 +19,11 @@ const CreateTeamForm = ({onSubmit, defaultValues, formFields, division}) => {
     register,
     handleSubmit,
     formState: {errors}
-  } = useForm<ProjectFormData>({
+  } = useForm<ProjectFormData | MentoringFormData>({
     defaultValues,
   });
+
+  const customErrors = errors as CustomErrors;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -126,7 +134,8 @@ const CreateTeamForm = ({onSubmit, defaultValues, formFields, division}) => {
         name="contents"
         placeholder="프로젝트 소개를 입력해 주세요."
         register={register}
-        error={errors.contents?.message}/>
+        error={customErrors.contents?.message || customErrors.content?.message}
+      />
 
       {/* 버튼 */}
       <div className="mt-16 text-center">

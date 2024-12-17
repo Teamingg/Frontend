@@ -1,10 +1,10 @@
 "use client";
 import {instance} from "@/shared/api/axiosInstance";
-import FormTitle from "@/features/form/components/FormTitle";
+import FormTitle from "@/app/(form)/components/FormTitle";
 import CreateTeamForm from "@/app/(form)/components/CreateTeamForm";
 import React from "react";
 
-interface MentoringFormFields {
+export interface FormFields {
   label: string;
   name: string;
   required?: boolean;
@@ -13,12 +13,12 @@ interface MentoringFormFields {
 }
 
 interface MentoringFormRow {
-  row: MentoringFormFields[];
+  row: FormFields[];
 }
 
-type MentoringForm = MentoringFormFields | MentoringFormRow;
+type MentoringForm = FormFields | MentoringFormRow;
 
-interface MentoringFormData {
+export interface MentoringFormData {
   name: string;
   deadline: string;
   startDate: string;
