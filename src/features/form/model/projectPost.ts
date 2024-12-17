@@ -1,4 +1,3 @@
-
 export const PROJECT_FORM_FIELDS = [
   {
     name: "projectName",

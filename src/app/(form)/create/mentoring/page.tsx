@@ -1,13 +1,25 @@
 "use client";
-import {Control, Controller, FieldValues, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
 import {instance} from "@/shared/api/axiosInstance";
-import {STACK_LIST} from "@/shared/Model/SelectBoxList";
-import SelectCheckBox from "@/shared/components/Form/SelectCheckBox";
+import InputField from "@/shared/components/Form/InputField";
 import FormTitle from "@/features/form/components/FormTitle";
-import InputField from "@/features/form/components/InputField";
 import TextareaField from "@/features/form/components/TextareaField";
 
-interface TeamFormData {
+interface MentoringFormFields {
+  label: string;
+  name: string;
+  required?: boolean;
+  rules?: object;
+  options?: { value: string; label: string }[];
+}
+
+interface MentoringFormRow {
+  row: MentoringFormFields[];
+}
+
+type MentoringForm = MentoringFormFields | MentoringFormRow;
+
+interface MentoringFormData {
   name: string;
   deadline: string;
   startDate: string;
@@ -20,13 +32,84 @@ interface TeamFormData {
   categories: number[];
 }
 
+const MentoringFormFields: MentoringForm[] = [
+  {
+    label: "팀 이름",
+    name: "name" as keyof MentoringFormData,
+    required: true,
+    rules: { required: "팀 이름은 필수 항목입니다." },
+  },
+  {
+    label: "모집 마감일",
+    name: "deadline" as keyof MentoringFormData,
+    required: true,
+    rules: { required: "모집 마감일은 필수 항목입니다." },
+  },
+  {
+    row: [
+      {
+        label: "멘토링 시작일",
+        name: "startDate" as keyof MentoringFormData,
+        required: true,
+        rules: { required: "멘토링 시작일은 필수 항목입니다." },
+      },
+      {
+        label: "멘토링 종료일",
+        name: "endDate" as keyof MentoringFormData,
+        required: true,
+        rules: { required: "멘토링 종료일은 필수 항목입니다." },
+      },
+    ],
+  },
+  {
+    row: [
+      {
+        label: "내 역할",
+        name: "role" as keyof MentoringFormData,
+        options: [
+          { value: "MENTOR", label: "멘토" },
+          { value: "MENTEE", label: "멘티" },
+        ],
+        required: true,
+      },
+      {
+        label: "모집인원",
+        name: "mentoringCnt" as keyof MentoringFormData,
+        required: true,
+        rules: { required: "모집인원은 필수 항목입니다." },
+      },
+    ],
+  },
+  {
+    row: [
+      {
+        label: "모집 카테고리",
+        name: "categories" as keyof MentoringFormData,
+        required: true,
+      },
+      {
+        label: "연락 방법",
+        name: "link" as keyof MentoringFormData,
+        required: true,
+        rules: { required: "연락 방법은 필수 항목입니다." },
+      },
+    ],
+  },
+  {
+    label: "팀 소개",
+    name: "content" as keyof MentoringFormData,
+    required: true,
+    rules: { required: "팀 소개는 필수 항목입니다." },
+  },
+];
+
 const Page = () => {
   const {
     control,
     register,
     handleSubmit,
     formState: {errors}
-  } = useForm<TeamFormData>({
+  } = useForm<MentoringFormData>({
     defaultValues: {
       name: "",
       deadline: "",
@@ -37,9 +120,10 @@ const Page = () => {
       link: "",
       role: "",
       categories: [],
-    }});
+    }
+  });
 
-  const onSubmit = async (formData: TeamFormData) => {
+  const onSubmit = async (formData: MentoringFormData) => {
     const payload = {
       name: formData.name,
       deadline: formData.deadline,
@@ -65,68 +149,77 @@ const Page = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormTitle highlight="팀" title="을 생성하기에 앞서 간단한 정보를 입력해주세요."/>
 
-      <InputField
-        label="팀 이름"
-        name="name"
-        placeholder="팀 이름을 입력해주세요."
-        register={register}
-        error={errors.name?.message}/>
+      {MentoringFormFields.map((field, index) => {
+        // 같은 줄에 두 개의 필드가 있는 경우 (row)
+        if ("row" in field) {
+          return (
+            <div key={index} className="flex gap-5 mb-4">
+              {field.row.map((item, subIndex) => {
+                if (item.options) {
+                  // options 속성이 존재하면 select 박스 렌더링
+                  return (
+                    <div key={subIndex} className="w-full">
+                      <label htmlFor={item.name} className="block mb-2">{item.label}</label>
+                      <select
+                        {...register(item.name)}
+                        id={item.name}
+                        className="w-full p-2 border block"
+                      >
+                        {item.options.map((option) => (
+                          <option key={option.value} value={option.value}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  );
+                }
 
-      <InputField
-        label="모집 마감일"
-        name="deadline"
-        placeholder="마감 일자를 입력해 주세요."
-        register={register}
-        error={errors.deadline?.message}/>
+                return (
+                  <InputField
+                    key={subIndex}
+                    label={item.label}
+                    name={item.name}
+                    control={control}
+                    rules={item.rules}
+                  />
+                );
+              })}
+            </div>
+          );
+        }
 
-      <div className="w-full flex gap-5">
-        <InputField
-          label="멘토링 시작일"
-          name="startDate"
-          placeholder="멘토링 시작일을 입력해 주세요."
-          register={register}
-          error={errors.startDate?.message}/>
+        // 단일 필드 렌더링
+        if (field.options) {
+          return (
+            <div key={index} className="w-full mb-4">
+              <label htmlFor={field.name} className="block mb-2">{field.label}</label>
+              <select
+                {...register(field.name)}
+                id={field.name}
+                className="w-full p-2 border block"
+              >
+                {field.options.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          );
+        }
 
-        <InputField
-          label="멘토링 종료일"
-          name="endDate"
-          placeholder="멘토링 종료일을 입력해 주세요."
-          register={register}
-          error={errors.endDate?.message}/>
-      </div>
-
-      <div className="flex gap-5">
-        <div className="w-full">
-          <label htmlFor="role" className="block mb-2">내역할</label>
-          <select name="role" id="role" className="w-full p-2 border block">
-            <option value="MENTOR">멘토</option>
-            <option value="MENTEE">멘티</option>
-          </select>
-        </div>
-
-        <InputField
-          label="모집인원"
-          name="mentoringCnt"
-          placeholder="모집인원을 입력해 주세요."
-          register={register}
-          error={errors.mentoringCnt?.message}/>
-      </div>
-
-      <div className="w-full flex gap-5">
-        <InputField
-          label="모집 카테고리"
-          name="categories"
-          placeholder="멘토링 종료일을 입력해 주세요."
-          register={register}
-          error={errors.categories?.message}/>
-
-        <InputField
-          label="연락 방법"
-          name="link"
-          placeholder="멘토링 종료일을 입력해 주세요."
-          register={register}
-          error={errors.link?.message}/>
-      </div>
+        return (
+          <div key={index} className="w-full mb-4">
+            <InputField
+              label={field.label}
+              name={field.name}
+              control={control}
+              rules={field.rules}
+            />
+          </div>
+        );
+      })}
 
       <TextareaField
         label="소개"
