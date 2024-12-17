@@ -1,5 +1,5 @@
 "use client";
-import {useForm} from "react-hook-form";
+import {Control, FieldValues, useForm} from "react-hook-form";
 import {instance} from "@/shared/api/axiosInstance";
 import InputField from "@/shared/components/Form/InputField";
 import FormTitle from "@/features/form/components/FormTitle";
@@ -103,6 +103,18 @@ const MentoringFormFields: MentoringForm[] = [
   },
 ];
 
+const DefaultValues = {
+  name: "",
+  deadline: "",
+  startDate: "",
+  endDate: "",
+  mentoringCnt: "",
+  content: "",
+  link: "",
+  role: "",
+  categories: [],
+};
+
 const Page = () => {
   const {
     control,
@@ -110,17 +122,7 @@ const Page = () => {
     handleSubmit,
     formState: {errors}
   } = useForm<MentoringFormData>({
-    defaultValues: {
-      name: "",
-      deadline: "",
-      startDate: "",
-      endDate: "",
-      mentoringCnt: "",
-      content: "",
-      link: "",
-      role: "",
-      categories: [],
-    }
+    defaultValues: DefaultValues
   });
 
   const onSubmit = async (formData: MentoringFormData) => {
@@ -154,18 +156,18 @@ const Page = () => {
         if ("row" in field) {
           return (
             <div key={index} className="flex gap-5 mb-4">
-              {field.row.map((item, subIndex) => {
-                if (item.options) {
-                  // options 속성이 존재하면 select 박스 렌더링
+              {field.row.map((rowField, subIndex) => {
+                // options 속성이 존재하면 select 박스 렌더링
+                if (rowField.options) {
                   return (
                     <div key={subIndex} className="w-full">
-                      <label htmlFor={item.name} className="block mb-2">{item.label}</label>
+                      <label htmlFor={rowField.name} className="block mb-2">{rowField.label}</label>
                       <select
-                        {...register(item.name)}
-                        id={item.name}
+                        {...register(rowField.name)}
+                        id={rowField.name}
                         className="w-full p-2 border block"
                       >
-                        {item.options.map((option) => (
+                        {rowField.options.map((option) => (
                           <option key={option.value} value={option.value}>
                             {option.label}
                           </option>
@@ -178,10 +180,10 @@ const Page = () => {
                 return (
                   <InputField
                     key={subIndex}
-                    label={item.label}
-                    name={item.name}
-                    control={control}
-                    rules={item.rules}
+                    label={rowField.label}
+                    name={rowField.name}
+                    control={control as unknown as Control<FieldValues>}
+                    rules={rowField.rules}
                   />
                 );
               })}
@@ -214,7 +216,7 @@ const Page = () => {
             <InputField
               label={field.label}
               name={field.name}
-              control={control}
+              control={control as unknown as Control<FieldValues>}
               rules={field.rules}
             />
           </div>

@@ -1,12 +1,27 @@
 "use client";
-import {Control, Controller, FieldValues, useForm} from "react-hook-form";
+import React from "react";
+import {Control, FieldValues, useForm} from "react-hook-form";
 import {instance} from "@/shared/api/axiosInstance";
 import {STACK_LIST} from "@/shared/Model/SelectBoxList";
 import SelectCheckBox from "@/shared/components/Form/SelectCheckBox";
 import FormTitle from "@/features/form/components/FormTitle";
-import React from "react";
-import InputField from "@/features/form/components/InputField";
+import InputField from "@/shared/components/Form/InputField";
 import TextareaField from "@/features/form/components/TextareaField";
+import CreateForm from "@/app/(form)/components/CreateForm";
+
+interface ProjectFormFields {
+  label: string;
+  name: string;
+  required?: boolean;
+  rules?: object;
+  options?: { value: string; label: string }[];
+}
+
+interface ProjectFormRow {
+  row: ProjectFormFields[];
+}
+
+type ProjectForm = ProjectFormFields | ProjectFormRow;
 
 interface ProjectFormData {
   projectName: string;
@@ -20,6 +35,82 @@ interface ProjectFormData {
   recruitCategoryIds: number[];
 }
 
+const ProjectFormFields: ProjectForm[] = [
+  {
+    label: "팀 이름",
+    name: "projectName" as keyof ProjectFormData,
+    required: true,
+    rules: {required: "팀 이름은 필수 항목입니다."},
+  },
+  {
+    label: "모집 마감일",
+    name: "deadline" as keyof ProjectFormData,
+    required: true,
+    rules: {required: "모집 마감일은 필수 항목입니다."},
+  },
+  {
+    row: [
+      {
+        label: "프로젝트 시작일",
+        name: "startDate" as keyof ProjectFormData,
+        required: true,
+        rules: {required: "프로젝트 시작일은 필수 항목입니다."},
+      },
+      {
+        label: "프로젝트 종료일",
+        name: "endDate" as keyof ProjectFormData,
+        required: true,
+        rules: {required: "프로젝트 종료일은 필수 항목입니다."},
+      },
+    ],
+  },
+  {
+    row: [
+      {
+        label: "기술스택",
+        name: "stacks" as keyof ProjectFormData,
+        options: STACK_LIST,
+        required: true,
+        rules: {required: "기술스택은 필수 항목입니다."},
+      },
+      {
+        label: "모집인원",
+        name: "memberCnt" as keyof ProjectFormData,
+        required: true,
+        rules: {required: "모집인원은 필수 항목입니다."},
+      },
+    ]
+  },
+  {
+    row: [
+      {
+        label: "연락 방법",
+        name: "link" as keyof ProjectFormData,
+        required: true,
+        rules: {required: "연락 방법은 필수 항목입니다."},
+      },
+      {
+        label: "모집 구분",
+        name: "recruitCategoryIds" as keyof ProjectFormData,
+        required: true,
+        rules: {required: "모집 구분은 필수 항목입니다."},
+      },
+    ]
+  }
+];
+
+const DefaultValues = {
+  projectName: "",
+  deadline: "",
+  startDate: "",
+  endDate: "",
+  memberCnt: "",
+  contents: "",
+  link: "",
+  stacks: [],
+  recruitCategoryIds: [],
+};
+
 const Page = () => {
   const {
     control,
@@ -27,17 +118,8 @@ const Page = () => {
     handleSubmit,
     formState: {errors}
   } = useForm<ProjectFormData>({
-    defaultValues: {
-      projectName: "",
-      deadline: "",
-      startDate: "",
-      endDate: "",
-      memberCnt: "",
-      contents: "",
-      link: "",
-      stacks: [],
-      recruitCategoryIds: [],
-    }});
+    defaultValues: DefaultValues,
+  });
 
   const onSubmit = async (formData: ProjectFormData) => {
     const payload = {
@@ -64,35 +146,69 @@ const Page = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormTitle highlight="팀" title="을 생성하기에 앞서 간단한 정보를 입력해주세요."/>
 
-      <InputField
-        label="팀 이름"
-        name="projectName"
-        placeholder="팀 이름을 입력해주세요."
-        register={register}
-        error={errors.projectName?.message}/>
+      {ProjectFormFields.map((field, index) => {
+        if ("row" in field) {
+          return (
+            <div className="w-full flex gap-5" key={index}>
+              {field.row.map((rowField, index) => {
+                if (rowField.options) {
+                  return (
+                    <div className="w-full" key={index}>
+                      <label htmlFor={rowField.name}>
+                        {rowField.label}
+                      </label>
+                      <SelectCheckBox
+                        name={rowField.name}
+                        placeholder="선택해주세요."
+                        checkBoxList={rowField.options}
+                        control={control as unknown as Control<FieldValues>}
+                      />
+                    </div>
+                  );
+                }
 
-      <InputField
-        label="모집 마감일"
-        name="deadline"
-        placeholder="마감 일자를 입력해 주세요."
-        register={register}
-        error={errors.deadline?.message}/>
+                return (
+                  <div key={index} className="w-full mb-4">
+                    <InputField
+                      key={index}
+                      label={rowField.label}
+                      name={rowField.name}
+                      control={control as unknown as Control<FieldValues>}
+                      rules={rowField.rules}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          )
+        }
 
-      <div className="w-full flex gap-5">
-        <InputField
-          label="프로젝트 시작일"
-          name="startDate"
-          placeholder="프로젝트 시작일을 선택해 주세요."
-          register={register}
-          error={errors.startDate?.message}/>
+        if (field.options) {
+          return (
+            <div className="w-full" key={index}>
+              <label htmlFor={field.name}>{field.label}</label>
+              <SelectCheckBox
+                name={field.name}
+                placeholder="선택해주세요."
+                checkBoxList={field.options}
+                control={control as unknown as Control<FieldValues>}
+              />
+            </div>
+          );
+        }
 
-        <InputField
-          label="프로젝트 종료일"
-          name="endDate"
-          placeholder="프로젝트 종료일을 입력해 주세요."
-          register={register}
-          error={errors.endDate?.message}/>
-      </div>
+        return (
+          <div key={index} className="w-full mb-4">
+            <InputField
+              key={index}
+              label={field.label}
+              name={field.name}
+              control={control as unknown as Control<FieldValues>}
+              rules={field.rules}
+            />
+          </div>
+        )
+      })}
 
       <div className="w-full flex gap-5">
         <div className="w-full">
@@ -105,29 +221,6 @@ const Page = () => {
             maximum={8}
           />
         </div>
-
-        <InputField
-          label="모집인원"
-          name="memberCnt"
-          placeholder="모집인원을 입력해 주세요."
-          register={register}
-          error={errors.memberCnt?.message}/>
-      </div>
-
-      <div className="w-full flex gap-5">
-        <InputField
-          label="모집 구분"
-          name="recruitCategoryIds"
-          placeholder="모집 구분을 입력해 주세요."
-          register={register}
-          error={errors.recruitCategoryIds?.message}/>
-
-        <InputField
-          label="연락 방법"
-          name="link"
-          placeholder="연락 방법을 입력해 주세요."
-          register={register}
-          error={errors.link?.message}/>
       </div>
 
       <TextareaField
