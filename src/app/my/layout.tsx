@@ -1,4 +1,4 @@
-import SectionLayout from "@/shared/ui/Layout/SectionLayout";
+import SectionLayout from "@/components/layout/DetailSection/SectionLayout";
 
 const myPagePaths = [
   {

@@ -1,10 +1,10 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
-import { queryclient } from "@/shared/utils/Provider/getQueryClient";
+import { queryclient } from "@/lib/getQueryClient";
 
-import { getUserInfo } from "@/entities/user/api/getUserInfo";
+import { getUserInfo } from "@/service/api/user/getUserInfo";
 
-import UserInfoSection from "@/features/myPage/account/components/UserInfoSection";
+import UserInfoSection from "@/app/my/(account)/_components/UserInfoSection";
 
 const AccountPage = async () => {
   await queryclient.prefetchQuery({

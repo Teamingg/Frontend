@@ -1,10 +1,12 @@
-'use client';
+"use client";
 import React from "react";
-import {instance} from "@/shared/api/axiosInstance";
-import {STACK_LIST} from "@/shared/Model/SelectBoxList";
-import FormTitle from "@/app/(form)/components/FormTitle";
-import CreateTeamForm from "@/app/(form)/components/CreateTeamForm";
 
+import { instance } from "@/service/api/instance/axiosInstance";
+
+import STACK_LIST from "@/constant/stackList";
+
+import CreateTeamForm from "../../_components/CreateTeamForm";
+import FormTitle from "../../_components/FormTitle";
 interface ProjectFormFields {
   label: string;
   name: string;
@@ -36,13 +38,13 @@ const ProjectFormFields: ProjectForm[] = [
     label: "팀 이름",
     name: "projectName" as keyof ProjectFormData,
     required: true,
-    rules: {required: "팀 이름은 필수 항목입니다."},
+    rules: { required: "팀 이름은 필수 항목입니다." },
   },
   {
     label: "모집 마감일",
     name: "deadline" as keyof ProjectFormData,
     required: true,
-    rules: {required: "모집 마감일은 필수 항목입니다."},
+    rules: { required: "모집 마감일은 필수 항목입니다." },
   },
   {
     row: [
@@ -50,13 +52,13 @@ const ProjectFormFields: ProjectForm[] = [
         label: "프로젝트 시작일",
         name: "startDate" as keyof ProjectFormData,
         required: true,
-        rules: {required: "프로젝트 시작일은 필수 항목입니다."},
+        rules: { required: "프로젝트 시작일은 필수 항목입니다." },
       },
       {
         label: "프로젝트 종료일",
         name: "endDate" as keyof ProjectFormData,
         required: true,
-        rules: {required: "프로젝트 종료일은 필수 항목입니다."},
+        rules: { required: "프로젝트 종료일은 필수 항목입니다." },
       },
     ],
   },
@@ -67,15 +69,15 @@ const ProjectFormFields: ProjectForm[] = [
         name: "stacks" as keyof ProjectFormData,
         options: STACK_LIST,
         required: true,
-        rules: {required: "기술스택은 필수 항목입니다."},
+        rules: { required: "기술스택은 필수 항목입니다." },
       },
       {
         label: "모집인원",
         name: "memberCnt" as keyof ProjectFormData,
         required: true,
-        rules: {required: "모집인원은 필수 항목입니다."},
+        rules: { required: "모집인원은 필수 항목입니다." },
       },
-    ]
+    ],
   },
   {
     row: [
@@ -83,16 +85,16 @@ const ProjectFormFields: ProjectForm[] = [
         label: "연락 방법",
         name: "link" as keyof ProjectFormData,
         required: true,
-        rules: {required: "연락 방법은 필수 항목입니다."},
+        rules: { required: "연락 방법은 필수 항목입니다." },
       },
       {
         label: "모집 구분",
         name: "recruitCategoryIds" as keyof ProjectFormData,
         required: true,
-        rules: {required: "모집 구분은 필수 항목입니다."},
+        rules: { required: "모집 구분은 필수 항목입니다." },
       },
-    ]
-  }
+    ],
+  },
 ];
 
 const defaultValues = {
@@ -127,11 +129,14 @@ const Page = () => {
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
     }
-  }
+  };
 
   return (
     <>
-      <FormTitle highlight="팀" title="을 생성하기에 앞서 간단한 정보를 입력해주세요."/>
+      <FormTitle
+        highlight="팀"
+        title="을 생성하기에 앞서 간단한 정보를 입력해주세요."
+      />
       <CreateTeamForm
         onSubmit={onSubmit}
         defaultValues={defaultValues}

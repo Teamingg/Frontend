@@ -4,8 +4,7 @@ import { useRouter } from "next/navigation";
 
 import Image from "next/image";
 import Link from "next/link";
-
-import Modal from "@/shared/ui/Modal";
+import Modal from "@/components/common/Modal/Modal";
 
 const oAuthList = [
   {
@@ -28,10 +27,13 @@ const Page = () => {
     router.back();
   };
 
-    console.log("process.env.NEXT_PUBLIC_AUTH_URL : ", process.env.NEXT_PUBLIC_AUTH_URL)
+  console.log(
+    "process.env.NEXT_PUBLIC_AUTH_URL : ",
+    process.env.NEXT_PUBLIC_AUTH_URL
+  );
 
   return (
-    <Modal onClose={closeModal}>
+    <Modal isOpen={true} onClose={closeModal}>
       <button onClick={closeModal} className="relative self-start">
         <Image
           src="icons/backArrow.svg"
