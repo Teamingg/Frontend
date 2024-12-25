@@ -5,7 +5,7 @@ const layout = ({ children }: { children: React.ReactNode }) => {
     <>
       <TeamProjectNavigation />
 
-      <section className="w-full h-screen p-8 bg-[#f5f5f5] rounded-xl">
+      <section className="w-full  h-full p-8 bg-[#f5f5f5] rounded-xl">
         {children}
       </section>
     </>
