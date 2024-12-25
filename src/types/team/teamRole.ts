@@ -1,1 +1,1 @@
-export type TeamRole = "OWNER";
+export type TeamRole = "OWNER" | "LEADER" | "CREW";
