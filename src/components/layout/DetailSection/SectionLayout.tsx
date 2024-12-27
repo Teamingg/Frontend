@@ -17,7 +17,7 @@ const SectionLayout = ({
   navPaths,
 }: SectionLayoutProps) => {
   return (
-    <section className="w-full h-full pt-4 pb-8">
+    <section className="w-full h-[90vh] py-4 ">
       <div className="w-full h-full rounded-lg bg-[#f5f5f5] p-4">
         <div className="flex gap-4 h-full w-full">
           {/* 좌측 ( 타이틀 & 네비게이션 ) */}

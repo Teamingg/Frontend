@@ -1,3 +1,5 @@
+import { TeamStatus } from "@/types/team/teamStatus";
+
 export default interface MentoringPost {
   id: number;
   title: string;
@@ -6,4 +8,5 @@ export default interface MentoringPost {
   endDate: string;
   category: string[];
   contents: string;
+  status: TeamStatus;
 }

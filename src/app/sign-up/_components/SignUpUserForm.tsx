@@ -16,7 +16,7 @@ const SignUpUserForm = () => {
       JSON.stringify({
         name: data.name,
         introduce: data.introduce,
-        stackIds: data.stacks,
+        stacks: data.stacks,
       })
     );
 
