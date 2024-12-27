@@ -21,7 +21,7 @@ const AccountPage = async () => {
       </HydrationBoundary>
 
       {/* 유저가 받은 평가 */}
-      <div className="bg-white rounded-lg p-4">
+      <div className="bg-white rounded-lg p-6 shadow-sm">
         <h2 className=" text-xl text-primary mb-4">내가 받은 후기</h2>
         <p>
           아직 팀원들에게 받은 후기가 없습니다. 프로젝트에 참여하고 후기를

@@ -8,7 +8,7 @@ type CategoryHeader = {
   title: string;
 
   // 전체보기를 눌렀을 때 이동할 path / 기본값은 '/'
-  path?: "project" | "mentoring" | "/";
+  path?: "/project" | "/mentoring" | "/";
 };
 
 const CategoryHeader = ({ title, path = "/" }: CategoryHeader) => {

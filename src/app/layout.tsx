@@ -33,7 +33,7 @@ export default async function RootLayout({
 
         <Header isLoggedIn={isLoggedIn} />
 
-        <main className="max-w-[1200px] mx-auto h-full">
+        <main className="max-w-[1200px] mx-auto">
           <AppProvider>{children}</AppProvider>
         </main>
 

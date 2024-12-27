@@ -1,10 +1,11 @@
 import CategoryHeader from "@/components/layout/Main/CatrgoryHeader";
-import React from "react";
+import ProjectPostList from "@/components/post/ProjectPostList";
 
 const ProjectPage = () => {
   return (
     <>
       <CategoryHeader title="팀 프로젝트" />
+      <ProjectPostList />
     </>
   );
 };
