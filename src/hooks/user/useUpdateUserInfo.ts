@@ -8,14 +8,14 @@ import { queryclient } from "@/lib/getQueryClient";
 import { UserInfoFormValues } from "@/components/user/UserInfoForm/UserInfoFormValues";
 
 const useUpdateUserInfo = () => {
-  const { mutate, isSuccess, isError } = useMutation({
+  const { mutate, isSuccess } = useMutation({
     mutationFn: async (userInfo: UserInfoFormValues) => {
       return await instance.put(
-        "/user/update",
+        "/users",
         JSON.stringify({
           name: userInfo.name,
           introduce: userInfo.introduce,
-          stackIds: userInfo.stacks,
+          stackIds: userInfo.stacksIds,
         })
       );
     },
@@ -24,7 +24,7 @@ const useUpdateUserInfo = () => {
     },
   });
 
-  return { mutate, isSuccess, isError };
+  return { mutate, isSuccess };
 };
 
 export default useUpdateUserInfo;
