@@ -2,7 +2,7 @@ import { TeamRole } from "../teamRole";
 import { TeamStatus } from "../teamStatus";
 
 export default interface MentoringTeam {
-  id: string;
+  id: number;
   name: string;
   startDate: string;
   endDate: string;
