@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import MentoringTeam from "@/types/team/mentoring/mentoringTeam";
-import getMyMentoringTeam from "@/service/api/getMyMentoringTeam";
+import getMyMentoringTeam from "@/service/api/mentoring/team/getMyMentoringTeam";
 
 const useGetMyMentoringTeam = () => {
   const {
