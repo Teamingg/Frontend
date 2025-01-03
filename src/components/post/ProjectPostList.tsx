@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import STACK_LIST from "@/constant/stackList";
 
 import useObserver from "@/hooks/useObserver";
-import { getAllProjectPosts } from "@/service/api/getAllProjectPosts";
+import { getAllProjectPosts } from "@/service/api/project/post/getAllProjectPosts";
 
 import PostItem from "@/components/common/Post/PostItem";
 import LoadingIndicator from "@/components/common/LoadingIndicator";
@@ -14,7 +14,7 @@ import useInfinitePosts from "@/hooks/useInfinitePosts";
 
 const ProjectPostList = () => {
   const path = usePathname();
-  const { ref, isView } = useObserver({});
+  const { ref, isView } = useObserver();
 
   const { fetchNextPage, hasNextPage, isFetchingNextPage, data } =
     useInfinitePosts({
@@ -28,8 +28,10 @@ const ProjectPostList = () => {
 
   return (
     <>
-      {!data && (
-        <p className="text-center py-52 text-xl">작성된 게시글이 없어요 !</p>
+      {(data?.pages[0].content.length === 0 || !data) && (
+        <p className="text-center py-8 text-xl">
+          작성된 게시물이 존재하지 않습니다.
+        </p>
       )}
 
       {data && (
@@ -55,6 +57,8 @@ const ProjectPostList = () => {
               ))
             )}
           </ul>
+
+          {/* 무한스크롤 옵저버 */}
           {path != "/" && (
             <div ref={ref} className="h-[10px] w-full text-center">
               {isFetchingNextPage && (
