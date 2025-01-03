@@ -1,19 +1,32 @@
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+"use client";
 
-import { queryclient } from "@/lib/getQueryClient";
+import useGetMyMentoringTeam from "@/hooks/team/mentoring/useGetMyMentoringTeam";
+import MyTeamItem from "../_components/MyTeamItem";
 
-import getMyMentoringTeam from "@/service/api/getMyMentoringTeam";
-import MentoringTeamList from "./_components/MentoringTeamList";
+const MyMentoringTeamPage = () => {
+  const { mentoringTeam } = useGetMyMentoringTeam();
 
-const MyMentoringTeamPage = async () => {
-  await queryclient.prefetchQuery({
-    queryKey: ["user", "team", "mentoring"],
-    queryFn: () => getMyMentoringTeam(),
-  });
   return (
-    <HydrationBoundary state={dehydrate(queryclient)}>
-      <MentoringTeamList />
-    </HydrationBoundary>
+    <>
+      {(!mentoringTeam || mentoringTeam.length === 0) && (
+        <p className="px-3">아직 참여중인 멘토링 팀이 없습니다.</p>
+      )}
+
+      {mentoringTeam && (
+        <ul className="grid grid-cols-2 gap-4">
+          {mentoringTeam.map((team) => (
+            <MyTeamItem
+              name={team.name}
+              key={team.id}
+              id={team.id}
+              status={team.status}
+              role={team.authority}
+              category={"mentoring"}
+            />
+          ))}
+        </ul>
+      )}
+    </>
   );
 };
 
