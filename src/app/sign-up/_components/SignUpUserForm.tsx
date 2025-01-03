@@ -10,13 +10,17 @@ import { UserInfoFormValues } from "@/components/user/UserInfoForm/UserInfoFormV
 const SignUpUserForm = () => {
   const router = useRouter();
 
-  const onSubmit = async (data: UserInfoFormValues) => {
+  const onSubmit = async ({
+    name,
+    introduce,
+    stacksIds,
+  }: UserInfoFormValues) => {
     const response = await instance.post(
-      "/user",
+      "/users",
       JSON.stringify({
-        name: data.name,
-        introduce: data.introduce,
-        stacks: data.stacks,
+        name,
+        introduce,
+        stacksIds,
       })
     );
 
