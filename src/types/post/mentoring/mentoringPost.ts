@@ -1,12 +1,20 @@
 import { TeamStatus } from "@/types/team/teamStatus";
 
 export default interface MentoringPost {
-  id: number;
+  boardId: number;
+  teamId: number;
   title: string;
   mentoringTeamName: string;
+  deadLine: string;
+  status: TeamStatus;
   startDate: string;
   endDate: string;
+  role: string;
+  mentoringCnt: number;
+  link: string;
   category: string[];
   contents: string;
-  status: TeamStatus;
+  createdDate: string;
+  modifiedDate: string;
+  authority: string;
 }
