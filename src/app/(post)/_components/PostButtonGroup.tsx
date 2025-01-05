@@ -1,3 +1,7 @@
+"use client";
+
+import { useToast } from "@/hooks/useToast";
+import checkCookie from "@/utils/auth/checkCookie";
 import Link from "next/link";
 import React from "react";
 
@@ -5,16 +9,28 @@ interface PostButtonGroupProps {
   isEdit: boolean;
   postType: "project" | "mentoring";
   teamId: string | number;
-  onClick: () => void;
+  action: () => void;
 }
 
 const PostButtonGroup = ({
   isEdit,
   postType,
   teamId,
-  onClick,
+  action,
 }: PostButtonGroupProps) => {
+  const { toast } = useToast();
   const category = postType === "project" ? "프로젝트" : "멘토링";
+
+  const onClick = async () => {
+    const isLoggedIn = await checkCookie("accessToken");
+
+    if (!isLoggedIn) {
+      toast.error("로그인이 필요합니다");
+      return;
+    }
+
+    action();
+  };
 
   return (
     <div className="flex gap-4">
