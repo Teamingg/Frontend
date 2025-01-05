@@ -2,31 +2,25 @@
 
 import PostHeader from "../../_components/PostHeader";
 import PostInfo from "../../_components/PostInfo";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import getMentoringPost from "@/service/api/mentoring/post/getMentoringPost";
+
 import PostButtonGroup from "../../_components/PostButtonGroup";
-import { instance } from "@/service/api/instance/axiosInstance";
-import { AxiosError } from "axios";
+
+import useGetMentoringPost from "@/hooks/post/mentoring/useGetMentoringPost";
+import useJoinMentoringTeam from "@/hooks/team/mentoring/useJoinMentoringTeam";
+import { useEffect } from "react";
+import { useToast } from "@/hooks/useToast";
 
 const MentoringPostPage = ({ params }: { params: { id: string } }) => {
-  const { data } = useQuery({
-    queryKey: ["mentoring", "post", params.id],
-    queryFn: async () => await getMentoringPost(params.id),
-  });
+  const { toast } = useToast();
+  const { data } = useGetMentoringPost(params.id);
 
-  const { mutate } = useMutation({
-    mutationFn: async () => {
-      await instance.post(`/mentoring/posts/${data?.boardId}/participants`);
-    },
-    onError: (
-      error: AxiosError<{ code: string; message: string; status: number }>
-    ) => {
-      switch (error.response?.data.message) {
-        case "access token invalid":
-          console.log("로그인이 필요합니다.");
-      }
-    },
-  });
+  const { mutate, isSuccess } = useJoinMentoringTeam(params.id);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("신청이 완료되었습니다.");
+    }
+  }, [isSuccess, toast]);
 
   if (!data) {
     return null;
@@ -57,7 +51,7 @@ const MentoringPostPage = ({ params }: { params: { id: string } }) => {
         isEdit={data.authority !== "NoAuth"}
         teamId={data.teamId}
         postType={"mentoring"}
-        onClick={mutate}
+        action={mutate}
       />
     </>
   );
