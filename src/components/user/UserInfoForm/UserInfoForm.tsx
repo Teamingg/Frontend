@@ -12,7 +12,7 @@ import { UserInfoFormValues } from "./UserInfoFormValues";
 
 const UserInfoFormField = [
   {
-    label: "닉네임 (필수)",
+    label: "닉네임",
     name: "name" as keyof UserInfoFormValues,
     required: true,
     rules: {
@@ -35,10 +35,11 @@ const UserInfoFormField = [
     },
   },
   {
-    label: "자기소개 (선택)",
+    label: "자기소개",
     name: "introduce" as keyof UserInfoFormValues,
-    required: false,
+    required: true,
     rules: {
+      required: "자기소개는 필수 항목입니다.",
       maxLength: {
         value: 100,
         message: "자기소개는 최대 100자까지 입력 할 수 있습니다.",
