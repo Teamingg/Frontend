@@ -1,63 +1,72 @@
 "use client";
 
-import PostHeader from "../../_components/PostHeader";
-import PostInfo from "../../_components/PostInfo";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import getProjectPost from "@/service/api/project/post/getProjectPost";
-import PostButtonGroup from "../../_components/PostButtonGroup";
-import STACK_LIST from "@/constant/stackList";
-import { instance } from "@/service/api/instance/axiosInstance";
-import { MouseEvent, useState } from "react";
-import Modal from "@/components/common/Modal/Modal";
-import { RECRUITE_CATEGORY } from "@/constant/recruiteCategory";
+import { MouseEvent, useEffect, useState } from "react";
 import Image from "next/image";
-import { filterItemsByIds } from "@/utils/filterItemsByIds";
+
+import STACK_LIST from "@/constant/stackList";
+import { RECRUITE_CATEGORY } from "@/constant/recruiteCategory";
+
 import { queryclient } from "@/lib/getQueryClient";
 
+import { filterItemsByIds } from "@/utils/filterItemsByIds";
+
+import useJoinProjectTeam from "@/hooks/team/project/useJoinProjectTeam";
+import { useGetProjectPost } from "@/hooks/post/project/useGetProjectPost";
+
+import Modal from "@/components/common/Modal/Modal";
+
+import PostHeader from "../../_components/PostHeader";
+import PostInfo from "../../_components/PostInfo";
+import PostButtonGroup from "../../_components/PostButtonGroup";
+import { useToast } from "@/hooks/useToast";
+
 const ProjectPostPage = ({ params }: { params: { id: string } }) => {
+  const { toast } = useToast();
   const [modal, setModal] = useState<boolean>(false);
 
-  const { data } = useQuery({
-    queryKey: ["project", "post", params.id],
-    queryFn: async () => await getProjectPost(params.id),
-  });
+  const { data } = useGetProjectPost(params.id);
 
-  const { mutate } = useMutation({
-    mutationFn: async (recruitCategory: string) => {
-      await instance.post(`/project/join`, {
-        teamId: data?.projectTeamId,
-        recruitCategory: recruitCategory,
-      });
-    },
-  });
+  const { mutate, isSuccess } = useJoinProjectTeam();
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast.success("신청이 완료되었습니다.");
+    }
+  }, [isSuccess, toast]);
 
   if (!data) {
     return null;
   }
 
-  console.log(data.isMember);
+  const closeModal = () => {
+    setModal(false);
+  };
 
-  const handleClick = (e: MouseEvent) => {
+  const openModal = () => {
+    setModal(true);
+  };
+
+  const handleClick = async (e: MouseEvent) => {
     try {
-      mutate(e.currentTarget.id);
+      await mutate({
+        teamId: data.projectTeamId,
+        recruitCategory: e.currentTarget.id,
+      });
+
       queryclient.invalidateQueries({
         queryKey: ["project", "post", params.id],
       });
     } catch {}
 
-    setModal(false);
-  };
-
-  const CloseModal = () => {
-    setModal(false);
+    closeModal();
   };
 
   return (
     <>
       {modal && (
-        <Modal isOpen={modal} onClose={CloseModal}>
+        <Modal isOpen={modal} onClose={closeModal}>
           <div>
-            <button className="flex items-center" onClick={CloseModal}>
+            <button className="flex items-center" onClick={closeModal}>
               <Image
                 className=""
                 src="/icons/backArrow.svg"
@@ -111,12 +120,18 @@ const ProjectPostPage = ({ params }: { params: { id: string } }) => {
 
       <p className="p-6">{data.contents}</p>
 
-      <PostButtonGroup
-        isEdit={data.isMember}
-        teamId={data.projectTeamId}
-        postType="project"
-        onClick={() => setModal(true)}
-      />
+      {data.postStatus === "RECRUITING" ? (
+        <PostButtonGroup
+          isEdit={data.isMember}
+          teamId={data.projectTeamId}
+          postType="project"
+          action={openModal}
+        />
+      ) : (
+        <p className="py-2 rounded-lg bg-primary text-white">
+          모집이 완료된 게시글입니다.
+        </p>
+      )}
     </>
   );
 };
