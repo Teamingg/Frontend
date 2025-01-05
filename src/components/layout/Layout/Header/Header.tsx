@@ -1,9 +1,14 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 
 import LogoutButton from "../../../auth/LogoutButton";
+import { useToast } from "@/hooks/useToast";
 
 const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+  const { toast } = useToast();
+
   return (
     <header className="w-full fixed top-0 left-0 z-50 bg-white">
       <div className="max-w-[1200px] mx-auto flex justify-between items-center py-6">
@@ -26,7 +31,13 @@ const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
                 <LogoutButton />
               )}
             </li>
-            <li>
+            <li
+              onClick={() => {
+                if (!isLoggedIn) {
+                  toast.error("로그인이 필요합니다.");
+                }
+              }}
+            >
               <Link href="/my">마이페이지</Link>
             </li>
             <li>알림</li>

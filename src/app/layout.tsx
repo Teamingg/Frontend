@@ -8,6 +8,7 @@ import Footer from "@/components/layout/Layout/Footer";
 
 import checkCookie from "@/utils/auth/checkCookie";
 import React from "react";
+import ToastList from "@/components/common/Toast/ToastList";
 
 export const metadata: Metadata = {
   title: "티밍",
@@ -29,12 +30,17 @@ export default async function RootLayout({
   return (
     <html lang="ko">
       <body className="w-full h-screen pt-[80px]">
-        <div id="modal-root">{modal}</div>
+        <div id="toast"></div>
+        <div id="modal-root"></div>
 
         <Header isLoggedIn={isLoggedIn} />
 
         <main className="max-w-[1200px] mx-auto">
-          <AppProvider>{children}</AppProvider>
+          <AppProvider>
+            <ToastList />
+            {modal}
+            {children}
+          </AppProvider>
         </main>
 
         <footer>
