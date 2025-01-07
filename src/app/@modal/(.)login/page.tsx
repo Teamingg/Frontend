@@ -1,9 +1,9 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-
 import Image from "next/image";
 import Link from "next/link";
+
 import Modal from "@/components/common/Modal/Modal";
 
 const oAuthList = [
@@ -26,11 +26,6 @@ const Page = () => {
   const closeModal = () => {
     router.back();
   };
-
-  console.log(
-    "process.env.NEXT_PUBLIC_AUTH_URL : ",
-    process.env.NEXT_PUBLIC_AUTH_URL
-  );
 
   return (
     <Modal isOpen={true} onClose={closeModal}>

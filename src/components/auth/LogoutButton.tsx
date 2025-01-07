@@ -5,6 +5,7 @@ import React from "react";
 import { useRouter } from "next/navigation";
 
 import { instance } from "@/service/api/instance/axiosInstance";
+import { queryclient } from "@/lib/getQueryClient";
 
 const LogoutButton = () => {
   const router = useRouter();
@@ -18,6 +19,8 @@ const LogoutButton = () => {
         throw new Error("잠시 후 다시 시도해주세요.");
       }
 
+      // 로그아웃 시 모든 캐시 데이터 리셋
+      queryclient.resetQueries();
       router.refresh();
     } catch (error) {
       console.log(error);

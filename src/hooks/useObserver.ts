@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const useObserver = ({ threshold = 0.5 }: { threshold?: number }) => {
+const useObserver = (threshold?: number) => {
   const observerElement = useRef<HTMLDivElement>(null);
   const [isView, setIsView] = useState<boolean>(false);
 
@@ -12,7 +12,7 @@ const useObserver = ({ threshold = 0.5 }: { threshold?: number }) => {
         });
       },
       {
-        threshold: threshold,
+        threshold: threshold || 0.5,
       }
     );
     if (observerElement.current) {
@@ -20,11 +20,12 @@ const useObserver = ({ threshold = 0.5 }: { threshold?: number }) => {
     }
 
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       if (observerElement.current) {
         observer.disconnect();
       }
     };
-  }, []);
+  }, [threshold]);
 
   return {
     ref: observerElement,

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // types
 import { UserInfoFormValues } from "@/components/user/UserInfoForm/UserInfoFormValues";
@@ -15,6 +15,7 @@ import UserInfoContent from "./UserInfoContent";
 import { useRouter } from "next/navigation";
 import STACK_LIST from "@/constant/stackList";
 import EditUserForm from "./EditUserForm/EditUserForm";
+import { filterItemsByIds } from "@/utils/filterItemsByIds";
 
 const UserInfoSection = () => {
   const router = useRouter();
@@ -27,13 +28,14 @@ const UserInfoSection = () => {
     setEdit(false);
   };
 
+  useEffect(() => {
+    if (isSuccess) {
+      setEdit(false);
+    }
+  }, [isSuccess]);
+
   const onSubmit = async (data: UserInfoFormValues) => {
     mutate(data);
-
-    // 성공 시 모달Close
-    if (isSuccess) {
-      return setEdit(false);
-    }
   };
 
   return (
@@ -54,7 +56,7 @@ const UserInfoSection = () => {
             userInfo={{
               name: userInfo!.name,
               introduce: userInfo!.introduce,
-              stacks: userInfo!.stacks,
+              stacksIds: userInfo!.stacks,
             }}
           />
         </Modal>
@@ -65,7 +67,7 @@ const UserInfoSection = () => {
           {userInfo && (
             <button
               onClick={() => setEdit(true)}
-              className="bg-primary text-sm text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors"
+              className="bg-primary text-sm text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors disabled:bg-opacity-90"
             >
               수정하기
             </button>
@@ -76,11 +78,7 @@ const UserInfoSection = () => {
             name={userInfo.name || ""}
             introduce={userInfo.introduce || ""}
             waringCnt={userInfo.waringCnt || 0}
-            stacks={
-              STACK_LIST.filter((item) =>
-                userInfo.stacks.includes(item.value)
-              ) || []
-            }
+            stacks={filterItemsByIds(userInfo.stacks, STACK_LIST) || []}
           />
         )}
 

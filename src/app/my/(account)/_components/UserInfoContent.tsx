@@ -14,7 +14,6 @@ const UserInfoContent = ({
   introduce,
   stacks,
 }: UserInfoContentProps) => {
-  console.log(stacks);
   return (
     <div>
       <div className="flex mb-4">

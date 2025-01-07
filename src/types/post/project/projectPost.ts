@@ -9,9 +9,10 @@ export default interface ProjectPost {
   memberCnt: number; // 구인중인 멤버의 수
   link: string; // 연락방법
   contents: string; // 게시글 컨텐츠
-  status: TeamStatus; // 게시글 상태 ( 모집중, 모집완료 )
+  postStatus: TeamStatus; // 게시글 상태 ( 모집중, 모집완료 )
   projectTeamId: number; // 게시글을 올린 프로젝트의 팀 ID
   postId: number; // 게시글 ID
   stacks: string[]; // 기술스택 리스트
   recruitCategories: string[]; // 모집구분 리스트
+  isMember: boolean;
 }
