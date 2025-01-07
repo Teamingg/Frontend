@@ -1,12 +1,33 @@
+"use client";
 import React from 'react';
+import {instance} from "@/service/api/instance/axiosInstance";
+import {useQuery} from "@tanstack/react-query";
+import {getMentoringTeamInfo} from "@/service/api/team/getMentoringTeamInfo";
+import StatusButton from "@/app/team/[teamID]/info/components/StatusButton";
+
+interface TeamInfo {
+  categories: string[];
+  content: string;
+  endDate: string;
+  id: number;
+  link: string;
+  mentoringCnt: number;
+  name: string;
+  startDate: string;
+  status: string;
+}
 
 const Page = () => {
+  const {data, error, isLoading} = useQuery<TeamInfo>({
+    queryKey: ["id"],
+    queryFn: getMentoringTeamInfo
+  })
+  console.log(data)
+
   return (
     <div className="team-intro-container border rounded p-4">
       {/* 모집 상태 */}
-      <div className="status-container flex justify-end">
-        <button className="status-button bg-blue-500 text-white py-2 px-4 rounded">모집중</button>
-      </div>
+      <StatusButton status={data?.dto?.status}/>
 
       {/* 팀 소개 */}
       <div className="team-intro-section border-t mt-4 pt-4">
