@@ -1,19 +1,32 @@
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+"use client";
 
-import { queryclient } from "@/lib/getQueryClient";
+import useGetMyProjectTeam from "@/hooks/team/project/useGetMyProjectTeam";
+import MyTeamItem from "../_components/MyTeamItem";
 
-import ProjectTeamList from "@/app/my/(team)/project/_components/ProjectTeamList";
-import getMyProjectTeam from "@/service/api/getMyProjectTeam";
+const MyProjectTeamPage = () => {
+  const { projectTeam } = useGetMyProjectTeam();
 
-const MyProjectTeamPage = async () => {
-  await queryclient.prefetchQuery({
-    queryKey: ["user", "team", "project"],
-    queryFn: () => getMyProjectTeam(),
-  });
   return (
-    <HydrationBoundary state={dehydrate(queryclient)}>
-      <ProjectTeamList />
-    </HydrationBoundary>
+    <>
+      {(!projectTeam || projectTeam.length === 0) && (
+        <p className="px-3">아직 참여중인 프로젝트 팀이 없습니다.</p>
+      )}
+
+      {projectTeam && (
+        <ul className="gap-4 grid grid-cols-2">
+          {projectTeam.map((team) => (
+            <MyTeamItem
+              name={team.teamName}
+              key={team.projectTeamId}
+              id={team.projectTeamId}
+              status={team.status}
+              role={team.role}
+              category={"project"}
+            />
+          ))}
+        </ul>
+      )}
+    </>
   );
 };
 

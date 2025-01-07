@@ -3,8 +3,8 @@ import "./globals.css";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 import { queryclient } from "@/lib/getQueryClient";
-import { getAllProjectPosts } from "@/service/api/getAllProjectPosts";
-import { getAllMentoringPosts } from "@/service/api/getAllMentoringPosts";
+import { getAllProjectPosts } from "@/service/api/project/post/getAllProjectPosts";
+import { getAllMentoringPosts } from "@/service/api/mentoring/post/getAllMentoringPosts";
 
 import SectionHeader from "@/components/layout/Main/CatrgoryHeader";
 import TeamProjectNavigation from "@/components/layout/Layout/Header/GlobalNavigation";
@@ -13,22 +13,23 @@ import ProjectPostList from "@/components/post/ProjectPostList";
 import MentoringPostList from "@/components/post/MentoringPostList";
 
 export default async function Home() {
+  // 프로젝트 포스트
   await queryclient.prefetchInfiniteQuery({
-    queryKey: ["project"],
-    queryFn: ({ pageParam }) =>
-      getAllProjectPosts({ nextCursor: pageParam as number }),
+    queryKey: ["project", "post"],
+    queryFn: async ({ pageParam }) =>
+      await getAllProjectPosts({ nextCursor: pageParam as number }),
     initialPageParam: 0,
   });
 
+  // 멘토링 포스트
   await queryclient.prefetchInfiniteQuery({
-    queryKey: ["mentoring"],
-    queryFn: ({ pageParam }) =>
-      getAllMentoringPosts({ nextCursor: pageParam as number }),
+    queryKey: ["mentoring", "post"],
+    queryFn: async ({ pageParam }) =>
+      await getAllMentoringPosts({ nextCursor: pageParam as number }),
     initialPageParam: 0,
   });
 
   return (
-    // tailwindcss test
     <>
       <TeamProjectNavigation />
 

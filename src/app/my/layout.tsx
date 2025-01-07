@@ -1,3 +1,5 @@
+"use client";
+
 import SectionLayout from "@/components/layout/DetailSection/SectionLayout";
 
 const myPagePaths = [

@@ -1,1 +1,1 @@
-export type TeamStatus = "RECRUITING" | "COMPLETED" | "WORKING";
+export type TeamStatus = "RECRUITING" | "COMPLETE" | "WORKING";

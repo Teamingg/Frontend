@@ -12,7 +12,7 @@ import { UserInfoFormValues } from "./UserInfoFormValues";
 
 const UserInfoFormField = [
   {
-    label: "닉네임 (필수)",
+    label: "닉네임",
     name: "name" as keyof UserInfoFormValues,
     required: true,
     rules: {
@@ -35,10 +35,11 @@ const UserInfoFormField = [
     },
   },
   {
-    label: "자기소개 (선택)",
+    label: "자기소개",
     name: "introduce" as keyof UserInfoFormValues,
-    required: false,
+    required: true,
     rules: {
+      required: "자기소개는 필수 항목입니다.",
       maxLength: {
         value: 100,
         message: "자기소개는 최대 100자까지 입력 할 수 있습니다.",
@@ -75,7 +76,7 @@ const UserInfoForm = ({
     defaultValues: defaultValues || {
       name: "",
       introduce: "",
-      stacks: [],
+      stacksIds: [],
     },
   });
 
@@ -119,7 +120,7 @@ const UserInfoForm = ({
       <div className="py-2 flex flex-col w-full">
         <div className="mb-2">기술스택 (선택)</div>
         <SelectCheckBox
-          name="stacks"
+          name="stacksIds"
           placeholder="사용가능한 기술스택을 선택해주세요."
           checkBoxList={STACK_LIST}
           control={control as unknown as Control<FieldValues>}
@@ -130,7 +131,7 @@ const UserInfoForm = ({
       {/* 폼 전송 버튼 */}
       <button
         className="bg-primary text-white w-full py-2 text-center mt-6 rounded-md hover:bg-opacity-85 disabled:bg-opacity-70 transition-colors disabled:cursor-not-allowed"
-        disabled={!isValid || isSubmitting}
+        disabled={isSubmitting || !isValid}
       >
         {isEdit ? "수정하기" : "제출하기"}
       </button>

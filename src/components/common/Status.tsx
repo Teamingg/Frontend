@@ -1,6 +1,4 @@
 import { TeamStatus } from "@/types/team/teamStatus";
-import React from "react";
-
 interface StatusProps {
   status: TeamStatus;
   // RECRUITING | COMPLETED | WORKING;
@@ -10,7 +8,7 @@ const Status = ({ status }: StatusProps) => {
   const bgColor =
     status === "RECRUITING"
       ? "bg-green-500"
-      : status === "COMPLETED"
+      : status === "COMPLETE"
       ? "bg-gray-500"
       : status === "WORKING"
       ? "bg-primary"
@@ -21,7 +19,7 @@ const Status = ({ status }: StatusProps) => {
       <span>
         {status === "RECRUITING"
           ? "모집중"
-          : status === "COMPLETED"
+          : status === "COMPLETE"
           ? "모집완료"
           : status === "WORKING"
           ? "진행중"
