@@ -1,51 +1,45 @@
 "use client";
 
-import { MouseEvent, useEffect, useState } from "react";
+import { MouseEvent, useEffect } from "react";
 import Image from "next/image";
 
 import STACK_LIST from "@/constant/stackList";
 import { RECRUITE_CATEGORY } from "@/constant/recruiteCategory";
 
 import { queryclient } from "@/lib/getQueryClient";
-
 import { filterItemsByIds } from "@/utils/filterItemsByIds";
 
 import useJoinProjectTeam from "@/hooks/team/project/useJoinProjectTeam";
 import { useGetProjectPost } from "@/hooks/post/project/useGetProjectPost";
+import { useToast } from "@/hooks/useToast";
+import useModal from "@/hooks/useModal";
 
 import Modal from "@/components/common/Modal/Modal";
 
 import PostHeader from "../../_components/PostHeader";
 import PostInfo from "../../_components/PostInfo";
 import PostButtonGroup from "../../_components/PostButtonGroup";
-import { useToast } from "@/hooks/useToast";
 
 const ProjectPostPage = ({ params }: { params: { id: string } }) => {
   const { toast } = useToast();
-  const [modal, setModal] = useState<boolean>(false);
+  const { modal, openModal, closeModal } = useModal();
 
   const { data } = useGetProjectPost(params.id);
-
   const { mutate, isSuccess } = useJoinProjectTeam();
 
   useEffect(() => {
     if (isSuccess) {
+      queryclient.invalidateQueries({
+        queryKey: ["project", "post", params.id],
+      });
       toast.success("신청이 완료되었습니다.");
     }
-  }, [isSuccess, toast]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
 
   if (!data) {
     return null;
   }
-
-  const closeModal = () => {
-    setModal(false);
-  };
-
-  const openModal = () => {
-    setModal(true);
-  };
-
   const handleClick = async (e: MouseEvent) => {
     try {
       await mutate({
@@ -63,6 +57,7 @@ const ProjectPostPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <>
+      {/* 프로젝트 팀 지원 시 모집구분 선택하는 모달 */}
       {modal && (
         <Modal isOpen={modal} onClose={closeModal}>
           <div>
@@ -122,10 +117,12 @@ const ProjectPostPage = ({ params }: { params: { id: string } }) => {
 
       {data.postStatus === "RECRUITING" ? (
         <PostButtonGroup
+          isApply={data.isApply}
           isEdit={data.isMember}
           teamId={data.projectTeamId}
           postType="project"
           action={openModal}
+          boardId={data.postId}
         />
       ) : (
         <p className="py-2 rounded-lg bg-primary text-white">
