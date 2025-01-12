@@ -5,6 +5,7 @@ interface AlertModalProps {
   onClose: () => void;
   isOpen: boolean;
   onConfirm: () => void;
+  title?: string;
   message: string;
   buttonLabel?: string;
   ConfirmButonColor?: string;
@@ -16,17 +17,22 @@ const AlertModal = ({
   onConfirm,
   message,
   buttonLabel = "확인",
+  title,
   ConfirmButonColor = "bg-primary",
 }: AlertModalProps) => {
+  const buttonHover = "hover:bg-opacity-85 transition-colors";
+  const buttonCommonStyle = "py-2 rounded-lg w-full";
+
   return (
     <Modal onClose={onClose} isOpen={isOpen}>
-      <p className="mb-6 text-xl">{message}</p>
+      {title && <h3 className="text-center text-xl mb-4">{title}</h3>}
+      <p className={`mb-6 text-lg ${title && "text-gray-500"}`}>{message}</p>
       <div className="flex gap-4">
-        <button className="py-2 border rounded-lg w-full" onClick={onClose}>
+        <button className={`${buttonCommonStyle} border`} onClick={onClose}>
           닫기
         </button>
         <button
-          className={`py-2 rounded-lg w-full text-white  ${ConfirmButonColor}`}
+          className={`${buttonCommonStyle} text-white  ${ConfirmButonColor} ${buttonHover}`}
           onClick={onConfirm}
         >
           {buttonLabel}
