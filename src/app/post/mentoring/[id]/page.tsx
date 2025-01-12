@@ -32,6 +32,7 @@ const MentoringPostPage = ({ params }: { params: { id: string } }) => {
       });
       toast.success("신청이 완료되었습니다.");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isSuccess]);
 
   if (!data) {
@@ -72,14 +73,16 @@ const MentoringPostPage = ({ params }: { params: { id: string } }) => {
 
       <p className="p-6">{data.contents}</p>
 
-      <PostButtonGroup
-        isApply={data.authority === "NoAuth" && data.isParticipate}
-        isEdit={data.authority !== "NoAuth"}
-        teamId={data.teamId}
-        postType="mentoring"
-        action={openModal}
-        boardId={data.boardId}
-      />
+      {data.status === "RECRUITING" && (
+        <PostButtonGroup
+          isApply={data.authority === "NoAuth" && data.isParticipate}
+          isEdit={data.authority !== "NoAuth"}
+          teamId={data.teamId}
+          postType="mentoring"
+          action={openModal}
+          boardId={data.boardId}
+        />
+      )}
     </>
   );
 };
