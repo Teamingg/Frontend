@@ -71,7 +71,10 @@ const ProjectPostPage = ({ params }: { params: { id: string } }) => {
               />
               <span className="ml-2 text-primary">뒤로가기</span>
             </button>
-            <p className="text-lg py-4">프로젝트 지원 분야를 선택해주세요.</p>
+            <h3 className="py-2 text-xl text-center">지원분야</h3>
+            <p className="text-lg mb-4 text-gray-500">
+              프로젝트 팀에 지원하고자 하는 분야를 선택해주세요.
+            </p>
           </div>
 
           <ul className="space-y-4">
@@ -81,7 +84,7 @@ const ProjectPostPage = ({ params }: { params: { id: string } }) => {
                   <button
                     id={item.value}
                     onClick={handleClick}
-                    className="w-full text-white bg-primary rounded-lg py-4"
+                    className="w-full text-white bg-primary rounded-lg py-4 hover:bg-opacity-90 transition-colors"
                   >
                     {item.label}
                   </button>
