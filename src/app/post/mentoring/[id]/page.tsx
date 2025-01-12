@@ -44,6 +44,7 @@ const MentoringPostPage = ({ params }: { params: { id: string } }) => {
       {modal && (
         <AlertModal
           onClose={closeModal}
+          title="지원하기"
           message="해당 팀에 지원하시겠습니까?"
           onConfirm={() => {
             closeModal();
