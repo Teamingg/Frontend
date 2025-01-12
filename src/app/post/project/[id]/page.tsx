@@ -40,9 +40,9 @@ const ProjectPostPage = ({ params }: { params: { id: string } }) => {
   if (!data) {
     return null;
   }
-  const handleClick = async (e: MouseEvent) => {
+  const handleClick = (e: MouseEvent) => {
     try {
-      await mutate({
+      mutate({
         teamId: data.projectTeamId,
         recruitCategory: e.currentTarget.id,
       });
@@ -115,7 +115,7 @@ const ProjectPostPage = ({ params }: { params: { id: string } }) => {
 
       <p className="p-6">{data.contents}</p>
 
-      {data.postStatus === "RECRUITING" ? (
+      {data.postStatus === "RECRUITING" && (
         <PostButtonGroup
           isApply={data.isApply}
           isEdit={data.isMember}
@@ -124,10 +124,6 @@ const ProjectPostPage = ({ params }: { params: { id: string } }) => {
           action={openModal}
           boardId={data.postId}
         />
-      ) : (
-        <p className="py-2 rounded-lg bg-primary text-white">
-          모집이 완료된 게시글입니다.
-        </p>
       )}
     </>
   );
