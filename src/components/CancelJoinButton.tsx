@@ -49,9 +49,10 @@ const CancelJoinButton = ({
     <>
       {modal && (
         <AlertModal
+          title="지원취소"
           onClose={closeModal}
           isOpen={modal}
-          message="정말로 지원을 취소 하시겠습니까?"
+          message="해당 팀에 대한 지원을 정말로 취소 하시겠습니까?"
           buttonLabel="네"
           ConfirmButonColor="bg-red-400"
           onConfirm={() => mutate()}
