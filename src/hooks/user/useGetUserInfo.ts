@@ -5,7 +5,7 @@ import { getUserInfo } from "../../service/api/user/getUserInfo";
 const useGetUserInfo = () => {
   const {
     data: userInfo,
-    error,
+    isPending,
     isError,
   } = useQuery<UserInfo>({
     queryKey: ["user", "info"],
@@ -14,7 +14,7 @@ const useGetUserInfo = () => {
 
   return {
     userInfo,
-    error,
+    isPending,
     isError,
   };
 };
