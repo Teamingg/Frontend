@@ -1,3 +1,5 @@
+"use client";
+
 import UserInfoSection from "@/app/my/(account)/_components/UserInfoSection";
 import UserReviewList from "./_components/UserReview/UserReviewList";
 

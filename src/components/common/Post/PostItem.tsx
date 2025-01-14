@@ -31,7 +31,7 @@ const PostItem = ({
 
   return (
     <Link
-      href={`${category}/${id}`}
+      href={`/post/${category}/${id}`}
       className="bg-white shadow-sm p-4 rounded-lg block"
     >
       <div className="flex justify-between text-sm text-gray-400">

@@ -12,7 +12,7 @@ const UserReviewList = () => {
 
   return (
     <>
-      {(data?.length === 0 || !data) && (
+      {data && data?.length === 0 && (
         <p>
           아직 팀원들에게 받은 후기가 없습니다. 프로젝트에 참여하고 후기를
           받아보세요

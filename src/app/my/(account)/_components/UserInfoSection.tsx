@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 // types
 import { UserInfoFormValues } from "@/components/user/UserInfoForm/UserInfoFormValues";
@@ -8,31 +9,31 @@ import { UserInfoFormValues } from "@/components/user/UserInfoForm/UserInfoFormV
 // hooks
 import useUpdateUserInfo from "../../../../hooks/user/useUpdateUserInfo";
 import useGetUserInfo from "../../../../hooks/user/useGetUserInfo";
+import useModal from "@/hooks/useModal";
 
 // components
-import Modal from "@/components/common/Modal/Modal";
 import UserInfoContent from "./UserInfoContent";
-import { useRouter } from "next/navigation";
-import STACK_LIST from "@/constant/stackList";
 import EditUserForm from "./EditUserForm/EditUserForm";
+import Modal from "@/components/common/Modal/Modal";
+import LoadingIndicator from "@/components/common/LoadingIndicator";
+
 import { filterItemsByIds } from "@/utils/filterItemsByIds";
+
+import STACK_LIST from "@/constant/stackList";
 
 const UserInfoSection = () => {
   const router = useRouter();
 
-  const [edit, setEdit] = useState<boolean>(false);
+  const { modal: edit, openModal, closeModal } = useModal();
 
-  const { userInfo, isError, error } = useGetUserInfo();
+  const { userInfo, isError, isPending } = useGetUserInfo();
   const { mutate, isSuccess } = useUpdateUserInfo();
-  const closeModal = () => {
-    setEdit(false);
-  };
 
   useEffect(() => {
     if (isSuccess) {
-      setEdit(false);
+      closeModal();
     }
-  }, [isSuccess]);
+  }, [isSuccess, closeModal]);
 
   const onSubmit = async (data: UserInfoFormValues) => {
     mutate(data);
@@ -66,13 +67,20 @@ const UserInfoSection = () => {
           <h2 className=" text-xl text-primary">회원정보</h2>
           {userInfo && (
             <button
-              onClick={() => setEdit(true)}
+              onClick={openModal}
               className="bg-primary text-sm text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors disabled:bg-opacity-90"
             >
               수정하기
             </button>
           )}
         </div>
+
+        {isPending && (
+          <div className="flex justify-center items-center h-[200px]">
+            <LoadingIndicator />
+          </div>
+        )}
+
         {userInfo && (
           <UserInfoContent
             name={userInfo.name || ""}
@@ -85,7 +93,9 @@ const UserInfoSection = () => {
         {/* 유저 정보를 불러오지 못했을 때 */}
         {isError && (
           <>
-            <p className="mb-2 text-center">{error?.message}</p>
+            <p className="mb-2 text-center">
+              정보를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.
+            </p>
             <button
               onClick={() => router.replace("/")}
               className="w-full py-2 bg-primary text-white rounded-lg"

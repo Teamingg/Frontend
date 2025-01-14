@@ -17,4 +17,5 @@ export default interface MentoringPost {
   createdDate: string;
   modifiedDate: string;
   authority: string;
+  isParticipate: boolean;
 }
