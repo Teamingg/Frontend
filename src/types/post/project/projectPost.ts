@@ -14,5 +14,6 @@ export default interface ProjectPost {
   postId: number; // 게시글 ID
   stacks: string[]; // 기술스택 리스트
   recruitCategories: string[]; // 모집구분 리스트
-  isMember: boolean;
+  isMember: boolean; // 해당 팀의 멤버인가
+  isApply: boolean; // 해당 팀에 신청을 한 상태인가
 }

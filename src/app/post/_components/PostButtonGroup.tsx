@@ -1,14 +1,17 @@
 "use client";
 
+import CancelJoinButton from "@/components/CancelJoinButton";
 import { useToast } from "@/hooks/useToast";
 import checkCookie from "@/utils/auth/checkCookie";
 import Link from "next/link";
 import React from "react";
 
 interface PostButtonGroupProps {
-  isEdit: boolean;
+  isApply: boolean; // 지원여부
+  isEdit: boolean; // 팀원여부
   postType: "project" | "mentoring";
-  teamId: string | number;
+  teamId: number;
+  boardId: number;
   action: () => void;
 }
 
@@ -16,6 +19,8 @@ const PostButtonGroup = ({
   isEdit,
   postType,
   teamId,
+  isApply,
+  boardId,
   action,
 }: PostButtonGroupProps) => {
   const { toast } = useToast();
@@ -40,14 +45,23 @@ const PostButtonGroup = ({
       >
         {`${category} 팀 보러가기`}
       </Link>
-      {isEdit ? (
+
+      {!isEdit && isApply && (
+        <CancelJoinButton category={postType} teamId={teamId} boardId={boardId}>
+          지원 취소하기
+        </CancelJoinButton>
+      )}
+
+      {!isApply && isEdit && (
         <Link
           className="py-4 w-full bg-primary text-white rounded-lg text-center"
           href={`/edit/${postType}`}
         >
           수정하기
         </Link>
-      ) : (
+      )}
+
+      {!isEdit && !isApply && (
         <button
           onClick={onClick}
           className="py-4 w-full bg-primary text-white rounded-lg"
