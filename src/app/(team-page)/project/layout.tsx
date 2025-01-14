@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import SectionLayout from "@/components/layout/DetailSection/SectionLayout";
 import {instance} from "@/service/api/instance/axiosInstance";
@@ -9,7 +10,7 @@ const teamPageLeaderPaths = [
   { label: "작성한 게시글", path: "/team/1/post" },
 ];
 
-const Layout = async ({ children }: { children: React.ReactNode }) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <SectionLayout sectionTitle="마이페이지" navPaths={teamPageLeaderPaths}>
       {children}

@@ -1,9 +1,8 @@
 "use client";
 import React from 'react';
-import {instance} from "@/service/api/instance/axiosInstance";
 import {useQuery} from "@tanstack/react-query";
 import {getMentoringTeamInfo} from "@/service/api/team/getMentoringTeamInfo";
-import StatusButton from "@/app/team/[teamID]/info/components/StatusButton";
+import StatusButton from "@/app/(team-page)/components/StatusButton";
 
 interface TeamInfo {
   categories: string[];
@@ -18,7 +17,10 @@ interface TeamInfo {
 }
 
 const Page = () => {
-  const {data, error, isLoading} = useQuery<TeamInfo>({
+  const {
+    data,
+    error,
+    isLoading} = useQuery<TeamInfo>({
     queryKey: ["id"],
     queryFn: getMentoringTeamInfo
   })
