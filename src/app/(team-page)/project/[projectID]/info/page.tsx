@@ -17,6 +17,7 @@ interface TeamInfo {
 }
 
 const Page = () => {
+  // project/team/{team_id}
   const {
     data,
     error,

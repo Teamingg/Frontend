@@ -5,6 +5,7 @@ import useInfinitePosts from "@/hooks/useInfinitePosts";
 import {getMentoringTeamInfo} from "@/service/api/team/getMentoringTeamInfo";
 
 const Page = () => {
+  // mentoring
   const { fetchNextPage, hasNextPage, isFetchingNextPage, data } =
     useInfinitePosts({
       category: "mentoring",
