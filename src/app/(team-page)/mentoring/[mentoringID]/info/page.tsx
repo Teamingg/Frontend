@@ -57,7 +57,7 @@ const Page = () => {
               key={item.label}
               label={item.label}
               infoData={item.infoData}
-              className={"flex justify-between"}
+              className={"flex justify-between items-center"}
             />
           ))}
         </ul>

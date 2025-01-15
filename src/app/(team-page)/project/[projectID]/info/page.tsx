@@ -35,7 +35,7 @@ const Page = () => {
   const teamInfoItems = [
     { label: "시작일자", infoData: data?.dto.startDate },
     { label: "종료일자", infoData: data?.dto.endDate },
-    { label: "모집인원", infoData: data?.dto.mentoringCnt },
+    { label: "모집인원", infoData: `${data?.dto.mentoringCnt} 명` },
     { label: "연락방법", infoData: data?.dto.link },
     { label: "기술스택", infoData: null },
     { label: "모집구분", infoData: "프론트엔드 기획자" },
@@ -49,15 +49,15 @@ const Page = () => {
 
       {/* 팀 소개 */}
       <TeamInfoSection>
-        <ul className="flex flex-col">
+        <ul className="flex flex-col gap-4 mb-6">
           {teamInfoItems.map((item) => {
-            if (item.infoData !== null) {
+            if (item.label !== "기술스택") {
               return (
                 <TeamInfoItem
                   key={item.label}
                   label={item.label}
                   infoData={item.infoData}
-                  className={"flex justify-between"}
+                  className={"flex justify-between items-center"}
                 />
               )
             } else {

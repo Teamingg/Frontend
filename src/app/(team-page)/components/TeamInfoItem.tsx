@@ -10,8 +10,8 @@ interface TeamInfoItemProps {
 const TeamInfoItem = ({label, infoData, className}: TeamInfoItemProps) => {
   return (
     <li className={className}>
-      <label className="block text-gray-600">{label}</label>
-      <p>{infoData}</p>
+      <label className="block text-[19px] text-gray-600 align-center">{label}</label>
+      <p className="w-10/12 p-4 text-center border border-gray-300 rounded-xl">{infoData}</p>
     </li>
   );
 };

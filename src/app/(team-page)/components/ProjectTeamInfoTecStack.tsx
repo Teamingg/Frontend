@@ -7,8 +7,8 @@ interface ProjectTeamInfoTecStackProps {
 const ProjectTeamInfoTecStack = ({key}: ProjectTeamInfoTecStackProps) => {
   return (
     <div className="flex justify-between" key={key}>
-      <label className="block text-gray-600">기술스택</label>
-      <div className="flex space-x-2">
+      <label className="block text-[19px] text-gray-600">기술스택</label>
+      <div className="w-10/12 flex justify-center space-x-2">
         <img src="/images/stack-icon1.png" alt="stack1" className="w-8 h-8"/>
         <img src="/images/stack-icon2.png" alt="stack2" className="w-8 h-8"/>
         <img src="/images/stack-icon3.png" alt="stack3" className="w-8 h-8"/>
