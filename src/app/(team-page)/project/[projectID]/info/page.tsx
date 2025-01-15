@@ -43,7 +43,7 @@ const Page = () => {
   ];
 
   return (
-    <div className="team-intro-container border rounded p-4">
+    <div className="h-full p-4 border rounded bg-white">
       {/* 모집 상태 */}
       <StatusButton status={data?.dto?.status}/>
 
