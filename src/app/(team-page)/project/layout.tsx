@@ -4,10 +4,10 @@ import SectionLayout from "@/components/layout/DetailSection/SectionLayout";
 import {instance} from "@/service/api/instance/axiosInstance";
 
 const teamPageLeaderPaths = [
-  { label: "팀 소개", path: "/team/1/info" },
-  { label: "멤버 및 지원자 현황", path: "/team/1/member" },
+  { label: "팀 소개", path: "/project/1/info" },
+  { label: "멤버 및 지원자 현황", path: "/project/1/member" },
   //{ label: "멤버", path: "/team/1/member" },
-  { label: "작성한 게시글", path: "/team/1/post" },
+  { label: "작성한 게시글", path: "/project/1/post" },
 ];
 
 const Layout = ({ children }: { children: React.ReactNode }) => {

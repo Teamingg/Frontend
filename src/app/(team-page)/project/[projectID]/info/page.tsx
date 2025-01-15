@@ -5,6 +5,8 @@ import {getMentoringTeamInfo} from "@/service/api/team/getMentoringTeamInfo";
 import StatusButton from "@/app/(team-page)/components/StatusButton";
 import TeamInfoSection from "@/app/(team-page)/components/TeamInfoSection";
 import TeamDescription from "@/app/(team-page)/components/TeamDescription";
+import ProjectTeamInfoTecStack from "@/app/(team-page)/components/ProjectTeamInfoTecStack";
+import TeamInfoItem from "@/app/(team-page)/components/TeamInfoItem";
 
 interface TeamInfo {
   categories: string[];
@@ -30,6 +32,16 @@ const Page = () => {
   })
   console.log(data)
 
+  const teamInfoItems = [
+    { label: "시작일자", infoData: data?.dto.startDate },
+    { label: "종료일자", infoData: data?.dto.endDate },
+    { label: "모집인원", infoData: data?.dto.mentoringCnt },
+    { label: "연락방법", infoData: data?.dto.link },
+    { label: "기술스택", infoData: null },
+    { label: "모집구분", infoData: "프론트엔드 기획자" },
+    { label: "모집마감일", infoData: data?.dto.endDate },
+  ];
+
   return (
     <div className="team-intro-container border rounded p-4">
       {/* 모집 상태 */}
@@ -37,56 +49,24 @@ const Page = () => {
 
       {/* 팀 소개 */}
       <TeamInfoSection>
-
-        {/* 날짜 정보 */}
-        <ul className="grid grid-cols-2 gap-4 mb-4">
-          <div className="info-item">
-            <label className="block text-gray-600">시작일자</label>
-            <p>2025.01.01</p>
-          </div>
-          <div className="info-item">
-            <label className="block text-gray-600">종료일자</label>
-            <p>2025.04.01</p>
-          </div>
+        <ul className="flex flex-col">
+          {teamInfoItems.map((item) => {
+            if (item.infoData !== null) {
+              return (
+                <TeamInfoItem
+                  key={item.label}
+                  label={item.label}
+                  infoData={item.infoData}
+                  className={"flex justify-between"}
+                />
+              )
+            } else {
+              return (
+                <ProjectTeamInfoTecStack key={item.label}/>
+              )
+            }
+          })}
         </ul>
-
-        {/* 팀 정보 */}
-        <ul className="grid grid-cols-2 gap-4 mb-4">
-          <div className="info-item">
-            <label className="block text-gray-600">모집인원</label>
-            <p>5명</p>
-          </div>
-          <div className="info-item">
-            <label className="block text-gray-600">연락방법</label>
-            <p>https://open.kakao.teaming-1...</p>
-          </div>
-        </ul>
-
-        {/* 기술 스택 */}
-        <ul className="grid grid-cols-2 gap-4 mb-4">
-          <div className="info-item col-span-2">
-            <label className="block text-gray-600">기술스택</label>
-            <div className="flex space-x-2">
-              <img src="/images/stack-icon1.png" alt="stack1" className="w-8 h-8"/>
-              <img src="/images/stack-icon2.png" alt="stack2" className="w-8 h-8"/>
-              <img src="/images/stack-icon3.png" alt="stack3" className="w-8 h-8"/>
-              <img src="/images/stack-icon4.png" alt="stack4" className="w-8 h-8"/>
-            </div>
-          </div>
-        </ul>
-
-        {/* 모집 구분 및 마감일 */}
-        <ul className="grid grid-cols-2 gap-4 mb-4">
-          <div className="info-item">
-            <label className="block text-gray-600">모집구분</label>
-            <p>프론트엔드 기획자</p>
-          </div>
-          <div className="info-item">
-            <label className="block text-gray-600">모집마감일</label>
-            <p>2025.01.08</p>
-          </div>
-        </ul>
-
 
         {/* My Team 소개 */}
         <TeamDescription content={data?.dto.content}/>
