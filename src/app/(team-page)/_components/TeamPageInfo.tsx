@@ -25,7 +25,7 @@ const TeamPageInfo: React.FC<TeamPageInfo> = (
     authority
   }) => {
   return (
-    <div className="h-full p-4 border rounded bg-white">
+    <div className="h-full p-4 border rounded bg-white overflow-y-auto">
       {/*모집 상태*/}
       <StatusButton status={status}/>
 
