@@ -2,6 +2,8 @@
 import React from 'react';
 import {useQuery} from "@tanstack/react-query";
 import {getMentoringTeamPost} from "@/service/api/getMentoringTeamPost";
+import PostSeeMoreBtn from "@/app/(team-page)/_components/PostSeeMoreBtn";
+import PostPageContainer from "@/app/(team-page)/_components/PostPageContainer";
 
 const Page = () => {
   // mentoring/teams/{team_id}/posts
@@ -12,10 +14,9 @@ const Page = () => {
   console.log(data)
 
   return (
-    /* 게시물이 존재한다면 출력, 없다면 X */
-    <div>
-      <a><span>더보기</span></a>
-    </div>
+    <PostPageContainer data={data}>
+      <div>children</div>
+    </PostPageContainer>
   );
 };
 
