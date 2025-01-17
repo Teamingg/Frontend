@@ -2,6 +2,7 @@
 import React from 'react';
 import {useQuery} from "@tanstack/react-query";
 import {getProjectTeamMember} from "@/service/api/getProjectTeamMember";
+import MemberTable from "@/app/(team-page)/_components/MemberTable";
 
 const Page = () => {
   // project/team/{team_id}/member
@@ -9,10 +10,9 @@ const Page = () => {
     queryKey: ["page"],
     queryFn: getProjectTeamMember
   })
+
   return (
-    <div>
-      
-    </div>
+    <MemberTable/>
   );
 };
 

@@ -2,6 +2,7 @@
 import React from 'react';
 import {useQuery} from "@tanstack/react-query";
 import {getMentoringTeamMembers} from "@/service/api/getMentoringTeamMembers";
+import MemberTable from "@/app/(team-page)/_components/MemberTable";
 
 const Page = () => {
   // mentoring/teams/{team_id}/status
@@ -10,11 +11,8 @@ const Page = () => {
     queryFn: getMentoringTeamMembers
   })
 
-  console.log(data)
   return (
-    <div>
-      
-    </div>
+    <MemberTable/>
   );
 };
 
