@@ -5,13 +5,14 @@ import {instance} from "@/service/api/instance/axiosInstance";
 import {useQuery} from "@tanstack/react-query";
 import {getMentoringTeamInfo} from "@/service/api/team/getMentoringTeamInfo";
 import {getProjectTeamInfo} from "@/service/api/team/getProjectTeamInfo";
+import {useParams} from "next/navigation";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
+  const params = useParams();
   const {data, error, isLoading} = useQuery({
     queryKey: ["id"],
     queryFn: getProjectTeamInfo
   });
-  console.log(data);
 
   const teamPageLeaderPaths = [
     { label: "팀 소개", path: "/project/1/info" },

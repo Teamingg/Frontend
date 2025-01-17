@@ -1,12 +1,8 @@
 "use client";
 import React from 'react';
-import StatusButton from "@/app/(team-page)/_components/StatusButton";
-import useInfinitePosts from "@/hooks/useInfinitePosts";
 import {getMentoringTeamInfo} from "@/service/api/team/getMentoringTeamInfo";
-import TeamInfoSection from "@/app/(team-page)/_components/TeamInfoSection";
-import TeamDescription from "@/app/(team-page)/_components/TeamDescription";
-import TeamInfoItem from "@/app/(team-page)/_components/TeamInfoItem";
 import {useQuery} from "@tanstack/react-query";
+import TeamPageInfo from "@/app/(team-page)/_components/TeamPageInfo";
 
 interface MentoringInfo {
   data?: {
@@ -20,7 +16,7 @@ interface MentoringInfo {
       content: string;
     };
   };
-  error?: any;
+  error?: never;
   isLoading: boolean;
 }
 
@@ -63,32 +59,12 @@ const Page = () => {
   ]
 
   return (
-    <div className="border rounded p-4">
-      {/*모집 상태*/}
-      <StatusButton status={data?.dto?.status}/>
-
-       {/*오른쪽 팀 정보 섹션*/}
-      <TeamInfoSection>
-        <ul className="flex flex-col gap-4 mb-6">
-          {MENTORING_INFO_DATA.map(item => (
-            <TeamInfoItem
-              key={item.label}
-              label={item.label}
-              infoData={item.infoData}
-              className={"flex justify-between items-center"}
-            />
-          ))}
-        </ul>
-
-        {/* My Team 소개*/}
-        <TeamDescription content={data?.dto.content || "프로젝트 설명 ..."}/>
-
-         {/*수정하기 버튼*/}
-        <div className="flex justify-center mt-8">
-          <button className="bg-blue-500 text-white px-6 py-2 rounded">수정하기</button>
-        </div>
-      </TeamInfoSection>
-    </div>
+    <TeamPageInfo
+      status={data?.dto.status}
+      infoData={MENTORING_INFO_DATA}
+      content={data?.dto.content}
+      authority={"LEADER"}
+    />
   );
 };
 
