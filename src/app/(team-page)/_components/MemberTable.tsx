@@ -1,23 +1,33 @@
 "use client";
 import React from 'react';
+import MemberTableHeader from "@/app/(team-page)/_components/MemberTableHeader";
+import MemberTableList from "@/app/(team-page)/_components/MemberTableList";
+import MemberTableActionBtn from "@/app/(team-page)/_components/MemberTableActionBtn";
+
+const MEMBER = [
+  {id: 1, label: "날짜"},
+  {id: 2, label: "닉네임"},
+  {id: 3, label: "역할"},
+  {id: 4, label: "강퇴"},
+  {id: 5, label: "신고"},
+  {id: 6, label: "리뷰"}
+]
+
+const LEADER = [
+  {id: 1, label: "신청일시"},
+  {id: 2, label: "닉네임"},
+  {id: 3, label: "경고 횟수"},
+  {id: 4, label: "수락/거절"}
+]
 
 const MemberTable = () => {
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <div className="bg-white shadow-md rounded-lg p-6">
-
         {/* 팀원 리스트 */}
-        <h2 className="text-xl font-bold mb-4">팀원</h2>
-        <div className="w-full flex flex-col border border-gray-300 rounded-md">
+        <MemberTableList title="팀원">
           {/* 테이블 헤더 */}
-          <div className="flex bg-gray-200 p-2 font-semibold text-sm">
-            <div className="w-1/5 text-center">날짜</div>
-            <div className="w-1/5 text-center">닉네임</div>
-            <div className="w-1/5 text-center">역할</div>
-            <div className="w-1/5 text-center">강퇴</div>
-            <div className="w-1/5 text-center">신고</div>
-            <div className="w-1/5 text-center">리뷰</div>
-          </div>
+          <MemberTableHeader tableName={MEMBER}/>
 
           {/* 테이블 데이터 */}
           {Array(5).fill(0).map((_, idx) => (
@@ -27,31 +37,25 @@ const MemberTable = () => {
               <div className="w-1/5">멘티</div>
               <div className="w-1/5">
                 {idx % 2 === 0 ? (
-                  <button className="bg-blue-500 text-white px-2 py-1 rounded text-xs">내보내기</button>
+                  <MemberTableActionBtn actions={[{type: "send", label: "내보내기", onClick: () => {}}]}/>
                 ) : (
                   "강퇴"
                 )}
               </div>
               <div className="w-1/5">
-                <button className="bg-red-500 text-white px-2 py-1 rounded text-xs">신고</button>
+                <MemberTableActionBtn actions={[{type: "report", label: "신고", onClick: () => {}}]}/>
               </div>
               <div className="w-1/5">
-                <button className="bg-yellow-400 text-white px-2 py-1 rounded text-xs">작성</button>
+                <MemberTableActionBtn actions={[{type: "write", label: "작성", onClick: () => {}}]}/>
               </div>
             </div>
           ))}
-        </div>
+        </MemberTableList>
 
         {/* 신청 내역 리스트 */}
-        <h2 className="text-xl font-bold mt-8 mb-4">신청내역</h2>
-        <div className="w-full flex flex-col border border-gray-300 rounded-md">
+        <MemberTableList title="신청내역">
           {/* 테이블 헤더 */}
-          <div className="flex bg-gray-200 p-2 font-semibold text-sm">
-            <div className="w-1/4 text-center">신청일시</div>
-            <div className="w-1/4 text-center">닉네임</div>
-            <div className="w-1/4 text-center">경고 횟수</div>
-            <div className="w-1/4 text-center">수락/거절</div>
-          </div>
+          <MemberTableHeader tableName={LEADER}/>
 
           {/* 테이블 데이터 */}
           {Array(5).fill(0).map((_, idx) => (
@@ -62,8 +66,10 @@ const MemberTable = () => {
               <div className="w-1/4">
                 {idx % 3 !== 0 ? (
                   <>
-                    <button className="bg-blue-500 text-white px-2 py-1 rounded text-xs mr-2">수락</button>
-                    <button className="bg-red-500 text-white px-2 py-1 rounded text-xs">거절</button>
+                    <MemberTableActionBtn actions={[
+                      {type: "approve", label: "수락", onClick: () => {}},
+                      {type: "reject", label: "거절", onClick: () => {}},
+                    ]}/>
                   </>
                 ) : (
                   idx % 2 === 0 ? "거절" : "수락"
@@ -71,8 +77,7 @@ const MemberTable = () => {
               </div>
             </div>
           ))}
-        </div>
-
+        </MemberTableList>
       </div>
     </div>
   );
