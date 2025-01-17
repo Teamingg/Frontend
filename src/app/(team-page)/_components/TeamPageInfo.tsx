@@ -3,6 +3,7 @@ import StatusButton from "@/app/(team-page)/_components/StatusButton";
 import TeamInfoSection from "@/app/(team-page)/_components/TeamInfoSection";
 import TeamInfoItem from "@/app/(team-page)/_components/TeamInfoItem";
 import TeamDescription from "@/app/(team-page)/_components/TeamDescription";
+import ProjectTeamInfoTecStack from "@/app/(team-page)/_components/ProjectTeamInfoTecStack";
 
 interface TeamInfoItem {
   label: string;
@@ -31,16 +32,26 @@ const TeamPageInfo: React.FC<TeamPageInfo> = (
       {/*오른쪽 팀 정보 섹션*/}
       <TeamInfoSection>
         <ul className="flex flex-col gap-4 mb-6">
-          {infoData.map(item => (
-            <TeamInfoItem
-              key={item.label}
-              label={item.label}
-              infoData={typeof item.infoData === "string"
-                ? item.infoData
-                : item.infoData.toString()}
-              className={"flex justify-between items-center"}
-            />
-          ))}
+          {infoData.map(item => {
+            if (item.label !== "기술스택") {
+              return (
+                <TeamInfoItem
+                  key={item.label}
+                  label={item.label}
+                  infoData={typeof item.infoData === "string"
+                    ? item.infoData
+                    : item.infoData !== undefined
+                      ? item.infoData.toString()
+                      : "정보 없음"}
+                  className={"flex justify-between items-center"}
+                />
+              )
+            } else {
+              return (
+                <ProjectTeamInfoTecStack key={item.label}/>
+              )
+            }
+          })}
         </ul>
 
         {/* My Team 소개*/}

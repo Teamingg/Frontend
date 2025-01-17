@@ -26,37 +26,18 @@ const Page = () => {
     queryFn: getMentoringTeamInfo
   });
   console.log(data)
-
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading data</div>;
   if (!data) return <div>No Data Available</div>;
 
   const MENTORING_INFO_DATA = [
-    {
-      label: "시작일자",
-      infoData: data?.dto.startDate,
-    },
-    {
-      label: "종료일자",
-      infoData: data?.dto.endDate,
-    },
-    {
-      label: "모집인원",
-      infoData: data?.dto.mentoringCnt,
-    },
-    {
-      label: "연락방법",
-      infoData: data?.dto.link,
-    },
-    {
-      label: "모집마감일",
-      infoData: data?.dto.endDate,
-    },
-    {
-      label: "모집 분야",
-      infoData: data?.dto.categories?.join(", "),
-    },
-  ]
+    { label: "시작일자", infoData: data?.dto.startDate, },
+    { label: "종료일자", infoData: data?.dto.endDate, },
+    { label: "모집인원", infoData: data?.dto.mentoringCnt, },
+    { label: "연락방법", infoData: data?.dto.link, },
+    { label: "모집마감일", infoData: data?.dto.endDate, },
+    { label: "모집 분야", infoData: data?.dto.categories?.join(", "), },
+  ];
 
   return (
     <TeamPageInfo

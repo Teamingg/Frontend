@@ -1,78 +1,54 @@
 "use client";
 import React from 'react';
 import {useQuery} from "@tanstack/react-query";
-import StatusButton from "@/app/(team-page)/_components/StatusButton";
-import TeamInfoSection from "@/app/(team-page)/_components/TeamInfoSection";
-import TeamDescription from "@/app/(team-page)/_components/TeamDescription";
-import ProjectTeamInfoTecStack from "@/app/(team-page)/_components/ProjectTeamInfoTecStack";
-import TeamInfoItem from "@/app/(team-page)/_components/TeamInfoItem";
 import {getProjectTeamInfo} from "@/service/api/team/getProjectTeamInfo";
+import TeamPageInfo from "@/app/(team-page)/_components/TeamPageInfo";
 
 interface TeamInfo {
-  categories: string[];
-  content: string;
-  endDate: string;
-  id: number;
-  link: string;
-  mentoringCnt: number;
-  name: string;
-  createDate: string;
-  status: string;
+  data?: {
+    categories: string[];
+    content: string;
+    endDate: string;
+    id: number;
+    link: string;
+    mentoringCnt: number;
+    name: string;
+    createDate: string;
+    status: string;
+  }
 }
 
 const Page = () => {
-  const {data, error, isLoading} = useQuery<TeamInfo>({
+  const {
+    data,
+    error,
+    isLoading
+  } = useQuery<TeamInfo>({
     queryKey: ["id"],
     queryFn: getProjectTeamInfo
   });
   console.log(data)
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error loading data</div>;
+  if (!data) return <div>No Data Available</div>;
 
-  const teamInfoItems = [
+  const TEAM_INFO_ITEMS = [
     { label: "시작일자", infoData: data?.createDate },
     { label: "종료일자", infoData: data?.endDate },
-    { label: "모집인원", infoData: `${data?.mentoringCnt} 명` },
+    { label: "모집인원", infoData: `${data?.memberCnt} 명` },
     { label: "연락방법", infoData: data?.link },
-    { label: "기술스택", infoData: null },
+    { label: "기술스택", infoData: 1 },
     { label: "모집구분", infoData: "프론트엔드 기획자" },
     { label: "모집마감일", infoData: data?.endDate },
   ];
 
   return (
-    <div className="h-full p-4 border rounded bg-white">
-      {/* 모집 상태 */}
-      <StatusButton status={data?.status}/>
-
-      {/* 팀 소개 */}
-      <TeamInfoSection>
-        <ul className="flex flex-col gap-4 mb-6">
-          {teamInfoItems.map((item) => {
-            if (item.label !== "기술스택") {
-              return (
-                <TeamInfoItem
-                  key={item.label}
-                  label={item.label}
-                  infoData={item.infoData}
-                  className={"flex justify-between items-center"}
-                />
-              )
-            } else {
-              return (
-                <ProjectTeamInfoTecStack key={item.label}/>
-              )
-            }
-          })}
-        </ul>
-
-        {/* My Team 소개 */}
-        <TeamDescription content={data?.content}/>
-
-        {/* 수정하기 버튼 */}
-        {/* 리더만 출력 */}
-        <div className="flex justify-end mt-8">
-          <button className="bg-blue-500 text-white py-2 px-6 rounded">수정하기</button>
-        </div>
-      </TeamInfoSection>
-    </div>
+    <TeamPageInfo
+      status={data?.status}
+      infoData={TEAM_INFO_ITEMS}
+      content={data?.content}
+      authority={"LEADER"}
+    />
   );
 };
 
