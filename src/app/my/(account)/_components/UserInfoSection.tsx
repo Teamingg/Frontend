@@ -11,7 +11,7 @@ import useUpdateUserInfo from "../../../../hooks/user/useUpdateUserInfo";
 import useGetUserInfo from "../../../../hooks/user/useGetUserInfo";
 import useModal from "@/hooks/useModal";
 
-// components
+// _components
 import UserInfoContent from "./UserInfoContent";
 import EditUserForm from "./EditUserForm/EditUserForm";
 import Modal from "@/components/common/Modal/Modal";

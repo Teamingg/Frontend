@@ -2,11 +2,11 @@
 import React from 'react';
 import {useQuery} from "@tanstack/react-query";
 import {getMentoringTeamInfo} from "@/service/api/team/getMentoringTeamInfo";
-import StatusButton from "@/app/(team-page)/components/StatusButton";
-import TeamInfoSection from "@/app/(team-page)/components/TeamInfoSection";
-import TeamDescription from "@/app/(team-page)/components/TeamDescription";
-import ProjectTeamInfoTecStack from "@/app/(team-page)/components/ProjectTeamInfoTecStack";
-import TeamInfoItem from "@/app/(team-page)/components/TeamInfoItem";
+import StatusButton from "@/app/(team-page)/_components/StatusButton";
+import TeamInfoSection from "@/app/(team-page)/_components/TeamInfoSection";
+import TeamDescription from "@/app/(team-page)/_components/TeamDescription";
+import ProjectTeamInfoTecStack from "@/app/(team-page)/_components/ProjectTeamInfoTecStack";
+import TeamInfoItem from "@/app/(team-page)/_components/TeamInfoItem";
 
 interface TeamInfo {
   categories: string[];
@@ -21,16 +21,10 @@ interface TeamInfo {
 }
 
 const Page = () => {
-  // project/team/{team_id}
-  const {
-    data,
-    error,
-    isLoading
-  } = useQuery<TeamInfo>({
+  const {data, error, isLoading} = useQuery<TeamInfo>({
     queryKey: ["id"],
     queryFn: getMentoringTeamInfo
-  })
-  console.log(data)
+  });
 
   const teamInfoItems = [
     { label: "시작일자", infoData: data?.dto.startDate },

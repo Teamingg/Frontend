@@ -2,7 +2,7 @@
 import React from 'react';
 import {useQuery} from "@tanstack/react-query";
 import {getMentoringTeamPost} from "@/service/api/getMentoringTeamPost";
-import PostCard from "@/app/(team-page)/components/PostCard";
+import PostCard from "@/app/(team-page)/_components/PostCard";
 
 const Page = () => {
   // project/posts/{team_id}
