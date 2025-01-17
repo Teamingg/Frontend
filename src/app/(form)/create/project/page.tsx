@@ -7,6 +7,7 @@ import STACK_LIST from "@/constant/stackList";
 
 import CreateTeamForm from "../../_components/CreateTeamForm";
 import FormTitle from "../../_components/FormTitle";
+import {useMutation} from "@tanstack/react-query";
 interface ProjectFormFields {
   label: string;
   name: string;
@@ -120,9 +121,10 @@ const Page = () => {
       contents: formData.contents,
       stackIds: formData.stacks,
       link: formData.link,
-      recruitCategoryIds: formData.recruitCategoryIds,
+      recruitCategoryIds: [formData.recruitCategoryIds],
     };
 
+    console.log("📌 Payload:", payload);
     try {
       const response = await instance.post("/project/team", payload);
       console.log("Response:", response.data);
