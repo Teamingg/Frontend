@@ -63,7 +63,7 @@ const Page = () => {
                       <p>{item.date}</p>
                       <p>{item.name}</p>
                       <p className={`font-semibold ${item.status === "거절" ? "text-red-500" : item.status === "수락" ? "text-green-500" : "text-yellow-500"}`}>
-                        {app.status}
+                        {item.status}
                       </p>
                       <div className="text-center">
                         {item.action ? (
