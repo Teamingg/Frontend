@@ -75,14 +75,8 @@ const MemberTable = () => {
               {idx % 3 !== 0 ? (
                 <>
                   <MemberTableActionBtn actions={[
-                    {
-                      type: "approve", label: "수락", onClick: () => {
-                      }
-                    },
-                    {
-                      type: "reject", label: "거절", onClick: () => {
-                      }
-                    },
+                    {type: "approve", label: "수락", onClick: () => {}},
+                    {type: "reject", label: "거절", onClick: () => {}},
                   ]}/>
                 </>
               ) : (
