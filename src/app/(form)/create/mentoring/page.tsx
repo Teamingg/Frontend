@@ -119,19 +119,20 @@ const Page = () => {
   const onSubmit = async (formData: MentoringFormData) => {
     const payload = {
       name: formData.name,
-      deadline: formData.deadline,
       startDate: formData.startDate,
       endDate: formData.endDate,
       mentoringCnt: Number(formData.mentoringCnt), // 문자열에서 숫자로 변환
       content: formData.content,
       link: formData.link,
       role: formData.role,
-      categories: formData.categories,
-      status: "RECRUITING",
+      categories: Array.isArray(formData.categories)
+        ? formData.categories.map(Number) // ✅ 모든 값을 숫자로 변환
+        : [Number(formData.categories)], // ✅ 단일 값을 숫자로 변환
     };
 
+    console.log(payload)
     try {
-      const response = await instance.post("/mentoring/team", payload);
+      const response = await instance.post("/mentoring/teams", payload);
       console.log("Response:", response.data);
     } catch (error) {
       console.error("Error:", error.response?.data || error.message);
