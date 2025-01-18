@@ -7,7 +7,8 @@ import ProjectTeamInfoTecStack from "@/app/(team-page)/_components/ProjectTeamIn
 
 interface TeamInfoItem {
   label: string;
-  infoData: string | number;
+  infoData?: string | number;
+  stacks?: string[] | undefined;
 }
 
 interface TeamPageInfo {
@@ -18,53 +19,57 @@ interface TeamPageInfo {
 }
 
 const TeamPageInfo: React.FC<TeamPageInfo> = (
-  {
-    status,
-    infoData,
-    content,
-    authority
-  }) => {
+    {
+      status,
+      infoData,
+      content,
+      authority
+    }) => {
   return (
-    <div className="h-full p-4 border rounded bg-white overflow-y-auto">
-      {/*모집 상태*/}
-      <StatusButton status={status}/>
+      <div className="h-full p-4 border rounded bg-white overflow-y-auto">
+        {/*모집 상태*/}
+        <StatusButton status={status}/>
 
-      {/*오른쪽 팀 정보 섹션*/}
-      <TeamInfoSection>
-        <ul className="flex flex-col gap-4 mb-6">
-          {infoData.map(item => {
-            if (item.label !== "기술스택") {
-              return (
-                <TeamInfoItem
-                  key={item.label}
-                  label={item.label}
-                  infoData={typeof item.infoData === "string"
-                    ? item.infoData
-                    : item.infoData !== undefined
-                      ? item.infoData.toString()
-                      : "정보 없음"}
-                  className={"flex justify-between items-center"}
-                />
-              )
-            } else {
-              return (
-                <ProjectTeamInfoTecStack key={item.label}/>
-              )
-            }
-          })}
-        </ul>
+        {/*오른쪽 팀 정보 섹션*/}
+        <TeamInfoSection>
+          <ul className="flex flex-col gap-4 mb-6">
+            {infoData.map(item => {
+              if (item.stacks === undefined) {
+                return (
+                    <TeamInfoItem
+                        key={item.label}
+                        label={item.label}
+                        infoData={typeof item.infoData === "string"
+                            ? item.infoData
+                            : item.infoData !== undefined
+                                ? item.infoData.toString()
+                                : "정보 없음"}
+                        className={"flex justify-between items-center"}
+                    />
+                )
+              } else {
+                return (
+                    /* 기술스택 아이콘 */
+                    <ProjectTeamInfoTecStack
+                        key={item.label}
+                        stacks={item.stacks ?? []}
+                    />
+                )
+              }
+            })}
+          </ul>
 
-        {/* My Team 소개*/}
-        <TeamDescription content={content || "프로젝트 설명 ..."}/>
+          {/* My Team 소개*/}
+          <TeamDescription content={content || "프로젝트 설명 ..."}/>
 
-        {/*수정하기 버튼*/}
-        {authority === "LEADER" && (
-          <div className="flex justify-center mt-8">
-            <button className="bg-blue-500 text-white px-6 py-2 rounded">수정하기</button>
-          </div>
-        )}
-      </TeamInfoSection>
-    </div>
+          {/*수정하기 버튼*/}
+          {authority === "LEADER" && (
+              <div className="flex justify-center mt-8">
+                <button className="bg-blue-500 text-white px-6 py-2 rounded">수정하기</button>
+              </div>
+          )}
+        </TeamInfoSection>
+      </div>
   );
 };
 

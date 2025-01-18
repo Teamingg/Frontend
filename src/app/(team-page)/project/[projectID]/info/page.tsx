@@ -5,17 +5,16 @@ import {getProjectTeamInfo} from "@/service/api/team/getProjectTeamInfo";
 import TeamPageInfo from "@/app/(team-page)/_components/TeamPageInfo";
 
 interface TeamInfo {
-  data?: {
-    categories: string[];
-    content: string;
-    endDate: string;
-    id: number;
-    link: string;
-    mentoringCnt: number;
-    name: string;
-    createDate: string;
-    status: string;
-  }
+  projectId: number;
+  startDate: string;
+  endDate: string;
+  content: string;
+  categories: string[];
+  link: string;
+  memberCnt: number;
+  projectName: string;
+  status: string;
+  stacks: string[];
 }
 
 const Page = () => {
@@ -24,31 +23,31 @@ const Page = () => {
     error,
     isLoading
   } = useQuery<TeamInfo>({
-    queryKey: ["id"],
+    queryKey: ["projectId"],
     queryFn: getProjectTeamInfo
   });
-  console.log(data)
+
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>Error loading data</div>;
   if (!data) return <div>No Data Available</div>;
-
+  console.log("data", data);
   const TEAM_INFO_ITEMS = [
-    { label: "시작일자", infoData: data?.createDate },
-    { label: "종료일자", infoData: data?.endDate },
-    { label: "모집인원", infoData: `${data?.memberCnt} 명` },
-    { label: "연락방법", infoData: data?.link },
-    { label: "기술스택", infoData: 1 },
-    { label: "모집구분", infoData: "프론트엔드 기획자" },
-    { label: "모집마감일", infoData: data?.endDate },
+    {label: "시작일자", infoData: data?.startDate, stacks: undefined},
+    {label: "종료일자", infoData: data?.endDate, stacks: undefined},
+    {label: "모집인원", infoData: `${data?.memberCnt} 명`, stacks: undefined},
+    {label: "연락방법", infoData: data?.link, stacks: undefined},
+    {label: "기술스택", infoData: undefined, stacks: data?.stacks},
+    {label: "모집구분", infoData: "프론트엔드 기획자"},
+    {label: "모집마감일", infoData: data?.endDate, stacks: undefined},
   ];
 
   return (
-    <TeamPageInfo
-      status={data?.status}
-      infoData={TEAM_INFO_ITEMS}
-      content={data?.content}
-      authority={"LEADER"}
-    />
+      <TeamPageInfo
+          status={data?.status}
+          infoData={TEAM_INFO_ITEMS}
+          content={data?.content}
+          authority={"LEADER"}
+      />
   );
 };
 

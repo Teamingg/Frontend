@@ -15,7 +15,7 @@ const Page = () => {
   })
 
   return (
-    <MemberTable/>
+      <MemberTable/>
   );
 };
 

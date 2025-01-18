@@ -1,18 +1,30 @@
 import React from 'react';
+import STACK_LIST from "@/constant/stackList";
 
 interface ProjectTeamInfoTecStackProps {
-  key: string | number;
+  stacks: string[];
 }
 
-const ProjectTeamInfoTecStack = ({key}: ProjectTeamInfoTecStackProps) => {
+const ProjectTeamInfoTecStack = ({stacks}: ProjectTeamInfoTecStackProps) => {
+  // STACK_LIST 를 Map 으로 변환
+  const stackMap = STACK_LIST.reduce((acc, stack) => {
+    acc[stack.value] = stack;
+    return acc;
+  }, {} as Record<string, typeof STACK_LIST[number]>)
+
   return (
-    <div className="flex justify-between" key={key}>
+    <div className="flex justify-between">
       <label className="block text-[19px] text-gray-600">기술스택</label>
-      <div className="w-10/12 flex justify-center space-x-2">
-        <img src="/images/stack-icon1.png" alt="stack1" className="w-8 h-8"/>
-        <img src="/images/stack-icon2.png" alt="stack2" className="w-8 h-8"/>
-        <img src="/images/stack-icon3.png" alt="stack3" className="w-8 h-8"/>
-        <img src="/images/stack-icon4.png" alt="stack4" className="w-8 h-8"/>
+      <div className="w-10/12 flex items-center justify-center gap-2 space-x-2">
+        {stacks.map(stackId => {
+          const stack = stackMap[stackId];
+          return stack ? (
+              <div key={stack.value} className="w-12 h-12 mx-0 flex flex-col justify-center items-center">
+                {stack.icon}
+                <span>{stack.label}</span>
+              </div>
+          ) : null;
+        })}
       </div>
     </div>
   );

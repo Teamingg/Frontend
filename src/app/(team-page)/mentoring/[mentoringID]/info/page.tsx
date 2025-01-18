@@ -5,16 +5,14 @@ import {useQuery} from "@tanstack/react-query";
 import TeamPageInfo from "@/app/(team-page)/_components/TeamPageInfo";
 
 interface MentoringInfo {
-  data?: {
-    dto: {
-      status: string;
-      startDate: string;
-      endDate: string;
-      mentoringCnt: number;
-      link: string;
-      categories: string[];
-      content: string;
-    };
+  dto: {
+    status: string;
+    startDate: string;
+    endDate: string;
+    mentoringCnt: number;
+    link: string;
+    categories: string[];
+    content: string;
   };
   error?: never;
   isLoading: boolean;
