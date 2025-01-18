@@ -1,8 +1,13 @@
 import React from 'react';
-import PostCard from "@/app/(team-page)/_components/PostCard";
-import PostSeeMoreBtn from "@/app/(team-page)/_components/PostSeeMoreBtn";
+import PostCard from "@/app/(team-page)/[page_type]/[team_id]/(member)/post/_components/PostCard";
+import PostSeeMoreBtn from "@/app/(team-page)/[page_type]/[team_id]/(member)/post/_components/PostSeeMoreBtn";
 
-const PostPageContainer = ({data, children}) => {
+interface PostPageContainerProps {
+  data: any;
+  children: React.ReactNode;
+}
+
+const PostPageContainer = ({data, children}: PostPageContainerProps) => {
   return (
     <>
       {/* 게시물이 존재한다면 출력, 없다면 X */}

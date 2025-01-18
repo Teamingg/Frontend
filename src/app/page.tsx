@@ -34,7 +34,7 @@ export default async function Home() {
       <TeamProjectNavigation />
 
       <section className="flex flex-col gap-8 pb-8">
-        {/* team project */}
+        {/* team-page project */}
         <div className="p-8 rounded-xl bg-[#f5f5f5]">
           <SectionHeader title="팀 프로젝트" path="/project" />
 

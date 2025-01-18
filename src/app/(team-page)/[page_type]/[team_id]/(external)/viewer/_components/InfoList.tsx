@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface InfoListType {
+interface InfoListType<T> {
   items: T[];
   renderItem: (item: T) => React.ReactNode;
   classNames?: {

@@ -3,7 +3,7 @@ import React from "react";
 import SectionLayout from "@/components/layout/DetailSection/SectionLayout";
 import {useQuery, useQueryClient} from "@tanstack/react-query";
 import {useParams} from "next/navigation";
-import {getTeamInfoData} from "@/service/api/getTeamInfoData";
+import {getTeamInfoData} from "@/service/api/team-page/getTeamInfoData";
 
 const Layout = ({children}: { children: React.ReactNode }) => {
   const params = useParams();

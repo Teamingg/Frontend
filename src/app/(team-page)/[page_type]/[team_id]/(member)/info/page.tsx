@@ -1,8 +1,7 @@
 "use client";
 import React from 'react';
-import {useQuery, useQueryClient} from "@tanstack/react-query";
-import {getProjectTeamInfo} from "@/service/api/team/getProjectTeamInfo";
-import TeamPageInfo from "@/app/(team-page)/_components/TeamPageInfo";
+import {useQueryClient} from "@tanstack/react-query";
+import TeamPageInfo from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/TeamPageInfo";
 import {useParams} from "next/navigation";
 
 interface ProjectInfo {
@@ -39,7 +38,7 @@ interface TeamInfoItem {
 }
 
 /**  타입 가드: data 가 MentoringInfo 인지 확인 */
-const isMentoringInfo = (data: T | MentoringInfo): data is MentoringInfo => {
+const isMentoringInfo = (data: unknown): data is MentoringInfo => {
   return (
       typeof data === "object" &&
       data !== null &&
@@ -53,7 +52,6 @@ const Page = <T extends ProjectInfo | MentoringInfo> () => {
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData<T>(["teamInfo", params.page_type, params.team_id]);
 
-  console.log("Data:", data);
   if (!data) return <div>No Data Available</div>;
 
   /* MentoringInfo 인지 체크 후 분기 처리 */

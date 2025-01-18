@@ -1,6 +1,6 @@
 import React from 'react';
-import InfoSection from "@/app/(team-page)/test/_components/InfoSection";
-import InfoList from "@/app/(team-page)/test/_components/InfoList";
+import InfoList from "@/app/(team-page)/[page_type]/[team_id]/(external)/viewer/_components/InfoList";
+import InfoSection from "@/app/(team-page)/[page_type]/[team_id]/(external)/viewer/_components/InfoSection";
 
 const PROJECT_INFO = [
   {id: 1, label: "프로젝트 기간"},

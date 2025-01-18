@@ -1,9 +1,9 @@
 import React from 'react';
-import StatusButton from "@/app/(team-page)/_components/StatusButton";
-import TeamInfoSection from "@/app/(team-page)/_components/TeamInfoSection";
-import TeamInfoItem from "@/app/(team-page)/_components/TeamInfoItem";
-import TeamDescription from "@/app/(team-page)/_components/TeamDescription";
-import ProjectTeamInfoTecStack from "@/app/(team-page)/_components/ProjectTeamInfoTecStack";
+import StatusButton from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/StatusButton";
+import TeamInfoSection from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/TeamInfoSection";
+import TeamInfoItem from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/TeamInfoItem";
+import TeamDescription from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/TeamDescription";
+import ProjectTeamInfoTecStack from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/ProjectTeamInfoTecStack";
 
 interface TeamInfoItem {
   label: string;
