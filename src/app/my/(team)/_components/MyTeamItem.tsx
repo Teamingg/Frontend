@@ -24,7 +24,7 @@ const MyTeamItem = ({ id, name, status, role, category }: MyTeamItemProps) => {
       <div className="flex justify-between items-center">
         <span className="text-gray-500">{checkRole(role)}</span>
         <Link
-          href={`/my/team/${id}`}
+          href={`/${category}/${id}/info`}
           className="py-1 px-4 rounded-md text-base text-white bg-primary"
         >
           {`${category === "project" ? "프로젝트" : "멘토링"} 팀 바로가기`}
