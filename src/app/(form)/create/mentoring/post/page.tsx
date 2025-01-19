@@ -14,7 +14,7 @@ const Page = () => {
       const response = await instance.post("/mentoring/1/post", {
         name: formData.name,
         deadline: formData.deadline,
-        memberCnt: formData.memberCnt,
+        mentoringCnt: formData.mentoringCnt,
         link: formData.link,
         contents: formData.contents,
       });

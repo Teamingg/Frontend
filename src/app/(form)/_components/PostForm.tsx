@@ -1,18 +1,42 @@
 "use client";
 import React from "react";
 import TextareaField from "@/components/common/Input/TextArea/TextareaField";
-import { Control, FieldValues, useForm } from "react-hook-form";
+import {FieldValues, SubmitHandler, Path, useForm} from "react-hook-form";
 import InputField from "@/components/common/Input/TextInput/InputField";
-import { MentoringPostFormData } from "@/app/(form)/model/MentoringPostFormFields";
-import { PostFormData } from "@/app/(form)/model/ProjectPostFormFields";
 
-const PostForm = ({ onSubmit, formFields }) => {
+interface FormField<T> {
+  label: string;
+  name: Path<T>;
+  rules?: object;
+}
+
+interface RowField<T> {
+  row: FormField<T>[];
+}
+
+type FormFields<T> = (FormField<T> | RowField<T>)[];
+
+type CustomErrors = {
+  contents?: { message: string };
+  content?: { message: string };
+};
+
+interface Props<T extends FieldValues> {
+  onSubmit: SubmitHandler<T>; // `onSubmit` 타입 명시
+  formFields: FormFields<T>;
+}
+
+const PostForm = <T extends FieldValues>({
+  onSubmit,
+  formFields
+}:  Props<T>): React.JSX.Element => {
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<MentoringPostFormData | PostFormData>();
+  } = useForm<T>();
+  const customErrors = errors as CustomErrors;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -26,9 +50,9 @@ const PostForm = ({ onSubmit, formFields }) => {
                     <InputField
                       key={index}
                       label={rowField.label}
-                      name={rowField.name}
-                      control={control as unknown as Control<FieldValues>}
-                      rules={rowField.rules}
+                      name={rowField.name as Path<T>}
+                      control={control}
+                      rules={rowField.rules ?? {}}
                     />
                   </div>
                 );
@@ -44,8 +68,8 @@ const PostForm = ({ onSubmit, formFields }) => {
               key={index}
               label={field.label}
               name={field.name}
-              control={control as unknown as Control<FieldValues>}
-              rules={field.rules}
+              control={control}
+              rules={field.rules ?? {}}
             />
           </div>
         );
@@ -54,10 +78,10 @@ const PostForm = ({ onSubmit, formFields }) => {
       {/* 프로젝트 소개 */}
       <TextareaField
         label="소개"
-        name="contents"
+        name={"contents" as Path<T>}
         placeholder="프로젝트 소개를 입력해 주세요."
         register={register}
-        error={errors.contents?.message}
+        error={customErrors.contents?.message || customErrors.content?.message}
       />
 
       {/* 버튼 */}

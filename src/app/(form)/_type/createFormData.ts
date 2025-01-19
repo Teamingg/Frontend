@@ -8,6 +8,16 @@ export interface FormFields {
   options?: { value: string; label: string }[];
 }
 
+// 프로젝트 게시글 수정
+export interface ProjectEditFormFields {
+  projectName: string;
+  deadline: string;
+  memberCnt: string; // 프로젝트는 memberCnt 사용
+  link: string;
+  contents: string;
+}
+
+
 export interface ProjectFormData {
   projectName: string;
   deadline: string;
@@ -30,6 +40,15 @@ export interface FormFields {
   required?: boolean;
   rules?: object;
   options?: { value: string; label: string }[];
+}
+
+// 멘토링 게시글 수정
+export interface MentoringEditFormFields {
+  name: string;
+  deadline: string;
+  mentoringCnt: string; // 멘토링은 mentoringCnt 사용
+  link: string;
+  contents: string;
 }
 
 export interface MentoringFormData {

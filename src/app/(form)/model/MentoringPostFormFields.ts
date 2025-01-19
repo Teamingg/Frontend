@@ -1,7 +1,7 @@
 export interface MentoringPostFormData {
   name: string;
   deadline: string;
-  memberCnt: string;
+  mentoringCnt: string;
   link: string;
   contents: string;
 }
