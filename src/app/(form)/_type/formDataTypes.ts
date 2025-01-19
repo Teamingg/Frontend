@@ -1,5 +1,4 @@
-// 프로젝트 타입
-// .../(form)/create/project
+// 공통 타입
 export interface FormFields {
   label: string;
   name: string;
@@ -8,16 +7,17 @@ export interface FormFields {
   options?: { value: string; label: string }[];
 }
 
-// 프로젝트 게시글 수정
-export interface ProjectEditFormFields {
-  projectName: string;
+interface CommonType {
   deadline: string;
-  memberCnt: string; // 프로젝트는 memberCnt 사용
+  startDate: string;
+  endDate: string;
   link: string;
-  contents: string;
 }
 
-
+/**
+ * 프로젝트 타입
+ * .../(form)/create/project
+ */
 export interface ProjectFormData {
   projectName: string;
   deadline: string;
@@ -30,27 +30,21 @@ export interface ProjectFormData {
   recruitCategoryIds: number[];
 }
 
-export type ProjectForm = FormFields | { row: FormFields[] };
-
-// 멘토링 타입
-// .../(form)/create/mentoring
-export interface FormFields {
-  label: string;
-  name: string;
-  required?: boolean;
-  rules?: object;
-  options?: { value: string; label: string }[];
-}
-
-// 멘토링 게시글 수정
-export interface MentoringEditFormFields {
-  name: string;
+// 프로젝트 게시글 수정
+export interface ProjectPost {
+  projectName: string;
   deadline: string;
-  mentoringCnt: string; // 멘토링은 mentoringCnt 사용
+  memberCnt: string;
   link: string;
   contents: string;
 }
 
+export type ProjectForm = FormFields | { row: FormFields[] };
+
+/**
+ * 멘토링 데이터 타입
+ * .../(form)/create/mentoring
+ */
 export interface MentoringFormData {
   name: string;
   deadline: string;
@@ -62,6 +56,15 @@ export interface MentoringFormData {
   link: string;
   role: string;
   categories: number[];
+}
+
+// 멘토링 게시글 수정
+export interface MentoringPost {
+  name: string;
+  deadline: string;
+  mentoringCnt: string;
+  link: string;
+  contents: string;
 }
 
 export type MentoringForm = FormFields | { row: FormFields[] };

@@ -10,7 +10,7 @@ import {
   ProjectFormFields,
   defaultValues as projectDefaults
 } from "@/app/(form)/_data/createProject";
-import { MentoringFormData, ProjectFormData } from "@/app/(form)/_type/createFormData";
+import { MentoringFormData, ProjectFormData } from "@/app/(form)/_type/formDataTypes";
 import FormTitle from "@/app/(form)/_components/FormTitle";
 import CreateTeamForm from "@/app/(form)/_components/CreateTeamForm";
 

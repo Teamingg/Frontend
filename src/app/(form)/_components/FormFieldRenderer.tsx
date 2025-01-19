@@ -1,4 +1,4 @@
-import {MentoringForm, ProjectForm} from "@/app/(form)/_type/createFormData";
+import {MentoringForm, ProjectForm} from "@/app/(form)/_type/formDataTypes";
 import {Control, FieldValues, UseFormRegister, Path} from "react-hook-form";
 import SelectCheckBox from "@/components/common/Input/SelectCheckBox/SelectCheckBox";
 import STACK_LIST from "@/constant/stackList";

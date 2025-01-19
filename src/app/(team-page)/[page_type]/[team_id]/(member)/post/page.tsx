@@ -8,6 +8,7 @@ import PostSeeMoreBtn from "@/app/(team-page)/[page_type]/[team_id]/(member)/pos
 import Link from "next/link";
 import {MentoringPosts, ProjectPosts} from "@/app/(team-page)/[page_type]/[team_id]/(member)/_type/teamPagePosts";
 
+// Todo : 게시글 작성 버튼 추가 필요
 const Page = () => {
   const params = useParams();
   const queryFn = fetchTeamPageData(String(params.page_type), String(params.team_id), "posts");

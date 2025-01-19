@@ -1,7 +1,7 @@
 "use client";
 import {useForm, SubmitHandler, DefaultValues, Path, UseFormRegister} from "react-hook-form";
 import TextareaField from "@/components/common/Input/TextArea/TextareaField";
-import {ProjectForm, MentoringForm, ProjectFormData, MentoringFormData} from "@/app/(form)/_type/createFormData";
+import {ProjectForm, MentoringForm, ProjectFormData, MentoringFormData} from "@/app/(form)/_type/formDataTypes";
 import FormFieldRenderer from "@/app/(form)/_components/FormFieldRenderer";
 import FormRowRenderer from "@/app/(form)/_components/FormRowRenderer";
 

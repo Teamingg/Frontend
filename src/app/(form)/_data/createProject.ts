@@ -1,4 +1,4 @@
-import {ProjectForm, ProjectFormData} from "@/app/(form)/_type/createFormData";
+import {ProjectForm, ProjectFormData} from "@/app/(form)/_type/formDataTypes";
 import STACK_LIST from "@/constant/stackList";
 
 export const ProjectFormFields: ProjectForm[] = [

@@ -2,10 +2,11 @@
 import React from 'react';
 import {useSubmit} from "@/hooks/form/useSubmit";
 import {useParams} from "next/navigation";
-import {MentoringPostFormData, MentoringPostFormFields} from "@/app/(form)/model/MentoringPostFormFields";
-import {PostFormData, ProjectPostFormFields} from "@/app/(form)/model/ProjectPostFormFields";
+import {MentoringPostFormFields} from "@/app/(form)/model/MentoringPostFormFields";
+import {ProjectPostFormFields} from "@/app/(form)/model/ProjectPostFormFields";
 import FormTitle from "@/app/(form)/_components/FormTitle";
 import PostForm from "@/app/(form)/_components/PostForm";
+import {MentoringPost, ProjectPost} from "@/app/(form)/_type/formDataTypes";
 
 const Page = () => {
   // 경로(page_type)에 따라 다른 페이지 출력
@@ -14,25 +15,25 @@ const Page = () => {
   const formFields = isProject ? ProjectPostFormFields : MentoringPostFormFields;
   const endPoints = isProject ? "/project/1/post" : "/mentoring/1/post"
 
-  const { submit, isLoading, error } = useSubmit<MentoringPostFormData | PostFormData>({
+  const { submit, isLoading, error } = useSubmit<MentoringPost | ProjectPost>({
     endpoint: endPoints,
     formatPayload: (formData) => {
       return isProject
           // 프로젝트 데이터
           ? {
-            projectName: (formData as PostFormData).projectName,
-            deadline: (formData as PostFormData).deadline,
-            memberCnt: (formData as PostFormData).memberCnt,
-            tags: (formData as PostFormData).link,
-            contents: (formData as PostFormData).contents,
+            projectName: (formData as ProjectPost).projectName,
+            deadline: (formData as ProjectPost).deadline,
+            memberCnt: (formData as ProjectPost).memberCnt,
+            tags: (formData as ProjectPost).link,
+            contents: (formData as ProjectPost).contents,
           }
           // 멘토링 데이터
           : {
-            name: (formData as MentoringPostFormData).name,
-            deadline: (formData as MentoringPostFormData).deadline,
-            mentoringCnt: (formData as MentoringPostFormData).mentoringCnt,
-            link: (formData as MentoringPostFormData).link,
-            contents: (formData as MentoringPostFormData).contents,
+            name: (formData as MentoringPost).name,
+            deadline: (formData as MentoringPost).deadline,
+            mentoringCnt: (formData as MentoringPost).mentoringCnt,
+            link: (formData as MentoringPost).link,
+            contents: (formData as MentoringPost).contents,
           }
     },
     onSuccess: () => alert("게시글이 작성되었습니다.")

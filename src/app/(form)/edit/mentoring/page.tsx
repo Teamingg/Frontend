@@ -3,11 +3,11 @@ import React from "react";
 import FormTitle from "@/app/(form)/_components/FormTitle";
 import PostForm from "@/app/(form)/_components/PostForm";
 import { MentoringPostFormFields } from "@/app/(form)/model/MentoringPostFormFields";
-import {MentoringEditFormFields} from "@/app/(form)/_type/createFormData";
+import {MentoringPost} from "@/app/(form)/_type/formDataTypes";
 import {useSubmit} from "@/hooks/form/useSubmit";
 
 const Page = () => {
-  const { submit, isLoading, error } = useSubmit<MentoringEditFormFields>({
+  const { submit, isLoading, error } = useSubmit<MentoringPost>({
     endpoint: "/mentoring/team/1",
     formatPayload: (formData) => ({
       name: formData.name,
@@ -24,7 +24,7 @@ const Page = () => {
   return (
     <>
       <FormTitle highlight="멘토링" title="게시글 수정에 필요한 정보를 입력해주세요."/>
-      <PostForm<MentoringEditFormFields>
+      <PostForm<MentoringPost>
           onSubmit={(data) => submit(data)}
           formFields={MentoringPostFormFields}
       />

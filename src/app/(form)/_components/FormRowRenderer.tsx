@@ -1,4 +1,4 @@
-import {MentoringForm, ProjectForm} from "@/app/(form)/_type/createFormData";
+import {MentoringForm, ProjectForm} from "@/app/(form)/_type/formDataTypes";
 import {Control, FieldValues, UseFormRegister} from "react-hook-form";
 import FormFieldRenderer from "@/app/(form)/_components/FormFieldRenderer";
 

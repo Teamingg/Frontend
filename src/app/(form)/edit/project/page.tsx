@@ -6,12 +6,12 @@ import {
   ProjectPostFormFields,
 } from "@/app/(form)/model/ProjectPostFormFields";
 import {useSubmit} from "@/hooks/form/useSubmit";
-import {ProjectEditFormFields} from "@/app/(form)/_type/createFormData";
+import {ProjectPost} from "@/app/(form)/_type/formDataTypes";
 
 const Page = () => {
-  const { submit, isLoading, error } = useSubmit<ProjectEditFormFields>({
+  const { submit, isLoading, error } = useSubmit<ProjectPost>({
     endpoint: "/mentoring/post/1/1/edit",
-    formatPayload: (formData: ProjectEditFormFields) => ({
+    formatPayload: (formData: ProjectPost) => ({
       projectName: formData.projectName,
       deadline: formData.deadline,
       memberCnt: formData.memberCnt,
