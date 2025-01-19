@@ -1,31 +1,28 @@
 "use client";
 import React from "react";
 import TextareaField from "@/components/common/Input/TextArea/TextareaField";
-import {SubmitHandler, useForm, Control, UseFormRegister, Path} from "react-hook-form";
+import {SubmitHandler, useForm, Control, UseFormRegister, Path, FieldValues} from "react-hook-form";
 import InputField from "@/components/common/Input/TextInput/InputField";
 import {MentoringPost, ProjectPost} from "@/app/(form)/_type/formDataTypes";
 
-// ✅ FormField와 RowField에서 T 타입을 명확히 제한
-interface FormField<T extends ProjectPost | MentoringPost> {
+interface FormField <T extends FieldValues> {
   label: string;
   name: Path<T> | string;
-  // name: string;
   rules?: object;
 }
 
-interface RowField<T extends ProjectPost | MentoringPost> {
+interface RowField <T extends FieldValues> {
   row: FormField<T>[];
 }
 
-type FormFields<T extends ProjectPost | MentoringPost> = (FormField<T> | RowField<T>)[];
+type FormFields<T extends FieldValues> = (FormField<T> | RowField<T>)[];
 
 type CustomErrors = {
   contents?: { message: string };
   content?: { message: string };
 };
 
-// ✅ Props에서 T 타입을 ProjectPost | MentoringPost로 제한
-interface Props<T extends ProjectPost | MentoringPost> {
+interface Props<T extends FieldValues> {
   onSubmit: SubmitHandler<T>;
   formFields: FormFields<T>;
   control: Control<T>;
