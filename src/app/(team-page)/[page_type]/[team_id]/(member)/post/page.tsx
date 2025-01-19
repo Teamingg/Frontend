@@ -2,38 +2,14 @@
 import React from 'react';
 import {useQuery} from "@tanstack/react-query";
 import PostPageContainer from "@/app/(team-page)/[page_type]/[team_id]/(member)/post/_components/PostPageContainer";
-import {getTeamPosts} from "@/service/api/team-page/getTeamPosts";
 import {useParams} from "next/navigation";
-
-interface MentoringPosts {
-  "boardId": number,
-  "title": string,
-  "mentoringTeamName": string,
-  "startDate": string,
-  "endDate": string,
-  "category": string[],
-  "contents": string,
-  "status": string, //"RECRUITING"
-}
-
-interface ProjectPosts {
-  "title": string,
-  "teamName": string,
-  "startDate": string,
-  "endDate": string,
-  "contents": string,
-  "status": string, //"RECRUITING",
-  "projectTeamId": number,
-  "postId": number,
-  "createdDate": string,
-  "stacks": string[],
-}
+import {fetchTeamPageData} from "@/service/api/team-page/fetchTeamPageData";
 
 const Page = () => {
   const params = useParams();
   const {data, error, isLoading} = useQuery({
     queryKey: ["page"],
-    queryFn: getTeamPosts
+    queryFn: () => fetchTeamPageData(String(params.page_type), String(params.team_id), "posts")
   });
 
   // 로딩 및 에러처리

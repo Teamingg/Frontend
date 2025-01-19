@@ -3,29 +3,9 @@ import React from 'react';
 import {useQuery} from "@tanstack/react-query";
 import MemberTableList from "@/app/(team-page)/[page_type]/[team_id]/(member)/member/_components/MemberTableList";
 import MemberTableHeader from "@/app/(team-page)/[page_type]/[team_id]/(member)/member/_components/MemberTableHeader";
-import {getTeamMember} from "@/service/api/team-page/getTeamMember";
 import {useParams} from "next/navigation";
 import MemberTableData from "@/app/(team-page)/[page_type]/[team_id]/(member)/member/_components/MemberTableData";
-
-interface MentoringMember {
-  // 스웨거 내 데이터 부재
-}
-
-interface ProjectMember {
-  "participationId": number,
-  "userId": number,
-  "projectTeamId": number,
-  "participationStatus": string,
-  "isDeleted": boolean,
-  "isExport": boolean,
-  "decisionDate": string,
-  "role": string,
-  "recruitCategory": string,
-  "reportingCnt": number,
-  "isLoginUser": boolean,
-  "isReported": boolean,
-  "isReviewed": boolean
-}
+import {fetchTeamPageData} from "@/service/api/team-page/fetchTeamPageData";
 
 const MEMBER = [
   {id: 1, label: "날짜"},
@@ -47,7 +27,7 @@ const Page = () => {
   const params = useParams();
   const {data, error, isLoading} = useQuery({
     queryKey: ["page"],
-    queryFn: () => getTeamMember(params.page_type, params.team_id),
+    queryFn: () => fetchTeamPageData(String(params.page_type), String(params.team_id), "member")
   })
 
   // 로딩 및 에러처리
