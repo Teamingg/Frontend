@@ -1,145 +1,67 @@
 "use client";
-import { Control, FieldValues, useForm } from "react-hook-form";
-
-import STACK_LIST from "@/constant/stackList";
-
-import { ProjectFormData } from "@/app/(form)/create/project/page";
-import { MentoringFormData } from "@/app/(form)/create/mentoring/page";
-
-import SelectCheckBox from "@/components/common/Input/SelectCheckBox/SelectCheckBox";
-import InputField from "@/components/common/Input/TextInput/InputField";
+import {useForm, SubmitHandler, DefaultValues, Path, UseFormRegister} from "react-hook-form";
 import TextareaField from "@/components/common/Input/TextArea/TextareaField";
+import {ProjectForm, MentoringForm, ProjectFormData, MentoringFormData} from "@/app/(form)/_type/createFormData";
+import FormFieldRenderer from "@/app/(form)/_components/FormFieldRenderer";
+import FormRowRenderer from "@/app/(form)/_components/FormRowRenderer";
+
+interface Props<T extends ProjectFormData | MentoringFormData> {
+  onSubmit: SubmitHandler<T>;
+  defaultValues: DefaultValues<T>;
+  formFields: (ProjectForm | MentoringForm)[];
+  division?: "select" | "stacks";
+}
 
 type CustomErrors = {
   contents?: { message: string };
   content?: { message: string };
 };
 
-const CreateTeamForm = ({ onSubmit, defaultValues, formFields, division }) => {
+const CreateTeamForm = <T extends ProjectFormData | MentoringFormData> ({
+  onSubmit,
+  defaultValues,
+  formFields,
+  division
+}: Props<T>) => {
   const {
     control,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ProjectFormData | MentoringFormData>({
-    defaultValues,
+  } = useForm<T>({
+    defaultValues: defaultValues as unknown as DefaultValues<T>
   });
 
   const customErrors = errors as CustomErrors;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      {formFields.map((field, index) => {
-        if ("row" in field) {
-          return (
-            <div className="w-full flex gap-5" key={index}>
-              {field.row.map((rowField, index) => {
-                if (rowField.options && division === "select") {
-                  return (
-                    <div key={index} className="w-full">
-                      <label htmlFor={rowField.name} className="block mb-2">
-                        {rowField.label}
-                      </label>
-                      <select
-                        {...register(rowField.name)}
-                        id={rowField.name}
-                        className="w-full p-2 border block"
-                      >
-                        {rowField.options.map((option) => (
-                          <option key={option.value} value={option.value}>
-                            {option.label}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  );
-                } else if (rowField.options && division === "stacks") {
-                  return (
-                    <div key={index} className="w-full flex gap-5">
-                      <div className="w-full">
-                        <label htmlFor="stacks">기술스택</label>
-                        <SelectCheckBox
-                          name="stacks"
-                          placeholder="사용가능한 기술스택을 선택해주세요."
-                          checkBoxList={STACK_LIST}
-                          control={control as unknown as Control<FieldValues>}
-                          maximum={8}
-                        />
-                      </div>
-                    </div>
-                  );
-                }
+      {formFields.map((field, index) =>
+          "row" in field ? (
+              <FormRowRenderer
+                  key={index}
+                  rowFields={field.row}
+                  control={control}
+                  register={register}
+                  division={division}
+              />
+          ) : (
+              <FormFieldRenderer
+                  key={index}
+                  field={field}
+                  control={control}
+                  register={register}
+                  division={division}
+              />
+          )
+      )}
 
-                return (
-                  <div key={index} className="w-full mb-4">
-                    <InputField
-                      key={index}
-                      label={rowField.label}
-                      name={rowField.name}
-                      control={control as unknown as Control<FieldValues>}
-                      rules={rowField.rules}
-                    />
-                  </div>
-                );
-              })}
-            </div>
-          );
-        }
-
-        if (field.options && division === "select") {
-          return (
-            <div key={index} className="w-full">
-              <label htmlFor={field.name} className="block mb-2">
-                {field.label}
-              </label>
-              <select
-                {...register(field.name)}
-                id={field.name}
-                className="w-full p-2 border block"
-              >
-                {field.options.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          );
-        } else if (field.options && division === "stacks") {
-          return (
-            <div key={index} className="w-full flex gap-5">
-              <div className="w-full">
-                <label htmlFor="stacks">기술스택</label>
-                <SelectCheckBox
-                  name="stacks"
-                  placeholder="사용가능한 기술스택을 선택해주세요."
-                  checkBoxList={STACK_LIST}
-                  control={control as unknown as Control<FieldValues>}
-                  maximum={8}
-                />
-              </div>
-            </div>
-          );
-        }
-
-        return (
-          <div key={index} className="w-full mb-4">
-            <InputField
-              key={index}
-              label={field.label}
-              name={field.name}
-              control={control as unknown as Control<FieldValues>}
-              rules={field.rules}
-            />
-          </div>
-        );
-      })}
-
-      <TextareaField
+      {/* 소개 */}
+      <TextareaField<ProjectFormData>
         label="소개"
-        name="contents"
+        name={"contents" as Path<ProjectFormData>}
         placeholder="프로젝트 소개를 입력해 주세요."
-        register={register}
+        register={register as unknown as UseFormRegister<ProjectFormData>}
         error={customErrors.contents?.message || customErrors.content?.message}
       />
 

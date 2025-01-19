@@ -6,13 +6,16 @@ import {useParams} from "next/navigation";
 import {fetchTeamPageData} from "@/service/api/team-page/fetchTeamPageData";
 import {TeamPageInfo} from "@/app/(team-page)/[page_type]/[team_id]/(member)/_type/teamPageInfo";
 
-const Layout = ({children}: { children: React.ReactNode }) => {
+const Layout: React.FC<{ children: React.ReactNode }> = ({children}) => {
   const params = useParams();
+
+  // TODO : path 가 ../{team_id}/info 일 경우에만 아래 쿼리 실행
   const queryClient = useQueryClient();
+  const queryFn = fetchTeamPageData<TeamPageInfo>(String(params.page_type), String(params.team_id), "info");
 
   const {data, error, isLoading} = useQuery<TeamPageInfo>({
     queryKey: ["teamInfo", params.page_type, params.team_id],
-    queryFn: () => fetchTeamPageData<TeamPageInfo>(String(params.page_type), String(params.team_id), "info"),
+    queryFn: () => queryFn,
     enabled: !!params.page_type && !!params.team_id,
   });
 
@@ -22,6 +25,7 @@ const Layout = ({children}: { children: React.ReactNode }) => {
 
   // 데이터 캐싱
   queryClient.setQueryData(["teamInfo", params.page_type, params.team_id], data);
+  console.log(params.page_type + " : " + data);
 
   // url 에 따라 다른 페이지 출력
   // 예 : page_type 이 project 면 /project/{project_team_id}/info ...

@@ -1,15 +1,15 @@
-import {FieldValues, UseFormRegister} from "react-hook-form";
+import {FieldValues, UseFormRegister, Path} from "react-hook-form";
 
-interface TextareaFieldProps {
+interface Props<T extends FieldValues> {
   key?: string | number;
   label: string;
-  name: string;
+  name: Path<T>;
   placeholder: string;
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegister<T>;
   error?: string;
 }
 
-const TextareaField = (
+const TextareaField = <T extends FieldValues> (
   {
     key,
     label,
@@ -17,7 +17,7 @@ const TextareaField = (
     placeholder,
     register,
     error
-  }: TextareaFieldProps) => (
+  }: Props<T>) => (
     <div className="w-full h-32 mb-4" key={key}>
     <label htmlFor={name} className="block mb-2">{label}</label>
     <textarea
