@@ -1,98 +1,97 @@
 "use client";
 import React from "react";
 import TextareaField from "@/components/common/Input/TextArea/TextareaField";
-import {FieldValues, SubmitHandler, Path, useForm} from "react-hook-form";
+import {SubmitHandler, useForm, Control, UseFormRegister, Path} from "react-hook-form";
 import InputField from "@/components/common/Input/TextInput/InputField";
+import {MentoringPost, ProjectPost} from "@/app/(form)/_type/formDataTypes";
 
-interface FormField<T> {
+// ✅ FormField와 RowField에서 T 타입을 명확히 제한
+interface FormField<T extends ProjectPost | MentoringPost> {
   label: string;
-  name: Path<T>;
+  name: Path<T> | string;
+  // name: string;
   rules?: object;
 }
 
-interface RowField<T> {
+interface RowField<T extends ProjectPost | MentoringPost> {
   row: FormField<T>[];
 }
 
-type FormFields<T> = (FormField<T> | RowField<T>)[];
+type FormFields<T extends ProjectPost | MentoringPost> = (FormField<T> | RowField<T>)[];
 
 type CustomErrors = {
   contents?: { message: string };
   content?: { message: string };
 };
 
-interface Props<T extends FieldValues> {
-  onSubmit: SubmitHandler<T>; // `onSubmit` 타입 명시
+// ✅ Props에서 T 타입을 ProjectPost | MentoringPost로 제한
+interface Props<T extends ProjectPost | MentoringPost> {
+  onSubmit: SubmitHandler<T>;
   formFields: FormFields<T>;
+  control: Control<T>;
+  register: UseFormRegister<T>;
 }
 
-const PostForm = <T extends FieldValues>({
-  onSubmit,
-  formFields
-}:  Props<T>): React.JSX.Element => {
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<T>();
+// ✅ ProjectPost | MentoringPost 타입을 명확하게 사용
+const PostForm = <T extends ProjectPost | MentoringPost>(
+    {
+      onSubmit,
+      formFields,
+      control,
+      register,
+    }: Props<T>): React.JSX.Element => {
+  const {handleSubmit, formState: {errors}} = useForm<T>();
   const customErrors = errors as CustomErrors;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      {formFields.map((field, index) => {
-        if ("row" in field) {
+      <form onSubmit={handleSubmit(onSubmit)}>
+        {formFields.map((field, index) => {
+          if ("row" in field) {
+            return (
+                <div key={index} className="w-full flex gap-5">
+                  {field.row.map((rowField, subIndex) => (
+                      <div key={subIndex} className="w-full mb-4">
+                        <InputField
+                            key={subIndex}
+                            label={rowField.label}
+                            name={rowField.name as Path<T>}
+                            control={control}
+                            rules={rowField.rules ?? {}}
+                        />
+                      </div>
+                  ))}
+                </div>
+            );
+          }
+
           return (
-            <div key={index} className="w-full flex gap-5">
-              {field.row.map((rowField, index) => {
-                return (
-                  <div key={index} className="w-full mb-4">
-                    <InputField
-                      key={index}
-                      label={rowField.label}
-                      name={rowField.name as Path<T>}
-                      control={control}
-                      rules={rowField.rules ?? {}}
-                    />
-                  </div>
-                );
-              })}
-            </div>
+              <div key={index} className="w-full mb-4">
+                <InputField
+                    key={index}
+                    label={field.label}
+                    name={field.name as Path<T>}
+                    control={control}
+                    rules={field.rules ?? {}}
+                />
+              </div>
           );
-        }
+        })}
 
-        return (
-          <div key={index} className="w-full mb-4">
-            <InputField
-              key={index}
-              label={field.label}
-              name={field.name}
-              control={control}
-              rules={field.rules ?? {}}
-            />
-          </div>
-        );
-      })}
+        {/* 프로젝트 소개 */}
+        <TextareaField
+            label="소개"
+            name={"contents" as Path<T>} // ✅ Path<T> 변환 적용
+            placeholder="프로젝트 소개를 입력해 주세요."
+            register={register}
+            error={customErrors.contents?.message || customErrors.content?.message}
+        />
 
-      {/* 프로젝트 소개 */}
-      <TextareaField
-        label="소개"
-        name={"contents" as Path<T>}
-        placeholder="프로젝트 소개를 입력해 주세요."
-        register={register}
-        error={customErrors.contents?.message || customErrors.content?.message}
-      />
-
-      {/* 버튼 */}
-      <div className="mt-16 text-center">
-        <button className="w-[320px] h-[50px] mx-5 rounded-l border-2">
-          닫기
-        </button>
-        <button className="w-[320px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">
-          게시글 작성하기
-        </button>
-      </div>
-    </form>
+        {/* 버튼 */}
+        <div className="mt-16 text-center">
+          <button className="w-[320px] h-[50px] mx-5 rounded-l border-2">닫기</button>
+          <button className="w-[320px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">게시글 작성하기</button>
+        </div>
+      </form>
   );
 };
 
