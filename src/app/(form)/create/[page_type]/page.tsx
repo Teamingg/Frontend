@@ -15,10 +15,8 @@ import FormTitle from "@/app/(form)/_components/FormTitle";
 import CreateTeamForm from "@/app/(form)/_components/CreateTeamForm";
 
 const Page = () => {
-  const { page_type } = useParams();
-  console.log(page_type);
-
   // 경로에 따라 다른 페이지 출력
+  const { page_type } = useParams();
   const isProject = page_type === "project";
   const formFields = isProject ? ProjectFormFields : MentoringFormFields;
   const defaultValues = isProject ? projectDefaults : mentoringDefaults;

@@ -57,7 +57,6 @@ const PostForm = <T extends FieldValues>({
                   </div>
                 );
               })}
-              ;
             </div>
           );
         }
