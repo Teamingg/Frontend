@@ -1,7 +1,13 @@
 import React from 'react';
-import {TeamMemberTableName} from "@/app/(team-page)/[page_type]/[team_id]/(member)/member/page";
 
-const MemberTableHeader: React.FC<TeamMemberTableName> = ({tableName}) => {
+interface Props {
+  tableName: {
+    id: number;
+    label: string;
+  }[];
+}
+
+const MemberTableHeader: React.FC<Props> = ({tableName}) => {
   return (
     <div className="flex bg-gray-200 p-2 font-semibold text-sm">
       {tableName.map(item => (
