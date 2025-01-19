@@ -40,7 +40,7 @@ const Page = () => {
   // if (error) return <div>Error fetching data</div>;
 
   // 변환된 데이터
-  const transformedData = mapMemberData(data);
+  // const transformedData = mapMemberData(data);
 
   /*
    * 멘토링팀 멤버 및 지원자 조회 (/mentoring/teams/{team_id}/status

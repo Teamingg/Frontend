@@ -15,8 +15,6 @@ const Layout = ({children}: { children: React.ReactNode }) => {
     queryFn: () => fetchTeamPageData<TeamPageInfo>(String(params.page_type), String(params.team_id), "info"),
     enabled: !!params.page_type && !!params.team_id,
   });
-  console.log(data)
-  console.log(data?.authority)
 
   // 로딩 및 에러처리
   if (isLoading) return <div>Loading...</div>;
