@@ -7,6 +7,7 @@ import {
   MentoringPostFormData,
   MentoringPostFormFields,
 } from "@/app/(form)/model/MentoringPostFormFields";
+import {AxiosError} from "axios";
 
 const Page = () => {
   const onSubmit = async (formData: MentoringPostFormData) => {
@@ -22,10 +23,13 @@ const Page = () => {
       if (response.status === 200) {
         alert("게시글이 작성되었습니다.");
       }
-    } catch (error) {
-      alert(
-        `오류가 발생했습니다: ${error.response?.data?.message || error.message}`
-      );
+    } catch (error: unknown) {
+      if (error instanceof AxiosError) {
+        const errMsg = error.response?.data?.message || error.message;
+        alert(`오류가 발생했습니다: ${errMsg}`);
+      } else {
+        alert(`예기치 않은 오류가 발생했습니다: ${String(error)}`);
+      }
     }
   };
 
