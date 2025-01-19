@@ -1,11 +1,12 @@
 import React from 'react';
 import MemberTableActionBtn
   from "@/app/(team-page)/[page_type]/[team_id]/(member)/member/_components/MemberTableActionBtn";
+import {TeamMemberTableName} from "@/app/(team-page)/[page_type]/[team_id]/(member)/member/page";
 
-const MemberTableData = ({data, tableName}) => {
+const MemberTableData: React.FC<TeamMemberTableName> = ({tableName}) => {
   return (
       <>
-        {tableName === "MEMBER" ? (
+        {tableName[0].label === "날짜" ? (
             <>
               {Array(5).fill(0).map((_, idx) => (
                   <div key={idx} className="flex text-center border-b last:border-none p-2 text-sm">

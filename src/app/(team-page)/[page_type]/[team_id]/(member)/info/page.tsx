@@ -3,33 +3,7 @@ import React from 'react';
 import {useQueryClient} from "@tanstack/react-query";
 import TeamPageInfo from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/TeamPageInfo";
 import {useParams} from "next/navigation";
-
-interface ProjectInfo {
-  projectId: number;
-  startDate: string;
-  endDate: string;
-  content: string;
-  categories: string[];
-  link: string;
-  memberCnt: number;
-  projectName: string;
-  status: string;
-  stacks: string[];
-}
-
-interface MentoringInfo {
-  dto: {
-    status: string;
-    startDate: string;
-    endDate: string;
-    mentoringCnt: number;
-    link: string;
-    categories: string[];
-    content: string;
-  };
-  error?: never;
-  isLoading: boolean;
-}
+import {MentoringInfo, ProjectInfo} from "@/app/(team-page)/[page_type]/[team_id]/(member)/_type/teamPageInfo";
 
 interface TeamInfoItem {
   label: string;

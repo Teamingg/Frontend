@@ -7,6 +7,15 @@ import {useParams} from "next/navigation";
 import MemberTableData from "@/app/(team-page)/[page_type]/[team_id]/(member)/member/_components/MemberTableData";
 import {fetchTeamPageData} from "@/service/api/team-page/fetchTeamPageData";
 
+export interface TeamMember {
+  id: number;
+  label: string;
+}
+
+export interface TeamMemberTableName {
+  tableName: TeamMember[];
+}
+
 const MEMBER = [
   {id: 1, label: "날짜"},
   {id: 2, label: "닉네임"},
@@ -42,7 +51,7 @@ const Page = () => {
           <MemberTableHeader tableName={MEMBER}/>
           {/* 테이블 데이터 */}
           <MemberTableData
-              data={data}
+              /*data={data}*/
               tableName={MEMBER}
           />
         </MemberTableList>
@@ -53,7 +62,7 @@ const Page = () => {
           <MemberTableHeader tableName={LEADER}/>
           {/* 테이블 데이터 */}
           <MemberTableData
-              data={data}
+              /*data={data}*/
               tableName={LEADER}
           />
         </MemberTableList>

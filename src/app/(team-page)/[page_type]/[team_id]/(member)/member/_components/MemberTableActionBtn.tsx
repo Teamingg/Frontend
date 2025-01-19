@@ -1,6 +1,16 @@
 import React from 'react';
 
-const MemberTableActionBtn = ({ actions }) => {
+interface MemberTblActionBtn {
+  type: "approve" | "reject" | "report" | "write" | "send" | "cancel";
+  label: string;
+  onClick: () => void;
+}
+
+interface Props {
+  actions: MemberTblActionBtn[];
+}
+
+const MemberTableActionBtn: React.FC<Props> = ({ actions }) => {
   /*
    * approve : 수락
    * reject : 거절
