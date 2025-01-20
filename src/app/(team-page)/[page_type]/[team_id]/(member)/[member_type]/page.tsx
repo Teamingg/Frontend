@@ -16,8 +16,7 @@ const Page = () => {
   const {data, error, isLoading} = useQuery({
     queryKey: ["page"],
     queryFn: () => fetchTeamPageData(String(params.page_type), String(params.team_id), "member")
-  })
-  console.log(params)
+  });
 
   // 로딩 및 에러처리
   if (isLoading) return <div>Loading...</div>;
