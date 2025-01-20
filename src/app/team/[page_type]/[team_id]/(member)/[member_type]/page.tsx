@@ -8,6 +8,7 @@ import MemberTables from "@/app/team/_components/MemberTables";
 import {useParams} from "next/navigation";
 import {team} from "@/app/team/_data/member";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
+import ErrorFallback from "@/components/error/ErrorFallback";
 
 export interface TeamMemberTables {
   type: "MEMBER" | "LEADER"
@@ -16,13 +17,13 @@ export interface TeamMemberTables {
 const Page = () => {
   // 데이터 패칭
   const params = useParams();
-  const {data, error, isLoading} = useQuery({
+  /*const {data, error, isLoading} = useQuery({
     queryKey: ["page"],
     queryFn: () => fetchTeamPageData(String(params.page_type), String(params.team_id), "member")
   });
 
   // 로딩 및 에러처리
-  if (isLoading) return <LoadingSpinner/>;
+  if (isLoading) return <LoadingSpinner/>;*/
   // if (error) return <div>Error fetching data</div>;
 
 
@@ -36,6 +37,7 @@ const Page = () => {
 
   return (
       <>
+        <ErrorFallback message={"데이터 로딩중 오류가 발생했습니다."}/>
         {/* 팀원 리스트 */}
         <MemberTableWrapper title="팀원">
           {/* 테이블 헤더 */}
