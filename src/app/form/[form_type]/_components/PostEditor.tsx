@@ -68,6 +68,7 @@ const PostEditor: React.FC<Props> = ({isEditMode}) => {
             formFields={formFields}
             control={control}
             register={register}
+            infoData={infoData}
         />
         {error && <p className="text-red-500">{(error as Error).message}</p>}
         {isLoading && <p className="text-blue-500">{isEditMode ? "게시글 수정 중..." : "게시글 작성 중..."}</p>}
