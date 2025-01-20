@@ -6,7 +6,8 @@ import {fetchTeamPageData} from "@/service/api/team-page/fetchTeamPageData";
 import PostCard from "@/app/team/[page_type]/[team_id]/(member)/post/_components/PostCard";
 import PostSeeMoreBtn from "@/app/team/[page_type]/[team_id]/(member)/post/_components/PostSeeMoreBtn";
 import Link from "next/link";
-import {MentoringPosts, ProjectPosts} from "@/app/team/[page_type]/[team_id]/(member)/_type/teamPagePosts";
+import {MentoringPosts, ProjectPosts} from "@/app/team/_type/teamPagePosts";
+import LoadingSpinner from "@/components/loading/LoadingSpinner";
 
 const Page = () => {
   const params = useParams();
@@ -18,7 +19,7 @@ const Page = () => {
   });
 
   // 로딩 및 에러처리
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingSpinner/>;
   if (error) return <div>Error fetching data</div>;
 
   // 타입 가드

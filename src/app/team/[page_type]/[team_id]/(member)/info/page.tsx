@@ -3,7 +3,7 @@ import React from 'react';
 import {useQueryClient} from "@tanstack/react-query";
 import TeamPageInfo from "@/app/team/[page_type]/[team_id]/(member)/info/_components/TeamPageInfo";
 import {useParams} from "next/navigation";
-import {MentoringInfo, ProjectInfo} from "@/app/team/[page_type]/[team_id]/(member)/_type/teamPageInfo";
+import {MentoringInfo, ProjectInfo} from "@/app/team/_type/teamPageInfo";
 
 export interface TeamInfoData {
   label: string;
