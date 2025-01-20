@@ -1,12 +1,22 @@
 // 공통 타입
-export interface FormFields {
+export interface FormField {
   label: string;
+  // name: Path<T> | string;
   name: string;
   required?: boolean;
   rules?: object;
   options?: { value: string; label: string }[];
 }
 
+// 여러 개의 필드가 한 줄에 배치되는 경우
+export interface RowFormField {
+  row: FormField[];
+}
+
+// 폼에서 사용할 타입 (FormField 또는 RowFormField 둘 다 가능)
+export type FormSchema = FormField | RowFormField;
+
+// 공통 데이터 타입 (프로젝트, 멘토링 공통 필드)
 interface CommonType {
   deadline: string;
   startDate: string;
@@ -18,19 +28,18 @@ interface CommonType {
  * 프로젝트 타입
  * .../(form)/create/project
  */
-export interface ProjectFormData {
+export interface ProjectCreationData extends CommonType {
   projectName: string;
-  deadline: string;
-  startDate: string;
-  endDate: string;
   memberCnt: string;
-  contents: string; // 필드 이름과 타입 확인
-  link: string;
+  contents: string;
   stacks: number[];
   recruitCategoryIds: number[];
 }
 
-// 프로젝트 게시글 수정
+/**
+ * 프로젝트 게시글 수정 데이터
+ * URL: `/form/edit/project/{team_id}`
+ */
 export interface ProjectPost {
   projectName: string;
   deadline: string;
@@ -39,26 +48,23 @@ export interface ProjectPost {
   contents: string;
 }
 
-export type ProjectForm = FormFields | { row: FormFields[] };
-
 /**
  * 멘토링 데이터 타입
  * .../(form)/create/mentoring
  */
-export interface MentoringFormData {
+export interface MentoringCreationData extends CommonType {
   name: string;
-  deadline: string;
-  startDate: string;
-  endDate: string;
   mentoringCnt: string;
   content: string;
   status: string;
-  link: string;
   role: string;
   categories: number[];
 }
 
-// 멘토링 게시글 수정
+/**
+ * 멘토링 게시글 수정 데이터
+ * URL: `/form/edit/mentoring/{team_id}`
+ */
 export interface MentoringPost {
   name: string;
   deadline: string;
@@ -66,5 +72,3 @@ export interface MentoringPost {
   link: string;
   contents: string;
 }
-
-export type MentoringForm = FormFields | { row: FormFields[] };

@@ -12,20 +12,11 @@ import {
   PathValue
 } from "react-hook-form";
 import InputField from "@/components/common/Input/TextInput/InputField";
-import {MentoringPost, ProjectPost} from "@/app/form/[form_type]/_type/formDataTypes";
+import {FormField, FormSchema, MentoringPost, ProjectPost, RowFormField} from "@/app/form/_type/formDataTypes";
 import {TeamInfoData} from "@/app/team/[page_type]/[team_id]/(member)/info/page";
+import {generateDefaultValues} from "@/app/form/_service/formService";
 
-interface FormField <T extends FieldValues> {
-  label: string;
-  name: Path<T> | string;
-  rules?: object;
-}
-
-interface RowField <T extends FieldValues> {
-  row: FormField<T>[];
-}
-
-type FormFields<T extends FieldValues> = (FormField<T> | RowField<T>)[];
+export type FormFields<T extends FieldValues> = FormSchema[];
 
 type CustomErrors = {
   contents?: { message: string };
@@ -48,31 +39,9 @@ const PostForm = <T extends ProjectPost | MentoringPost>(
       register,
       infoData
     }: Props<T>): React.JSX.Element => {
+  // infoData를 기반으로 defaultValues를 동적으로 설정
+  const defaultValues = generateDefaultValues(formFields, infoData);
 
-  const formatValue = (value: unknown): string => {
-    if (Array.isArray(value)) {
-      return value.join(", "); // 배열이면 문자열로 변환
-    } else if (typeof value === "object" && value !== null) {
-      return JSON.stringify(value); // 객체라면 JSON 문자열 변환
-    } else {
-      return String(value ?? ""); // 숫자 또는 undefined면 문자열로 변환
-    }
-  };
-
-  const defaultValues = formFields.reduce<Record<string, string>>((acc, field) => {
-    if ("row" in field) {
-      field.row.forEach(rowField => {
-        const matchedInfo = infoData?.find(item => item.label === rowField.label);
-        acc[String(rowField.name)] = formatValue(matchedInfo?.infoData);
-      });
-    } else {
-      const matchedInfo = infoData?.find(item => item.label === field.label);
-      acc[String(field.name)] = formatValue(matchedInfo?.infoData);
-    }
-    return acc;
-  }, {});
-
-  // ✅ infoData를 기반으로 defaultValues를 동적으로 설정
   const { handleSubmit, formState: { errors } } = useForm<T>({
     defaultValues: defaultValues as DefaultValues<T>
   });

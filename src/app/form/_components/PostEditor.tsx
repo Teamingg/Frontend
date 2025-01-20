@@ -1,13 +1,13 @@
 "use client";
 import React from 'react';
 import {useParams, useSearchParams} from "next/navigation";
-import {ProjectFormFields} from "@/app/form/[form_type]/_data/createProject";
-import {MentoringFormFields} from "@/app/form/[form_type]/_data/createMentoring";
+import {ProjectFormFields} from "@/app/form/_data/createProject";
+import {MentoringFormFields} from "@/app/form/_data/createMentoring";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {MentoringPost, ProjectPost} from "@/app/form/[form_type]/_type/formDataTypes";
+import {MentoringPost, ProjectPost} from "@/app/form/_type/formDataTypes";
 import {useSubmit} from "@/hooks/form/useSubmit";
-import FormTitle from "@/app/form/[form_type]/_components/FormTitle";
-import PostForm from "@/app/form/[form_type]/_components/PostForm";
+import FormTitle from "@/app/form/_components/FormTitle";
+import PostForm from "@/app/form/_components/PostForm";
 
 interface Props {
   isEditMode: boolean;

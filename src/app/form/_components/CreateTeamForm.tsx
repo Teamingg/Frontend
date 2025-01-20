@@ -1,14 +1,18 @@
 "use client";
 import {useForm, SubmitHandler, DefaultValues, Path, UseFormRegister} from "react-hook-form";
 import TextareaField from "@/components/common/Input/TextArea/TextareaField";
-import {ProjectForm, MentoringForm, ProjectFormData, MentoringFormData} from "@/app/form/[form_type]/_type/formDataTypes";
-import FormFieldRenderer from "@/app/form/[form_type]/_components/FormFieldRenderer";
-import FormRowRenderer from "@/app/form/[form_type]/_components/FormRowRenderer";
+import {
+  ProjectCreationData,
+  MentoringCreationData,
+  FormSchema
+} from "@/app/form/_type/formDataTypes";
+import FormFieldRenderer from "@/app/form/_components/FormFieldRenderer";
+import FormRowRenderer from "@/app/form/_components/FormRowRenderer";
 
-interface Props<T extends ProjectFormData | MentoringFormData> {
+interface Props<T extends ProjectCreationData | MentoringCreationData> {
   onSubmit: SubmitHandler<T>;
   defaultValues: DefaultValues<T>;
-  formFields: (ProjectForm | MentoringForm)[];
+  formFields: (FormSchema)[];
   division?: "select" | "stacks";
 }
 
@@ -17,7 +21,7 @@ type CustomErrors = {
   content?: { message: string };
 };
 
-const CreateTeamForm = <T extends ProjectFormData | MentoringFormData> ({
+const CreateTeamForm = <T extends ProjectCreationData | MentoringCreationData> ({
   onSubmit,
   defaultValues,
   formFields,
@@ -57,11 +61,11 @@ const CreateTeamForm = <T extends ProjectFormData | MentoringFormData> ({
       )}
 
       {/* 소개 */}
-      <TextareaField<ProjectFormData>
+      <TextareaField<ProjectCreationData>
         label="소개"
-        name={"contents" as Path<ProjectFormData>}
+        name={"contents" as Path<ProjectCreationData>}
         placeholder="프로젝트 소개를 입력해 주세요."
-        register={register as unknown as UseFormRegister<ProjectFormData>}
+        register={register as unknown as UseFormRegister<ProjectCreationData>}
         error={customErrors.contents?.message || customErrors.content?.message}
       />
 
