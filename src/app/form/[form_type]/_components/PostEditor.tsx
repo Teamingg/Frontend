@@ -28,9 +28,6 @@ const PostEditor: React.FC<Props> = ({isEditMode}) => {
   const mentoringEndpoint = `/mentoring/posts/${team_id}`;
   const endPoints = isProject ? projectEndpoint : mentoringEndpoint;
 
-  // useForm 설정
-  const {control, register, handleSubmit, formState: {errors}} = useForm<ProjectPost | MentoringPost>();
-
   // 데이터 통신
   const {submit, isLoading, error} = useSubmit<MentoringPost | ProjectPost>({
     endpoint: endPoints,
@@ -54,6 +51,8 @@ const PostEditor: React.FC<Props> = ({isEditMode}) => {
     onSuccess: () => alert(isEditMode ? "게시글이 수정되었습니다." : "게시글이 작성되었습니다."),
   });
 
+  // useForm 설정
+  const {control, register} = useForm<ProjectPost | MentoringPost>();
   const onSubmit: SubmitHandler<ProjectPost | MentoringPost> = (data) => {
     submit(data);
   };
