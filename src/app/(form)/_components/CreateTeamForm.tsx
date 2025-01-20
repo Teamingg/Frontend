@@ -66,11 +66,11 @@ const CreateTeamForm = <T extends ProjectFormData | MentoringFormData> ({
       />
 
       {/* 버튼 */}
-      <div className="mt-16 text-center">
-        <button className="w-[320px] h-[50px] mx-5 rounded-l border-2">
+      <div className="mt-16 text-center md:flex">
+        <button className="w-[320px] h-[50px] mx-5 rounded-xl border-2 hover:bg-gray-400">
           닫기
         </button>
-        <button className="w-[320px] h-[50px] mx-5 bg-blue-500 text-white rounded-[5px]">
+        <button className="w-[320px] h-[50px] mx-5 bg-blue-500 text-white rounded-xl hover:bg-blue-400">
           팀 생성하기
         </button>
       </div>
