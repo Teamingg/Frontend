@@ -14,6 +14,7 @@ export interface TeamMemberTables {
 }
 
 const Page = () => {
+  // 데이터 패칭
   const params = useParams();
   const {data, error, isLoading} = useQuery({
     queryKey: ["page"],
@@ -24,8 +25,6 @@ const Page = () => {
   if (isLoading) return <LoadingSpinner/>;
   // if (error) return <div>Error fetching data</div>;
 
-  // 변환된 데이터
-  // const transformedData = mapMemberData(data);
 
 
   /*

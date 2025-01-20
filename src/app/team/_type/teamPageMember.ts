@@ -19,3 +19,11 @@ export interface ProjectMember {
   "isReported": boolean,
   "isReviewed": boolean
 }
+
+// 멤버의 상태 (MemberTables)
+export interface MemberStatus {
+  approved: boolean | null; // 수락 여부
+  removed: boolean; // 내보내기 여부
+  reported: boolean; // 신고 여부
+  written: boolean; // 작성 여부
+}
