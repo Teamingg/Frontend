@@ -1,21 +1,27 @@
 "use client";
 import React from 'react';
-import {useParams} from "next/navigation";
+import {useParams, useSearchParams} from "next/navigation";
 import {ProjectFormFields} from "@/app/(form)/_data/createProject";
 import {MentoringFormFields} from "@/app/(form)/_data/createMentoring";
 import FormTitle from "@/app/(form)/_components/FormTitle";
 import PostForm from "@/app/(form)/_components/PostForm";
 import {useSubmit} from "@/hooks/form/useSubmit";
 import {MentoringPost, ProjectPost} from "@/app/(form)/_type/formDataTypes";
-import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
+import {SubmitHandler, useForm} from "react-hook-form";
 
 const Page = () => {
   const {page_type, team_id} = useParams();
   const isProject = page_type === "project";
   const formFields = isProject ? ProjectFormFields : MentoringFormFields;
 
-  // /project/post/{team_id}/{post_id}/edit
-  // /mentoring/teams/{team_id}
+  // url 데이터 받아오기
+  const queryString = useSearchParams();
+  const pageParams = queryString.get("page");
+  const infoData = queryString ? JSON.parse(decodeURIComponent(pageParams as string)) : null;
+  console.log(infoData);
+
+  // 프로젝트 : /project/post/{team_id}/{post_id}/edit
+  // 멘토링 : /mentoring/teams/{team_id}
   const projectEndpoint = `/project/post/${team_id}/post_id/edit`;
   const mentoringEndpoint = `/mentoring/posts/${team_id}`;
   const endPoints = isProject ? projectEndpoint : mentoringEndpoint;

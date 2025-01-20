@@ -5,7 +5,7 @@ import TeamPageInfo from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/
 import {useParams} from "next/navigation";
 import {MentoringInfo, ProjectInfo} from "@/app/(team-page)/[page_type]/[team_id]/(member)/_type/teamPageInfo";
 
-interface TeamInfoItem {
+export interface TeamInfoData {
   label: string;
   infoData?: string | number;
   stacks?: string[] | undefined;
@@ -29,7 +29,7 @@ const Page = <T extends ProjectInfo | MentoringInfo> () => {
   if (!data) return <div>No Data Available</div>;
 
   /* MentoringInfo 인지 체크 후 분기 처리 */
-  const teamInfoData: TeamInfoItem[] = isMentoringInfo(data)
+  const teamInfoData: TeamInfoData[] = isMentoringInfo(data)
       ? [
         { label: "시작일자", infoData: data.dto.startDate },
         { label: "종료일자", infoData: data.dto.endDate },
@@ -54,6 +54,7 @@ const Page = <T extends ProjectInfo | MentoringInfo> () => {
           infoData={teamInfoData}
           content={"dto" in data ? data.dto.content : data.content}
           authority={"LEADER"}
+          params={params ?? {page_type: "", team_id: ""}}
       />
   );
 };

@@ -3,29 +3,38 @@ import StatusButton from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/
 import TeamInfoSection from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/TeamInfoSection";
 import TeamInfoItem from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/TeamInfoItem";
 import TeamDescription from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/TeamDescription";
-import ProjectTeamInfoTecStack from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/ProjectTeamInfoTecStack";
+import ProjectTeamInfoTecStack
+  from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/ProjectTeamInfoTecStack";
 import Link from "next/link";
+import {TeamInfoData} from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/page";
 
-interface TeamInfoItem {
-  label: string;
-  infoData?: string | number;
-  stacks?: string[] | undefined;
-}
-
-interface TeamPageInfo {
+interface Props {
   status: string;
-  infoData: TeamInfoItem[];
+  infoData: TeamInfoData[];
   content: string;
   authority: "LEADER" | "MEMBER";
+  params?: {
+    page_type?: string;
+    team_id?: string;
+  };
 }
 
-const TeamPageInfo: React.FC<TeamPageInfo> = (
+const TeamPageInfo: React.FC<Props> = (
     {
       status,
       infoData,
       content,
-      authority
+      authority,
+      params
     }) => {
+  // edit 페이지 이동 링크
+  const page_type = params?.page_type;
+  const team_id = params?.team_id;
+  const encodedData = encodeURIComponent(JSON.stringify(infoData));
+  const infoEditHref = `/edit/${page_type}/${team_id}?page=${encodedData}`
+  console.log(infoData);
+  console.log(encodedData);
+
   return (
       <div className="h-full p-4 border rounded bg-white overflow-y-auto">
         {/*모집 상태*/}
@@ -66,7 +75,9 @@ const TeamPageInfo: React.FC<TeamPageInfo> = (
           {/*수정하기 버튼*/}
           {authority === "LEADER" && (
               <div className="mt-8 flex justify-end">
-                <Link href={"#"} className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-400">
+                <Link
+                    href={infoEditHref}
+                    className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-400">
                   수정하기
                 </Link>
               </div>
