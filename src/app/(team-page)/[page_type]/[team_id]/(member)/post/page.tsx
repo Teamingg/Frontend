@@ -45,6 +45,11 @@ const Page = () => {
     const projectPosts = data as ProjectPosts[];
     return (
         <>
+          <Link
+              href={`/create/${params.page_type}/post`}
+              className="block mb-5 text-right text-blue-400">
+            게시글 작성하러 가기
+          </Link>
           {/* contents */}
           {projectPosts.map((item, idx) => (
               <PostCard
@@ -67,6 +72,11 @@ const Page = () => {
   // isMentoringPosts() => true
   return (
       <>
+        <Link
+            href={`/create/${params.page_type}/post`}
+            className="block mb-5 text-right text-blue-400">
+          게시글 작성하러 가기
+        </Link>
         {/* contents */}
         {data.map((item, idx) => (
             <PostCard
