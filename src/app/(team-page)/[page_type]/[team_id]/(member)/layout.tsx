@@ -40,8 +40,8 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({children}) => {
 
   return (
     <SectionLayout sectionTitle="My Team" navPaths={teamPagePaths}>
-      <div className="p-6 bg-gray-100 min-h-full overflow-x-scroll">
-        <div className="bg-white shadow-md rounded-lg p-6">
+      <div className="h-full min-h-full p-6 bg-gray-100">
+        <div className="h-full bg-white shadow-md rounded-lg p-6">
           {children}
         </div>
       </div>

@@ -4,6 +4,7 @@ import TeamInfoSection from "@/app/(team-page)/[page_type]/[team_id]/(member)/in
 import TeamInfoItem from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/TeamInfoItem";
 import TeamDescription from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/TeamDescription";
 import ProjectTeamInfoTecStack from "@/app/(team-page)/[page_type]/[team_id]/(member)/info/_components/ProjectTeamInfoTecStack";
+import Link from "next/link";
 
 interface TeamInfoItem {
   label: string;
@@ -64,8 +65,10 @@ const TeamPageInfo: React.FC<TeamPageInfo> = (
 
           {/*수정하기 버튼*/}
           {authority === "LEADER" && (
-              <div className="flex justify-center mt-8">
-                <button className="bg-blue-500 text-white px-6 py-2 rounded">수정하기</button>
+              <div className="mt-8 flex justify-end">
+                <Link href={"#"} className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-400">
+                  수정하기
+                </Link>
               </div>
           )}
         </TeamInfoSection>

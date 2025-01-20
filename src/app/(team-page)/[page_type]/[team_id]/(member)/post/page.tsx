@@ -8,7 +8,6 @@ import PostSeeMoreBtn from "@/app/(team-page)/[page_type]/[team_id]/(member)/pos
 import Link from "next/link";
 import {MentoringPosts, ProjectPosts} from "@/app/(team-page)/[page_type]/[team_id]/(member)/_type/teamPagePosts";
 
-// Todo : 게시글 작성 버튼 추가 필요
 const Page = () => {
   const params = useParams();
   const queryFn = fetchTeamPageData(String(params.page_type), String(params.team_id), "posts");
@@ -41,56 +40,62 @@ const Page = () => {
 
   // ProjectPosts 일 경우 타입 지정 후 렌더링
   // isMentoringPosts() => false
+  // 5개의 데이터만 출력
   if (!isMentoringPosts(data)) {
     const projectPosts = data as ProjectPosts[];
     return (
-        <>
+        <div className="h-full flex flex-col">
           <Link
               href={`/create/${params.page_type}/post`}
               className="block mb-5 text-right text-blue-400">
             게시글 작성하러 가기
           </Link>
           {/* contents */}
-          {projectPosts.map((item, idx) => (
-              <PostCard
-                  key={idx}
-                  title={item.title}
-                  description={item.contents}
-                  startDate={item.startDate}
-                  endDate={item.endDate}
-                  tags={item.stacks}
-                  team={item.teamName}
-              />
-          ))}
+          <div className="h-full overflow-y-scroll">
+            {projectPosts.slice(0, 5).map((item, idx) => (
+                <PostCard
+                    key={idx}
+                    title={item.title}
+                    description={item.contents}
+                    startDate={item.startDate}
+                    endDate={item.endDate}
+                    tags={item.stacks}
+                    team={item.teamName}
+                />
+            ))}
+          </div>
           {/* 더보기 버튼 */}
           <PostSeeMoreBtn/>
-        </>
+        </div>
     )
   }
 
   // MentoringPosts 일 경우
   // isMentoringPosts() => true
+  // 5개의 데이터만 출력
   return (
-      <>
+      <div className="h-full flex flex-col">
         <Link
             href={`/create/${params.page_type}/post`}
             className="block mb-5 text-right text-blue-400">
           게시글 작성하러 가기
         </Link>
         {/* contents */}
-        {data.map((item, idx) => (
-            <PostCard
-                key={idx}
-                title={item.title}
-                description={item.contents}
-                startDate={item.startDate}
-                endDate={item.endDate}
-                team={item.mentoringTeamName}
-            />
-        ))}
+        <div className="h-full overflow-y-scroll">
+          {data.slice(0, 5).map((item, idx) => (
+              <PostCard
+                  key={idx}
+                  title={item.title}
+                  description={item.contents}
+                  startDate={item.startDate}
+                  endDate={item.endDate}
+                  team={item.mentoringTeamName}
+              />
+          ))}
+        </div>
         {/* 더보기 버튼 */}
         <PostSeeMoreBtn/>
-      </>
+      </div>
   );
 };
 
