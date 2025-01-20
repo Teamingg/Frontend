@@ -5,14 +5,14 @@ import {useSubmit} from "@/hooks/form/useSubmit";
 import {
   MentoringFormFields,
   defaultValues as mentoringDefaults
-} from "@/app/form/[form_type]/_data/createMentoring";
+} from "@/app/form/_data/createMentoring";
 import {
   ProjectFormFields,
   defaultValues as projectDefaults
-} from "@/app/form/[form_type]/_data/createProject";
-import { MentoringFormData, ProjectFormData } from "@/app/form/[form_type]/_type/formDataTypes";
-import FormTitle from "@/app/form/[form_type]/_components/FormTitle";
-import CreateTeamForm from "@/app/form/[form_type]/_components/CreateTeamForm";
+} from "@/app/form/_data/createProject";
+import { MentoringCreationData, ProjectCreationData } from "@/app/form/_type/formDataTypes";
+import FormTitle from "@/app/form/_components/FormTitle";
+import CreateTeamForm from "@/app/form/_components/CreateTeamForm";
 
 const Page = () => {
   // 경로에 따라 다른 페이지 출력
@@ -22,34 +22,34 @@ const Page = () => {
   const defaultValues = isProject ? projectDefaults : mentoringDefaults;
   const endPoints = isProject ? "/project/team" : "/mentoring/teams"
 
-  const { submit, isLoading, error } = useSubmit<ProjectFormData | MentoringFormData>({
+  const { submit, isLoading, error } = useSubmit<ProjectCreationData | MentoringCreationData>({
     endpoint: endPoints,
     formatPayload: (formData) => {
       return isProject
           // 프로젝트 데이터
           ? {
-            projectName: (formData as ProjectFormData).projectName,
-            deadline: (formData as ProjectFormData).deadline,
-            startDate: (formData as ProjectFormData).startDate,
-            endDate: (formData as ProjectFormData).endDate,
-            memberCnt: Number((formData as ProjectFormData).memberCnt),
-            contents: (formData as ProjectFormData).contents,
-            stackIds: (formData as ProjectFormData).stacks,
-            link: (formData as ProjectFormData).link,
-            recruitCategoryIds: [(formData as ProjectFormData).recruitCategoryIds],
+            projectName: (formData as ProjectCreationData).projectName,
+            deadline: (formData as ProjectCreationData).deadline,
+            startDate: (formData as ProjectCreationData).startDate,
+            endDate: (formData as ProjectCreationData).endDate,
+            memberCnt: Number((formData as ProjectCreationData).memberCnt),
+            contents: (formData as ProjectCreationData).contents,
+            stackIds: (formData as ProjectCreationData).stacks,
+            link: (formData as ProjectCreationData).link,
+            recruitCategoryIds: [(formData as ProjectCreationData).recruitCategoryIds],
           }
           // 멘토링 데이터
           : {
-            name: (formData as MentoringFormData).name,
-            startDate: (formData as MentoringFormData).startDate,
-            endDate: (formData as MentoringFormData).endDate,
-            mentoringCnt: Number((formData as MentoringFormData).mentoringCnt),
-            content: (formData as MentoringFormData).content,
-            link: (formData as MentoringFormData).link,
-            role: (formData as MentoringFormData).role,
-            categories: Array.isArray((formData as MentoringFormData).categories)
-                ? (formData as MentoringFormData).categories.map(Number)
-                : [Number((formData as MentoringFormData).categories)],
+            name: (formData as MentoringCreationData).name,
+            startDate: (formData as MentoringCreationData).startDate,
+            endDate: (formData as MentoringCreationData).endDate,
+            mentoringCnt: Number((formData as MentoringCreationData).mentoringCnt),
+            content: (formData as MentoringCreationData).content,
+            link: (formData as MentoringCreationData).link,
+            role: (formData as MentoringCreationData).role,
+            categories: Array.isArray((formData as MentoringCreationData).categories)
+                ? (formData as MentoringCreationData).categories.map(Number)
+                : [Number((formData as MentoringCreationData).categories)],
           };
     },
     onSuccess: () => {

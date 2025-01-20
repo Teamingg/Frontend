@@ -4,7 +4,8 @@ import SectionLayout from "@/components/layout/DetailSection/SectionLayout";
 import {useQuery, useQueryClient} from "@tanstack/react-query";
 import {useParams, usePathname} from "next/navigation";
 import {fetchTeamPageData} from "@/service/api/team-page/fetchTeamPageData";
-import {TeamPageInfo} from "@/app/team/[page_type]/[team_id]/(member)/_type/teamPageInfo";
+import {TeamPageInfo} from "@/app/team/_type/teamPageInfo";
+import LoadingSpinner from "@/components/loading/LoadingSpinner";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({children}) => {
   const params = useParams();
@@ -22,7 +23,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({children}) => {
   });
 
   // 로딩 및 에러처리
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <LoadingSpinner/>;
   if (error) return <div>Error fetching data</div>;
 
   // 데이터 캐싱

@@ -1,4 +1,4 @@
-import {MentoringPost} from "@/app/form/[form_type]/_type/formDataTypes";
+import {MentoringPost} from "@/app/form/_type/formDataTypes";
 
 export const MentoringPostFormFields = [
   {

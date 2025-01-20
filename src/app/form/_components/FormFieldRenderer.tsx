@@ -1,11 +1,11 @@
-import {MentoringForm, ProjectForm} from "@/app/form/[form_type]/_type/formDataTypes";
+import {FormSchema} from "@/app/form/_type/formDataTypes";
 import {Control, FieldValues, UseFormRegister, Path} from "react-hook-form";
 import SelectCheckBox from "@/components/common/Input/SelectCheckBox/SelectCheckBox";
 import STACK_LIST from "@/constant/stackList";
 import InputField from "@/components/common/Input/TextInput/InputField";
 
 interface FieldRendererProps<T extends FieldValues> {
-  field: ProjectForm | MentoringForm;
+  field: FormSchema;
   control: Control<T>;
   register: UseFormRegister<T>;
   division?: "select" | "stacks";

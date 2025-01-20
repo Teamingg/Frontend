@@ -1,21 +1,22 @@
 "use client";
-import React from "react";
+import React, {useEffect} from "react";
 import TextareaField from "@/components/common/Input/TextArea/TextareaField";
-import {SubmitHandler, useForm, Control, UseFormRegister, Path, FieldValues} from "react-hook-form";
+import {
+  SubmitHandler,
+  useForm,
+  Control,
+  UseFormRegister,
+  Path,
+  FieldValues,
+  DefaultValues,
+  PathValue
+} from "react-hook-form";
 import InputField from "@/components/common/Input/TextInput/InputField";
-import {MentoringPost, ProjectPost} from "@/app/form/[form_type]/_type/formDataTypes";
+import {FormField, FormSchema, MentoringPost, ProjectPost, RowFormField} from "@/app/form/_type/formDataTypes";
+import {TeamInfoData} from "@/app/team/[page_type]/[team_id]/(member)/info/page";
+import {generateDefaultValues} from "@/app/form/_service/formService";
 
-interface FormField <T extends FieldValues> {
-  label: string;
-  name: Path<T> | string;
-  rules?: object;
-}
-
-interface RowField <T extends FieldValues> {
-  row: FormField<T>[];
-}
-
-type FormFields<T extends FieldValues> = (FormField<T> | RowField<T>)[];
+export type FormFields<T extends FieldValues> = FormSchema[];
 
 type CustomErrors = {
   contents?: { message: string };
@@ -27,18 +28,26 @@ interface Props<T extends FieldValues> {
   formFields: FormFields<T>;
   control: Control<T>;
   register: UseFormRegister<T>;
+  infoData?: TeamInfoData[];
 }
 
-// ✅ ProjectPost | MentoringPost 타입을 명확하게 사용
 const PostForm = <T extends ProjectPost | MentoringPost>(
     {
       onSubmit,
       formFields,
       control,
       register,
+      infoData
     }: Props<T>): React.JSX.Element => {
-  const {handleSubmit, formState: {errors}} = useForm<T>();
+  // infoData를 기반으로 defaultValues를 동적으로 설정
+  const defaultValues = generateDefaultValues(formFields, infoData);
+
+  const { handleSubmit, formState: { errors } } = useForm<T>({
+    defaultValues: defaultValues as DefaultValues<T>
+  });
+
   const customErrors = errors as CustomErrors;
+  console.log(infoData)
 
   return (
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -54,6 +63,7 @@ const PostForm = <T extends ProjectPost | MentoringPost>(
                             name={rowField.name as Path<T>}
                             control={control}
                             rules={rowField.rules ?? {}}
+                            defaultValue={defaultValues[rowField.name as string] as unknown as PathValue<T, Path<T>>}
                         />
                       </div>
                   ))}
@@ -69,6 +79,7 @@ const PostForm = <T extends ProjectPost | MentoringPost>(
                     name={field.name as Path<T>}
                     control={control}
                     rules={field.rules ?? {}}
+                    defaultValue={defaultValues[field.name as string] as unknown as PathValue<T, Path<T>>}
                 />
               </div>
           );

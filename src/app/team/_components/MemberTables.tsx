@@ -1,7 +1,7 @@
 "use client";
 import React, {useState} from 'react';
 import MemberTableActionBtn
-  from "@/app/team/[page_type]/[team_id]/(member)/[member_type]/_components/MemberTableActionBtn";
+  from "@/app/team/_components/MemberTableActionBtn";
 import {TeamMemberTables} from "@/app/team/[page_type]/[team_id]/(member)/[member_type]/page";
 
 // 멤버의 상태

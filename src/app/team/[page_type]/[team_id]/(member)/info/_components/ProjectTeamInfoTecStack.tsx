@@ -13,7 +13,7 @@ const ProjectTeamInfoTecStack = ({stacks}: ProjectTeamInfoTecStackProps) => {
   }, {} as Record<string, typeof STACK_LIST[number]>)
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between items-center">
       <label className="block text-[19px] text-gray-600">기술스택</label>
       <div className="w-10/12 flex items-center justify-center gap-2 space-x-2">
         {stacks.map(stackId => {

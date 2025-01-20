@@ -15,17 +15,19 @@ interface InputFieldProps<TFieldValues extends FieldValues> {
   control: Control<TFieldValues>;
   label: string;
   rules: object; // 해당 인풋의 validation
+  defaultValue?: string;
 }
 const InputField = <TFieldValues extends FieldValues>({
   name,
   label,
   control,
-  rules,
+  rules,defaultValue
 }: InputFieldProps<TFieldValues> & UseControllerProps<TFieldValues>) => {
   const { field, fieldState } = useController<TFieldValues>({
     name,
     control,
     rules,
+    defaultValue
   });
 
   return (

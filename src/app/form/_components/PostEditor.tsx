@@ -1,13 +1,13 @@
 "use client";
 import React from 'react';
 import {useParams, useSearchParams} from "next/navigation";
-import {ProjectFormFields} from "@/app/form/[form_type]/_data/createProject";
-import {MentoringFormFields} from "@/app/form/[form_type]/_data/createMentoring";
+import {ProjectFormFields} from "@/app/form/_data/createProject";
+import {MentoringFormFields} from "@/app/form/_data/createMentoring";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {MentoringPost, ProjectPost} from "@/app/form/[form_type]/_type/formDataTypes";
+import {MentoringPost, ProjectPost} from "@/app/form/_type/formDataTypes";
 import {useSubmit} from "@/hooks/form/useSubmit";
-import FormTitle from "@/app/form/[form_type]/_components/FormTitle";
-import PostForm from "@/app/form/[form_type]/_components/PostForm";
+import FormTitle from "@/app/form/_components/FormTitle";
+import PostForm from "@/app/form/_components/PostForm";
 
 interface Props {
   isEditMode: boolean;
@@ -27,9 +27,6 @@ const PostEditor: React.FC<Props> = ({isEditMode}) => {
   const projectEndpoint = `/project/post/${team_id}/post_id/edit`;
   const mentoringEndpoint = `/mentoring/posts/${team_id}`;
   const endPoints = isProject ? projectEndpoint : mentoringEndpoint;
-
-  // useForm 설정
-  const {control, register, handleSubmit, formState: {errors}} = useForm<ProjectPost | MentoringPost>();
 
   // 데이터 통신
   const {submit, isLoading, error} = useSubmit<MentoringPost | ProjectPost>({
@@ -54,6 +51,8 @@ const PostEditor: React.FC<Props> = ({isEditMode}) => {
     onSuccess: () => alert(isEditMode ? "게시글이 수정되었습니다." : "게시글이 작성되었습니다."),
   });
 
+  // useForm 설정
+  const {control, register} = useForm<ProjectPost | MentoringPost>();
   const onSubmit: SubmitHandler<ProjectPost | MentoringPost> = (data) => {
     submit(data);
   };
@@ -69,6 +68,7 @@ const PostEditor: React.FC<Props> = ({isEditMode}) => {
             formFields={formFields}
             control={control}
             register={register}
+            infoData={infoData}
         />
         {error && <p className="text-red-500">{(error as Error).message}</p>}
         {isLoading && <p className="text-blue-500">{isEditMode ? "게시글 수정 중..." : "게시글 작성 중..."}</p>}
