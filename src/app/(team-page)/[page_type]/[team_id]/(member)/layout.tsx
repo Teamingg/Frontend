@@ -2,21 +2,23 @@
 import React from "react";
 import SectionLayout from "@/components/layout/DetailSection/SectionLayout";
 import {useQuery, useQueryClient} from "@tanstack/react-query";
-import {useParams} from "next/navigation";
+import {useParams, usePathname} from "next/navigation";
 import {fetchTeamPageData} from "@/service/api/team-page/fetchTeamPageData";
 import {TeamPageInfo} from "@/app/(team-page)/[page_type]/[team_id]/(member)/_type/teamPageInfo";
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({children}) => {
   const params = useParams();
+  const path = usePathname();
+  const currentPath = path.split("/").pop();
 
-  // TODO : path 가 ../{team_id}/info 일 경우에만 아래 쿼리 실행
+  // 항상 useQuery 를 호출하고, "info"가 아닐 때는 enabled 옵션으로 비활성화
   const queryClient = useQueryClient();
   const queryFn = fetchTeamPageData<TeamPageInfo>(String(params.page_type), String(params.team_id), "info");
 
   const {data, error, isLoading} = useQuery<TeamPageInfo>({
     queryKey: ["teamInfo", params.page_type, params.team_id],
     queryFn: () => queryFn,
-    enabled: !!params.page_type && !!params.team_id,
+    enabled: currentPath === "info" && !!params.page_type && !!params.team_id,
   });
 
   // 로딩 및 에러처리
@@ -25,15 +27,13 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({children}) => {
 
   // 데이터 캐싱
   queryClient.setQueryData(["teamInfo", params.page_type, params.team_id], data);
-  console.log(params.page_type + " : " + data);
 
-  // url 에 따라 다른 페이지 출력
+  // data?.authority 값에 따라 다른 네비게이션 구성
   // 예 : page_type 이 project 면 /project/{project_team_id}/info ...
   const teamPagePaths = [
     {label: "팀 소개", path: `/${params.page_type}/${params.team_id}/info`},
-    {label: "멤버 및 지원자 현황", path: `/${params.page_type}/${params.team_id}/member`},
     data?.authority === "LEADER"
-      ? {label: "멤버 및 지원자 현황", path: `/${params.page_type}/${params.team_id}/member`}
+      ? {label: "멤버 및 지원자 현황", path: `/${params.page_type}/${params.team_id}/leader`}
       : {label: "멤버", path: `/${params.page_type}/${params.team_id}/member`},
     {label: "작성한 게시글", path: `/${params.page_type}/${params.team_id}/post`},
   ];
