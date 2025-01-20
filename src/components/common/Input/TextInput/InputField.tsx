@@ -2,7 +2,7 @@
 
 import {
   Control,
-  FieldValues,
+  FieldValues, Path,
   useController,
   UseControllerProps,
 } from "react-hook-form";
@@ -10,7 +10,8 @@ import TextInput from "./TextInput";
 
 interface InputFieldProps<TFieldValues extends FieldValues> {
   key?: string | number;
-  name: keyof TFieldValues; // name 은 TFieldValues(폼 값의 키) 여야 함
+  // name: keyof TFieldValues; // name 은 TFieldValues(폼 값의 키) 여야 함
+  name: Path<TFieldValues>;
   control: Control<TFieldValues>;
   label: string;
   rules: object; // 해당 인풋의 validation
