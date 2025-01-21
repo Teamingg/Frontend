@@ -1,7 +1,6 @@
 "use client";
 import React, {useState} from 'react';
-import MemberTableActionBtn
-  , {ActionBtn} from "@/app/team/_components/MemberTableActionBtn";
+import MemberTableActionBtn from "@/app/team/_components/MemberTableActionBtn";
 import {TeamMemberTables} from "@/app/team/[page_type]/[team_id]/(member)/[member_type]/page";
 import AlertModal from "@/components/common/Modal/AlertModal";
 import useModal from "@/hooks/useModal";
@@ -19,17 +18,30 @@ const MemberTables: React.FC<TeamMemberTables> = ({type}) => {
   const isMember = type === "MEMBER";
   const columnWidth = isMember ? "w-1/5" : "w-1/4";
 
-  // 모달
+  // ✅ 모달 상태
   const { modal, openModal, closeModal } = useModal();
+  const [selectedAction, setSelectedAction] = useState<{ id: number; key: keyof MemberStatus; value: boolean | null; } | null>(null);
 
-  // 멤버 상태 관리
+  // ✅ 멤버 상태
   const [memberStatus, setMemberStatus] = useState<Record<number, MemberStatus>>({});
 
-  // 상태 변경 함수
-  // 모든 버튼 클릭시 모달 출력하도록 수정 필요
-  // 리뷰 작성시 모달 출력
+  // ✅ 멤버 상태 변경
   const updateMemberStatus = (id: number, key: keyof MemberStatus, value: boolean | null) => {
     setMemberStatus((prev) => ({...prev, [id]: {...prev[id], [key]: value,},}));
+  };
+
+  // ✅ 버튼 클릭 시 모달을 띄우도록 설정
+  const handleActionClick = (id: number, key: keyof MemberStatus, value: boolean | null) => {
+    setSelectedAction({ id, key, value }); // 선택된 액션 저장
+    openModal(); // 모달 열기
+  };
+
+  // ✅ 모달 확인 버튼 클릭 시 실제 상태 업데이트 수행
+  const confirmAction = () => {
+    if (selectedAction) {
+      updateMemberStatus(selectedAction.id, selectedAction.key, selectedAction.value);
+    }
+    closeModal();
   };
 
   const dummyDate = "2024-11-11";
@@ -47,7 +59,7 @@ const MemberTables: React.FC<TeamMemberTables> = ({type}) => {
                 <div className={columnWidth}>{dummyMember}</div>
 
                 {/* 액션 버튼 */}
-                {getActionConfig(idx, status, isMember, updateMemberStatus).map((action, i) => (
+                {getActionConfig(idx, status, isMember, handleActionClick).map((action, i) => (
                     action?.className ? (
                         <div key={i} className={`${columnWidth} ${action.className}`}>
                           {action.label}
@@ -61,6 +73,18 @@ const MemberTables: React.FC<TeamMemberTables> = ({type}) => {
               </div>
           );
         })}
+
+        {/* 모달 */}
+        {modal && selectedAction && (
+            <AlertModal
+                title={`${dummyName}을 ${selectedAction?.key}하시겠습니까?`}
+                message="..."
+                onClose={closeModal}
+                onConfirm={confirmAction}
+                buttonLabel="네"
+                isOpen={modal}
+            />
+        )}
       </>
   );
 };
