@@ -9,10 +9,7 @@ interface Props {
 
 const ErrorFallback: React.FC<Props> =  ({ ...rest}) => {
   const router = useRouter();
-
-  const handleRefresh = () => {
-    router.refresh();
-  };
+  const handleRefresh = () => router.refresh();
 
   return (
       <div className="flex flex-col justify-center items-center gap-5">
