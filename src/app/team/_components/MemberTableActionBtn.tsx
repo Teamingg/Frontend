@@ -1,25 +1,35 @@
 import React from 'react';
 
-interface MemberTblActionBtn {
-  type: "approve" | "reject" | "report" | "write" | "send" | "cancel";
+interface Common {
   label: string;
-  onClick: () => void;
+  className?: string;
+  onClick?: () => void;
 }
+
+interface ClickableAction extends Common {
+  type: "approve" | "reject" | "report" | "write" | "send" | "cancel";
+}
+
+interface InfoAction extends Common {
+  type: "info";
+}
+
+export type ActionBtn = ClickableAction | InfoAction;
 
 interface Props {
-  actions: MemberTblActionBtn[];
+  actions: ActionBtn[];
 }
 
-const MemberTableActionBtn: React.FC<Props> = ({ actions }) => {
+const MemberTableActionBtn: React.FC<Props> = ({actions}) => {
   /*
-   * approve : 수락
-   * reject : 거절
-   * report : 신고
-   * write : 작성
-   * send : 내보내기
-   * cancel : 전체 강퇴
+   * ✅ approve : 수락
+   * ✅ reject : 거절
+   * ✅ report : 신고
+   * ✅ write : 작성
+   * ✅ send : 내보내기
+   * ✅ cancel : 전체 강퇴
    */
-  const buttonStyles = {
+  const buttonStyles: Record<ClickableAction["type"], string> = {
     approve: 'bg-blue-500 text-white px-2 py-1 rounded text-xs mr-2',
     reject: 'bg-red-500 text-white px-2 py-1 rounded text-xs',
     report: 'bg-red-500 text-white px-2 py-1 rounded text-xs',
@@ -29,17 +39,25 @@ const MemberTableActionBtn: React.FC<Props> = ({ actions }) => {
   };
 
   return (
-    <>
-      {actions.map((action, index) => (
-        <button
-          key={index}
-          className={buttonStyles[action.type]}
-          onClick={action.onClick}
-        >
-          {action.label}
-        </button>
-      ))}
-    </>
+      <>
+        {actions.map((action, index) => (
+            action.type === "info" ? (
+                <span key={index} className={action.className}>
+            {action.label}
+          </span>
+            ) : (
+                // ✅ `info`는 버튼 스타일을 참조하지 않음
+                // ✅ `info`는 onClick 이 없음
+                <button
+                    key={index}
+                    className={buttonStyles[action.type]}
+                    onClick={action.onClick}
+                >
+                  {action.label}
+                </button>
+            )
+        ))}
+      </>
   );
 };
 

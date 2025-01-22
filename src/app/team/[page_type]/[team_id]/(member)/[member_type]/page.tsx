@@ -8,12 +8,15 @@ import MemberTables from "@/app/team/_components/MemberTables";
 import {useParams} from "next/navigation";
 import {team} from "@/app/team/_data/member";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
+import {ProjectMember} from "@/app/team/_type/teamPageMember";
 
 export interface TeamMemberTables {
-  type: "MEMBER" | "LEADER"
+  type: "MEMBER" | "LEADER";
+  data: ProjectMember[];
 }
 
 const Page = () => {
+  // 데이터 패칭
   const params = useParams();
   const {data, error, isLoading} = useQuery({
     queryKey: ["page"],
@@ -24,8 +27,6 @@ const Page = () => {
   if (isLoading) return <LoadingSpinner/>;
   // if (error) return <div>Error fetching data</div>;
 
-  // 변환된 데이터
-  // const transformedData = mapMemberData(data);
 
 
   /*
@@ -34,7 +35,6 @@ const Page = () => {
    * 만약 데이터가 멘토링이면 ? 프로젝트면 ? => 데이터 바인딩 함수 생성
    * 타입가드
    */
-
   return (
       <>
         {/* 팀원 리스트 */}
@@ -43,8 +43,8 @@ const Page = () => {
           <MemberTableHeader tableName={team.member}/>
           {/* 테이블 데이터 */}
           <MemberTables
-              /*data={transformedData}*/
               type="MEMBER"
+              data={data}
           />
         </MemberTableWrapper>
 
@@ -55,8 +55,8 @@ const Page = () => {
               <MemberTableHeader tableName={team.leader}/>
               {/* 테이블 데이터 */}
               <MemberTables
-                  /*data={transformedData}*/
                   type="LEADER"
+                  data={data}
               />
             </MemberTableWrapper>
         )}
