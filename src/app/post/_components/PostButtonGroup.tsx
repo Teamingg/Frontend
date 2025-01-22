@@ -40,7 +40,7 @@ const PostButtonGroup = ({
   return (
     <div className="flex gap-4">
       <Link
-        href={`/${postType}/${teamId}/info`}
+        href={`/team/${postType}/${teamId}/info`}
         className="py-4 w-full border rounded-lg text-center"
       >
         {`${category} 팀 보러가기`}

@@ -39,13 +39,13 @@ const GlobalNavigation = () => {
           </p>
           <div>
             <Link
-              href="/create/project"
+              href="/form/create/project"
               className="bg-white py-4 block text-center border rounded-md mb-4 w-[500px] text-xl hover:bg-gray-50 transition-colors"
             >
               프로젝트
             </Link>
             <Link
-              href="/create/mentoring"
+              href="/form/create/mentoring"
               className="bg-primary text-white py-4 block text-center rounded-md w-[500px] text-xl hover:bg-opacity-80 transition-colors"
             >
               멘토링
