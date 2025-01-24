@@ -21,7 +21,7 @@ const useInfinitePosts = <T extends PostCategory>({
 }: useInfinitePostsProps<T>) => {
   const { fetchNextPage, hasNextPage, isFetchingNextPage, data } =
     useInfiniteQuery<T extends "project" ? ProjectPosts : MentoringPosts>({
-      queryKey: [category, "post"],
+      queryKey: [category, "posts"],
       queryFn: async ({ pageParam }) =>
         await getPosts({ nextCursor: pageParam as number }),
       initialPageParam: 0,
