@@ -1,10 +1,14 @@
 "use client";
 
+import { useMutation } from "@tanstack/react-query";
+
+import { queryclient } from "@/lib/getQueryClient";
+
+import { instance } from "@/service/api/instance/axiosInstance";
+
 import useModal from "@/hooks/useModal";
 import { useToast } from "@/hooks/useToast";
-import { queryclient } from "@/lib/getQueryClient";
-import { instance } from "@/service/api/instance/axiosInstance";
-import { useMutation } from "@tanstack/react-query";
+
 import AlertModal from "./common/Modal/AlertModal";
 
 interface CancelJoinButtonProps {
@@ -41,10 +45,6 @@ const CancelJoinButton = ({
     },
   });
 
-  const onClick = () => {
-    mutate();
-  };
-
   return (
     <>
       {modal && (
@@ -59,7 +59,7 @@ const CancelJoinButton = ({
         />
       )}
       <button
-        className="py-4 w-full bg-red-400 text-white rounded-lg text-center"
+        className="py-4 w-full bg-red-400 text-white rounded-lg text-center hover:bg-opacity-90 transition-colors"
         onClick={openModal}
       >
         {children}
