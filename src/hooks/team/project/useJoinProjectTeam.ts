@@ -1,3 +1,4 @@
+import { queryclient } from "@/lib/getQueryClient";
 import { instance } from "@/service/api/instance/axiosInstance";
 
 import { useMutation } from "@tanstack/react-query";
@@ -21,6 +22,9 @@ const useJoinProjectTeam = () => {
   const { mutate, isSuccess } = useMutation({
     mutationFn: async ({ teamId, recruitCategory }: ApplyProjectTeamProps) =>
       await applyProjectTeam({ teamId, recruitCategory }),
+    onSuccess: () => {
+      queryclient.invalidateQueries({ queryKey: ["project", "post"] });
+    },
   });
 
   return { mutate, isSuccess };

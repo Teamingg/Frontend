@@ -13,21 +13,23 @@ import ProjectPostList from "@/components/post/ProjectPostList";
 import MentoringPostList from "@/components/post/MentoringPostList";
 
 export default async function Home() {
-  // 프로젝트 포스트
-  await queryclient.prefetchInfiniteQuery({
-    queryKey: ["project", "post"],
-    queryFn: async ({ pageParam }) =>
-      await getAllProjectPosts({ nextCursor: pageParam as number }),
-    initialPageParam: 0,
-  });
+  await Promise.all([
+    // 프로젝트 포스트
+    queryclient.prefetchInfiniteQuery({
+      queryKey: ["project", "posts"],
+      queryFn: async ({ pageParam }) =>
+        await getAllProjectPosts({ nextCursor: pageParam as number }),
+      initialPageParam: 0,
+    }),
 
-  // 멘토링 포스트
-  await queryclient.prefetchInfiniteQuery({
-    queryKey: ["mentoring", "post"],
-    queryFn: async ({ pageParam }) =>
-      await getAllMentoringPosts({ nextCursor: pageParam as number }),
-    initialPageParam: 0,
-  });
+    // 멘토링 포스트
+    queryclient.prefetchInfiniteQuery({
+      queryKey: ["mentoring", "posts"],
+      queryFn: async ({ pageParam }) =>
+        await getAllMentoringPosts({ nextCursor: pageParam as number }),
+      initialPageParam: 0,
+    }),
+  ]);
 
   return (
     <>

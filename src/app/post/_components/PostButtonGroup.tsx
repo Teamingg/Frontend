@@ -5,8 +5,10 @@ import { useToast } from "@/hooks/useToast";
 import checkCookie from "@/utils/auth/checkCookie";
 import Link from "next/link";
 import React from "react";
+import { BeatLoader } from "react-spinners";
 
 interface PostButtonGroupProps {
+  isfetch: boolean;
   isApply: boolean; // 지원여부
   isEdit: boolean; // 팀원여부
   postType: "project" | "mentoring";
@@ -16,6 +18,7 @@ interface PostButtonGroupProps {
 }
 
 const PostButtonGroup = ({
+  isfetch,
   isEdit,
   postType,
   teamId,
@@ -46,28 +49,49 @@ const PostButtonGroup = ({
         {`${category} 팀 보러가기`}
       </Link>
 
-      {!isEdit && isApply && (
-        <CancelJoinButton category={postType} teamId={teamId} boardId={boardId}>
-          지원 취소하기
-        </CancelJoinButton>
-      )}
-
-      {!isApply && isEdit && (
-        <Link
-          className="py-4 w-full bg-primary text-white rounded-lg text-center"
-          href={`/edit/${postType}`}
-        >
-          수정하기
-        </Link>
-      )}
-
-      {!isEdit && !isApply && (
-        <button
+      {/* 패칭 중일 때 */}
+      {isfetch && (
+        <div
           onClick={onClick}
-          className="py-4 w-full bg-primary text-white rounded-lg"
+          className="py-4 h-[58px] w-full bg-gray-50 rounded-lg animate-pulse flex justify-center items-center"
         >
-          {`${category} 팀 참여 신청하기`}
-        </button>
+          <BeatLoader color="#337CEB" size={10} />
+        </div>
+      )}
+
+      {!isfetch && (
+        <>
+          {/* 지원한 상태 */}
+          {!isEdit && isApply && (
+            <CancelJoinButton
+              category={postType}
+              teamId={teamId}
+              boardId={boardId}
+            >
+              지원 취소하기
+            </CancelJoinButton>
+          )}
+
+          {/* 팀원인 상태 */}
+          {!isApply && isEdit && (
+            <Link
+              className="py-4 w-full bg-primary text-white rounded-lg text-center"
+              href={`/edit/${postType}`}
+            >
+              수정하기
+            </Link>
+          )}
+
+          {/* 지원하지 않은 상태 */}
+          {!isEdit && !isApply && (
+            <button
+              onClick={onClick}
+              className="py-4 w-full bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors"
+            >
+              {`${category} 팀 참여 신청하기`}
+            </button>
+          )}
+        </>
       )}
     </div>
   );

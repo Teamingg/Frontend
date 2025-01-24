@@ -27,7 +27,9 @@ const SectionLayout = ({
           </section>
 
           {/* 우측 ( 섹션 컨텐츠 ) */}
-          <section className="w-full h-full ">{children}</section>
+          <section className="w-full h-full overflow-y-scroll scrollbar-hide">
+            {children}
+          </section>
         </div>
       </div>
     </div>

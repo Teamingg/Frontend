@@ -1,13 +1,14 @@
 "use client";
 
 import { getUserReviews } from "@/service/api/user/getUserReviews";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import UserReviewItem from "./UserReviewItem";
 
 const UserReviewList = () => {
-  const { data } = useQuery({
+  const { data } = useSuspenseQuery({
     queryKey: ["user", "review"],
-    queryFn: async () => getUserReviews(),
+    queryFn: async () => await getUserReviews(),
+    initialData: undefined,
   });
 
   return (
@@ -20,7 +21,7 @@ const UserReviewList = () => {
       )}
 
       {data && (
-        <ul className="space-y-2 overflow-y-scroll scrollbar-hide max-h-[350px]">
+        <ul className="space-y-2 overflow-y-scroll scrollbar-hide max-h-[420px]">
           {data.map((review) => (
             <UserReviewItem
               key={review.reviewerId}
