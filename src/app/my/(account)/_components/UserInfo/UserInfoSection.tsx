@@ -7,33 +7,36 @@ import { useRouter } from "next/navigation";
 import { UserInfoFormValues } from "@/components/user/UserInfoForm/UserInfoFormValues";
 
 // hooks
-import useUpdateUserInfo from "../../../../hooks/user/useUpdateUserInfo";
-import useGetUserInfo from "../../../../hooks/user/useGetUserInfo";
+import useUpdateUserInfo from "../../../../../hooks/user/useUpdateUserInfo";
+import useGetUserInfo from "../../../../../hooks/user/useGetUserInfo";
 import useModal from "@/hooks/useModal";
 
 // _components
 import UserInfoContent from "./UserInfoContent";
-import EditUserForm from "./EditUserForm/EditUserForm";
+import EditUserForm from "../EditUserForm/EditUserForm";
 import Modal from "@/components/common/Modal/Modal";
-import LoadingIndicator from "@/components/common/LoadingIndicator";
 
 import { filterItemsByIds } from "@/utils/filterItemsByIds";
 
 import STACK_LIST from "@/constant/stackList";
+import UserInfoFallback from "../ui/UserInfoFallback";
+import { useToast } from "@/hooks/useToast";
 
 const UserInfoSection = () => {
   const router = useRouter();
-
+  const { toast } = useToast();
   const { modal: edit, openModal, closeModal } = useModal();
 
-  const { userInfo, isError, isPending } = useGetUserInfo();
+  const { userInfo, isError, isFetching } = useGetUserInfo();
   const { mutate, isSuccess } = useUpdateUserInfo();
 
   useEffect(() => {
     if (isSuccess) {
       closeModal();
+      toast.success("정보가 수정되었습니다.");
     }
-  }, [isSuccess, closeModal]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess]);
 
   const onSubmit = async (data: UserInfoFormValues) => {
     mutate(data);
@@ -41,8 +44,9 @@ const UserInfoSection = () => {
 
   return (
     <>
+      {/* 정보수정 모달 */}
       {edit && (
-        <Modal isOpen={true} onClose={closeModal}>
+        <Modal isOpen={edit} onClose={closeModal}>
           <div className="flex items-center justify-between mb-4">
             <h1 className="text-primary text-center text-2xl">회원정보 수정</h1>
             <button
@@ -62,37 +66,38 @@ const UserInfoSection = () => {
           />
         </Modal>
       )}
-      <div className="bg-white rounded-lg p-6 mb-4 shadow-sm">
-        <div className="flex justify-between items-center mb-4">
+
+      {/* 유저정보 */}
+      <section className="mb-4">
+        <div className="bg-white rounded-lg p-4 mb-4 shadow-sm">
           <h2 className=" text-xl text-primary">회원정보</h2>
-          {userInfo && (
+        </div>
+
+        {/* 패칭 중일 때 */}
+        {isFetching && <UserInfoFallback />}
+
+        {/* 패칭이 끝난 후 데이터가 존재 했을 때 */}
+        {!isError && !isFetching && userInfo && (
+          <div className="bg-white rounded-lg shadow-sm p-6 relative">
+            <UserInfoContent
+              name={userInfo.name || ""}
+              introduce={userInfo.introduce || ""}
+              waringCnt={userInfo.waringCnt || 0}
+              stacks={filterItemsByIds(userInfo.stacks, STACK_LIST) || []}
+            />
+
             <button
               onClick={openModal}
-              className="bg-primary text-sm text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors disabled:bg-opacity-90"
+              className="absolute right-4 bottom-4 bg-primary text-sm text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors disabled:bg-opacity-90"
             >
               수정하기
             </button>
-          )}
-        </div>
-
-        {isPending && (
-          <div className="flex justify-center items-center h-[200px]">
-            <LoadingIndicator />
           </div>
-        )}
-
-        {userInfo && (
-          <UserInfoContent
-            name={userInfo.name || ""}
-            introduce={userInfo.introduce || ""}
-            waringCnt={userInfo.waringCnt || 0}
-            stacks={filterItemsByIds(userInfo.stacks, STACK_LIST) || []}
-          />
         )}
 
         {/* 유저 정보를 불러오지 못했을 때 */}
         {isError && (
-          <>
+          <div className="bg-white rounded-lg shadow-sm p-6 relative">
             <p className="mb-2 text-center">
               정보를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.
             </p>
@@ -102,9 +107,9 @@ const UserInfoSection = () => {
             >
               처음으로 돌아가기
             </button>
-          </>
+          </div>
         )}
-      </div>
+      </section>
     </>
   );
 };
