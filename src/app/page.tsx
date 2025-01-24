@@ -16,7 +16,7 @@ export default async function Home() {
   await Promise.all([
     // 프로젝트 포스트
     queryclient.prefetchInfiniteQuery({
-      queryKey: ["project", "post"],
+      queryKey: ["project", "posts"],
       queryFn: async ({ pageParam }) =>
         await getAllProjectPosts({ nextCursor: pageParam as number }),
       initialPageParam: 0,
@@ -24,7 +24,7 @@ export default async function Home() {
 
     // 멘토링 포스트
     queryclient.prefetchInfiniteQuery({
-      queryKey: ["mentoring", "post"],
+      queryKey: ["mentoring", "posts"],
       queryFn: async ({ pageParam }) =>
         await getAllMentoringPosts({ nextCursor: pageParam as number }),
       initialPageParam: 0,
