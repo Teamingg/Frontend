@@ -1,20 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { UserInfo } from "../../types/user/userInfo";
 import { getUserInfo } from "../../service/api/user/getUserInfo";
 
 const useGetUserInfo = () => {
   const {
     data: userInfo,
-    isPending,
+    isFetching,
     isError,
-  } = useQuery<UserInfo>({
+  } = useSuspenseQuery<UserInfo>({
     queryKey: ["user", "info"],
-    queryFn: getUserInfo,
+    queryFn: async () => await getUserInfo(),
+    refetchOnMount: "always",
   });
 
   return {
     userInfo,
-    isPending,
+    isFetching,
     isError,
   };
 };
