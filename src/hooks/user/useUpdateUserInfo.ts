@@ -1,5 +1,3 @@
-"use lcient";
-
 import { useMutation } from "@tanstack/react-query";
 
 import { instance } from "@/service/api/instance/axiosInstance";
@@ -20,7 +18,7 @@ const useUpdateUserInfo = () => {
       );
     },
     onSuccess: () => {
-      queryclient.invalidateQueries({ queryKey: ["user"] });
+      queryclient.refetchQueries({ queryKey: ["user", "info"] });
     },
   });
 
