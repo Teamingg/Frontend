@@ -32,8 +32,6 @@ const TeamPageInfo: React.FC<Props> = (
   const team_id = params?.team_id;
   const encodedData = encodeURIComponent(JSON.stringify(infoData));
   const infoEditHref = `/form/edit/${page_type}/${team_id}?page=${encodedData}`
-  console.log(infoData);
-  console.log(encodedData);
 
   return (
       <div className="h-full p-4 border rounded bg-white overflow-y-auto">
