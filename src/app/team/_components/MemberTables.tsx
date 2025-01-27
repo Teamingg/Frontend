@@ -79,7 +79,7 @@ const MemberTables: React.FC<TeamMemberTables> = ({type, data}) => {
               return (
                   <div key={idx} className="flex text-center border-b last:border-none p-2 text-sm">
                     <div className={columnWidth}>{member.acceptedTime || "N/A"}</div>
-                    <div className={columnWidth}>{member.username}</div>
+                    <div className={columnWidth}>{member.username || "N/A"}</div>
                     <div className={columnWidth}>{member.role || "N/A"}</div>
 
                     {/* 액션 버튼 */}
