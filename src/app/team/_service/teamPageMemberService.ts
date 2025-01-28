@@ -1,4 +1,4 @@
-import {MemberStatus, MentoringTeamLeader, MentoringTeamMember, ProjectMember} from "@/app/team/_type/teamPageMember";
+import {MemberStatus, MentoringMemberResponse, ProjectMember} from "@/app/team/_type/teamPageMember";
 import {ActionBtn} from "@/app/team/_components/MemberTableActionBtn";
 import ActionButtonClass from "@/app/team/_service/ActionButtonClass";
 
@@ -40,31 +40,64 @@ export const getActionConfig = (
 }
 
 // ✅ 타입 가드 함수
+// ✅ 프로젝트 멤버인지 확인
 export const isProjectMember = (data: unknown): data is ProjectMember[] => {
   return Array.isArray(data) && data.every(member => "participationId" in member);
 };
 
-export const isMentoringLeader = (data: unknown): data is MentoringTeamLeader => {
-  return (data as MentoringTeamLeader)?.authority === "LEADER";
-};
-
-export const isMentoringMember = (data: unknown): data is MentoringTeamMember => {
-  return (data as MentoringTeamMember)?.authority === "MEMBER";
+// ✅ 멘토링 멤버인지 확인 (리더 or 일반 멤버)
+export const isMentoringMember = (data: unknown): data is MentoringMemberResponse => {
+  return typeof data === "object" && data !== null && "authority" in data;
 };
 
 // ✅ 데이터 변환 함수
+// ✅ API 응답을 통합된 TeamMember[] 형태로 변환
 export const transformTeamData = (
-    data: MentoringTeamLeader | MentoringTeamMember | ProjectMember[] | undefined
+    data: MentoringMemberResponse | ProjectMember[] | undefined
 ): ProjectMember[] => {
-  if (!data) return []; // 데이터가 없을 경우 빈 배열 반환
-
-  if (isProjectMember(data)) {
-    return data;
-  } else if (isMentoringLeader(data)) {
-    return data.details.members;
-  } else if (isMentoringMember(data)) {
-    return data.details;
+  if (!data) {
+    console.log("Data is undefined, returning empty array");
+    return [];
   }
 
+  if (isProjectMember(data)) {
+    console.log("✅ ProjectMember detected, returning as is: ", data);
+    return data;  // ✅ 프로젝트 데이터 그대로 반환
+  }
+
+  if (isMentoringMember(data)) {
+    console.log("✅ MentoringMember detected, transforming data...");
+
+    // ✅ members 필드는 data.details.members에 존재!
+    const details = (data as MentoringMemberResponse).details;
+    console.log(`details: ${details}`)
+    // ✅ `details`가 객체인지 확인 후 `members`에 접근
+    if (!("details" in data) || typeof data.details !== "object" || !Array.isArray(data.details.members)) {
+      console.log("❌ data.details.members is not an array, returning empty array");
+      return [];
+    }
+
+    return details.members.map(member => ({
+      type: "PROJECT",
+      userId: member.userId,
+      userName: member.username,
+      username: member.username,
+      role: member.role,
+      participationId: 0,
+      projectTeamId: 0,
+      participationStatus: member.status,
+      recruitCategory: "N/A",
+      decisionDate: member.acceptedTime,
+      acceptedTime: member.acceptedTime,
+      reportingCnt: 0,
+      isDeleted: member.isDeleted,
+      isExport: false,
+      isLoginUser: member.isLogined,
+      isReported: false,
+      isReviewed: false,
+    }));
+  }
+
+  console.log("❌ Data does not match any type, returning empty array");
   return [];
 };
