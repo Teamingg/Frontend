@@ -51,31 +51,22 @@ export const isMentoringMember = (data: unknown): data is MentoringMemberRespons
 };
 
 // ✅ 데이터 변환 함수
-// ✅ API 응답을 통합된 TeamMember[] 형태로 변환
 export const transformTeamData = (
     data: MentoringMemberResponse | ProjectMember[] | undefined
 ): ProjectMember[] => {
-  if (!data) {
-    console.log("Data is undefined, returning empty array");
-    return [];
-  }
+  // ✅ 데이터가 없는경우 빈 배열 반환
+  if (!data) return [];
 
-  if (isProjectMember(data)) {
-    console.log("✅ ProjectMember detected, returning as is: ", data);
-    return data;  // ✅ 프로젝트 데이터 그대로 반환
-  }
+  // ✅ 프로젝트 데이터 그대로 반환
+  if (isProjectMember(data)) return data;
 
   if (isMentoringMember(data)) {
-    console.log("✅ MentoringMember detected, transforming data...");
-
-    // ✅ members 필드는 data.details.members에 존재!
     const details = (data as MentoringMemberResponse).details;
-    console.log(`details: ${details}`)
+
     // ✅ `details`가 객체인지 확인 후 `members`에 접근
-    if (!("details" in data) || typeof data.details !== "object" || !Array.isArray(data.details.members)) {
-      console.log("❌ data.details.members is not an array, returning empty array");
-      return [];
-    }
+    const hasNoDetails = !("details" in data) || typeof data.details !== "object";
+    const hasNoMembersArray = !Array.isArray(data.details.members);
+    if (hasNoDetails || hasNoMembersArray) return [];
 
     return details.members.map(member => ({
       type: "PROJECT",
@@ -98,6 +89,5 @@ export const transformTeamData = (
     }));
   }
 
-  console.log("❌ Data does not match any type, returning empty array");
   return [];
 };
