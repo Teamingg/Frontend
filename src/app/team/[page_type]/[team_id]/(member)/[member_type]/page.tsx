@@ -11,14 +11,33 @@ import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import {MentoringTeamLeader, MentoringTeamMember, ProjectMember} from "@/app/team/_type/teamPageMember";
 import {transformTeamData} from "@/app/team/_service/teamMemberService";
 
+interface Params {
+  member_type: string;
+  page_type: string;
+  team_id: string;
+}
+
 export interface TeamMemberTables {
   type: "MEMBER" | "LEADER";
   data: ProjectMember[];
+  params?: {
+    member_type: string;
+    page_type: string;
+    team_id: string;
+  } | undefined;
 }
 
 const Page = () => {
+  const params = (useParams() as unknown) as Params;
+
+  // 기본값 처리
+  const normalizedParams = {
+    member_type: params.member_type ?? "leader",
+    page_type: params.page_type ?? "default",
+    team_id: params.team_id ?? "0",
+  };
+
   // 데이터 패칭
-  const params = useParams();
   const {data, error, isLoading} = useQuery({
     queryKey: ["members"],
     queryFn: () =>
@@ -44,6 +63,7 @@ const Page = () => {
           <MemberTables
               type="MEMBER"
               data={members}
+              params={normalizedParams}
           />
         </MemberTableWrapper>
 
@@ -56,6 +76,7 @@ const Page = () => {
               <MemberTables
                   type="LEADER"
                   data={members}
+                  params={normalizedParams}
               />
             </MemberTableWrapper>
         )}

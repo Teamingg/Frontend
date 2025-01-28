@@ -84,8 +84,13 @@ export const transformTeamData = (
 };
 
 // ✅ 엔드포인트 매핑 함수
-export const getMemberActionEndpoint = (teamId: number, userId: number, action: keyof MemberStatus): string => {
-  const baseUrl = `/project/team/${teamId}/${userId}`;
+export const getMemberActionEndpoint = (
+    pageType: string,
+    teamId: string,
+    userId: number,
+    action: keyof MemberStatus
+): string => {
+  const baseUrl = `/${pageType}/team/${teamId}/${userId}`;
   const endpointMap: Record<keyof MemberStatus, string> = {
     approved: `${baseUrl}/accept`, // 수락
     removed: `${baseUrl}/export`,  // 내보내기

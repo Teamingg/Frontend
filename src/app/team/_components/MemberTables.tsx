@@ -11,16 +11,19 @@ import {
   initializeMemberStatus,
   updateMemberStatusState
 } from "@/app/team/_service/teamMemberService";
-import ErrorFallback from "@/components/error/ErrorFallback";
 import { useSubmit } from "@/hooks/form/useSubmit";
 
-// ✅ SelectedAction 인터페이스
-export interface SelectedAction {
+// ✅ 서버에 전송할 데이터 타입 (name, label 제외)
+interface MemberActionPayload {
   id: number;
   key: keyof MemberStatus;
-  name: string;
   value: boolean | null;
-  label: string; // 선택된 액션의 라벨
+}
+
+// ✅ SelectedAction 타입 (UI에서 사용)
+export interface SelectedAction extends MemberActionPayload {
+  name: string;
+  label: string;
 }
 
 // ✅ 기본 상태 정의
@@ -31,18 +34,15 @@ const initialStatus: MemberStatus = {
   written: false,
 };
 
-const MemberTables: React.FC<TeamMemberTables & { teamId: number }> = ({ type, data, teamId }) => {
+const MemberTables: React.FC<TeamMemberTables> = ({...props}) => {
+  const {type, data, params} = props;
   const isMember = type === "MEMBER";
   const columnWidth = isMember ? "w-1/5" : "w-1/4";
 
   // ✅ 모달 상태
   const { modal, openModal, closeModal } = useModal();
-  const [selectedAction, setSelectedAction] = useState<SelectedAction>({
-    id: -1,
-    key: "approved",
-    name: "",
-    value: null,
-    label: "",
+  const [selectedMember, setSelectedMember] = useState<SelectedAction>({
+    id: -1, key: "approved", name: "", value: null, label: "",
   });
 
   // ✅ 멤버 상태 관리
@@ -55,34 +55,45 @@ const MemberTables: React.FC<TeamMemberTables & { teamId: number }> = ({ type, d
   }, [data]);
 
   // ✅ useSubmit 훅 사용 (API 요청)
-  const endpoint = selectedAction.id !== -1 ? getMemberActionEndpoint(teamId, selectedAction.id, selectedAction.key) : ""
-  const { submit: updateMemberStatus, isLoading } = useSubmit({
+  const pageType = params?.page_type ?? "";
+  const teamId = params?.team_id ?? "";
+  const endpoint = selectedMember.id !== -1
+      ? getMemberActionEndpoint(pageType, teamId, selectedMember.id, selectedMember.key)
+      : ""
+
+  const { submit: updateMemberStatus, isLoading } = useSubmit<MemberActionPayload>({
     endpoint: endpoint,
-    formatPayload: (data) => ({
-      id: 1,// data.id,
-      key: 2, // data.key,
-      value: 3, // data.value,
-    }),
+    formatPayload: (data) => {
+      console.log("📌 변환 전 데이터:", data);
+      console.log("📌 변환 후 id:", String(data.id));
+      console.log("📌 변환된 타입:", typeof String(data.id));
+
+      return {
+        id: String(data.id), // 숫자를 문자열로 변환
+        key: data.key,
+        value: data.value,
+      };
+    },
     onSuccess: () => {
       // ✅ 상태 업데이트 반영
-      setMemberStatus((prev) => updateMemberStatusState(prev, selectedAction));
-      console.log(`✅ ${selectedAction.name}(${selectedAction.key}) 상태 업데이트 완료!`);
+      setMemberStatus((prev) => updateMemberStatusState(prev, selectedMember));
+      console.log(`✅ ${selectedMember.name}(${selectedMember.key}) 상태 업데이트 완료!`);
     },
   });
 
   // ✅ 버튼 클릭 시 모달을 띄우도록 설정
-  const handleActionClick = ({ id, key, name, value }: Omit<typeof selectedAction, "label">) => {
-    setSelectedAction(getSelectedAction(id, key, name, value));
+  const handleActionClick = ({ id, key, name, value }: Omit<typeof selectedMember, "label">) => {
+    setSelectedMember(getSelectedAction(id, key, name, value));
     openModal();
   };
 
   // ✅ 모달 확인 버튼 클릭 시 API 요청 실행
   const confirmAction = () => {
-    if (selectedAction.id !== -1) {
+    if (selectedMember.id !== -1) {
       updateMemberStatus({
-        id: selectedAction.id,
-        key: selectedAction.key,
-        value: selectedAction.value,
+        id: selectedMember.id,
+        key: selectedMember.key,
+        value: selectedMember.value,
       });
     }
     closeModal();
@@ -96,7 +107,7 @@ const MemberTables: React.FC<TeamMemberTables & { teamId: number }> = ({ type, d
           const username = member.username || member.userName || "N/A";
           const role = member.role || "N/A";
           const actions = getActionConfig(member.userId, status, isMember, (id, key, value) =>
-              handleActionClick({ id, key, name: member.username, value })
+              handleActionClick({id, key, name: member.username || member.userName, value})
           );
 
           return (
@@ -130,9 +141,9 @@ const MemberTables: React.FC<TeamMemberTables & { teamId: number }> = ({ type, d
         })}
 
         {/* 모달 */}
-        {modal && selectedAction && (
+        {modal && selectedMember && (
             <AlertModal
-                title={`${selectedAction.name}을 ${selectedAction?.label}하시겠습니까?`}
+                title={`${selectedMember.name}을 ${selectedMember?.label}하시겠습니까?`}
                 message="..."
                 onClose={closeModal}
                 onConfirm={confirmAction}
