@@ -81,7 +81,3 @@ export const transformTeamData = (
 
   return [];
 };
-
-export const submitBtnAction = () => {
-  console.log("버튼 클릭")
-}
