@@ -9,7 +9,7 @@ import {useParams} from "next/navigation";
 import {team} from "@/app/team/_data/member";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import {MentoringTeamLeader, MentoringTeamMember, ProjectMember} from "@/app/team/_type/teamPageMember";
-import {transformTeamData} from "@/app/team/_service/teamPageMemberService";
+import {transformTeamData} from "@/app/team/_service/teamMemberService";
 
 export interface TeamMemberTables {
   type: "MEMBER" | "LEADER";

@@ -5,7 +5,7 @@ import {TeamMemberTables} from "@/app/team/[page_type]/[team_id]/(member)/[membe
 import AlertModal from "@/components/common/Modal/AlertModal";
 import useModal from "@/hooks/useModal";
 import {MemberStatus} from "@/app/team/_type/teamPageMember";
-import {getActionConfig} from "@/app/team/_service/teamPageMemberService";
+import {getActionConfig, submitBtnAction} from "@/app/team/_service/teamMemberService";
 import ErrorFallback from "@/components/error/ErrorFallback";
 
 // ✅ SelectedAction 인터페이스
@@ -67,6 +67,7 @@ const MemberTables: React.FC<TeamMemberTables> = ({type, data}) => {
   // ✅ 모달 확인 버튼 클릭 시 실제 상태 업데이트 수행
   const confirmAction = () => {
     if (selectedAction.id !== -1) updateMemberStatus(selectedAction);
+    submitBtnAction();
     closeModal();
   };
 

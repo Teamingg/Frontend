@@ -1,6 +1,7 @@
 import {MemberStatus, MentoringMemberResponse, ProjectMember} from "@/app/team/_type/teamPageMember";
 import {ActionBtn} from "@/app/team/_components/MemberTableActionBtn";
 import ActionButtonClass from "@/app/team/_service/ActionButtonClass";
+import {isMentoringMember, isProjectMember} from "@/app/team/_service/teamTypeGuard";
 
 export const getActionConfig = (
     id: number,
@@ -38,17 +39,6 @@ export const getActionConfig = (
 
   return actions;
 }
-
-// ✅ 타입 가드 함수
-// ✅ 프로젝트 멤버인지 확인
-export const isProjectMember = (data: unknown): data is ProjectMember[] => {
-  return Array.isArray(data) && data.every(member => "participationId" in member);
-};
-
-// ✅ 멘토링 멤버인지 확인 (리더 or 일반 멤버)
-export const isMentoringMember = (data: unknown): data is MentoringMemberResponse => {
-  return typeof data === "object" && data !== null && "authority" in data;
-};
 
 // ✅ 데이터 변환 함수
 export const transformTeamData = (
@@ -91,3 +81,7 @@ export const transformTeamData = (
 
   return [];
 };
+
+export const submitBtnAction = () => {
+  console.log("버튼 클릭")
+}
