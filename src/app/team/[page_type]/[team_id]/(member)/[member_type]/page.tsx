@@ -32,6 +32,7 @@ const Page = () => {
 
   // ✅ 데이터 변환
   const members = transformTeamData(data);
+  const isMemberType = params.member_type === "leader" || "owner";
 
   return (
       <>
@@ -47,7 +48,7 @@ const Page = () => {
         </MemberTableWrapper>
 
         {/* 신청 내역 리스트 (리더 전용) */}
-        {params.member_type === "LEADER" && (
+        {isMemberType && (
             <MemberTableWrapper title="신청내역">
               {/* 테이블 헤더 */}
               <MemberTableHeader tableName={team.leader}/>

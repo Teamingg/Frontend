@@ -25,11 +25,12 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({children}) => {
   // data?.authority 값에 따라 다른 네비게이션 구성
   // 예 : page_type 이 project 면 /project/{project_team_id}/info ...
   const firstPath = `/team/${params.page_type}/${params.team_id}`;
+  const isUserAuthority = data?.authority === "LEADER" || data?.userRole === "OWNER";
+  const leaderNavigation = {label: "멤버 및 지원자 현황", path: `${firstPath}/leader`};
+  const memberNavigation = {label: "멤버", path: `${firstPath}/member`};
   const teamPagePaths = [
     {label: "팀 소개", path: `${firstPath}/info`},
-    data?.authority === "LEADER"
-      ? {label: "멤버 및 지원자 현황", path: `${firstPath}/leader`}
-      : {label: "멤버", path: `${firstPath}/member`},
+    isUserAuthority ? leaderNavigation : memberNavigation,
     {label: "작성한 게시글", path: `${firstPath}/post`},
   ];
 
