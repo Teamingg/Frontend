@@ -75,11 +75,11 @@ const MemberTables: React.FC<TeamMemberTables> = ({type, data}) => {
         {data && data.length > 0 ? (
             data.map((member, idx) => {
               const status = memberStatus[idx] || initialStatus;
-
+              const date = member.decisionDate.slice(0, 10);
               return (
                   <div key={idx} className="flex text-center border-b last:border-none p-2 text-sm">
                     <div className={columnWidth}>
-                      {member.acceptedTime || member.decisionDate || "N/A"}
+                      {date || "N/A"}
                     </div>
                     <div className={columnWidth}>
                       {member.username || member.userName || "N/A"}
