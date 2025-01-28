@@ -5,12 +5,17 @@ import { TeamMemberTables } from "@/app/team/[page_type]/[team_id]/(member)/[mem
 import AlertModal from "@/components/common/Modal/AlertModal";
 import useModal from "@/hooks/useModal";
 import { MemberStatus } from "@/app/team/_type/teamPageMember";
-import { getActionConfig } from "@/app/team/_service/teamMemberService";
+import {
+  getActionConfig,
+  getMemberActionEndpoint, getSelectedAction,
+  initializeMemberStatus,
+  updateMemberStatusState
+} from "@/app/team/_service/teamMemberService";
 import ErrorFallback from "@/components/error/ErrorFallback";
 import { useSubmit } from "@/hooks/form/useSubmit";
 
 // ✅ SelectedAction 인터페이스
-interface SelectedAction {
+export interface SelectedAction {
   id: number;
   key: keyof MemberStatus;
   name: string;
@@ -24,18 +29,6 @@ const initialStatus: MemberStatus = {
   removed: false,
   reported: false,
   written: false,
-};
-
-// ✅ 엔드포인트 매핑 함수
-const getMemberActionEndpoint = (teamId: number, userId: number, action: keyof MemberStatus): string => {
-  const baseUrl = `/project/team/${teamId}/${userId}`;
-  const endpointMap: Record<keyof MemberStatus, string> = {
-    approved: `${baseUrl}/accept`, // 수락
-    removed: `${baseUrl}/export`,  // 내보내기
-    reported: `${baseUrl}/reject`, // 거절
-    written: `${baseUrl}/write`,   // 작성 완료 (현재 필요 없음)
-  };
-  return endpointMap[action];
 };
 
 const MemberTables: React.FC<TeamMemberTables & { teamId: number }> = ({ type, data, teamId }) => {
@@ -58,11 +51,7 @@ const MemberTables: React.FC<TeamMemberTables & { teamId: number }> = ({ type, d
   // ✅ 최초 데이터 로드 시 멤버 상태 초기화
   useEffect(() => {
     if (!data) return;
-    const initialMemberStatus: Record<number, MemberStatus> = {};
-    data.forEach((member) => {
-      initialMemberStatus[member.userId] = { ...initialStatus }; // 초기 상태 설정
-    });
-    setMemberStatus(initialMemberStatus);
+    setMemberStatus(initializeMemberStatus(data));
   }, [data]);
 
   // ✅ useSubmit 훅 사용 (API 요청)
@@ -76,23 +65,14 @@ const MemberTables: React.FC<TeamMemberTables & { teamId: number }> = ({ type, d
     }),
     onSuccess: () => {
       // ✅ 상태 업데이트 반영
-      setMemberStatus((prev) => ({
-        ...prev,
-        [selectedAction.id]: { ...prev[selectedAction.id], [selectedAction.key]: selectedAction.value },
-      }));
+      setMemberStatus((prev) => updateMemberStatusState(prev, selectedAction));
       console.log(`✅ ${selectedAction.name}(${selectedAction.key}) 상태 업데이트 완료!`);
     },
   });
 
   // ✅ 버튼 클릭 시 모달을 띄우도록 설정
   const handleActionClick = ({ id, key, name, value }: Omit<typeof selectedAction, "label">) => {
-    setSelectedAction({
-      id,
-      key,
-      name,
-      value,
-      label: key === "approved" ? "승인" : key === "removed" ? "강퇴" : "거절",
-    });
+    setSelectedAction(getSelectedAction(id, key, name, value));
     openModal();
   };
 
@@ -123,19 +103,31 @@ const MemberTables: React.FC<TeamMemberTables & { teamId: number }> = ({ type, d
               <div key={idx} className="flex text-center border-b last:border-none p-2 text-sm">
                 <div className={columnWidth}>{date}</div>
                 <div className={columnWidth}>{username}</div>
-                {type === "MEMBER" && <div className={columnWidth}>{role}</div>}
-                {type === "LEADER" && <div className={columnWidth}>0</div>}
 
-                {/* 액션 버튼 */}
-                {actions.map((action, i) => (
-                    <div key={i} className={columnWidth}>
-                      <MemberTableActionBtn actions={[action]} />
-                    </div>
-                ))}
+                {/* 팀원 UI */}
+                {isMember ? (
+                    <>
+                      <div className={columnWidth}>{role}</div>
+                      {actions.map((action, i) => (
+                          <div key={i} className={columnWidth}>
+                            <MemberTableActionBtn actions={[action]} />
+                          </div>
+                      ))}
+                    </>
+                ) : (
+                    // 리더 UI
+                    <>
+                      <div className={columnWidth}>0</div>
+                      <div className={`${columnWidth} flex gap-2 justify-center`}>
+                        {actions.map((action, i) => (
+                            <MemberTableActionBtn key={i} actions={[action]} />
+                        ))}
+                      </div>
+                    </>
+                )}
               </div>
           );
         })}
-        {!data?.length && <ErrorFallback message={"데이터 로딩 중 오류 발생"} />}
 
         {/* 모달 */}
         {modal && selectedAction && (

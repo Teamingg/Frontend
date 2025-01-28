@@ -2,6 +2,7 @@ import {MemberStatus, MentoringMemberResponse, ProjectMember} from "@/app/team/_
 import {ActionBtn} from "@/app/team/_components/MemberTableActionBtn";
 import ActionButtonClass from "@/app/team/_service/ActionButtonClass";
 import {isMentoringMember, isProjectMember} from "@/app/team/_service/teamTypeGuard";
+import {SelectedAction} from "@/app/team/_components/MemberTables";
 
 export const getActionConfig = (
     id: number,
@@ -80,4 +81,65 @@ export const transformTeamData = (
   }
 
   return [];
+};
+
+// ✅ 엔드포인트 매핑 함수
+export const getMemberActionEndpoint = (teamId: number, userId: number, action: keyof MemberStatus): string => {
+  const baseUrl = `/project/team/${teamId}/${userId}`;
+  const endpointMap: Record<keyof MemberStatus, string> = {
+    approved: `${baseUrl}/accept`, // 수락
+    removed: `${baseUrl}/export`,  // 내보내기
+    reported: `${baseUrl}/reject`, // 거절
+    written: `${baseUrl}/write`,   // 작성 완료 (현재 필요 없음)
+  };
+  return endpointMap[action];
+};
+
+export const initializeMemberStatus = (data: ProjectMember[]): Record<number, MemberStatus> => {
+  const initialStatus: MemberStatus = {
+    approved: null,
+    removed: false,
+    reported: false,
+    written: false,
+  };
+
+  return data.reduce((acc, member) => {
+    acc[member.userId] = { ...initialStatus };
+    return acc;
+  }, {} as Record<number, MemberStatus>);
+};
+
+export const getSelectedAction = (
+    id: number,
+    key: keyof MemberStatus,
+    name: string,
+    value: boolean | null
+): SelectedAction => {
+  const actionLabels: Record<keyof MemberStatus, string> = {
+    approved: "승인",
+    removed: "강퇴",
+    reported: "신고",
+    written: "작성 완료",
+  };
+
+  return {
+    id,
+    key,
+    name,
+    value,
+    label: actionLabels[key] || key,
+  };
+};
+
+export const updateMemberStatusState = (
+    prevState: Record<number, MemberStatus>,
+    selectedAction: SelectedAction
+): Record<number, MemberStatus> => {
+  return {
+    ...prevState,
+    [selectedAction.id]: {
+      ...prevState[selectedAction.id],
+      [selectedAction.key]: selectedAction.value,
+    },
+  };
 };
