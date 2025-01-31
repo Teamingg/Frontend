@@ -1,7 +1,7 @@
 import { queryclient } from "@/lib/getQueryClient";
 import { getUserReviews } from "@/service/api/user/getUserReviews";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import UserReviewList from "./UserReview/UserReviewList";
+import UserReviewList from "./UserReviewList";
 
 const UserReviewContainer = async () => {
   await queryclient.prefetchQuery({
