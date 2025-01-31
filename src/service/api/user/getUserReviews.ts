@@ -1,12 +1,13 @@
-import { instance } from "@/service/api/instance/axiosInstance";
+import handleError from "@/service/handleError";
+import { client } from "../instance/client/client";
 
 import UserReview from "@/types/user/userReview";
 
 export const getUserReviews = async (): Promise<UserReview[]> => {
-  const response = await instance.get("/mock/users/reviews");
+  const response = await client.get("/mock/users/reviews");
 
   if (response.status !== 200) {
-    throw new Error("정보를 불러오지 못했습니다. 잠시 후 다시 시도해주세요.");
+    handleError(response.status);
   }
 
   return response.data.data;
