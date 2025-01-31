@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+import { checkCookie } from "@/utils/cookies";
+
 import AppProvider from "@/components/provider/AppProvider";
 
 import Header from "@/components/layout/Layout/Header/Header";
 import Footer from "@/components/layout/Layout/Footer";
 
-import checkCookie from "@/utils/auth/checkCookie";
 import React from "react";
 import ToastList from "@/components/common/Toast/ToastList";
 

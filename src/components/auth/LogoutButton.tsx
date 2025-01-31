@@ -4,15 +4,15 @@ import React from "react";
 
 import { useRouter } from "next/navigation";
 
-import { instance } from "@/service/api/instance/axiosInstance";
 import { queryclient } from "@/lib/getQueryClient";
+import { client } from "@/service/api/instance/client/client";
 
 const LogoutButton = () => {
   const router = useRouter();
 
   const handleLogout = async () => {
     try {
-      const response = await instance.post("/token/logout");
+      const response = await client.post("/token/logout");
 
       // 에러가 발생했을 때
       if (response.status !== 200) {

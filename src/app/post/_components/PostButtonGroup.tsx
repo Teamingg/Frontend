@@ -2,7 +2,7 @@
 
 import CancelJoinButton from "@/components/CancelJoinButton";
 import { useToast } from "@/hooks/useToast";
-import checkCookie from "@/utils/auth/checkCookie";
+import { checkCookie } from "@/utils/cookies";
 import Link from "next/link";
 import React from "react";
 import { BeatLoader } from "react-spinners";
@@ -30,7 +30,8 @@ const PostButtonGroup = ({
   const category = postType === "project" ? "프로젝트" : "멘토링";
 
   const onClick = async () => {
-    const isLoggedIn = await checkCookie("accessToken");
+    const isLoggedIn =
+      (await checkCookie("accessToken")) || (await checkCookie("refreshToken"));
 
     if (!isLoggedIn) {
       toast.error("로그인이 필요합니다");

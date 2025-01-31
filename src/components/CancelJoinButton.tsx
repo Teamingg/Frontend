@@ -4,12 +4,11 @@ import { useMutation } from "@tanstack/react-query";
 
 import { queryclient } from "@/lib/getQueryClient";
 
-import { instance } from "@/service/api/instance/axiosInstance";
-
 import useModal from "@/hooks/useModal";
 import { useToast } from "@/hooks/useToast";
 
 import AlertModal from "./common/Modal/AlertModal";
+import { client } from "@/service/api/instance/client/client";
 
 interface CancelJoinButtonProps {
   children: React.ReactNode;
@@ -34,7 +33,7 @@ const CancelJoinButton = ({
 
   const { mutate } = useMutation({
     mutationFn: async () => {
-      await instance.delete(url);
+      await client.delete(url);
     },
     onSuccess: async () => {
       await queryclient.invalidateQueries({

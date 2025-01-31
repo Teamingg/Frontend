@@ -13,7 +13,7 @@ const ProjectPostPage = async ({ children, params }: ProjectPostPageProps) => {
 
   await queryclient.prefetchQuery({
     queryKey: ["project", "post", postId],
-    queryFn: () => getProjectPost(postId),
+    queryFn: async () => await getProjectPost(postId),
   });
 
   return (

@@ -6,6 +6,7 @@ export const useGetProjectPost = (postId: string) => {
     queryKey: ["project", "post", postId],
     queryFn: async () => await getProjectPost(postId),
     refetchOnMount: "always",
+    throwOnError: true,
   });
 
   return {

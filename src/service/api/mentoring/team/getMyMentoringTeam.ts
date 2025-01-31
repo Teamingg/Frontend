@@ -1,8 +1,10 @@
-import { instance } from "@/service/api/instance/axiosInstance";
+"use server";
+
 import MentoringTeam from "@/types/team/mentoring/mentoringTeam";
+import { server } from "../../instance/server/server";
 
 const getMyMentoringTeam = async (): Promise<MentoringTeam[]> => {
-  const response = await instance.get("/users/mentoring/teams");
+  const response = await server.get("/users/mentoring/teams");
 
   return response.data.data;
 };

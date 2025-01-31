@@ -1,11 +1,11 @@
-import {instance} from "@/service/api/instance/axiosInstance";
+import { client } from "../instance/client/client";
 
 type FetchType = "info" | "posts" | "member";
 
-export const fetchTeamPageData = async <T> (
-    page_type: string,
-    team_id: string,
-    type: FetchType
+export const fetchTeamPageData = async <T>(
+  page_type: string,
+  team_id: string,
+  type: FetchType
 ): Promise<T> => {
   const isProject = page_type === "project";
   const path = {
@@ -20,10 +20,10 @@ export const fetchTeamPageData = async <T> (
     posts: {
       base: isProject ? "posts" : "teams",
       end: isProject ? "" : "/posts",
-    }
-  }
+    },
+  };
 
   const url = `/${page_type}/${path[type].base}/${team_id}${path[type].end}`;
-  const response = await instance.get(url);
+  const response = await client.get(url);
   return response.data.data as T;
-}
+};

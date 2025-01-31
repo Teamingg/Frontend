@@ -1,10 +1,10 @@
 import MentoringPost from "@/types/post/mentoring/mentoringPost";
-import { instance } from "../../instance/axiosInstance";
+import { client } from "../../instance/client/client";
 
 const getMentoringPost = async (postId: string): Promise<MentoringPost> => {
   const {
     data: { data },
-  } = await instance.get(`/mentoring/posts/${postId}`);
+  } = await client.get(`/mentoring/posts/${postId}`);
 
   return data;
 };

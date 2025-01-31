@@ -1,6 +1,6 @@
-import {instance} from "@/service/api/instance/axiosInstance";
-import {useMutation} from "@tanstack/react-query";
-import {AxiosError} from "axios";
+import { useMutation } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { client } from "@/service/api/instance/client/client";
 
 interface Props<T> {
   endpoint: string;
@@ -8,21 +8,24 @@ interface Props<T> {
   onSuccess?: (data: T) => void;
 }
 
-export const useSubmit = <T, >({
+export const useSubmit = <T>({
   endpoint,
   formatPayload,
-  onSuccess
+  onSuccess,
 }: Props<T>) => {
   const mutation = useMutation({
     mutationFn: async (formData: T) => {
       const payload = formatPayload(formData);
-      const response = await instance.post(endpoint, payload);
+      const response = await client.post(endpoint, payload);
       return response.data;
     },
     onSuccess,
     onError: (e: unknown) => {
       if (e instanceof AxiosError) {
-        console.error("❌ Axios Error:", e.response?.data?.message || e.message);
+        console.error(
+          "❌ Axios Error:",
+          e.response?.data?.message || e.message
+        );
       } else {
         console.error("❌ Unexpected Error:", e);
       }
