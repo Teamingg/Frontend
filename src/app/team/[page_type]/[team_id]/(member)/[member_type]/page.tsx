@@ -8,33 +8,51 @@ import MemberTables from "@/app/team/_components/MemberTables";
 import {useParams} from "next/navigation";
 import {team} from "@/app/team/_data/member";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
-import {ProjectMember} from "@/app/team/_type/teamPageMember";
+import {MentoringTeamLeader, MentoringTeamMember, ProjectMember} from "@/app/team/_type/teamPageMember";
+import {transformTeamData} from "@/app/team/_service/teamMemberService";
+
+interface Params {
+  member_type: string;
+  page_type: string;
+  team_id: string;
+}
 
 export interface TeamMemberTables {
   type: "MEMBER" | "LEADER";
   data: ProjectMember[];
+  params?: {
+    member_type: string;
+    page_type: string;
+    team_id: string;
+  } | undefined;
 }
 
 const Page = () => {
+  const params = (useParams() as unknown) as Params;
+
+  // 기본값 처리
+  const normalizedParams = {
+    member_type: params.member_type ?? "leader",
+    page_type: params.page_type ?? "default",
+    team_id: params.team_id ?? "0",
+  };
+
   // 데이터 패칭
-  const params = useParams();
   const {data, error, isLoading} = useQuery({
-    queryKey: ["page"],
-    queryFn: () => fetchTeamPageData(String(params.page_type), String(params.team_id), "member")
+    queryKey: ["members"],
+    queryFn: () =>
+        fetchTeamPageData<MentoringTeamLeader | MentoringTeamMember | ProjectMember[]>(
+            String(params.page_type), String(params.team_id), "member"),
   });
 
   // 로딩 및 에러처리
   if (isLoading) return <LoadingSpinner/>;
   // if (error) return <div>Error fetching data</div>;
 
+  // ✅ 데이터 변환
+  const members = transformTeamData(data);
+  const isMemberType = params.member_type === "leader" || "owner";
 
-
-  /*
-   * 멘토링팀 멤버 및 지원자 조회 (/mentoring/teams/{team_id}/status
-   * 프로젝트 팀 지원자 조회 (/project/team/{team_id}/participation
-   * 만약 데이터가 멘토링이면 ? 프로젝트면 ? => 데이터 바인딩 함수 생성
-   * 타입가드
-   */
   return (
       <>
         {/* 팀원 리스트 */}
@@ -44,19 +62,21 @@ const Page = () => {
           {/* 테이블 데이터 */}
           <MemberTables
               type="MEMBER"
-              data={data}
+              data={members}
+              params={normalizedParams}
           />
         </MemberTableWrapper>
 
         {/* 신청 내역 리스트 (리더 전용) */}
-        {params.member_type === "LEADER" && (
+        {isMemberType && (
             <MemberTableWrapper title="신청내역">
               {/* 테이블 헤더 */}
               <MemberTableHeader tableName={team.leader}/>
               {/* 테이블 데이터 */}
               <MemberTables
                   type="LEADER"
-                  data={data}
+                  data={members}
+                  params={normalizedParams}
               />
             </MemberTableWrapper>
         )}

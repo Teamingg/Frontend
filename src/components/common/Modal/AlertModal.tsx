@@ -9,6 +9,7 @@ interface AlertModalProps {
   message: string;
   buttonLabel?: string;
   ConfirmButonColor?: string;
+  isLoading?: boolean;
 }
 
 const AlertModal = ({
@@ -19,6 +20,7 @@ const AlertModal = ({
   buttonLabel = "확인",
   title,
   ConfirmButonColor = "bg-primary",
+  isLoading = false,
 }: AlertModalProps) => {
   const buttonHover = "hover:bg-opacity-85 transition-colors";
   const buttonCommonStyle = "py-2 rounded-lg w-full";
@@ -34,6 +36,7 @@ const AlertModal = ({
         <button
           className={`${buttonCommonStyle} text-white  ${ConfirmButonColor} ${buttonHover}`}
           onClick={onConfirm}
+          disabled={isLoading}
         >
           {buttonLabel}
         </button>

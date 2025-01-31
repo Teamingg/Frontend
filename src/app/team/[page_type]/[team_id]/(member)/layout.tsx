@@ -12,13 +12,9 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({children}) => {
   const path = usePathname();
   const currentPath = path.split("/").pop();
 
-  // 항상 useQuery 를 호출하고, "info"가 아닐 때는 enabled 옵션으로 비활성화
-  const queryClient = useQueryClient();
-  const queryFn = fetchTeamPageData<TeamPageInfo>(String(params.page_type), String(params.team_id), "info");
-
   const {data, error, isLoading} = useQuery<TeamPageInfo>({
     queryKey: ["teamInfo", params.page_type, params.team_id],
-    queryFn: () => queryFn,
+    queryFn: () => fetchTeamPageData<TeamPageInfo>(String(params.page_type), String(params.team_id), "info"),
     enabled: currentPath === "info" && !!params.page_type && !!params.team_id,
   });
 
@@ -26,17 +22,15 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({children}) => {
   if (isLoading) return <LoadingSpinner/>;
   if (error) return <div>Error fetching data</div>;
 
-  // 데이터 캐싱
-  queryClient.setQueryData(["teamInfo", params.page_type, params.team_id], data);
-
   // data?.authority 값에 따라 다른 네비게이션 구성
   // 예 : page_type 이 project 면 /project/{project_team_id}/info ...
   const firstPath = `/team/${params.page_type}/${params.team_id}`;
+  const isUserAuthority = data?.authority === "LEADER" || data?.userRole === "OWNER";
+  const leaderNavigation = {label: "멤버 및 지원자 현황", path: `${firstPath}/leader`};
+  const memberNavigation = {label: "멤버", path: `${firstPath}/member`};
   const teamPagePaths = [
     {label: "팀 소개", path: `${firstPath}/info`},
-    data?.authority === "LEADER"
-      ? {label: "멤버 및 지원자 현황", path: `${firstPath}/leader`}
-      : {label: "멤버", path: `${firstPath}/member`},
+    isUserAuthority ? leaderNavigation : memberNavigation,
     {label: "작성한 게시글", path: `${firstPath}/post`},
   ];
 
