@@ -1,9 +1,9 @@
 import { queryclient } from "@/lib/getQueryClient";
-import { instance } from "@/service/api/instance/axiosInstance";
+import { client } from "@/service/api/instance/client/client";
 import { useMutation } from "@tanstack/react-query";
 
 const applyMentoringtTeam = async (boardId: string) => {
-  await instance.post(`/mentoring/posts/${boardId}/participants`);
+  await client.post(`/mentoring/posts/${boardId}/participants`);
 };
 
 const useJoinMentoringTeam = (boardId: string) => {
