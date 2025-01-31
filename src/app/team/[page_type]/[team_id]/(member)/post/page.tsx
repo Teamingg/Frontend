@@ -14,7 +14,7 @@ const Page = () => {
   const queryFn = fetchTeamPageData(String(params.page_type), String(params.team_id), "posts");
 
   const {data, error, isLoading} = useQuery({
-    queryKey: ["page"],
+    queryKey: ["posts"],
     queryFn: () => queryFn
   });
 
@@ -30,7 +30,7 @@ const Page = () => {
   // 데이터가 없을 경우
   if (!data || (Array.isArray(data) && data.length === 0)) {
     return (
-        <div className="text-center">
+        <div className="h-full flex flex-col justify-center items-center">
           <p>게시물이 없습니다.</p>
           <Link href={`/create/${params.page_type}/post`} className="text-blue-400">
             게시글 작성하러 가기

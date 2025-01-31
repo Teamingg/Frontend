@@ -1,6 +1,7 @@
 export interface TeamPageInfo {
   // 권한
   authority: string;
+  userRole: string;
 
   // dto
   dto: {

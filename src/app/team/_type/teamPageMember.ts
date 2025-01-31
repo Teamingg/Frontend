@@ -1,4 +1,4 @@
-// 멤버의 상태 (MemberTables)
+// ✅ 멤버 상태 (MemberTables)
 export interface MemberStatus {
   approved: boolean | null; // 수락 여부
   removed: boolean; // 내보내기 여부
@@ -6,74 +6,59 @@ export interface MemberStatus {
   written: boolean; // 작성 여부
 }
 
-// 공통 인터페이스
-interface CommonMember<T> {
-  status: number;
-  code: string;
-  message: string;
-  data: T;
+// ✅ 공통 멤버 인터페이스 (멘토링 & 프로젝트 멤버 포함)
+export interface BaseMember {
+  userId: number;
+  role: "MENTOR" | "MENTEE" | string;
 }
 
-// 리더용 반환데이터 구조
-interface MentoringTeamLeaderData {
+// ✅ 멘토링 멤버 인터페이스
+export interface MentoringMember extends BaseMember {
+  type: "MENTORING";
+  username: string;
+  acceptedTime: string;
+  status: "ACCEPTED" | "PENDING";
+  isLogined: boolean;
+  isDeleted: boolean;
+}
+
+// ✅ 프로젝트 멤버 인터페이스
+export interface ProjectMember extends BaseMember {
+  // 타입 오류 방지를 위해 임시로 선언
+  acceptedTime: string;
+  username: string;
+  
+  type: "PROJECT";
+  userName: string;
+  participationId: number;
+  projectTeamId: number;
+  participationStatus: string;
+  isDeleted: boolean;
+  isExport: boolean;
+  decisionDate: string;
+  recruitCategory: string;
+  reportingCnt: number;
+  isLoginUser: boolean;
+  isReported: boolean;
+  isReviewed: boolean;
+}
+
+// ✅ API 응답에서 필요한 데이터만 추출
+export interface MentoringTeamLeader {
   teamId: number;
   authority: "LEADER";
   details: {
-    members: {
-      acceptedTime: string;
-      userId: number;
-      username: string;
-      role: "MENTOR" | "MENTEE";
-      status: "ACCEPTED" | "PENDING";
-      isLogined: boolean;
-      isDeleted: boolean;
-    }[];
-    participations: {
-      participatedTime: string;
-      userId: number;
-      username: string;
-      reportingCnt: number;
-      status: "ACCEPTED" | "PENDING";
-    }[];
+    members: MentoringMember[];
   };
 }
 
-
-// 멤버용 반환데이터 구조
-interface MentoringTeamMemberData {
+export interface MentoringTeamMember {
   teamId: number;
-  authority: "CREW";
+  authority: "MEMBER";
   details: {
-    acceptedTime: string;
-    userId: number;
-    username: string;
-    role: "MENTOR" | "MENTEE";
-    status: "ACCEPTED" | "PENDING";
-    isLogined: boolean;
-    isDeleted: boolean;
-  }[];
+    members: MentoringMember[];
+  };
 }
 
-// 프로젝트 멤버
-export interface ProjectMemberData {
-  "participationId": number,
-  "userId": number,
-  "projectTeamId": number,
-  "participationStatus": string,
-  "isDeleted": boolean,
-  "isExport": boolean,
-  "decisionDate": string,
-  "role": string,
-  "recruitCategory": string,
-  "reportingCnt": number,
-  "isLoginUser": boolean,
-  "isReported": boolean,
-  "isReviewed": boolean
-}
-
-// 멘토링 리더 / 멤버
-export type MentoringTeamLeader = CommonMember<MentoringTeamLeaderData>;
-export type MentoringTeamMember = CommonMember<MentoringTeamMemberData>;
-
-// 프로젝트 멤버
-export type ProjectMember = CommonMember<ProjectMemberData[]>
+// ✅ 최종 API 응답 데이터 타입 (프로젝트와 멘토링 통합)
+export type MentoringMemberResponse = MentoringTeamLeader | MentoringTeamMember;
