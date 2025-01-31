@@ -8,6 +8,7 @@ const useGetMyMentoringTeam = () => {
     data: mentoringTeam,
     error,
     isError,
+    isFetching,
   } = useQuery<MentoringTeam[]>({
     queryKey: ["user", "team", "mentoring"],
     queryFn: () => getMyMentoringTeam(),
@@ -16,6 +17,7 @@ const useGetMyMentoringTeam = () => {
     mentoringTeam,
     error,
     isError,
+    isFetching,
   };
 };
 

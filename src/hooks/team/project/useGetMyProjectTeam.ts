@@ -9,6 +9,7 @@ const useGetMyProjectTeam = () => {
     data: projectTeam,
     error,
     isError,
+    isFetching,
   } = useQuery<ProjectTeam[]>({
     queryKey: ["user", "team", "project"],
     queryFn: () => getMyProjectTeam(),
@@ -17,6 +18,7 @@ const useGetMyProjectTeam = () => {
     projectTeam,
     error,
     isError,
+    isFetching,
   };
 };
 
