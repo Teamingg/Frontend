@@ -1,12 +1,18 @@
-import { queryclient } from "@/lib/getQueryClient";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from "@tanstack/react-query";
+
 import { getUserInfo } from "@/service/api/user/getUserInfo";
+
 import UserInfoSection from "./UserInfoSection";
+import { queryclient } from "@/lib/getQueryClient";
 
 const UserInfoContainer = async () => {
   await queryclient.prefetchQuery({
     queryKey: ["user", "info"],
-    queryFn: () => getUserInfo(),
+    queryFn: async () => await getUserInfo(),
   });
 
   return (

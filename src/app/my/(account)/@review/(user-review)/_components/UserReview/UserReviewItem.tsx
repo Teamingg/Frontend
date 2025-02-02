@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 interface UserReviewItemProps {
   id: number;
   name: string;
@@ -11,7 +13,9 @@ const UserReviewItem = ({ id, name, content, date }: UserReviewItemProps) => {
   return (
     <li className="p-4 bg-white rounded-lg shadow-sm">
       <div className="flex  justify-between mb-2 border-b pb-2">
-        <p className="text-lg">{name}</p>
+        <Link href={`/user/profile/${id}`} className="text-lg">
+          {name}
+        </Link>
         <span className="text-gray-400 text-sm">
           {new Date(date).toLocaleDateString("en-CA")}
         </span>

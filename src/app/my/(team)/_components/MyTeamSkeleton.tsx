@@ -1,6 +1,6 @@
 import React from "react";
 
-const loading = () => {
+const MyTeamSkeleton = () => {
   return (
     <ul className="grid grid-cols-2 gap-4">
       {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((i, index) => (
@@ -12,4 +12,4 @@ const loading = () => {
   );
 };
 
-export default loading;
+export default MyTeamSkeleton;

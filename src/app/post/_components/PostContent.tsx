@@ -46,7 +46,9 @@ const PostContent = ({
         ))}
       </div>
 
-      <p className="p-6">{contents}</p>
+      <p className="p-6 max-h-[620px] overflow-y-scroll scrollbar-hide">
+        {contents}
+      </p>
     </>
   );
 };

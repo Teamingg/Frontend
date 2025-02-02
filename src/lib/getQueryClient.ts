@@ -1,14 +1,19 @@
+import { refreshToken } from "@/service/api/refreshToken";
 import {
+  QueryCache,
   QueryClient,
   defaultShouldDehydrateQuery,
   isServer,
 } from "@tanstack/react-query";
+import { useStore } from "zustand";
 
 function makeQueryClient() {
   return new QueryClient({
     defaultOptions: {
       queries: {
         staleTime: Infinity,
+        retry: 0,
+        throwOnError: true,
       },
       dehydrate: {
         // 하이드레이드
@@ -17,6 +22,9 @@ function makeQueryClient() {
           query.state.status === "pending",
       },
     },
+    queryCache: new QueryCache({
+      onError: async (error, query) => {},
+    }),
   });
 }
 

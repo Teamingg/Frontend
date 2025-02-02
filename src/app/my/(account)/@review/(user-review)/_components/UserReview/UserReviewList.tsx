@@ -1,14 +1,16 @@
 "use client";
 
+import { useQuery } from "@tanstack/react-query";
+
 import { getUserReviews } from "@/service/api/user/getUserReviews";
-import { useSuspenseQuery } from "@tanstack/react-query";
+
+import UserReviewSkeleton from "../ui/UserReviewSkeleton";
 import UserReviewItem from "./UserReviewItem";
 
 const UserReviewList = () => {
-  const { data } = useSuspenseQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ["user", "review"],
     queryFn: async () => await getUserReviews(),
-    initialData: undefined,
   });
 
   return (
@@ -20,7 +22,9 @@ const UserReviewList = () => {
         </p>
       )}
 
-      {data && (
+      {isFetching && <UserReviewSkeleton count={4} />}
+
+      {!isFetching && data && (
         <ul className="space-y-2 overflow-y-scroll scrollbar-hide max-h-[420px]">
           {data.map((review) => (
             <UserReviewItem

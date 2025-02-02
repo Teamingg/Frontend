@@ -1,5 +1,4 @@
 import SelectBoxField from "@/types/selectBoxField";
-import React from "react";
 
 interface UserInfoContentProps {
   name: string;

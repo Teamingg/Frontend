@@ -1,8 +1,8 @@
 "use client";
 
-import { instance } from "@/service/api/instance/axiosInstance";
-
 import { useRouter } from "next/navigation";
+
+import { client } from "@/service/api/instance/client/client";
 
 import UserInfoForm from "@/components/user/UserInfoForm/UserInfoForm";
 import { UserInfoFormValues } from "@/components/user/UserInfoForm/UserInfoFormValues";
@@ -15,7 +15,7 @@ const SignUpUserForm = () => {
     introduce,
     stacksIds,
   }: UserInfoFormValues) => {
-    const response = await instance.post(
+    const response = await client.post(
       "/users",
       JSON.stringify({
         name,

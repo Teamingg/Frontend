@@ -1,5 +1,5 @@
 import { queryclient } from "@/lib/getQueryClient";
-import { instance } from "@/service/api/instance/axiosInstance";
+import { client } from "@/service/api/instance/client/client";
 
 import { useMutation } from "@tanstack/react-query";
 
@@ -12,7 +12,7 @@ const applyProjectTeam = async ({
   teamId,
   recruitCategory,
 }: ApplyProjectTeamProps) => {
-  await instance.post(`/project/join`, {
+  await client.post(`/project/join`, {
     teamId,
     recruitCategory,
   });
