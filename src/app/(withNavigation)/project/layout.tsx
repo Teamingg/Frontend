@@ -1,7 +1,7 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { queryclient } from "@/lib/getQueryClient";
 
-import { getAllProjectPosts } from "@/service/api/project/post/getAllProjectPosts";
+import { getAllProjectPosts } from "@/service/api/post/getAllProjectPosts";
 
 const ProjectPageLayout = async ({
   children,

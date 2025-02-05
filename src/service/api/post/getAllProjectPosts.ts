@@ -1,5 +1,5 @@
 import ProjectPosts from "@/types/post/project/projectPosts";
-import { client } from "../../instance/client/client";
+import { client } from "../instance/client";
 
 export interface getAllProjectPostsProps {
   nextCursor?: number;

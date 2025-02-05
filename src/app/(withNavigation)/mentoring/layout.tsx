@@ -1,7 +1,7 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { queryclient } from "@/lib/getQueryClient";
 
-import { getAllMentoringPosts } from "@/service/api/mentoring/post/getAllMentoringPosts";
+import { getAllMentoringPosts } from "@/service/api/post/getAllMentoringPosts";
 
 const MentoringPageLayout = async ({
   children,
