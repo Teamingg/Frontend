@@ -6,11 +6,11 @@ import { usePathname } from "next/navigation";
 import STACK_LIST from "@/constant/stackList";
 
 import useObserver from "@/hooks/useObserver";
-import { getAllProjectPosts } from "@/service/api/project/post/getAllProjectPosts";
+import { getAllProjectPosts } from "@/service/api/post/getAllProjectPosts";
 
 import PostItem from "@/components/common/Post/PostItem";
 import LoadingIndicator from "@/components/common/LoadingIndicator";
-import useInfinitePosts from "@/hooks/useInfinitePosts";
+import useInfinitePosts from "@/hooks/queries/post/useInfinitePosts";
 
 const ProjectPostList = () => {
   const path = usePathname();

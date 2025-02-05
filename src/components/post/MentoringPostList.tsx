@@ -6,11 +6,11 @@ import { usePathname } from "next/navigation";
 import STACK_LIST from "@/constant/stackList";
 
 import useObserver from "@/hooks/useObserver";
-import { getAllMentoringPosts } from "@/service/api/mentoring/post/getAllMentoringPosts";
+import { getAllMentoringPosts } from "@/service/api/post/getAllMentoringPosts";
 
 import PostItem from "@/components/common/Post/PostItem";
 import LoadingIndicator from "@/components/common/LoadingIndicator";
-import useInfinitePosts from "@/hooks/useInfinitePosts";
+import useInfinitePosts from "@/hooks/queries/post/useInfinitePosts";
 
 const MentoringPostList = () => {
   const path = usePathname();
