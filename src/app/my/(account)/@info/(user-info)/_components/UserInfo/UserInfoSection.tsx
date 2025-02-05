@@ -7,8 +7,8 @@ import { useRouter } from "next/navigation";
 import { UserInfoFormValues } from "@/components/user/UserInfoForm/UserInfoFormValues";
 
 // hooks
-import useUpdateUserInfo from "../../../../../../../hooks/user/useUpdateUserInfo";
-import useGetUserInfo from "../../../../../../../hooks/user/useGetUserInfo";
+import useUpdateUserInfo from "../../../../../../../hooks/queries/profile/userProfile/useUpdateUserInfo";
+import useGetMyInfo from "@/hooks/queries/my/useGetMyInfo";
 import useModal from "@/hooks/useModal";
 
 // _components
@@ -27,7 +27,7 @@ const UserInfoSection = () => {
   const { toast } = useToast();
   const { modal: edit, openModal, closeModal } = useModal();
 
-  const { userInfo, isFetching } = useGetUserInfo();
+  const { userInfo, isFetching } = useGetMyInfo();
 
   const { mutate, isSuccess } = useUpdateUserInfo();
 
