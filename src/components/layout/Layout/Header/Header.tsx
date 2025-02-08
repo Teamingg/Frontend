@@ -11,7 +11,7 @@ const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
 
   return (
     <header className="w-full fixed top-0 left-0 z-50 bg-white">
-      <div className="max-w-[1200px] mx-auto flex justify-between items-center py-6">
+      <div className="max-w-[1200px] mx-auto flex justify-between items-center py-6 md:max-w-4xl">
         {/* 로고 */}
         <h1 className="relative w-[150px] h-[30px]">
           <Link href="/">
@@ -28,7 +28,10 @@ const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
                   로그인
                 </Link>
               ) : (
-                <LogoutButton />
+                  <>
+                    <LogoutButton />
+                    <Link href="/my">마이페이지</Link>
+                  </>
               )}
             </li>
             <li
@@ -38,7 +41,7 @@ const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
                 }
               }}
             >
-              <Link href="/my">마이페이지</Link>
+
             </li>
             <li>알림</li>
           </ul>
