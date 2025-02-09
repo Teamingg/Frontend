@@ -47,13 +47,12 @@ const TeamPageInfo: React.FC<Props> = (
                     <TeamInfoItem
                         key={item.label}
                         label={item.label}
+                        className={"flex justify-between items-center"}
                         infoData={typeof item.infoData === "string"
                             ? item.infoData
                             : item.infoData !== undefined
                                 ? item.infoData.toString()
-                                : "정보 없음"}
-                        className={"flex justify-between items-center"}
-                    />
+                                : "정보 없음"}/>
                 )
               } else {
                 return (
