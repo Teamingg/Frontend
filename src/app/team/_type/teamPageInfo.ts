@@ -22,15 +22,18 @@ export interface TeamPageInfo {
 
 export interface ProjectInfo {
   projectId: number;
+  deadline: string;
+  createDate: string;
   startDate: string;
   endDate: string;
-  content: string;
-  categories: string[];
+  lastModifiedDate: string;
+  contents: string;
+  recruitCategories: string[];
   link: string;
   memberCnt: number;
   projectName: string;
-  status: string;
   stacks: string[];
+  userRole: string;
 }
 
 export interface MentoringInfo {
