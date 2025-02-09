@@ -75,7 +75,7 @@ const UserInfoSection = () => {
 
       {/* 패칭이 끝난 후 데이터가 존재 했을 때 */}
       {!isFetching && userInfo && (
-        <div className="bg-white rounded-lg shadow-sm p-6 relative">
+        <div className="bg-white rounded-lg shadow-sm p-6 flex flex-col gap-5">
           <UserInfoContent
             name={userInfo.name || ""}
             introduce={userInfo.introduce || ""}
@@ -85,7 +85,7 @@ const UserInfoSection = () => {
 
           <button
             onClick={openModal}
-            className="absolute right-4 bottom-4 bg-primary text-sm text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors disabled:bg-opacity-90"
+            className="w-full lg:w-1/6 lg:ml-auto bg-primary text-sm text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors disabled:bg-opacity-90"
           >
             수정하기
           </button>
