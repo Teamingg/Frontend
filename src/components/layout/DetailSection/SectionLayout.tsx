@@ -17,11 +17,10 @@ const SectionLayout = ({
   navPaths,
 }: SectionLayoutProps) => {
   return (
-    <div className="w-full h-[90vh] py-4 ">
-      <div className="w-full h-full rounded-lg bg-[#f5f5f5] p-4">
-        <div className="flex gap-4 h-full w-full">
+      <div className="w-full h-[90vh] py-4 rounded-lg bg-[#f5f5f5] p-4">
+        <div className="flex flex-col gap-4 h-full w-full lg:flex-row">
           {/* 좌측 ( 타이틀 & 네비게이션 ) */}
-          <section className="w-1/4 h-full py-4">
+          <section className="w-full h-fit py-4 lg:w-1/4 lg:h-full">
             <h1 className="text-2xl font-semibold mb-4 px-4">{sectionTitle}</h1>
             <SectionTabNav navPaths={navPaths} />
           </section>
@@ -32,7 +31,6 @@ const SectionLayout = ({
           </section>
         </div>
       </div>
-    </div>
   );
 };
 
