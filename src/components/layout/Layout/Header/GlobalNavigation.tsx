@@ -1,80 +1,60 @@
 "use client";
 
-import React, { useState } from "react";
-import NavLink from "@/components/common/NavLink";
-import Modal from "@/components/common/Modal/Modal";
+import React from "react";
 import Link from "next/link";
-import CloseButton from "@/components/common/Button/CloseButton";
+import { PiBellThin, PiUserCircleThin } from "react-icons/pi";
+import LogoutButton from "@/components/auth/LogoutButton";
+import { useToast } from "@/hooks/useToast";
+import CreateTeamButton from "@/components/common/Button/CreateTeamButton";
+import { usePathname } from "next/navigation";
 
-const NavPath = [
-  {
-    name: "전체",
-    path: "/",
-  },
-  {
-    name: "팀 프로젝트",
-    path: "/project",
-  },
-  {
-    name: "멘토링",
-    path: "/mentoring",
-  },
-];
+const GlobalNavigation = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+  const path = usePathname();
+  const { toast } = useToast();
 
-const GlobalNavigation = () => {
-  const [modal, setModal] = useState<boolean>(false);
-
-  const activeClassName = "text-primary";
-  const className =
-    "text-black transition-colors hover:text-primary hover:text-opacity-80";
   return (
     <>
-      {modal && (
-        <Modal isOpen={true} onClose={() => setModal(false)}>
-          <div className="text-right">
-            <CloseButton onClick={() => setModal(false)} size={8} />
-          </div>
-          <p className="mb-4 text-xl text-center">
-            어떤 팀을 생성하시겠습니까?
-          </p>
-          <div>
-            <Link
-              href="/form/create/project"
-              className="bg-white py-4 block text-center border rounded-md mb-4 w-[500px] text-xl hover:bg-gray-50 transition-colors"
-            >
-              프로젝트
-            </Link>
-            <Link
-              href="/form/create/mentoring"
-              className="bg-primary text-white py-4 block text-center rounded-md w-[500px] text-xl hover:bg-opacity-80 transition-colors"
-            >
-              멘토링
-            </Link>
-          </div>
-        </Modal>
+      {!isLoggedIn && (
+        <Link
+          href="/login"
+          scroll={false}
+          className="block px-4 md:px-6 py-2 hover:button_hover bg-primary text-white rounded-lg text-xs md:text-base"
+        >
+          로그인
+        </Link>
       )}
 
-      <nav className="h-[58px] flex justify-between items-center mb-4">
-        <ul className="flex gap-5">
-          {NavPath.map((path) => (
-            <li key={path.path}>
-              <NavLink
-                activeClassName={activeClassName}
-                className={className}
-                href={path.path}
-              >
-                {path.name}
-              </NavLink>
+      {isLoggedIn && (
+        <ul className="flex gap-4 items-center">
+          {/* 팀 생성은 메인페이지에서만 가능 */}
+          {path === "/" && (
+            <li>
+              <CreateTeamButton />
             </li>
-          ))}
+          )}
+          <li>
+            <Link
+              className="flex items-center gap-2"
+              href="/my"
+              onClick={() => {
+                if (!isLoggedIn) toast.error("로그인이 필요합니다.");
+              }}
+            >
+              <PiUserCircleThin size={28} />
+              <span className="hidden md:inline">마이페이지</span>
+            </Link>
+          </li>
+          <li>
+            <div className="flex items-center gap-2">
+              <PiBellThin size={28} />
+              <span className="hidden md:inline">알림</span>
+            </div>
+          </li>
+          <li>
+            <LogoutButton />
+          </li>
         </ul>
-        <button
-          onClick={() => setModal(true)}
-          className="bg-primary text-white py-2 px-3 rounded-md hover:bg-opacity-90 transition-colors"
-        >
-          팀 생성하기
-        </button>
-      </nav>
+      )}
     </>
   );
 };
