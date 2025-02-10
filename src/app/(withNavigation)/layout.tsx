@@ -1,11 +1,11 @@
-import TeamProjectNavigation from "@/components/layout/Layout/Header/GlobalNavigation";
+import LocalNavigation from "@/components/layout/Layout/Header/LocalNavigation";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
-      <TeamProjectNavigation />
+      <LocalNavigation />
 
-      <section className="w-full  h-full p-8 bg-[#f5f5f5] rounded-xl">
+      <section className="p-4 md:p-8 bg-[#f5f5f5] md:max-w-[1400px] md:mx-auto md:rounded-2xl">
         {children}
       </section>
     </>
