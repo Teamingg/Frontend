@@ -5,7 +5,8 @@ import React from "react";
 import { useRouter } from "next/navigation";
 
 import { queryclient } from "@/lib/getQueryClient";
-import { client } from "@/service/api/instance/client/client";
+import { client } from "@/service/api/instance/client";
+import { CiLogout } from "react-icons/ci";
 
 const LogoutButton = () => {
   const router = useRouter();
@@ -28,8 +29,13 @@ const LogoutButton = () => {
   };
 
   return (
-    <button type="button" onClick={handleLogout}>
-      로그아웃
+    <button
+      type="button"
+      onClick={handleLogout}
+      className="flex items-center gap-2"
+    >
+      <CiLogout size={26} />
+      <span className="hidden md:inline">로그아웃</span>
     </button>
   );
 };
