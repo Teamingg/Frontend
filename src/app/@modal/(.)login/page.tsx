@@ -29,28 +29,33 @@ const Page = () => {
 
   return (
     <Modal isOpen={true} onClose={closeModal}>
-      <button onClick={closeModal} className="relative self-start">
-        <Image
-          src="icons/backArrow.svg"
-          width={24}
-          height={24}
-          priority={false}
-          alt="아이콘"
-          className="size-4 inline"
-        />
-        <span className="text-primary ml-1">처음으로</span>
-      </button>
-      <div className="relative w-56 h-52 mx-auto">
-        <Image src="/Logo-text.svg" fill alt="TeamingLogo" priority={false} />
+      <div className="mb-6 px-4">
+        <button onClick={closeModal} className="relative self-start text-sm">
+          <Image
+            src="icons/backArrow.svg"
+            width={18}
+            height={18}
+            priority
+            alt="아이콘"
+            className="size-3 inline"
+          />
+          <span className="text-primary ml-1">처음으로</span>
+        </button>
       </div>
-      <div className="mb-8 text-center">
-        <p>
-          <span className="text-primary">티밍</span>에 오신 것을 환영합니다,
-        </p>
-        <p>
-          티밍에서 나와 함께 할<span className="text-primary"> 팀</span>을
-          만나보세요.
-        </p>
+
+      <div className="py-4">
+        <div className="relative w-56 h-[85px] mx-auto mb-4">
+          <Image src="/newLogo-text.png" fill alt="TeamingLogo" priority />
+        </div>
+        <div className="text-center">
+          <p>
+            <span className="text-primary">티밍</span>에 오신 것을 환영합니다,
+          </p>
+          <p>
+            티밍에서 나와 함께 할<span className="text-primary"> 팀</span>을
+            만나보세요.
+          </p>
+        </div>
       </div>
 
       <ul className="space-y-2">
@@ -64,9 +69,9 @@ const Page = () => {
                 src={item.imageSrc}
                 alt={item.name}
                 width={200}
-                height={40}
-                priority={false}
-                className="w-[300px] h-auto"
+                height={30}
+                priority
+                className="w-[300px] h-[45px]"
               />
             </Link>
           </li>
