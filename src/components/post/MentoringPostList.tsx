@@ -36,7 +36,7 @@ const MentoringPostList = () => {
 
       {data && (
         <>
-          <ul className="grid grid-cols-2 gap-4">
+          <ul className="flex flex-col gap-4 md:grid md:grid-cols-2">
             {data.pages.map((posts) =>
               posts.content.map((post) => (
                 <li key={post.boardId}>
