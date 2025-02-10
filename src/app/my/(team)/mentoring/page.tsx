@@ -16,7 +16,7 @@ const MyMentoringTeamPage = () => {
       {isFetching && <MyTeamSkeleton />}
 
       {!isFetching && teamList && (
-        <ul className="grid grid-cols-2 gap-4">
+        <ul className=" md:grid md:grid-cols-2 flex flex-col gap-4  max-h-[870px] overflow-y-scroll scrollbar-hide">
           {teamList.map((team) => (
             <MyTeamItem
               name={team.name}
