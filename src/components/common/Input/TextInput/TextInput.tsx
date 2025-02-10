@@ -14,7 +14,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>(
       <input
         ref={ref}
         type="text"
-        className={`border py-2 px-4 outline-none rounded-md 
+        className={`text-sm md:text-base border py-2 px-4 outline-none rounded-md 
       focus:border-primary transition-colors ${error ? "border-red-400" : ""}`}
         aria-label={ariaLabel || placeholder} // aria-label 기본값으로 placeholder 사용
         placeholder={placeholder}
