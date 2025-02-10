@@ -1,5 +1,5 @@
 import { queryclient } from "@/lib/getQueryClient";
-import { client } from "@/service/api/instance/client/client";
+import { client } from "@/service/api/instance/client";
 import { useMutation } from "@tanstack/react-query";
 
 const applyMentoringtTeam = async (boardId: string) => {

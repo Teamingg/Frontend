@@ -1,5 +1,5 @@
 import { queryclient } from "@/lib/getQueryClient";
-import { client } from "@/service/api/instance/client/client";
+import { client } from "@/service/api/instance/client";
 
 import { useMutation } from "@tanstack/react-query";
 
@@ -12,10 +12,12 @@ const applyProjectTeam = async ({
   teamId,
   recruitCategory,
 }: ApplyProjectTeamProps) => {
-  await client.post(`/project/join`, {
+  const response = await client.post(`/project/join`, {
     teamId,
     recruitCategory,
   });
+
+  return response;
 };
 
 const useJoinProjectTeam = () => {
@@ -24,6 +26,9 @@ const useJoinProjectTeam = () => {
       await applyProjectTeam({ teamId, recruitCategory }),
     onSuccess: () => {
       queryclient.invalidateQueries({ queryKey: ["project", "post"] });
+    },
+    onError: (error) => {
+      // console.log(error);
     },
   });
 

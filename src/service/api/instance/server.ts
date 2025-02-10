@@ -1,7 +1,7 @@
 "use server";
 
 import axios, { AxiosError } from "axios";
-import { defaultInstanceOptions } from "../defaultInstance";
+import { defaultInstanceOptions } from "./defaultInstance";
 
 import { cookies } from "next/headers";
 import handleError from "@/service/handleError";

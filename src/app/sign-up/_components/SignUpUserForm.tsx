@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 
-import { client } from "@/service/api/instance/client/client";
+import { client } from "@/service/api/instance/client";
 
 import UserInfoForm from "@/components/user/UserInfoForm/UserInfoForm";
 import { UserInfoFormValues } from "@/components/user/UserInfoForm/UserInfoFormValues";

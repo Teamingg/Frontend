@@ -1,7 +1,7 @@
 import axios from "axios";
 
 import handleError from "@/service/handleError";
-import { refreshToken } from "../../refreshToken";
+import { refreshToken } from "../refreshToken";
 
 export const client = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -35,6 +35,8 @@ client.interceptors.response.use(
         handleError(error.response.status);
       }
     }
+
+    handleError(error.response.status);
 
     return Promise.reject(error.response.data);
   }
