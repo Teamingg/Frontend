@@ -25,18 +25,16 @@ export default async function RootLayout({
   modal: React.ReactNode;
 }>) {
   // 로그인 상태 확인
-  const isLoggedIn =
-    (await checkCookie("accessToken")) || (await checkCookie("refreshToken"));
 
   return (
     <html lang="ko">
-      <body className="w-full h-screen pt-[80px]">
+      <body className="w-full pt-[59px] md:pt-[71px]">
         <div id="toast"></div>
         <div id="modal-root"></div>
 
-        <Header isLoggedIn={isLoggedIn} />
+        <Header />
 
-        <main className="max-w-[1200px] mx-auto">
+        <main className="mx-auto md:py-2">
           <AppProvider>
             <ToastList />
             {modal}
