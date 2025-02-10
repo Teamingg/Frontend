@@ -16,10 +16,9 @@ const UserReviewList = () => {
   return (
     <>
       {data && data?.length === 0 && (
-        <p className="text-center py-4 rounded-lg text-lg bg-white shadow-sm">
-          아직 팀원들에게 받은 후기가 없습니다.{" "}
-          <span className="text-primary">팀원들과 함께 프로젝트에 참여</span>
-          하고 후기를 받아보세요 !
+        <p className="text-center p-4 md:py-4 rounded-xl text-sm md:text-lg bg-white shadow-sm min-h-[240px] md:min-h-[420px] flex flex-col justify-center items-center">
+          아직 팀원들에게 받은 후기가 없습니다.
+          <br /> 팀원들과 함께 프로젝트에 참여 하고 후기를 받아보세요 !
         </p>
       )}
 
@@ -34,6 +33,7 @@ const UserReviewList = () => {
               content={review.content}
               date={review.createdDate}
               name={review.reviewerName}
+              rate={review.rating}
             />
           ))}
         </ul>
