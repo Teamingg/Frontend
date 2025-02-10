@@ -102,7 +102,7 @@ const UserInfoForm = ({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col justify-center items-center w-[500px]"
+      className="flex flex-col justify-center items-center md:w-[500px]"
     >
       {/* 입력 필드 */}
       <div className="w-full space-y-4">
@@ -117,8 +117,8 @@ const UserInfoForm = ({
       ))}
 
       {/* 기술스택 */}
-      <div className="py-2 flex flex-col w-full">
-        <div className="mb-2">기술스택 (선택)</div>
+      <div className="py-2 flex flex-col w-full text-sm md:text-base">
+        <div className="mb-2 md:text-lg">기술스택 (선택)</div>
         <SelectCheckBox
           name="stacksIds"
           placeholder="사용가능한 기술스택을 선택해주세요."
