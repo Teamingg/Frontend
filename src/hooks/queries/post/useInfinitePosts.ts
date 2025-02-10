@@ -18,19 +18,16 @@ const useInfinitePosts = <T extends TeamCategory>({
   category,
   getPosts,
 }: useInfinitePostsProps<T>) => {
-  const { fetchNextPage, hasNextPage, isFetchingNextPage, data } =
-    useInfiniteQuery<T extends "project" ? ProjectPosts : MentoringPosts>({
-      queryKey: postKeys.posts(category),
+  return useInfiniteQuery<T extends "project" ? ProjectPosts : MentoringPosts>({
+    queryKey: postKeys.posts(category),
 
-      queryFn: async ({ pageParam }) =>
-        await getPosts({ nextCursor: pageParam as number }),
-      initialPageParam: 0,
-      getNextPageParam: (lastPage) =>
-        lastPage.nextCursor === null ? undefined : lastPage.nextCursor,
-      staleTime: 5 * 60 * 1000,
-    });
-
-  return { fetchNextPage, hasNextPage, isFetchingNextPage, data };
+    queryFn: async ({ pageParam }) =>
+      await getPosts({ nextCursor: pageParam as number }),
+    initialPageParam: 0,
+    getNextPageParam: (lastPage) =>
+      lastPage.nextCursor === null ? undefined : lastPage.nextCursor,
+    staleTime: 5 * 60 * 1000,
+  });
 };
 
 export default useInfinitePosts;
