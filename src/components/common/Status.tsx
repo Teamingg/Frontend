@@ -15,7 +15,9 @@ const Status = ({ status }: StatusProps) => {
       : undefined;
 
   return (
-    <div className={`py-1 px-2 text-xs rounded-full ${bgColor} text-white`}>
+    <div
+      className={`px-2 text-xs md:text-base rounded-full ${bgColor} text-white`}
+    >
       <span>
         {status === "RECRUITING"
           ? "모집중"
