@@ -13,3 +13,15 @@
   font-family: "Custom";
   src: url(/font.ttf);
 }
+
+html {
+  height: 100svh;
+}
+body,
+main {
+  height: 100%;
+}
+
+.button_hover {
+  @apply bg-opacity-90 transition-colors;
+}
