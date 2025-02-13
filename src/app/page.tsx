@@ -3,14 +3,14 @@ import "./globals.css";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 import { queryclient } from "@/lib/getQueryClient";
-import { getAllProjectPosts } from "@/service/api/project/post/getAllProjectPosts";
-import { getAllMentoringPosts } from "@/service/api/mentoring/post/getAllMentoringPosts";
+import { getAllProjectPosts } from "@/service/api/post/getAllProjectPosts";
+import { getAllMentoringPosts } from "@/service/api/post/getAllMentoringPosts";
 
 import SectionHeader from "@/components/layout/Main/CatrgoryHeader";
-import TeamProjectNavigation from "@/components/layout/Layout/Header/GlobalNavigation";
 
 import ProjectPostList from "@/components/post/ProjectPostList";
 import MentoringPostList from "@/components/post/MentoringPostList";
+import LocalNavigation from "@/components/layout/Layout/Header/LocalNavigation";
 
 export default async function Home() {
   await Promise.all([
@@ -33,11 +33,12 @@ export default async function Home() {
 
   return (
     <>
-      <TeamProjectNavigation />
+      <LocalNavigation />
 
-      <section className="flex flex-col gap-8 pb-8">
+      <section className="bg-[#f5f5f5] md:bg-white p-4 md:p-0 flex flex-col gap-4 md:gap-8">
         {/* team-page project */}
-        <div className="p-8 rounded-xl bg-[#f5f5f5]">
+
+        <div className="md:bg-[#f5f5f5] md:rounded-2xl md:p-8 md:max-w-[1400px] md:mx-auto">
           <SectionHeader title="팀 프로젝트" path="/project" />
 
           <HydrationBoundary state={dehydrate(queryclient)}>
@@ -46,9 +47,8 @@ export default async function Home() {
         </div>
 
         {/* mentoring */}
-        <div className="p-8 rounded-xl bg-[#f5f5f5]">
+        <div className="md:bg-[#f5f5f5] md:rounded-2xl md:p-8 md:max-w-[1400px] md:mx-auto">
           <SectionHeader title="멘토링" path="/mentoring" />
-
           <HydrationBoundary state={dehydrate(queryclient)}>
             <MentoringPostList />
           </HydrationBoundary>

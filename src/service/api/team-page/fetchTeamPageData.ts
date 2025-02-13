@@ -1,4 +1,4 @@
-import { client } from "../instance/client/client";
+import { client } from "../instance/client";
 
 type FetchType = "info" | "posts" | "member";
 

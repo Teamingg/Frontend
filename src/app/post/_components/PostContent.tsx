@@ -35,7 +35,7 @@ const PostContent = ({
         status={postStatus}
       />
 
-      <div className="grid grid-cols-2 gap-4 bg-[#f5f5f5] p-6 rounded-lg">
+      <div className="flex flex-col gap-2 md:gap-4 bg-[#f5f5f5] p-4 md:p-6 rounded-lg text-xs md:text-base md:grid md:grid-cols-2">
         {postInfo.map((info) => (
           <PostInfo
             key={info.label}
@@ -46,7 +46,7 @@ const PostContent = ({
         ))}
       </div>
 
-      <p className="p-6 max-h-[620px] overflow-y-scroll scrollbar-hide">
+      <p className="p-4 text-base md:text-lg max-h-[480px] overflow-y-scroll scrollbar-hide">
         {contents}
       </p>
     </>

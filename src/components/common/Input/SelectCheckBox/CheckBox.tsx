@@ -9,7 +9,10 @@ const CheckBox = forwardRef<HTMLInputElement, CheckBoxProps>(
   ({ label, id, ...props }: CheckBoxProps, ref) => {
     return (
       <>
-        <label htmlFor={id} className="cursor-pointer px-4 py-2 block w-full">
+        <label
+          htmlFor={id}
+          className="cursor-pointer text-center md:px-4 py-2 block w-full"
+        >
           {label}
         </label>
         <input

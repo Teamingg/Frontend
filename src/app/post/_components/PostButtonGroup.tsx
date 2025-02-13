@@ -42,10 +42,10 @@ const PostButtonGroup = ({
   };
 
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 text-sm md:text-base absolute bottom-2 w-full p-4 left-0">
       <Link
         href={`/team/${postType}/${teamId}/info`}
-        className="py-4 w-full border rounded-lg text-center"
+        className="py-3 md:py-4 w-full border rounded-lg text-center"
       >
         {`${category} 팀 보러가기`}
       </Link>
@@ -54,7 +54,7 @@ const PostButtonGroup = ({
       {isfetch && (
         <div
           onClick={onClick}
-          className="py-4 h-[58px] w-full bg-gray-50 rounded-lg animate-pulse flex justify-center items-center"
+          className="py-3 md:py-4 h-[58px] w-full bg-gray-50 rounded-lg animate-pulse flex justify-center items-center"
         >
           <BeatLoader color="#337CEB" size={10} />
         </div>
@@ -76,7 +76,7 @@ const PostButtonGroup = ({
           {/* 팀원인 상태 */}
           {!isApply && isEdit && (
             <Link
-              className="py-4 w-full bg-primary text-white rounded-lg text-center"
+              className="py-3 md:py-4 w-full bg-primary text-white rounded-lg text-center"
               href={`/edit/${postType}`}
             >
               수정하기
@@ -87,7 +87,7 @@ const PostButtonGroup = ({
           {!isEdit && !isApply && (
             <button
               onClick={onClick}
-              className="py-4 w-full bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors"
+              className="py-3 md:py-4 w-full bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors"
             >
               {`${category} 팀 참여 신청하기`}
             </button>

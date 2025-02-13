@@ -17,8 +17,8 @@ const MyTeamPageLayout = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <div className=" rounded-lg px-4">
-      <h2 className="bg-white rounded-lg shadow-sm p-4 text-primary text-xl mb-4">
+    <div className="bg-[#f5f5f5] rounded-lg p-4 md:p-0 md:px-4">
+      <h2 className="bg-white rounded-xl shadow-sm p-4 text-primary text-base md:text-xl mb-4">
         {`참여 중인 ${teamCategory} 팀 목록`}
       </h2>
       {children}

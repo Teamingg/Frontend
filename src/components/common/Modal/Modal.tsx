@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 const Modal = ({
@@ -12,6 +12,8 @@ const Modal = ({
   onClose?: () => void;
   isOpen: boolean;
 }) => {
+  const [modal, setModal] = useState<boolean>(true);
+
   const modalRoot = document.getElementById("modal-root")!;
 
   useEffect(() => {
@@ -23,19 +25,27 @@ const Modal = ({
     }
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) {
+      setModal(false);
+    }
+  }, [isOpen]);
+
   return createPortal(
     <>
-      <div
-        onClick={onClose}
-        className="fixed top-0 left-0 bg-[rgba(19,17,17,0.5)] w-screen h-screen z-[90] flex justify-center items-center"
-      >
+      {modal ? (
         <div
-          onClick={(e) => e.stopPropagation()}
-          className="bg-white p-8 rounded-md"
+          onClick={onClose}
+          className="fixed top-0 left-0 bg-[rgba(19,17,17,0.5)] w-screen h-screen z-[90] flex justify-center items-center"
         >
-          {children}
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="bg-white p-6 rounded-md"
+          >
+            {children}
+          </div>
         </div>
-      </div>
+      ) : null}
     </>,
     modalRoot
   );

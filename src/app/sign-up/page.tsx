@@ -2,9 +2,9 @@ import SignUpUserForm from "@/app/sign-up/_components/SignUpUserForm";
 
 const SignUpPage = () => {
   return (
-    <section className="flex justify-center items-center w-full h-[90vh]">
+    <section className="flex justify-center items-center w-full h-full bg-[#f5f5f5]">
       {/* Desc */}
-      <div className="bg-[#f5f5f5] bg-opacity-80 rounded-xl p-24">
+      <div className="  rounded-xl md:bg-white md:p-24">
         <p className="text-center mb-4">
           반갑습니다. <br />
           <span className="text-primary">티밍</span>을 이용하기에 앞서

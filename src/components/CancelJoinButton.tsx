@@ -8,7 +8,7 @@ import useModal from "@/hooks/useModal";
 import { useToast } from "@/hooks/useToast";
 
 import AlertModal from "./common/Modal/AlertModal";
-import { client } from "@/service/api/instance/client/client";
+import { client } from "@/service/api/instance/client";
 
 interface CancelJoinButtonProps {
   children: React.ReactNode;

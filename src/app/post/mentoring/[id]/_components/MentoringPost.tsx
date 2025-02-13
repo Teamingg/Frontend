@@ -1,10 +1,8 @@
 "use client";
 
-import { useEffect } from "react";
-
 import { queryclient } from "@/lib/getQueryClient";
 
-import useGetMentoringPost from "@/hooks/post/mentoring/useGetMentoringPost";
+import { useGetPost } from "@/hooks/queries/post/useGetPost";
 import useJoinMentoringTeam from "@/hooks/team/mentoring/useJoinMentoringTeam";
 import { useToast } from "@/hooks/useToast";
 import useModal from "@/hooks/useModal";
@@ -19,7 +17,10 @@ import PostButtonGroup from "../../../_components/PostButtonGroup";
 const MentoringPost = ({ id }: { id: string }) => {
   const { modal, openModal, closeModal } = useModal();
   const { toast } = useToast();
-  const { data, isFetching } = useGetMentoringPost(id);
+  const { data, isFetching } = useGetPost({
+    category: "mentoring",
+    postId: id,
+  });
 
   const { mutate } = useJoinMentoringTeam(id);
 
