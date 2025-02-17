@@ -17,7 +17,7 @@ interface ToastItemProps {
 const ToastItem = ({ id, message, type }: ToastItemProps) => {
   const { closeToast } = useToast();
 
-  const size = "38";
+  const size = "size-4 md:size-8";
 
   const typeColor =
     type === "success"
@@ -35,11 +35,11 @@ const ToastItem = ({ id, message, type }: ToastItemProps) => {
 
   const alertIcon =
     type === "success" ? (
-      <IoMdCheckmarkCircle fill="#22c55e" size={size} />
+      <IoMdCheckmarkCircle fill="#22c55e" className={size} />
     ) : type === "error" ? (
-      <IoMdCloseCircle fill="#ef4444" size={size} />
+      <IoMdCloseCircle fill="#ef4444" className={size} />
     ) : (
-      <IoMdAlert fill="#3b82f6" size={size} />
+      <IoMdAlert fill="#3b82f6" className={size} />
     );
 
   useEffect(() => {
@@ -48,11 +48,11 @@ const ToastItem = ({ id, message, type }: ToastItemProps) => {
 
   return (
     <li
-      className={`py-4 pl-8 w-[400px] rounded-md flex gap-4 items-center text-lg shadow-md ${typeColor} ${typeBgColor}`}
+      className={` py-2 md:py-4 pl-8 w-[400px] rounded-md flex gap-4 items-center text-base md:text-lg shadow-md ${typeColor} ${typeBgColor}`}
     >
       {alertIcon}
       <div>
-        <strong>알림</strong>
+        <strong className="hidden md:block">알림</strong>
         <p>{message}</p>
       </div>
     </li>

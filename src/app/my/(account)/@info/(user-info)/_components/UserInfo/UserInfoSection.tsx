@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 
 // types
 import { UserInfoFormValues } from "@/components/user/UserInfoForm/UserInfoFormValues";
 
 // hooks
-import useUpdateUserInfo from "../../../../../../../hooks/user/useUpdateUserInfo";
-import useGetUserInfo from "../../../../../../../hooks/user/useGetUserInfo";
+import useUpdateUserInfo from "../../../../../../../hooks/queries/profile/userProfile/useUpdateUserInfo";
+import useGetMyInfo from "@/hooks/queries/my/useGetMyInfo";
 import useModal from "@/hooks/useModal";
 
 // _components
@@ -27,7 +26,7 @@ const UserInfoSection = () => {
   const { toast } = useToast();
   const { modal: edit, openModal, closeModal } = useModal();
 
-  const { userInfo, isFetching } = useGetUserInfo();
+  const { userInfo, isFetching } = useGetMyInfo();
 
   const { mutate, isSuccess } = useUpdateUserInfo();
 
@@ -75,7 +74,7 @@ const UserInfoSection = () => {
 
       {/* 패칭이 끝난 후 데이터가 존재 했을 때 */}
       {!isFetching && userInfo && (
-        <div className="bg-white rounded-lg shadow-sm p-6 flex flex-col gap-5">
+        <div className="bg-white rounded-xl shadow-sm p-4 md:p-6 relative">
           <UserInfoContent
             name={userInfo.name || ""}
             introduce={userInfo.introduce || ""}
@@ -85,7 +84,7 @@ const UserInfoSection = () => {
 
           <button
             onClick={openModal}
-            className="w-full lg:w-1/6 lg:ml-auto bg-primary text-sm text-white py-2 px-4 rounded-md hover:bg-opacity-90 transition-colors disabled:bg-opacity-90"
+            className="w-full md:w-auto md:absolute right-4 bottom-4 bg-primary text-sm text-white py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors disabled:bg-opacity-90"
           >
             수정하기
           </button>

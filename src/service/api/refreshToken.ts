@@ -1,5 +1,5 @@
 import { getCookie } from "@/utils/cookies";
-import { client } from "./instance/client/client";
+import { client } from "./instance/client";
 
 export const refreshToken = async (refreshToken?: string) => {
   if (!refreshToken) {

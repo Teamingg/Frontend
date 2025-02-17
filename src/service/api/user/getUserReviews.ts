@@ -1,14 +1,10 @@
-import handleError from "@/service/handleError";
-import { client } from "../instance/client/client";
+import { client } from "../instance/client";
 
 import UserReview from "@/types/user/userReview";
 
-export const getUserReviews = async (): Promise<UserReview[]> => {
-  const response = await client.get("/mock/users/reviews");
-
-  if (response.status !== 200) {
-    handleError(response.status);
-  }
+export const getUserReviews = async (userId: string): Promise<UserReview[]> => {
+  const response = await client.get(`/users/${userId}/reviews`);
+  console.log(response.data.data);
 
   return response.data.data;
 };

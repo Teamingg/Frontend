@@ -10,12 +10,12 @@ interface PostHeaderProps {
 
 const PostHeader = ({ title, teamName, deadLine, status }: PostHeaderProps) => {
   return (
-    <div className="border-b p-4 mb-6">
-      <div className="flex items-center gap-2">
-        <h3 className="text-xl">{title}</h3>
+    <div className="p-2">
+      <div className="flex items-center gap-2 mb-1">
+        <h3 className="text-xl md:text-2xl">{title}</h3>
         <Status status={status} />
       </div>
-      <div className="flex justify-between text-gray-500 ">
+      <div className="flex justify-between text-gray-500 text-sm md:text-base">
         <span>{teamName}</span>
         <span>{`모집마감 : ${deadLine}`}</span>
       </div>

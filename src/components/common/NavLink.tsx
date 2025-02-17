@@ -21,7 +21,7 @@ const NavLink = ({
   const active = path === href;
 
   return (
-    <Link href={href} className={active ? activeClassName : className}>
+    <Link href={href} className={`${className} ${active && activeClassName}`}>
       {children}
     </Link>
   );

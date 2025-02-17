@@ -10,8 +10,8 @@ import { RECRUITE_CATEGORY } from "@/constant/recruiteCategory";
 import { queryclient } from "@/lib/getQueryClient";
 import { filterItemsByIds } from "@/utils/filterItemsByIds";
 
+import { useGetPost } from "@/hooks/queries/post/useGetPost";
 import useJoinProjectTeam from "@/hooks/team/project/useJoinProjectTeam";
-import { useGetProjectPost } from "@/hooks/post/project/useGetProjectPost";
 import { useToast } from "@/hooks/useToast";
 import useModal from "@/hooks/useModal";
 
@@ -24,7 +24,10 @@ const ProjectPost = ({ id }: { id: string }) => {
   const { toast } = useToast();
   const { modal, openModal, closeModal } = useModal();
 
-  const { data, isFetching } = useGetProjectPost(id);
+  const { data, isFetching } = useGetPost({
+    category: "project",
+    postId: id,
+  });
   const { mutate, isSuccess } = useJoinProjectTeam();
 
   // 신청이 완료됐을 때

@@ -1,7 +1,8 @@
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { queryclient } from "@/lib/getQueryClient";
 
-import { getAllMentoringPosts } from "@/service/api/mentoring/post/getAllMentoringPosts";
+import { getAllMentoringPosts } from "@/service/api/post/getAllMentoringPosts";
+import { postKeys } from "@/hooks/queries/post";
 
 const MentoringPageLayout = async ({
   children,
@@ -10,7 +11,7 @@ const MentoringPageLayout = async ({
 }) => {
   // 멘토링 포스트
   await queryclient.prefetchInfiniteQuery({
-    queryKey: ["mentoring", "post"],
+    queryKey: postKeys.posts("mentoring"),
     queryFn: async ({ pageParam }) =>
       await getAllMentoringPosts({ nextCursor: pageParam as number }),
     initialPageParam: 0,

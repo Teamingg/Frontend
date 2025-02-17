@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError } from "axios";
-import { client } from "@/service/api/instance/client/client";
+import { client } from "@/service/api/instance/client";
 
 interface Props<T> {
   endpoint: string;

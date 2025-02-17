@@ -1,6 +1,6 @@
 import { queryclient } from "@/lib/getQueryClient";
 
-import getProjectPost from "@/service/api/project/post/getProjectPost";
+import getProjectPost from "@/service/api/post/getProjectPost";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 interface ProjectPostPageProps {

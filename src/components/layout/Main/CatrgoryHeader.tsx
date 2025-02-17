@@ -15,7 +15,7 @@ const CategoryHeader = ({ title, path = "/" }: CategoryHeader) => {
   const currentPath = usePathname();
 
   return (
-    <header className="px-5 py-3 mb-4 flex justify-between items-center bg-primary rounded-2xl text-white">
+    <header className="hidden md:flex px-5 py-3 mb-4 justify-between items-center bg-primary rounded-2xl text-white">
       <h3>{title}</h3>
       {currentPath === "/" && (
         <div>

@@ -83,10 +83,10 @@ const SelectCheckBox = ({
         {selectedList.length === 0 ? (
           `${placeholder}`
         ) : (
-          <ul className="flex gap-2 px-2 flex-wrap">
+          <ul className="grid grid-cols-3 gap-2 px-2 ">
             {selectedList.map((item) => (
               <li
-                className="border px-4 py-1 text-black flex items-center gap-2"
+                className="border px-4 py-1 text-black text-center gap-2"
                 key={item.value}
               >
                 <span>{item.label}</span>

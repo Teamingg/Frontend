@@ -1,7 +1,5 @@
 "use client";
 
-import { queryclient } from "@/lib/getQueryClient";
-
 const Error = ({ error, reset }: { error: Error; reset: () => void }) => {
   return (
     <div className="h-[420px] bg-white flex flex-col justify-center items-center rounded-lg shadow-sm">

@@ -1,12 +1,15 @@
-import { queryclient } from "@/lib/getQueryClient";
-import { getUserReviews } from "@/service/api/user/getUserReviews";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
+
+import { queryclient } from "@/lib/getQueryClient";
+
 import UserReviewList from "./UserReviewList";
+import myPageKeys from "@/hooks/queries/my/myPageKeys";
+import { getMyReviews } from "@/service/api/my";
 
 const UserReviewContainer = async () => {
   await queryclient.prefetchQuery({
-    queryKey: ["user", "review"],
-    queryFn: async () => await getUserReviews(),
+    queryKey: myPageKeys.reviews,
+    queryFn: async () => await getMyReviews(),
   });
 
   return (

@@ -1,51 +1,36 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 
-import LogoutButton from "../../../auth/LogoutButton";
-import { useToast } from "@/hooks/useToast";
+import { checkCookie } from "@/utils/cookies";
+import GlobalNavigation from "./GlobalNavigation";
 
-const Header = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
-  const { toast } = useToast();
+const Header = async () => {
+  const isLoggedIn =
+    (await checkCookie("accessToken")) || (await checkCookie("refreshToken"));
 
   return (
-    <header className="w-full fixed top-0 left-0 z-50 bg-white">
-      <div className="max-w-[1200px] mx-auto flex justify-between items-center py-6 md:max-w-4xl">
-        {/* 로고 */}
-        <h1 className="relative w-[150px] h-[30px]">
-          <Link href="/">
-            <Image src="/Logo.png" fill alt="Teaming" sizes="150px" priority />
-          </Link>
-        </h1>
-
-        {/* 네비게이션 */}
-        <nav>
-          <ul className="flex gap-4">
-            <li>
-              {!isLoggedIn ? (
-                <Link href="/login" scroll={false}>
-                  로그인
-                </Link>
-              ) : (
-                  <>
-                    <LogoutButton />
-                    <Link href="/my">마이페이지</Link>
-                  </>
-              )}
-            </li>
-            <li
-              onClick={() => {
-                if (!isLoggedIn) {
-                  toast.error("로그인이 필요합니다.");
-                }
-              }}
+    <header className="bg-white fixed top-0 left-0 z-50 w-full px-4 py-3 md:p-4 drop-shadow-sm">
+      <div className="flex items-center justify-between max-w-[1400px] mx-auto">
+        <div className="flex items-center gap-8">
+          {/* 로고 */}
+          <h1>
+            <Link
+              href="/"
+              className="block relative w-[120px] md:w-[140px] h-[35px] md:h-[40px]"
             >
+              <Image
+                src="/newLogo.png"
+                fill
+                alt="로고"
+                sizes="150px"
+                priority
+              />
+            </Link>
+          </h1>
+        </div>
 
-            </li>
-            <li>알림</li>
-          </ul>
-        </nav>
+        {/* 글로벌 네비게이션 바 (로그인, 로그아웃, 마이페이지, 알림 ..) */}
+        <GlobalNavigation isLoggedIn={isLoggedIn} />
       </div>
     </header>
   );

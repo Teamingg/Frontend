@@ -6,11 +6,11 @@ import { usePathname } from "next/navigation";
 import STACK_LIST from "@/constant/stackList";
 
 import useObserver from "@/hooks/useObserver";
-import { getAllMentoringPosts } from "@/service/api/mentoring/post/getAllMentoringPosts";
+import { getAllMentoringPosts } from "@/service/api/post/getAllMentoringPosts";
 
 import PostItem from "@/components/common/Post/PostItem";
 import LoadingIndicator from "@/components/common/LoadingIndicator";
-import useInfinitePosts from "@/hooks/useInfinitePosts";
+import useInfinitePosts from "@/hooks/queries/post/useInfinitePosts";
 
 const MentoringPostList = () => {
   const path = usePathname();
@@ -36,7 +36,7 @@ const MentoringPostList = () => {
 
       {data && (
         <>
-          <ul className="grid grid-cols-2 gap-4">
+          <ul className="flex flex-col gap-4 md:grid md:grid-cols-2">
             {data.pages.map((posts) =>
               posts.content.map((post) => (
                 <li key={post.boardId}>
