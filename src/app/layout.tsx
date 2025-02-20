@@ -31,9 +31,7 @@ export default async function RootLayout({
       <body className="pt-[59px] md:pt-[71px]">
         <div id="toast"></div>
         <div id="modal-root"></div>
-
-        <Header />
-
+        <Header/>
         <main className="min-h-screen mx-auto md:py-2">
           <AppProvider>
             <ToastList />
@@ -41,10 +39,7 @@ export default async function RootLayout({
             {children}
           </AppProvider>
         </main>
-
-        <footer>
-          <Footer />
-        </footer>
+        <Footer/>
       </body>
     </html>
   );
