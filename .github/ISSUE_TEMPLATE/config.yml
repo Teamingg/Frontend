@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: ❓ General Questions
+    url: https://github.com/TitovCompany/Visionlife_FE/discussions
+    about: 일반적인 질문이나 논의가 필요한 경우 Discussions를 이용해주세요.

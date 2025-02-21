@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { UserInfoFormValues } from "@/components/user/UserInfoForm/UserInfoFormValues";
 
 // hooks
-import useUpdateUserInfo from "../../../../../../../hooks/queries/profile/userProfile/useUpdateUserInfo";
+import useUpdateUserInfo from "@/hooks/user/useUpdateUserInfo";
 import useGetMyInfo from "@/hooks/queries/my/useGetMyInfo";
 import useModal from "@/hooks/useModal";
 

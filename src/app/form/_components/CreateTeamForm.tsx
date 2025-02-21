@@ -70,7 +70,7 @@ const CreateTeamForm = <T extends ProjectCreationData | MentoringCreationData> (
       />
 
       {/* 버튼 */}
-      <div className="mt-16 text-center md:flex">
+      <div className="mt-16 text-center flex flex-col-reverse gap-2 md:flex-row">
         <button className="w-[320px] h-[50px] mx-5 rounded-xl border-2 hover:bg-gray-400">
           닫기
         </button>

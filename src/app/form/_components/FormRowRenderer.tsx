@@ -11,7 +11,7 @@ interface RowRendererProps<T extends FieldValues> {
 
 const FormRowRenderer = <T extends FieldValues,>({ rowFields, control, register, division }: RowRendererProps<T>) => {
   return (
-      <div className="w-full flex gap-5">
+      <div className="w-full flex flex-col sm:flex-row sm:gap-5">
         {rowFields.map((rowField, index) => (
             <FormFieldRenderer
                 key={index}
