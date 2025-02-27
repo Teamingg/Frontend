@@ -112,7 +112,7 @@ const ProjectPost = ({ id }: { id: string }) => {
                   <button
                     id={item.value}
                     onClick={handleClick}
-                    className="w-full text-white bg-primary rounded-lg py-4 hover:bg-opacity-90 transition-colors"
+                    className="w-full text-white bg-primary rounded-lg py-4 hover:bg-black/90 transition-colors"
                   >
                     {item.label}
                   </button>

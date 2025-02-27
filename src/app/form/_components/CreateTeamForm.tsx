@@ -5,7 +5,7 @@ import {
   ProjectCreationData,
   MentoringCreationData,
   FormSchema
-} from "@/app/form/_type/formDataTypes";
+} from "@/types/form";
 import FormFieldRenderer from "@/app/form/_components/FormFieldRenderer";
 import FormRowRenderer from "@/app/form/_components/FormRowRenderer";
 

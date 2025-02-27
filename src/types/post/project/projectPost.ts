@@ -1,6 +1,7 @@
 import { TeamStatus } from "@/types/team/teamStatus";
 
 export default interface ProjectPost {
+  status: TeamStatus;
   title: string; // 게시글 제목
   teamName: string; // 게시글을 작성한 팀 이름
   startDate: string; // 프로젝트 시작일

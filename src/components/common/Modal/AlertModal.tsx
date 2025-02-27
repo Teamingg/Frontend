@@ -22,7 +22,7 @@ const AlertModal = ({
   ConfirmButonColor = "bg-primary",
   isLoading = false,
 }: AlertModalProps) => {
-  const buttonHover = "hover:bg-opacity-85 transition-colors";
+  const buttonHover = "hover:bg-black/85 transition-colors";
   const buttonCommonStyle = "py-2 rounded-lg w-full";
 
   return (

@@ -17,7 +17,7 @@ const NotFound = () => {
         </p>
         <button
           onClick={() => router.replace("/")}
-          className="bg-primary text-white rounded-lg px-8 py-3 text-lg hover:bg-opacity-90 transition-colors"
+          className="bg-primary text-white rounded-lg px-8 py-3 text-lg hover:bg-black/90 transition-colors"
         >
           홈으로 돌아가기
         </button>

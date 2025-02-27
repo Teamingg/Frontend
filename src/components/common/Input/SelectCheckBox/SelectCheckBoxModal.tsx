@@ -81,7 +81,7 @@ const SelectCheckBoxModal = ({
           </button>
           <button
             onClick={onClose}
-            className="w-full py-2 md:py-3 bg-primary text-white rounded-xl  hover:bg-opacity-90 transition-colors"
+            className="w-full py-2 md:py-3 bg-primary text-white rounded-xl  hover:bg-black/90 transition-colors"
           >
             선택완료
           </button>

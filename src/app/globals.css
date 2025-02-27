@@ -8,11 +8,12 @@
 
 }
 
-* {
-  margin: 0;
-  padding: 0;
+html, body {
+  width: 100vw;
+  min-height: 100vh;
   box-sizing: border-box;
   font-family: "Custom", serif;
+  overflow-x: hidden;
 }
 
 @font-face {
@@ -20,21 +21,6 @@
   src: url(/font.ttf);
 }
 
-html {
-  min-height: 100svh;
-}
-
-body {
-  width: 100%;
-  height: 100%;
-  min-height: 100svh;
-}
-
-body,
-main {
-  height: 100%;
-}
-
 .button_hover {
-  @apply bg-opacity-90 transition-colors;
+  @apply bg-black/90 transition-colors;
 }

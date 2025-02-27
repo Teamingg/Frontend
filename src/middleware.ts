@@ -9,14 +9,14 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl;
 
   // 로그인 상태
-  const isLoggedIn = checkCookie("accessToken") || checkCookie("refreshToken");
+  const isLoggedIn = await checkCookie("accessToken") || await checkCookie("refreshToken");
   const accessToken = getCookie("accessToken");
   const refreshToken = getCookie("refreshToken");
 
   // 액세스 토큰 갱신 로직
   if (refreshToken && !accessToken) {
     try {
-      const newAccessToken = await reissue(refreshToken);
+      const newAccessToken = await reissue(await refreshToken);
 
       // 쿠키 옵션 set
       response.cookies.set("accessToken", newAccessToken, {
@@ -59,7 +59,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // 로그인이 되어있는 상태 일 때 접근 할 수 없는 path
-  if (isLoggedIn) {
+  if (await isLoggedIn) {
     // 로그인 페이지
     if (url.pathname.includes("/login")) {
       return NextResponse.redirect(new URL("/", request.url));

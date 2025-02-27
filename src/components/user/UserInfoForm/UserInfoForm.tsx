@@ -130,7 +130,7 @@ const UserInfoForm = ({
 
       {/* 폼 전송 버튼 */}
       <button
-        className="bg-primary text-white w-full py-2 text-center mt-6 rounded-md hover:bg-opacity-85 disabled:bg-opacity-70 transition-colors disabled:cursor-not-allowed"
+        className="bg-primary text-white w-full py-2 text-center mt-6 rounded-md hover:bg-black/85 disabled:bg-black/70 transition-colors disabled:cursor-not-allowed"
         disabled={isSubmitting || !isValid}
       >
         {isEdit ? "수정하기" : "제출하기"}

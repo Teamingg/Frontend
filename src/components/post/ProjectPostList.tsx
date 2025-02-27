@@ -39,7 +39,7 @@ const ProjectPostList = () => {
         <>
           <ul className="flex flex-col gap-4 md:grid md:grid-cols-2">
             {data.pages.map((posts) =>
-              posts.content.map((post) => (
+              posts.content.slice(0, 6).map((post) => (
                 <li key={post.postId}>
                   <PostItem
                     title={post.title}

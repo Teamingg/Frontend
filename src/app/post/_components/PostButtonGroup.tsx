@@ -87,7 +87,7 @@ const PostButtonGroup = ({
           {!isEdit && !isApply && (
             <button
               onClick={onClick}
-              className="py-3 md:py-4 w-full bg-primary text-white rounded-lg hover:bg-opacity-90 transition-colors"
+              className="py-3 md:py-4 w-full bg-primary text-white rounded-lg hover:bg-black/90 transition-colors"
             >
               {`${category} 팀 참여 신청하기`}
             </button>

@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import MemberTableActionBtn from "@/app/team/_components/MemberTableActionBtn";
-import { TeamMemberTables } from "@/app/team/[page_type]/[team_id]/(member)/[member_type]/page";
+import { TeamMemberTables } from "@/app/team/[[...teams]]/[member_type]/page";
 import AlertModal from "@/components/common/Modal/AlertModal";
 import useModal from "@/hooks/useModal";
 import { MemberStatus } from "@/app/team/_type/teamPageMember";

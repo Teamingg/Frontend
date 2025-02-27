@@ -58,7 +58,7 @@ const CancelJoinButton = ({
         />
       )}
       <button
-        className="py-4 w-full bg-red-400 text-white rounded-lg text-center hover:bg-opacity-90 transition-colors"
+        className="py-4 w-full bg-red-400 text-white rounded-lg text-center hover:bg-black/90 transition-colors"
         onClick={openModal}
       >
         {children}

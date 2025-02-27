@@ -32,7 +32,7 @@ const CreateTeamButton = () => {
             </Link>
             <Link
               href="/form/create/mentoring"
-              className="bg-primary text-white py-4 block text-center rounded-md hover:bg-opacity-80 transition-colors md:w-[400px]"
+              className="bg-primary text-white py-4 block text-center rounded-md hover:bg-black/80 transition-colors md:w-[400px]"
             >
               멘토링
             </Link>

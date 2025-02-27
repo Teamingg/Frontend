@@ -34,25 +34,18 @@ export default async function Home() {
   return (
     <>
       <LocalNavigation />
-
-      <section className="bg-[#f5f5f5] md:bg-white p-4 md:p-0 flex flex-col gap-4 md:gap-8">
+      <section className="w-full flex flex-col gap-4 md:gap-8">
         {/* team-page project */}
-
-        <div className="md:bg-[#f5f5f5] md:rounded-2xl md:p-8 md:max-w-[1400px] md:mx-auto">
-          <SectionHeader title="팀 프로젝트" path="/project" />
-
-          <HydrationBoundary state={dehydrate(queryclient)}>
-            <ProjectPostList />
-          </HydrationBoundary>
-        </div>
+        <SectionHeader title="팀 프로젝트" path="/project" />
+        <HydrationBoundary state={dehydrate(queryclient)}>
+          <ProjectPostList />
+        </HydrationBoundary>
 
         {/* mentoring */}
-        <div className="md:bg-[#f5f5f5] md:rounded-2xl md:p-8 md:max-w-[1400px] md:mx-auto">
-          <SectionHeader title="멘토링" path="/mentoring" />
-          <HydrationBoundary state={dehydrate(queryclient)}>
-            <MentoringPostList />
-          </HydrationBoundary>
-        </div>
+        <SectionHeader title="멘토링" path="/mentoring" />
+        <HydrationBoundary state={dehydrate(queryclient)}>
+          <MentoringPostList />
+        </HydrationBoundary>
       </section>
     </>
   );

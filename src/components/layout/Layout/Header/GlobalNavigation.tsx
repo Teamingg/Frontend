@@ -18,8 +18,7 @@ const GlobalNavigation = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
         <Link
           href="/login"
           scroll={false}
-          className="block px-4 md:px-6 py-2 hover:button_hover bg-primary text-white rounded-lg text-xs md:text-base"
-        >
+          className="block px-4 md:px-6 py-2 hover:button_hover bg-primary rounded-lg text-xs md:text-base">
           로그인
         </Link>
       )}

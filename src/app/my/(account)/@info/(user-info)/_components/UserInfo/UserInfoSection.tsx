@@ -84,7 +84,7 @@ const UserInfoSection = () => {
 
           <button
             onClick={openModal}
-            className="w-full md:w-auto md:absolute right-4 bottom-4 bg-primary text-sm text-white py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors disabled:bg-opacity-90"
+            className="w-full md:w-auto md:absolute right-4 bottom-4 bg-primary text-sm text-white py-2 px-4 rounded-lg hover:bg-black/90 transition-colors disabled:bg-black/90"
           >
             수정하기
           </button>
