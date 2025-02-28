@@ -15,8 +15,8 @@ const CategoryHeader = ({ title, path = "/" }: CategoryHeader) => {
   const currentPath = usePathname();
 
   return (
-    <header className="hidden md:flex px-5 py-3 mb-4 justify-between items-center bg-primary rounded-2xl text-white">
-      <h3>{title}</h3>
+    <header className="hidden md:flex mt-5 p-3 justify-between items-center bg-primary rounded-2xl text-[#333]">
+      <h3 className='text-xl'>{title}</h3>
       {currentPath === "/" && (
         <div>
           <Link href={path}>전체보기</Link>

@@ -34,7 +34,7 @@ export default async function Home() {
   return (
     <>
       <LocalNavigation />
-      <section className="w-full flex flex-col gap-4 md:gap-8">
+      <section className="w-full flex flex-col gap-4 md:gap-2">
         {/* team-page project */}
         <SectionHeader title="팀 프로젝트" path="/project" />
         <HydrationBoundary state={dehydrate(queryclient)}>
