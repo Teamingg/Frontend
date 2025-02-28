@@ -1,25 +1,17 @@
-"use client";
+import {ReactNode} from "react";
+import BackButton from "@/components/Button/BackButton";
 
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-
-const PostDetailPageLayout = ({ children }: { children: React.ReactNode }) => {
-  const router = useRouter();
-
+const PostDetailPageLayout = ({
+  children
+} : {
+  children: ReactNode
+}) => {
   return (
-    <section className="p-4 md:p-0 h-full relative md:max-w-[1400px] md:mx-auto">
-      <div className="px-2">
-        <button
-          onClick={() => router.back()}
-          className="flex gap-2 items-center"
-        >
-          <div className="relative size-2 md:size-4 inline-block">
-            <Image src="/icons/backArrow.svg" alt="뒤로가기 아이콘" fill />
-          </div>
-          <span className="text-primary text-sm md:text-base">뒤로가기</span>
-        </button>
+    <section className="pt-10 pb-20 relative max-w-2xl md:max-w-3xl lg:max-w-6xl mx-auto md:mx-auto">
+      <BackButton/>
+      <div className='flex items-center justify-between'>
+        {children}
       </div>
-      {children}
     </section>
   );
 };

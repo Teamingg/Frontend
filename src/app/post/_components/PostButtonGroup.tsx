@@ -42,7 +42,7 @@ const PostButtonGroup = ({
   };
 
   return (
-    <div className="flex gap-4 text-sm md:text-base absolute bottom-2 w-full p-4 left-0">
+    <div className="flex flex-col gap-4 text-sm md:text-base w-full p-4 left-0">
       <Link
         href={`/team/${postType}/${teamId}/info`}
         className="py-3 md:py-4 w-full border rounded-lg text-center"

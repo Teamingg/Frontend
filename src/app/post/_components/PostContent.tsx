@@ -27,7 +27,7 @@ const PostContent = ({
   postInfo,
 }: PostContentProps) => {
   return (
-    <>
+    <article>
       <PostHeader
         title={title}
         teamName={teamName}
@@ -49,7 +49,7 @@ const PostContent = ({
       <p className="p-4 text-base md:text-lg max-h-[480px] overflow-y-scroll scrollbar-hide">
         {contents}
       </p>
-    </>
+    </article>
   );
 };
 

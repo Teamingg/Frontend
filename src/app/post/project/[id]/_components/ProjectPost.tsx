@@ -79,8 +79,7 @@ const ProjectPost = ({ id }: { id: string }) => {
     {
       label: "기술스택",
       content: filterItemsByIds(data.stacks, STACK_LIST)
-        .map((value) => value.label)
-        .join(","),
+        .map((value) => value.label).join(","),
     },
   ];
 
@@ -89,14 +88,13 @@ const ProjectPost = ({ id }: { id: string }) => {
       {/* 프로젝트 팀 지원 시 모집구분 선택하는 모달 */}
       {modal && (
         <Modal isOpen={modal} onClose={closeModal}>
-          <div>
+          <div className='w-fit'>
             <button className="flex items-center" onClick={closeModal}>
               <Image
                 src="/icons/backArrow.svg"
                 width={6}
                 height={6}
-                alt="닫기 아이콘"
-              />
+                alt="닫기 아이콘"/>
               <span className="ml-2 text-primary">뒤로가기</span>
             </button>
             <h3 className="py-2 text-xl text-center">지원분야</h3>
@@ -112,8 +110,7 @@ const ProjectPost = ({ id }: { id: string }) => {
                   <button
                     id={item.value}
                     onClick={handleClick}
-                    className="w-full text-white bg-primary rounded-lg py-4 hover:bg-black/90 transition-colors"
-                  >
+                    className="w-full text-white bg-primary rounded-lg py-4 hover:bg-black/90 transition-colors">
                     {item.label}
                   </button>
                 </li>

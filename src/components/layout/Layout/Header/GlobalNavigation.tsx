@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { PiBellThin, PiUserCircleThin } from "react-icons/pi";
-import LogoutButton from "@/components/auth/LogoutButton";
+import LogoutButton from "@/components/Button/LogoutButton";
 import { useToast } from "@/hooks/useToast";
 import CreateTeamButton from "@/components/common/Button/CreateTeamButton";
 import { usePathname } from "next/navigation";
