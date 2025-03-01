@@ -9,7 +9,7 @@ import { getAllMentoringPosts } from "@/service/api/post/getAllMentoringPosts";
 import SectionHeader from "@/layout/Main/CatrgoryHeader";
 import ProjectPostList from "@/components/post/ProjectPostList";
 import MentoringPostList from "@/components/post/MentoringPostList";
-import LocalNavigation from "@/layout/Header/LocalNavigation";
+import LocalNavigation from "@/layout/Navigation/LocalNavigation";
 
 export default async function Home() {
   await Promise.all([

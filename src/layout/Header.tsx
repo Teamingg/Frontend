@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { checkCookie } from "@/utils/cookies";
-import GlobalNavigation from "./GlobalNavigation";
+import GlobalNavigation from "./Navigation/GlobalNavigation";
 
 const Header = async () => {
   const isLoggedIn =
@@ -13,7 +13,7 @@ const Header = async () => {
         <div className="w-full max-w-6xl mx-auto px-5 flex items-center justify-between">
           {/* 로고 */}
           <h1 className="flex items-center gap-8">
-            <Link href="/" className="block relative w-[120px] md:w-[140px] h-[35px] md:h-[40px]">
+            <Link href="/public" className="block relative w-[120px] md:w-[140px] h-[35px] md:h-[40px]">
               <Image
                   src="/newLogo.png"
                   fill

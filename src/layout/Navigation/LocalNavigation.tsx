@@ -1,5 +1,4 @@
 import NavLink from "@/components/NavLink";
-
 const NavPath = [
   {
     name: "전체",

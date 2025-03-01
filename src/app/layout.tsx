@@ -5,7 +5,7 @@ import { checkCookie } from "@/utils/cookies";
 
 import AppProvider from "@/components/provider/AppProvider";
 
-import Header from "@/layout/Header/Header";
+import Header from "@/layout/Header";
 import Footer from "@/layout/Footer";
 
 import React from "react";
