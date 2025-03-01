@@ -1,6 +1,6 @@
 "use client";
 import {useForm, SubmitHandler, DefaultValues, Path, UseFormRegister} from "react-hook-form";
-import TextareaField from "@/components/common/Input/TextArea/TextareaField";
+import TextareaField from "@/components/Input/TextArea/TextareaField";
 import {
   ProjectCreationData,
   MentoringCreationData,

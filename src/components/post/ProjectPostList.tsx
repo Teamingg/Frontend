@@ -8,8 +8,8 @@ import STACK_LIST from "@/constant/stackList";
 import useObserver from "@/hooks/useObserver";
 import { getAllProjectPosts } from "@/service/api/post/getAllProjectPosts";
 
-import PostItem from "@/components/common/Post/PostItem";
-import LoadingIndicator from "@/components/common/LoadingIndicator";
+import PostItem from "@/components/post/PostItem";
+import LoadingIndicator from "@/components/LoadingIndicator";
 import useInfinitePosts from "@/hooks/queries/post/useInfinitePosts";
 
 const ProjectPostList = () => {

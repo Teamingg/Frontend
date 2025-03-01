@@ -19,12 +19,11 @@ const UserProfileReviewsPage = () => {
       {data.length === 0 && (
         <ul>
           <UserReviewItem
-            key={1}
-            id={1}
-            name={"정민"}
-            content={"좋은 팀원이었어요 !"}
-            date={"2025-02-06"}
-          />
+              key={1}
+              id={1}
+              name={"정민"}
+              content={"좋은 팀원이었어요 !"}
+              date={"2025-02-06"} rate={0}          />
         </ul>
         // <div className="min-h-[500px] max-h-[500px] flex justify-center items-center">
         //   <p>작성된 리뷰가 존재하지 않습니다.</p>
@@ -44,12 +43,11 @@ const UserProfileReviewsPage = () => {
         <ul>
           {data.map((review) => (
             <UserReviewItem
-              key={review.revieweeId}
-              id={review.revieweeId}
-              name={review.reviewerName}
-              content={review.content}
-              date={review.createdDate}
-            />
+                key={review.revieweeId}
+                id={review.revieweeId}
+                name={review.reviewerName}
+                content={review.content}
+                date={review.createdDate} rate={0}            />
           ))}
         </ul>
       )}

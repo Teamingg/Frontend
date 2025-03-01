@@ -1,8 +1,8 @@
-import {FormSchema} from "@/app/form/_type/formDataTypes";
+import {FormSchema} from "@/types/form";
 import {Control, FieldValues, UseFormRegister, Path} from "react-hook-form";
-import SelectCheckBox from "@/components/common/Input/SelectCheckBox/SelectCheckBox";
+import SelectCheckBox from "@/components/Input/SelectCheckBox/SelectCheckBox";
 import STACK_LIST from "@/constant/stackList";
-import InputField from "@/components/common/Input/TextInput/InputField";
+import InputField from "@/components/Input/TextInput/InputField";
 
 interface FieldRendererProps<T extends FieldValues> {
   field: FormSchema;

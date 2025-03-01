@@ -6,11 +6,10 @@ import { queryclient } from "@/lib/getQueryClient";
 import { getAllProjectPosts } from "@/service/api/post/getAllProjectPosts";
 import { getAllMentoringPosts } from "@/service/api/post/getAllMentoringPosts";
 
-import SectionHeader from "@/components/layout/Main/CatrgoryHeader";
-
+import SectionHeader from "@/layout/Main/CatrgoryHeader";
 import ProjectPostList from "@/components/post/ProjectPostList";
 import MentoringPostList from "@/components/post/MentoringPostList";
-import LocalNavigation from "@/components/layout/Layout/Header/LocalNavigation";
+import LocalNavigation from "@/layout/Header/LocalNavigation";
 
 export default async function Home() {
   await Promise.all([
