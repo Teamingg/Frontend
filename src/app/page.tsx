@@ -32,9 +32,9 @@ export default async function Home() {
   ]);
 
   return (
-    <>
+    <section className='py-10 max-w-sm md:max-w-3xl lg:max-w-7xl mx-auto md:mx-auto'>
       <LocalNavigation />
-      <section className="w-full flex flex-col gap-4 md:gap-2">
+      <article className="w-full flex flex-col gap-4 md:gap-2">
         {/* team-page project */}
         <SectionHeader title="팀 프로젝트" path="/project" />
         <HydrationBoundary state={dehydrate(queryclient)}>
@@ -46,7 +46,7 @@ export default async function Home() {
         <HydrationBoundary state={dehydrate(queryclient)}>
           <MentoringPostList />
         </HydrationBoundary>
-      </section>
-    </>
+      </article>
+    </section>
   );
 }
