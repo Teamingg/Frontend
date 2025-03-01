@@ -1,6 +1,6 @@
 "use client";
 
-import CancelJoinButton from "@/components/CancelJoinButton";
+import CancelJoinButton from "@/components/Button/CancelJoinButton";
 import { useToast } from "@/hooks/useToast";
 import { checkCookie } from "@/utils/cookies";
 import Link from "next/link";
@@ -42,11 +42,10 @@ const PostButtonGroup = ({
   };
 
   return (
-    <div className="flex flex-col gap-4 text-sm md:text-base w-full p-4 left-0">
+    <div className="w-full lg:w-1/3 flex flex-row lg:flex-col gap-4 text-sm md:text-base p-4 left-0">
       <Link
         href={`/team/${postType}/${teamId}/info`}
-        className="py-3 md:py-4 w-full border rounded-lg text-center"
-      >
+        className="py-3 md:py-4 w-full border rounded-lg text-center">
         {`${category} 팀 보러가기`}
       </Link>
 
@@ -54,8 +53,7 @@ const PostButtonGroup = ({
       {isfetch && (
         <div
           onClick={onClick}
-          className="py-3 md:py-4 h-[58px] w-full bg-gray-50 rounded-lg animate-pulse flex justify-center items-center"
-        >
+          className="py-3 md:py-4 h-[58px] w-full bg-gray-50 rounded-lg animate-pulse flex justify-center items-center">
           <BeatLoader color="#337CEB" size={10} />
         </div>
       )}
@@ -67,8 +65,7 @@ const PostButtonGroup = ({
             <CancelJoinButton
               category={postType}
               teamId={teamId}
-              boardId={boardId}
-            >
+              boardId={boardId}>
               지원 취소하기
             </CancelJoinButton>
           )}
@@ -77,8 +74,7 @@ const PostButtonGroup = ({
           {!isApply && isEdit && (
             <Link
               className="py-3 md:py-4 w-full bg-primary text-white rounded-lg text-center"
-              href={`/edit/${postType}`}
-            >
+              href={`/edit/${postType}`}>
               수정하기
             </Link>
           )}
@@ -87,8 +83,7 @@ const PostButtonGroup = ({
           {!isEdit && !isApply && (
             <button
               onClick={onClick}
-              className="py-3 md:py-4 w-full bg-primary text-white rounded-lg hover:bg-black/90 transition-colors"
-            >
+              className="py-3 md:py-4 w-full bg-primary text-white rounded-lg hover:bg-black/90 transition-colors">
               {`${category} 팀 참여 신청하기`}
             </button>
           )}

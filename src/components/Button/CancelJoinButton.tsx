@@ -7,7 +7,7 @@ import { queryclient } from "@/lib/getQueryClient";
 import useModal from "@/hooks/useModal";
 import { useToast } from "@/hooks/useToast";
 
-import AlertModal from "./common/Modal/AlertModal";
+import AlertModal from "../common/Modal/AlertModal";
 import { client } from "@/service/api/instance/client";
 
 interface CancelJoinButtonProps {

@@ -2,7 +2,7 @@
 
 /* 테일윈드 css 커스텀 */
 @theme {
-  --color-primary: "#337CEB";
+  --color-primary: #337CEB;
 
   /* 최대 너비 수정 */
 
