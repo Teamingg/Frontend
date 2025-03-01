@@ -1,6 +1,6 @@
 "use server";
 
-import MentoringTeam from "@/types/team/mentoring/mentoringTeam";
+import MentoringTeam from "@/types/team/mentoringTeam";
 import { server } from "../instance/server";
 
 const getMyMentoringTeam = async (): Promise<MentoringTeam[]> => {

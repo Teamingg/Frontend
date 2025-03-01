@@ -1,4 +1,4 @@
-import ProjectPosts from "@/types/post/project/projectPosts";
+import ProjectPosts from "@/types/post/projectPosts";
 import { client } from "../instance/client";
 
 export interface getAllProjectPostsProps {

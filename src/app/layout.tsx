@@ -5,8 +5,8 @@ import { checkCookie } from "@/utils/cookies";
 
 import AppProvider from "@/components/provider/AppProvider";
 
-import Header from "@/components/layout/Layout/Header/Header";
-import Footer from "@/components/layout/Layout/Footer";
+import Header from "@/layout/Header/Header";
+import Footer from "@/layout/Footer";
 
 import React from "react";
 import ToastList from "@/components/common/Toast/ToastList";

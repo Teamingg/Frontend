@@ -1,6 +1,6 @@
 import { client } from "../instance/client";
 
-import ProjectTeam from "@/types/team/project/projectTeam";
+import ProjectTeam from "@/types/team/projectTeam";
 
 export const getUserProjectTeam = async (
   userId: string

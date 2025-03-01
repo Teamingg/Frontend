@@ -1,4 +1,4 @@
-import NavLink from "../../common/NavLink";
+import NavLink from "@/components/common/NavLink";
 import { navPath } from "./SectionLayout";
 
 interface SectionTabNavProps {
@@ -16,7 +16,7 @@ const SectionTabNav = ({ navPaths }: SectionTabNavProps) => {
           >
             <NavLink
               href={path.path}
-              activeClassName="text-primary border-b-2 border-b-primary md:border-none md:bg-primary md:bg-black/10 md:rounded-lg"
+              activeClassName="text-primary border-b-2 border-b-primary md:border-none md:bg-primary md:text-white md:rounded-lg"
               className="text-sm md:text-lg block w-full py-2 md:p-4 text-[rgba(0,0,0,0.5)] hover:text-primary transition-all"
             >
               {path.label}

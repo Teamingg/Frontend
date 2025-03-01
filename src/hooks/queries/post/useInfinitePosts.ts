@@ -1,6 +1,6 @@
 // hooks/useInfinitePosts.ts
-import MentoringPosts from "@/types/post/mentoring/mentoringPosts";
-import ProjectPosts from "@/types/post/project/projectPosts";
+import MentoringPosts from "@/types/post/mentoringPosts";
+import ProjectPosts from "@/types/post/projectPosts";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import TeamCategory from "@/types/teamCategory";
 import postKeys from "./postKeys";

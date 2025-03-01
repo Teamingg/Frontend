@@ -1,7 +1,6 @@
 "use client";
-
-import SectionLayout from "@/components/layout/DetailSection/SectionLayout";
-
+import {ReactNode} from "react";
+import SectionLayout from "@/layout/DetailSection/SectionLayout";
 const myPagePaths = [
   {
     label: "계정정보",
@@ -17,11 +16,18 @@ const myPagePaths = [
   },
 ];
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+const layout = ({
+  children
+} : {
+  children: ReactNode
+}) => {
   return (
-    <SectionLayout sectionTitle="마이페이지" navPaths={myPagePaths}>
-      {children}
-    </SectionLayout>
+      <SectionLayout
+          sectionTitle="마이페이지"
+          navPaths={myPagePaths}
+          isAsideNav={true}>
+        {children}
+      </SectionLayout>
   );
 };
 

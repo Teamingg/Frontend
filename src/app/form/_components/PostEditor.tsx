@@ -4,7 +4,7 @@ import {useParams, useSearchParams} from "next/navigation";
 import {ProjectFormFields} from "@/app/form/_data/createProject";
 import {MentoringFormFields} from "@/app/form/_data/createMentoring";
 import {SubmitHandler, useForm} from "react-hook-form";
-import {MentoringPost, ProjectPost} from "@/app/form/_type/formDataTypes";
+import {MentoringPost, ProjectPost} from "@/types/form";
 import {useSubmit} from "@/hooks/form/useSubmit";
 import FormTitle from "@/app/form/_components/FormTitle";
 import PostForm from "@/app/form/_components/PostForm";

@@ -1,6 +1,6 @@
 import { client } from "../instance/client";
 
-import MentoringTeam from "@/types/team/mentoring/mentoringTeam";
+import MentoringTeam from "@/types/team/mentoringTeam";
 
 export const getUserMentoringTeam = async (
   userId: string

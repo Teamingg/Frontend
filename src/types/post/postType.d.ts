@@ -1,5 +1,5 @@
-import MentoringPost from "./mentoring/mentoringPost";
-import ProjectPost from "./project/projectPost";
+import MentoringPost from "./mentoringPost";
+import ProjectPost from "./projectPost";
 
 type PostTypes = {
   project: ProjectPost;

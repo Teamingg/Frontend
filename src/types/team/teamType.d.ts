@@ -1,5 +1,5 @@
-import MentoringTeam from "./mentoring/mentoringTeam";
-import ProjectTeam from "./project/projectTeam";
+import MentoringTeam from "./mentoringTeam";
+import ProjectTeam from "./projectTeam";
 
 type TeamTypes = {
   project: ProjectTeam;

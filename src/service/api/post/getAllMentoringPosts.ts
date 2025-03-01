@@ -1,4 +1,4 @@
-import MentoringPosts from "@/types/post/mentoring/mentoringPosts";
+import MentoringPosts from "@/types/post/mentoringPosts";
 import { client } from "../instance/client";
 
 export interface getAllMentoringPostsProps {

@@ -1,5 +1,5 @@
-import { TeamRole } from "../teamRole";
-import { TeamStatus } from "../teamStatus";
+import { TeamRole } from "./teamRole";
+import { TeamStatus } from "./teamStatus";
 
 export default interface MentoringTeam {
   id: number;
