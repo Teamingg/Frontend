@@ -1,4 +1,4 @@
-import Status from "@/components/common/Status";
+import Status from "@/components/Status";
 import { TeamRole } from "@/types/team/teamRole";
 import { TeamStatus } from "@/types/team/teamStatus";
 import checkRole from "@/utils/checkRole";

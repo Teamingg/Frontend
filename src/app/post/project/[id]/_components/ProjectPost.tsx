@@ -15,7 +15,7 @@ import useJoinProjectTeam from "@/hooks/team/project/useJoinProjectTeam";
 import { useToast } from "@/hooks/useToast";
 import useModal from "@/hooks/useModal";
 
-import Modal from "@/components/common/Modal/Modal";
+import Modal from "@/components/Modal/Modal";
 
 import PostButtonGroup from "../../../_components/PostButtonGroup";
 import PostContent from "@/app/post/_components/PostContent";

@@ -1,4 +1,4 @@
-import Status from "@/components/common/Status";
+import Status from "@/components/Status";
 import { TeamStatus } from "@/types/team/teamStatus";
 
 interface PostHeaderProps {

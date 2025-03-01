@@ -20,7 +20,7 @@ const SectionLayout = ({
   isAsideNav = false,
 }: SectionLayoutProps) => {
   return (
-    <div className="w-full h-full md:max-w-[1400px] md:mx-auto">
+    <section className="w-full h-full py-20 max-w-sm md:max-w-3xl lg:max-w-7xl mx-auto md:mx-auto">
       <div className="w-full h-full rounded-lg bg-white md:bg-[#f5f5f5] md:p-4">
         <div className="block md:flex gap-4 h-full w-full bg-[#f5f5f5]">
           {/* 좌측 ( 타이틀 & 네비게이션 ) */}
@@ -39,7 +39,7 @@ const SectionLayout = ({
           </section>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

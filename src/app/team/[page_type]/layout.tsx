@@ -1,63 +1,48 @@
-"use client";
-import React from "react";
-import SectionLayout from "@/components/layout/DetailSection/SectionLayout";
+import {ReactNode} from "react";
+import SectionLayout from "@/layout/DetailSection/SectionLayout";
 import {useQuery} from "@tanstack/react-query";
 import {useParams, usePathname} from "next/navigation";
 import {fetchTeamPageData} from "@/service/api/team-page/fetchTeamPageData";
-import {ProjectInfo, TeamPageInfo} from "@/app/team/_type/teamPageInfo";
+import {ProjectInfo, TeamPageInfo} from "@/types/team/teamPageInfo";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
+import Link from "next/link";
 
-const Layout: React.FC<{ children: React.ReactNode }> = ({children}) => {
-  const params = useParams();
-  const path = usePathname();
-  const currentPath = path.split("/").pop();
-
-  const {data, error, isLoading} = useQuery<TeamPageInfo | ProjectInfo>({
-    queryKey: ["teamInfo", params.page_type, params.team_id],
-    queryFn: () => 
-        fetchTeamPageData<TeamPageInfo | ProjectInfo>(
-            String(params.page_type),
-            String(params.team_id),
-            "info"),
-    enabled: currentPath === "info" && !!params.page_type && !!params.team_id,
-  });
-
-  // 로딩 및 에러처리
-  if (isLoading) return <LoadingSpinner/>;
-  if (error) return <div>Error fetching data</div>;
-
-  // ✅ 타입 가드 적용
-  let isUserAuthority = false;
-  const firstPath = `/team/${params.page_type}/${params.team_id}`;
-
-  if (params.page_type === "project") {
-    const projectData = data as ProjectInfo;
-    isUserAuthority = projectData.userRole === "LEADER";
-  } else {
-    const teamData = data as TeamPageInfo;
-    isUserAuthority = teamData.authority === "OWNER";
-  }
-
-  // 네비게이션 구선
-  const leaderNavigation = {label: "멤버 및 지원자 현황", path: `${firstPath}/leader`};
-  const memberNavigation = {label: "멤버", path: `${firstPath}/member`};
-  const teamPagePaths = [
-    {label: "팀 소개", path: `${firstPath}/info`},
-    isUserAuthority ? leaderNavigation : memberNavigation,
-    {label: "작성한 게시글", path: `${firstPath}/post`},
+const Layout = ({
+  children,
+  params,
+} : {
+  children: ReactNode,
+  params: {
+    page_type: string;
+    team_id: string;
+  };
+}) => {
+  const type = params.page_type;
+  const id = params.team_id;
+  const navItems = [
+    {id: 1, name: '팀 소개', path: `/team/${type}/${id}/info`},
+    {id: 2, name: '멤버', path: `/team/${type}/${id}/member`},
+    {id: 3, name: '게시글', path: `/team/${type}/${id}/post`},
   ];
 
   return (
-    <SectionLayout
-        sectionTitle="My Team"
-        navPaths={teamPagePaths}
-        isAsideNav={false}>
-      <div className="h-full min-h-full p-6 bg-gray-100">
-        <div className="h-full bg-white shadow-md rounded-lg p-6">
-          {children}
+      <div className='w-full py-10 flex justify-center max-w-sm md:max-w-3xl lg:max-w-5xl xl:max-w-7xl mx-auto md:mx-auto'>
+        <div className='w-1/3 '>
+          <aside>
+            <h3>Team(Project) 대시보드</h3>
+            <ul>
+              {navItems.map(item => (
+                  <li key={item.id}>
+                    <Link href={item.path}>{item.name}</Link>
+                  </li>
+              ))}
+            </ul>
+          </aside>
         </div>
+        <section className="w-2/3 h-full min-h-full p-6 bg-gray-100">
+          {children}
+        </section>
       </div>
-    </SectionLayout>
   );
 };
 
