@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation";
 import { AxiosResponse } from "axios";
 import { Control, FieldValues, useForm } from "react-hook-form";
 
-import InputField from "@/components/common/Input/TextInput/InputField";
-import SelectCheckBox from "@/components/common/Input/SelectCheckBox/SelectCheckBox";
+import InputField from "@/components/Input/TextInput/InputField";
+import SelectCheckBox from "@/components/Input/SelectCheckBox/SelectCheckBox";
 import STACK_LIST from "@/constant/stackList";
-import { UserInfoFormValues } from "./UserInfoFormValues";
+import { UserInfoFormValues } from "../../../types/UserInfoFormValues";
 
 const UserInfoFormField = [
   {

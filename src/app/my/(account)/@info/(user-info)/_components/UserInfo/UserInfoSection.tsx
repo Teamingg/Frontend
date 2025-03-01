@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 
 // types
-import { UserInfoFormValues } from "@/components/user/UserInfoForm/UserInfoFormValues";
+import { UserInfoFormValues } from "@/types/UserInfoFormValues";
 
 // hooks
 import useUpdateUserInfo from "@/hooks/user/useUpdateUserInfo";
@@ -13,7 +13,7 @@ import useModal from "@/hooks/useModal";
 // _components
 import UserInfoContent from "./UserInfoContent";
 
-import Modal from "@/components/common/Modal/Modal";
+import Modal from "@/components/Modal/Modal";
 
 import { filterItemsByIds } from "@/utils/filterItemsByIds";
 

@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import { queryclient } from "@/lib/getQueryClient";
 
-import { UserInfoFormValues } from "@/components/user/UserInfoForm/UserInfoFormValues";
+import { UserInfoFormValues } from "@/types/UserInfoFormValues";
 import { client } from "@/service/api/instance/client";
 
 const useUpdateUserInfo = () => {

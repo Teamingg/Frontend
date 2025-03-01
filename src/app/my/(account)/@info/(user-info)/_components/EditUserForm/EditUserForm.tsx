@@ -1,5 +1,5 @@
 import UserInfoForm from "@/components/user/UserInfoForm/UserInfoForm";
-import { UserInfoFormValues } from "@/components/user/UserInfoForm/UserInfoFormValues";
+import { UserInfoFormValues } from "@/types/UserInfoFormValues";
 
 interface EditUserFormProps {
   userInfo: UserInfoFormValues;

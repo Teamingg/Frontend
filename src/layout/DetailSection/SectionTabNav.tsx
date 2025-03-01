@@ -1,4 +1,4 @@
-import NavLink from "@/components/common/NavLink";
+import NavLink from "@/components/NavLink";
 import { navPath } from "./SectionLayout";
 
 interface SectionTabNavProps {

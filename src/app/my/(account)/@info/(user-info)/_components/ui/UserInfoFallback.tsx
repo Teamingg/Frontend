@@ -1,4 +1,4 @@
-import LoadingIndicator from "@/components/common/LoadingIndicator";
+import LoadingIndicator from "@/components/LoadingIndicator";
 import React from "react";
 
 const UserInfoFallback = () => {

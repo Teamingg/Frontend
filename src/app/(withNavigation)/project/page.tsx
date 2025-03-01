@@ -1,4 +1,4 @@
-import CategoryHeader from "@/components/layout/Main/CatrgoryHeader";
+import CategoryHeader from "@/layout/Main/CatrgoryHeader";
 import ProjectPostList from "@/components/post/ProjectPostList";
 
 const ProjectPage = () => {

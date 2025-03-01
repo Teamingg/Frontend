@@ -1,6 +1,6 @@
 "use client";
 
-import Modal from "@/components/common/Modal/Modal";
+import Modal from "@/components/Modal/Modal";
 import { usePathname, useRouter } from "next/navigation";
 import UserProfileNav from "./(profile)/_components/UserProfileNav";
 

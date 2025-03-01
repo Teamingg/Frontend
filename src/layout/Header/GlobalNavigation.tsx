@@ -5,7 +5,7 @@ import Link from "next/link";
 import { PiBellThin, PiUserCircleThin } from "react-icons/pi";
 import LogoutButton from "@/components/Button/LogoutButton";
 import { useToast } from "@/hooks/useToast";
-import CreateTeamButton from "@/components/common/Button/CreateTeamButton";
+import CreateTeamButton from "@/components/Button/CreateTeamButton";
 import { usePathname } from "next/navigation";
 
 const GlobalNavigation = ({ isLoggedIn }: { isLoggedIn: boolean }) => {

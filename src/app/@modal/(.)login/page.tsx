@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
-import Modal from "@/components/common/Modal/Modal";
+import Modal from "@/components/Modal/Modal";
 
 const oAuthList = [
   {

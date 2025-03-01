@@ -9,7 +9,7 @@ import Header from "@/layout/Header/Header";
 import Footer from "@/layout/Footer";
 
 import React from "react";
-import ToastList from "@/components/common/Toast/ToastList";
+import ToastList from "@/components/Toast/ToastList";
 
 export const metadata: Metadata = {
   title: "티밍",

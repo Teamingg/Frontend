@@ -1,4 +1,4 @@
-import LocalNavigation from "@/components/layout/Layout/Header/LocalNavigation";
+import LocalNavigation from "@/layout/Header/LocalNavigation";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
