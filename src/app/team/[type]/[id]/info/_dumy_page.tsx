@@ -1,3 +1,4 @@
+/*
 "use client";
 import React from 'react';
 import {useQueryClient} from "@tanstack/react-query";
@@ -11,7 +12,7 @@ export interface TeamInfoData {
   stacks?: string[] | undefined;
 }
 
-/**  타입 가드: data 가 MentoringInfo 인지 확인 */
+/!**  타입 가드: data 가 MentoringInfo 인지 확인 *!/
 const isMentoringInfo = (data: unknown): data is MentoringInfo => {
   return (
       typeof data === "object" &&
@@ -28,7 +29,7 @@ const Page = <T extends ProjectInfo | MentoringInfo> () => {
 
   if (!data) return <div>No Data Available</div>;
 
-  /* MentoringInfo 인지 체크 후 분기 처리 */
+  /!* MentoringInfo 인지 체크 후 분기 처리 *!/
   const teamInfoData: TeamInfoData[] = isMentoringInfo(data)
       ? [
         { label: "시작일자", infoData: data.dto.startDate },
@@ -59,4 +60,4 @@ const Page = <T extends ProjectInfo | MentoringInfo> () => {
   );
 };
 
-export default Page;
+export default Page;*/

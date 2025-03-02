@@ -1,0 +1,1 @@
+export { getTeamInfo } from './projects';

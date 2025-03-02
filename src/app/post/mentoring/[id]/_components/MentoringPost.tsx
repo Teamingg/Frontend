@@ -7,7 +7,7 @@ import useJoinMentoringTeam from "@/hooks/team/mentoring/useJoinMentoringTeam";
 import { useToast } from "@/hooks/useToast";
 import useModal from "@/hooks/useModal";
 
-import AlertModal from "@/components/common/Modal/AlertModal";
+import AlertModal from "@/components/Modal/AlertModal";
 
 import PostHeader from "../../../_components/PostHeader";
 import PostInfo from "../../../_components/PostInfo";
