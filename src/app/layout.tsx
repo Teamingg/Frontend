@@ -34,7 +34,7 @@ export default async function RootLayout({
         <Header/>
         {/* min-h-[calc(100vh-40px-64px)]  */}
         {/* max-w-2xl md:max-w-3xl lg:max-w-6xl mx-auto */}
-        <main className="w-full min-h-[calc(100vh-72px-64px)] mt-[72px]">
+        <main className="w-[calc(100vw-10px] min-h-[calc(100vh-72px-64px)] mt-[72px]">
           <AppProvider>
             <ToastList />
             {modal}
