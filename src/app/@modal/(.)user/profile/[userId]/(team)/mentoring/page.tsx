@@ -1,6 +1,6 @@
 "use client";
 
-import MyTeamItem from "@/app/my/(team)/_components/MyTeamItem";
+import MyTeamItem from "@/app/my/(Team)/_components/MyTeamItem";
 import { useGetUserTeam } from "@/hooks/queries/user";
 
 import { useParams } from "next/navigation";

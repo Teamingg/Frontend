@@ -4,8 +4,8 @@ import React from "react";
 import SectionLayout from "@/layout/DetailSection/SectionLayout";
 import {useQuery} from "@tanstack/react-query";
 import {useParams, usePathname} from "next/navigation";
-import {fetchTeamPageData} from "@/service/api/team-page/fetchTeamPageData";
-import {ProjectInfo, TeamPageInfo} from "@/app/team/_type/teamPageInfo";
+import {fetchTeamPageData} from "@/service/api/Team-page/fetchTeamPageData";
+import {ProjectInfo, TeamPageInfo} from "@/app/Team/_type/teamPageInfo";
 import LoadingSpinner from "@/components/loading/LoadingSpinner";
 import Link from "next/link";
 
@@ -30,7 +30,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({children}) => {
 
   // ✅ 타입 가드 적용
   let isUserAuthority = false;
-  const firstPath = `/team/${params.page_type}/${params.team_id}`;
+  const firstPath = `/Team/${params.page_type}/${params.team_id}`;
 
   if (params.page_type === "project") {
     const projectData = data as ProjectInfo;

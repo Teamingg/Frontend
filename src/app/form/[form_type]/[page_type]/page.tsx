@@ -20,7 +20,7 @@ const Page = () => {
   const isProject = page_type === "project";
   const formFields = isProject ? ProjectFormFields : MentoringFormFields;
   const defaultValues = isProject ? projectDefaults : mentoringDefaults;
-  const endPoints = isProject ? "/project/team" : "/mentoring/teams"
+  const endPoints = isProject ? "/project/Team" : "/mentoring/teams"
 
   const { submit, isLoading, error } = useSubmit<ProjectCreationData | MentoringCreationData>({
     endpoint: endPoints,

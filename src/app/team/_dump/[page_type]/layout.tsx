@@ -32,7 +32,7 @@ const Layout = ({
 
   // ✅ 타입 가드 적용
   let isUserAuthority = false;
-  const firstPath = `/team/${params.page_type}/${params.team_id}`;
+  const firstPath = `/Team/${params.page_type}/${params.team_id}`;
 
   if (params.page_type === "project") {
     const projectData = data as ProjectInfo;

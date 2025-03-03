@@ -2,7 +2,7 @@ import React from 'react';
 import {queryclient} from "@/lib/getQueryClient";
 import {myPageKeys} from "@/hooks/queries/my";
 import {getMyMentoringTeam, getMyProjectTeam} from "@/service/api/my";
-import TeamCardList from "@/components/team/TeamCardList";
+import TeamCardList from "@/components/Team/TeamCardList";
 import {TeamSection} from "@/layout/my/TeamSection";
 
 const Page = async ({

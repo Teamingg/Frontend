@@ -1,11 +1,4 @@
 import {ReactNode} from "react";
-import SectionLayout from "@/layout/DetailSection/SectionLayout";
-import {useQuery} from "@tanstack/react-query";
-import {useParams, usePathname} from "next/navigation";
-import {fetchTeamPageData} from "@/service/api/team-page/fetchTeamPageData";
-import {ProjectInfo, TeamPageInfo} from "@/types/team/teamPageInfo";
-import LoadingSpinner from "@/components/loading/LoadingSpinner";
-import Link from "next/link";
 import Aside from "@/layout/AsideNav/Aside";
 
 const Layout = async ({
@@ -23,7 +16,7 @@ const Layout = async ({
   ];
 
   return (
-      <div className='w-full py-10 flex justify-center max-w-sm md:max-w-3xl lg:max-w-5xl xl:max-w-7xl mx-auto md:mx-auto'>
+      <div className='w-full min-h-[calc(100vh-72px-62px)] py-10 flex justify-center max-w-sm md:max-w-3xl lg:max-w-5xl xl:max-w-7xl mx-auto md:mx-auto'>
         <Aside navigation={navItems}/>
         <section className="w-2/3 h-full min-h-full p-6">
           {children}

@@ -11,7 +11,7 @@ import ProjectPostList from "@/components/post/ProjectPostList";
 import MentoringPostList from "@/components/post/MentoringPostList";
 import LocalNavigation from "@/layout/Navigation/LocalNavigation";
 import clsx from "clsx";
-import TeamCard from "@/components/team/TeamCard";
+import TeamCard from "@/components/Team/TeamCard";
 
 export default async function Home() {
   await Promise.all([
@@ -48,7 +48,7 @@ export default async function Home() {
       <section className='py-10'>
         <LocalNavigation />
         <article className="w-full flex flex-col gap-4 md:gap-2">
-          {/* team-page project */}
+          {/* Team-page project */}
           <SectionHeader title="팀 프로젝트" path="/project" />
           <HydrationBoundary state={dehydrate(queryclient)}>
             <ProjectPostList />
