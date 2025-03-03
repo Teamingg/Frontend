@@ -56,7 +56,7 @@ const Page = () => {
         {/* 에러 발생 시 */}
         {isError && <p className="text-center text-red-500">데이터를 불러오는 중 오류가 발생했습니다.</p>}
 
-        {/* API 데이터 (존재할 경우) */}
+        {/* 데이터가 존재할 경우 */}
         {!posts && posts?.length > 0
             ? posts.map((post) => <PostCard key={post.id} post={post} />)
             : <p className="text-center text-gray-500">게시글이 존재하지 않습니다.</p>
