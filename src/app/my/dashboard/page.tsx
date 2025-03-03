@@ -8,6 +8,7 @@ import Link from "next/link";
 import {VscGithubProject} from "react-icons/vsc";
 import {PiStudentBold} from "react-icons/pi";
 import {FaChalkboardTeacher} from "react-icons/fa";
+import ReviewCard from "@/components/Review/ReviewCard";
 
 const Page = () => {
   const { data: info, isLoading } = useQuery({
@@ -28,8 +29,6 @@ const Page = () => {
   if (isLoading) return <div>loading</div>
 
   const mentee = mentoring.filter(item => item.authority === 'LEADER')
-  const contentTitle = clsx('text-2xl');
-
   return (
         <>
           <article className="mb-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
