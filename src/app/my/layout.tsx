@@ -46,24 +46,28 @@ const layout = async ({
 
   return (
       <HydrationBoundary state={dehydrate(queryclient)}>
-        <section className='container mx-auto'>
-          <h2 className='pt-20 pb-5 lg:text-4xl md:text-2xl'>마이 어카운트</h2>
-          <div className='flex gap-10'>
-            <aside className='w-1/3 h-full py-3'>
-              <ul className="w-full flex justify-around md:block text-sm md:text-base">
-                {myPagePaths.map((path, index) => (
-                    <li key={index} className="w-full text-center md:text-left">
-                      <NavLink
-                          href={path.path}
-                          activeClassName="text-primary border-b-2 border-b-primary md:border-none md:bg-primary md:text-white md:rounded-lg"
-                          className="text-sm md:text-lg block w-full py-2 md:p-4 text-[rgba(0,0,0,0.5)] hover:text-primary transition-all">
-                        {path.label}
-                      </NavLink>
-                    </li>
-                ))}
-              </ul>
-            </aside>
-            {children}
+        <section className='min-h-[calc(100vh-72px-62px)]'>
+          <div className='container mx-auto'>
+            <h2 className='pt-20 pb-5 lg:text-4xl md:text-2xl'>마이 어카운트</h2>
+            <div className='flex gap-10'>
+              <aside className='w-1/3 h-full py-3'>
+                <ul className="w-full flex justify-around md:block text-sm md:text-base">
+                  {myPagePaths.map((path, index) => (
+                      <li key={index} className="w-full text-center md:text-left">
+                        <NavLink
+                            href={path.path}
+                            activeClassName="text-primary border-b-2 border-b-primary md:border-none md:bg-primary md:text-white md:rounded-lg"
+                            className="text-sm md:text-lg block w-full py-2 md:p-4 text-[rgba(0,0,0,0.5)] hover:text-primary transition-all">
+                          {path.label}
+                        </NavLink>
+                      </li>
+                  ))}
+                </ul>
+              </aside>
+              <div className='w-2/3'>
+                {children}
+              </div>
+            </div>
           </div>
         </section>
       </HydrationBoundary>

@@ -21,11 +21,13 @@ const Page = () => {
     queryFn: getMyProjectTeam,
   });
 
+  if (isLoading) return <div>loading</div>
+
   const mentee = mentoring.filter(item => item.authority === 'LEADER')
   const contentTitle = clsx('text-2xl');
 
   return (
-        <div className='w-2/3'>
+        <>
           <article>
             <h3 className={contentTitle}>대시 보드</h3>
             <div className='grid grid-cols-2 grid-rows-2 gap-3'>
@@ -67,7 +69,7 @@ const Page = () => {
           <article>
             <h3 className={contentTitle}>최근 활동</h3>
           </article>
-        </div>
+        </>
   );
 };
 
