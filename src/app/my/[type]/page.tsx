@@ -2,13 +2,13 @@ import React from 'react';
 import {queryclient} from "@/lib/getQueryClient";
 import {myPageKeys} from "@/hooks/queries/my";
 import {getMyMentoringTeam, getMyProjectTeam} from "@/service/api/my";
-import clsx from "clsx";
-import TeamCard from "@/components/team/TeamCard";
+import TeamCardList from "@/components/team/TeamCardList";
+import {TeamSection} from "@/layout/my/TeamSection";
 
 const Page = async ({
-    params
+  params
 }) => {
-  const { type } = params;
+  const {type} = params;
 
   const project = await queryclient.fetchQuery({
     queryKey: myPageKeys.team("project"),
@@ -24,26 +24,40 @@ const Page = async ({
   const data = type === 'project' ? project : mentoring;
   console.log('data');
   console.log(data);
-  const titleClass = clsx('mb-4 text-2xl font-bold')
 
   return (
       <>
-        <article>
-          <h3 className={titleClass}>진행중인 {pageType}</h3>
-          {data.map((item, index) => (
-              <div key={index}>
-                <TeamCard/>
-              </div>
+        {/* Todo 탭 네비게이션을 생성하여 선택한 카테고리 별로 출력 예정 */}
+        <TeamSection
+        title={`진행중인 ${pageType}`}
+        isEmpty={!data || data.length === 0}
+        pageType={type}>
+          {data.map((item, index: number) => (
+              <TeamCardList
+              key={index}
+              title={item.name}
+              status={item.status}
+              start={item.startDate}
+              end={item.endDate}
+              pageType={type}
+              teamId={item.id}/>
           ))}
-        </article>
-        <article>
-          <h3 className={titleClass}>종료된 {pageType}</h3>
-          {data.map((item, index) => (
-              <div key={index}>
-                <TeamCard/>
-              </div>
+        </TeamSection>
+        <TeamSection
+        title={`종료된 ${pageType}`}
+        isEmpty={!data || data.length === 0}
+        pageType={type}>
+          {data.map((item, index: number) => (
+              <TeamCardList
+              key={index}
+              title={item.name}
+              status={item.status}
+              start={item.startDate}
+              end={item.endDate}
+              pageType={type}
+              teamId={item.id}/>
           ))}
-        </article>
+        </TeamSection>
       </>
   );
 };

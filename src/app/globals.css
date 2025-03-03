@@ -3,6 +3,9 @@
 /* 테일윈드 css 커스텀 */
 @theme {
   --color-primary: #337CEB;
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
 
   /* 최대 너비 수정 */
   --breakpoint-xs: 365px;

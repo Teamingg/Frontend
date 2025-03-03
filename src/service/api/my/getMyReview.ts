@@ -1,8 +1,10 @@
-import { client } from "../instance/client";
-
 import UserReview from "@/types/user/userReview";
+import {createServerInstance} from "@/service/api/instance/server";
 
 export const getMyReviews = async (): Promise<UserReview[]> => {
-  const { data } = await client.get("/users/reviews");
+  const server = await createServerInstance();
+  const { data } = await server.get("/users/reviews");
+  console.log('getMyReviews')
+  console.log(data)
   return data.data;
 };
