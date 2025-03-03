@@ -34,7 +34,7 @@ const GlobalNavigation = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
               <li>
                 <Link
                     className="flex items-center gap-2"
-                    href="/my"
+                    href="/my/dashboard"
                     onClick={() => {
                       if (!isLoggedIn) toast.error("로그인이 필요합니다.");
                     }}

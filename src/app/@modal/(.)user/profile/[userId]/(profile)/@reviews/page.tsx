@@ -1,6 +1,6 @@
 "use client";
 
-import UserReviewItem from "@/app/my/(account)/@review/(user-review)/_components/UserReview/UserReviewItem";
+import UserReviewItem from "@/app/my/(dashboard)/@review/(user-review)/_components/UserReview/UserReviewItem";
 import { useGetUserReviews } from "@/hooks/queries/user";
 import Link from "next/link";
 import { useParams } from "next/navigation";
