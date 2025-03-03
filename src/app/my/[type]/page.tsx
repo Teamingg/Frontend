@@ -2,8 +2,8 @@ import React from 'react';
 import {queryclient} from "@/lib/getQueryClient";
 import {myPageKeys} from "@/hooks/queries/my";
 import {getMyMentoringTeam, getMyProjectTeam} from "@/service/api/my";
-import TeamCardList from "@/components/Team/TeamCardList";
 import {TeamSection} from "@/layout/my/TeamSection";
+import { TeamCard } from "@/components/Team";
 
 const Page = async ({
   params
@@ -32,30 +32,32 @@ const Page = async ({
         title={`진행중인 ${pageType}`}
         isEmpty={!data || data.length === 0}
         pageType={type}>
-          {data.map((item, index: number) => (
-              <TeamCardList
+          {data.map((item, index) => (
+              <TeamCard
               key={index}
               title={item.name}
+              teamId={item.id}
               status={item.status}
               start={item.startDate}
               end={item.endDate}
-              pageType={type}
-              teamId={item.id}/>
+              progress={item.progress ?? 0} // 진행률이 없으면 0%
+              />
           ))}
         </TeamSection>
         <TeamSection
         title={`종료된 ${pageType}`}
         isEmpty={!data || data.length === 0}
         pageType={type}>
-          {data.map((item, index: number) => (
-              <TeamCardList
+          {data.map((item, index) => (
+              <TeamCard
               key={index}
               title={item.name}
+              teamId={item.id}
               status={item.status}
               start={item.startDate}
               end={item.endDate}
-              pageType={type}
-              teamId={item.id}/>
+              progress={item.progress ?? 0} // 진행률이 없으면 0%
+              />
           ))}
         </TeamSection>
       </>

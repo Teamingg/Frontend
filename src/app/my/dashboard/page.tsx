@@ -8,7 +8,7 @@ import Link from "next/link";
 import {VscGithubProject} from "react-icons/vsc";
 import {PiStudentBold} from "react-icons/pi";
 import {FaChalkboardTeacher} from "react-icons/fa";
-import ReviewCard from "@/components/Review/ReviewCard";
+import ReviewCard from "@/components/Card/ReviewCard";
 
 const Page = () => {
   const { data: info, isLoading } = useQuery({

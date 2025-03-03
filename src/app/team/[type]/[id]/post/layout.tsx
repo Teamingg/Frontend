@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Page = () => {
+const Layout = () => {
   return (
       <div>
-        info/slug/test
+        
       </div>
   );
 };
 
-export default Page;
+export default Layout;

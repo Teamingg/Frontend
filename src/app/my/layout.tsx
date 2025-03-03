@@ -3,8 +3,7 @@ import {queryclient} from "@/lib/getQueryClient";
 import {myPageKeys} from "@/hooks/queries/my";
 import {getMyInfo, getMyMentoringTeam, getMyProjectTeam} from "@/service/api/my";
 import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
-import Aside from "@/layout/AsideNav/Aside";
-import TeamHeader from "@/components/Team/TeamHeader";
+import { TeamHeader } from "@/components/Team";
 
 const myPagePaths = [
   {

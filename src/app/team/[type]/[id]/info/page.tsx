@@ -2,8 +2,7 @@
 import React from 'react';
 import {getProjectInfo, getTeamInfo} from "@/service/api/projects";
 import {useQuery} from "@tanstack/react-query";
-import ProjectInfo from "@/components/Team/ProjectInfo";
-import MentoringInfo from "@/components/Team/MentoringInfo";
+import { ProjectInfo, MentoringInfo } from "@/components/Team";
 import {useParams} from "next/navigation";
 
 const Page = () => {
