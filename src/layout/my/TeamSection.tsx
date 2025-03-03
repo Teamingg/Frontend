@@ -17,7 +17,7 @@ export const TeamSection = ({
       <article className="min-h-96 p-8 mb-12 bg-white rounded-xl">
         <h3 className="mb-4 text-2xl font-bold">{title}</h3>
         {!isEmpty ? (
-            <ul className='grid grid-cols-1 gap-2'>
+            <ul className='grid grid-cols-3 gap-2'>
               {children}
             </ul>
         ) : (

@@ -40,8 +40,8 @@ const Page = async ({
               status={item.status}
               start={item.startDate}
               end={item.endDate}
-              progress={item.progress ?? 0} // 진행률이 없으면 0%
-              />
+              progress={item.progress ?? 0}
+              href={`/team/${type}/${item.id}/info`}/>
           ))}
         </TeamSection>
         <TeamSection
@@ -56,8 +56,8 @@ const Page = async ({
               status={item.status}
               start={item.startDate}
               end={item.endDate}
-              progress={item.progress ?? 0} // 진행률이 없으면 0%
-              />
+              progress={item.progress ?? 0}
+              href={`/team/${type}/${item.id}/info`}/>
           ))}
         </TeamSection>
       </>
