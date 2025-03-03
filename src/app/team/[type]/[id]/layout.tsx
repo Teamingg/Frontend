@@ -10,7 +10,7 @@ const Layout = async ({
 }) => {
   const { type, id } = await params;
   const navItems = [
-    {label: '팀 소개', path: `/team/${type}/${id}/info`},
+    {label: '대시보드', path: `/team/${type}/${id}/info`},
     {label: '멤버', path: `/team/${type}/${id}/member`},
     {label: '게시글', path: `/team/${type}/${id}/post`},
   ];

@@ -2,35 +2,67 @@
 import React from 'react';
 import {getProjectInfo, getTeamInfo} from "@/service/api/projects";
 import {useQuery} from "@tanstack/react-query";
-import clsx from "clsx";
 import ProjectInfo from "@/components/Team/ProjectInfo";
 import MentoringInfo from "@/components/Team/MentoringInfo";
+import {useParams} from "next/navigation";
 
 const Page = () => {
-  const { data: projectData } = useQuery({
-    queryKey: ["projectInfo"],
-    queryFn: getProjectInfo });
+  const { type, id } = useParams();
 
-  const { data: mentoringData } = useQuery({
-    queryKey: ["mentoringInfo"],
-    queryFn: getTeamInfo });
+  const {
+    data: projectData,
+    isLoading: isProjectLoading,
+    isError: isProjectError,
+  } = useQuery({
+    queryKey: ["projectInfo", id],
+    queryFn: getProjectInfo,
+    enabled: type === "project",});
 
-  const contentsWrap = clsx('mb-5')
-  const subTitle = clsx('lg:text-xl md:text-lg text-base')
+  const {
+    data: mentoringData,
+    isLoading: isMentoringLoading,
+    isError: isMentoringError,
+  } = useQuery({
+    queryKey: ["mentoringInfo", id],
+    queryFn: getTeamInfo,
+    enabled: type === "mentoring",
+  });
+
+  // 로딩 상태 처리
+  if (isProjectLoading || isMentoringLoading) {
+    return <p className="text-center text-gray-600">로딩 중...</p>;
+  }
+
+  // 에러 상태 처리
+  if (isProjectError || isMentoringError) {
+    return <p className="text-center text-red-500">데이터를 불러오는 중 오류가 발생했습니다.</p>;
+  }
+
+  // 데이터가 없을 경우 처리
+  if (!projectData && !mentoringData) {
+    return <p className="text-center text-gray-500">해당 정보를 찾을 수 없습니다.</p>;
+  }
+
+  const title =
+      type === "project"
+          ? projectData?.projectName || "프로젝트 정보 없음"
+          : mentoringData?.dto?.name || "멘토링 정보 없음";
 
   return (
       <>
         <div className="flex justify-between items-start mb-6">
           <div>
-            <h1 className="text-2xl font-bold">AI 기반 웹 서비스 개발 멘토링</h1>
-            <p className="text-gray-600">팀 아이디 : PJT1</p>
+            <h1 className="pb-2 text-3xl font-bold">{title}</h1>
+            <p className="text-gray-600">
+              팀 아이디 : {type === 'project' ? 'P' : 'M'}{id}
+            </p>
           </div>
-          <button className="px-4 py-2 bg-primary text-white rounded-md font-semibold hover:bg-primary">
+          <button className="hidden px-4 py-2 bg-primary text-white rounded-md font-semibold hover:bg-primary">
             지원하기
           </button>
         </div>
-        {projectData && <ProjectInfo data={projectData} />}
-        {mentoringData && <MentoringInfo data={mentoringData} />}
+        {type === 'project' && <ProjectInfo data={projectData} />}
+        {type === 'mentoring' && <MentoringInfo data={mentoringData} />}
       </>
   );
 };

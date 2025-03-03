@@ -12,7 +12,7 @@ export const getTeamInfo = async () => {
 
 export const getProjectInfo = async () => {
   // const [, type, id] = queryKey;
-  const { data } = await client.get(`/project/team/20`);
+  const { data } = await client.get(`/project/teams/20`);
   console.log('getTeamInfo');
   console.log(data);
   return data.data;

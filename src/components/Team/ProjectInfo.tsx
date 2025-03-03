@@ -2,11 +2,12 @@ import React from "react";
 import { FaInfoCircle, FaRocket } from "react-icons/fa";
 import ProgressBar from "../ProgressBar";
 import TeamBasicInfo from "@/components/Team/TeamBasicInfo";
+import Link from "next/link";
 
 const ProjectInfo: React.FC<ProjectInfo> = ({ data }) => {
   return (
       <div className="bg-white p-8 rounded-lg shadow">
-        <h2 className="text-xl font-semibold flex items-center mb-6">
+        <h2 className="text-2xl font-semibold flex items-center mb-6">
           <FaInfoCircle className="mr-2 text-primary" /> 프로젝트 정보
         </h2>
 
@@ -20,10 +21,10 @@ const ProjectInfo: React.FC<ProjectInfo> = ({ data }) => {
 
           <div>
             <div className="mb-4">
-              <h4 className="text-gray-500 text-sm">연락 방법</h4>
-              <a href={data.link} className="text-primary font-medium flex items-center hover:underline">
+              <h4 className="text-gray-500 text-xl pb-1">프로젝트 링크</h4>
+              <Link href={data.link} className="text-primary font-medium flex items-center hover:underline">
                 <FaRocket className="mr-2" /> 프로젝트 링크
-              </a>
+              </Link>
             </div>
             <TeamBasicInfo title='팀원 수' data={`${data.memberCnt}명`}/>
           </div>
