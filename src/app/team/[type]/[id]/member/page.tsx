@@ -1,7 +1,6 @@
 import React from 'react';
 import {FaSearch, FaUserPlus} from "react-icons/fa";
 import MemberCard from "@/components/Team/MemberCard";
-import InvitationList from "@/components/Team/InvitationList";
 const members = [
   {
     name: '김지훈',
