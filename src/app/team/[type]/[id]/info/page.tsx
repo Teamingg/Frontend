@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import {getProjectInfo, getTeamInfo} from "@/service/api/projects";
+import {getProjectInfo, getTeamInfo} from "../../../../../service/api/team";
 import {useQuery} from "@tanstack/react-query";
 import { ProjectInfo, MentoringInfo } from "@/components/Team";
 import {useParams} from "next/navigation";

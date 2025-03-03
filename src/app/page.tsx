@@ -37,13 +37,16 @@ export default async function Home() {
 
   return (
     <div className={containerClass}>
-      <section className={heroClass}>
+      {/*<section className={heroClass}>
         <h2 className='text-2xl md:text-3xl lg:text-4xl mb-5 font-bold'>함께 성장하는 개발자 커뮤니티</h2>
         <p className='text-lg md:text-xl lg:text-2xl'>
           프로젝트 팀원을 찾거나 멘토링을 통해 실력을 향상시켜 보세요.<br/>
           <span>Teaming</span>과 함께라면 누구나 성장할 수 있습니다.
         </p>
-      </section>
+      </section>*/}
+      {/* Todo 카테고리 카드 */}
+      {/* Todo 인기 프로젝트 카드 */}
+      {/* Todo 인기 멘토 카드 */}
       <section className='py-10'>
         <LocalNavigation />
         <article className="w-full flex flex-col gap-4 md:gap-2">
