@@ -4,6 +4,7 @@ import {myPageKeys} from "@/hooks/queries/my";
 import {getMyInfo, getMyMentoringTeam, getMyProjectTeam} from "@/service/api/my";
 import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
 import Aside from "@/layout/AsideNav/Aside";
+import TeamHeader from "@/components/Team/TeamHeader";
 
 const myPagePaths = [
   {
@@ -47,13 +48,11 @@ const layout = async ({
   return (
       <HydrationBoundary state={dehydrate(queryclient)}>
         <section className='min-h-[calc(100vh-72px-62px)] bg-gray-100'>
-          <div className='container mx-auto'>
-            <h2 className='pt-20 pb-5 lg:text-4xl md:text-2xl'>마이 페이지</h2>
-            <div className='flex gap-10'>
-              <Aside navigation={myPagePaths}/>
-              <div className='w-2/3'>
-                {children}
-              </div>
+          <div className='py-20 container mx-auto flex flex-col items-center gap-10'>
+            {/*<Aside navigation={myPagePaths}/>*/}
+            <TeamHeader navigation={myPagePaths}/>
+            <div className='w-2/3'>
+              {children}
             </div>
           </div>
         </section>
