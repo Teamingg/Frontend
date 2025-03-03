@@ -19,7 +19,7 @@ const Page = () => {
 
   return (
       <>
-        <header className='mb-5'>
+        {/*<header className='mb-5'>
           <h2 className='text-2xl md:text-3xl lg:text-4xl font-bold'>{data.projectName}</h2>
           <div>{data.status}</div>
         </header>
@@ -38,7 +38,7 @@ const Page = () => {
         <div className={contentsWrap}>
           <h2 className={subTitle}>팀 소개</h2>
           <p>{data.contents}</p>
-        </div>
+        </div>*/}
       </>
   );
 };
