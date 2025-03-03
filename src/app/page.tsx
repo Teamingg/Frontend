@@ -11,6 +11,7 @@ import ProjectPostList from "@/components/post/ProjectPostList";
 import MentoringPostList from "@/components/post/MentoringPostList";
 import LocalNavigation from "@/layout/Navigation/LocalNavigation";
 import clsx from "clsx";
+import TeamCard from "@/components/team/TeamCard";
 
 export default async function Home() {
   await Promise.all([
@@ -36,6 +37,7 @@ export default async function Home() {
 
   return (
     <div className={containerClass}>
+      <TeamCard/>
       <section className={heroClass}>
         <h2 className='text-2xl md:text-3xl lg:text-4xl mb-5 font-bold'>함께 성장하는 개발자 커뮤니티</h2>
         <p className='text-lg md:text-xl lg:text-2xl'>
