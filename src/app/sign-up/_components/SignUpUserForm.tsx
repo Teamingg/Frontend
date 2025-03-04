@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 
 import { client } from "@/service/api/instance/client";
 
-import UserInfoForm from "@/components/user/UserInfoForm/UserInfoForm";
+import UserInfoForm from "@/components/My/UserInfoForm";
 import { UserInfoFormValues } from "@/types/UserInfoFormValues";
 
 const SignUpUserForm = () => {

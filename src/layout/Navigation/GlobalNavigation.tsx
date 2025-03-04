@@ -1,6 +1,5 @@
 "use client";
-
-import React from "react";
+import React, {memo} from "react";
 import Link from "next/link";
 import { PiBellThin, PiUserCircleThin } from "react-icons/pi";
 import LogoutButton from "@/components/Button/LogoutButton";
@@ -8,7 +7,7 @@ import { useToast } from "@/hooks/useToast";
 import CreateTeamButton from "@/components/Button/CreateTeamButton";
 import { usePathname } from "next/navigation";
 
-const GlobalNavigation = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+const GlobalNavigation = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const path = usePathname();
   const { toast } = useToast();
 
@@ -27,9 +26,7 @@ const GlobalNavigation = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
             <ul className="flex gap-4 items-center">
               {/* 팀 생성은 메인페이지에서만 가능 */}
               {path === "/" && (
-                  <li>
-                    <CreateTeamButton />
-                  </li>
+                  <li><CreateTeamButton /></li>
               )}
               <li>
                 <Link
@@ -37,8 +34,7 @@ const GlobalNavigation = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
                     href="/my/dashboard"
                     onClick={() => {
                       if (!isLoggedIn) toast.error("로그인이 필요합니다.");
-                    }}
-                >
+                    }}>
                   <PiUserCircleThin size={28} />
                   <span className="hidden md:inline">마이페이지</span>
                 </Link>
@@ -49,13 +45,12 @@ const GlobalNavigation = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
                   <span className="hidden md:inline">알림</span>
                 </div>
               </li>
-              <li>
-                <LogoutButton />
-              </li>
+              <li><LogoutButton /></li>
             </ul>
         )}
       </>
   );
-};
+});
 
+GlobalNavigation.displayName = "GlobalNavigation";
 export default GlobalNavigation;

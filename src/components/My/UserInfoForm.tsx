@@ -8,7 +8,7 @@ import { Control, FieldValues, useForm } from "react-hook-form";
 import InputField from "@/components/Input/TextInput/InputField";
 import SelectCheckBox from "@/components/Input/SelectCheckBox/SelectCheckBox";
 import STACK_LIST from "@/constant/stackList";
-import { UserInfoFormValues } from "../../../types/UserInfoFormValues";
+import { UserInfoFormValues } from "@/types/UserInfoFormValues";
 
 const UserInfoFormField = [
   {
