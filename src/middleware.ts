@@ -9,9 +9,10 @@ export async function middleware(request: NextRequest) {
   const url = request.nextUrl;
 
   // 로그인 상태
-  const isLoggedIn = await checkCookie("accessToken") || await checkCookie("refreshToken");
-  const accessToken = getCookie("accessToken");
-  const refreshToken = getCookie("refreshToken");
+  const isLoggedIn =
+    (await checkCookie("accessToken")) || (await checkCookie("refreshToken"));
+  const accessToken = await getCookie("accessToken");
+  const refreshToken = await getCookie("refreshToken");
 
   // 액세스 토큰 갱신 로직
   if (refreshToken && !accessToken) {
