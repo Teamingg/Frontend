@@ -12,6 +12,7 @@ import useUpdateUserInfo from "@/hooks/user/useUpdateUserInfo";
 import {UserInfoFormValues} from "@/types/UserInfoFormValues";
 import Modal from "@/components/Modal/Modal";
 import EditUserForm from "@/components/My/EditUserForm";
+import StatusCard from "@/components/Card/StatusCard";
 
 const Page = () => {
   const { toast } = useToast();
@@ -48,30 +49,23 @@ const Page = () => {
 
   if (isLoading) return <div>loading</div>
 
-  const mentee = mentoring.filter(item => item.authority === 'LEADER')
+  const mentee = mentoring.filter(item => item.authority === 'LEADER');
+  
   return (
         <>
           <article className="mb-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* 진행 중인 프로젝트 카드 */}
-            <div className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center text-center">
-              <VscGithubProject className='w-12 h-12 text-blue-500 bg-blue-100 p-3 rounded-full'/>
-              <h4 className="text-xl font-bold mt-3">{projects.length}</h4>
-              <p className="text-gray-600 text-sm">진행 중인 프로젝트</p>
-            </div>
-
-            {/* 멘토링 세션 카드 */}
-            <div className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center text-center">
-              <FaChalkboardTeacher className="w-12 h-12 text-green-500 text-4xl bg-green-100 p-3 rounded-full" />
-              <h4 className="text-xl font-bold mt-3">{mentoring.length}</h4>
-              <p className="text-gray-600 text-sm">총 진행한 멘토링 세션</p>
-            </div>
-
-            {/* 멘티 카드 */}
-            <div className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center text-center">
-              <PiStudentBold className="w-12 h-12 text-yellow-500 bg-yellow-100 p-3 rounded-full"/>
-              <h4 className="text-xl font-bold mt-3">{mentee.length}</h4>
-              <p className="text-gray-600 text-sm">현재 멘토링 중</p>
-            </div>
+            <StatusCard
+              icon={<VscGithubProject className="w-12 h-12 text-blue-500 bg-blue-100 p-3 rounded-full" />}
+              value={projects.length}
+              label="진행 중인 프로젝트"/>
+            <StatusCard
+              icon={<FaChalkboardTeacher className="w-12 h-12 text-green-500 text-4xl bg-green-100 p-3 rounded-full" />}
+              value={mentoring.length}
+              label="총 진행한 멘토링 세션"/>
+            <StatusCard
+              icon={<PiStudentBold className="w-12 h-12 text-yellow-500 bg-yellow-100 p-3 rounded-full" />}
+              value={mentee.length}
+              label="현재 멘토링 중"/>
           </article>
 
           <article className="bg-white shadow-md rounded-lg p-6">

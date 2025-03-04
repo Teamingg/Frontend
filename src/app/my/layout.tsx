@@ -8,19 +8,19 @@ import { TeamHeader } from "@/components/Team";
 const myPagePaths = [
   {
     label: "계정정보",
-    path: "/My/dashboard",
+    path: "/my/dashboard",
   },
   {
     label: "프로젝트 관리",
-    path: "/My/project",
+    path: "/my/project",
   },
   {
     label: "멘토링 관리",
-    path: "/My/mentoring",
+    path: "/my/mentoring",
   },
   {
     label: '리뷰 관리',
-    path: "/My/review",
+    path: "/my/review",
   }
 ];
 
