@@ -24,12 +24,12 @@ export default async function Home() {
     }),
 
     // 멘토링 포스트
-    /*queryclient.prefetchInfiniteQuery({
+    queryclient.prefetchInfiniteQuery({
       queryKey: ["mentoring", "posts"],
       queryFn: async ({ pageParam }) =>
         await getAllMentoringPosts({ nextCursor: pageParam as number }),
       initialPageParam: 0,
-    }),*/
+    }),
   ]);
 
   const containerClass = clsx('max-w-xl md:max-w-5xl lg:max-w-6xl xl:max-w-7xl mx-auto');
@@ -57,10 +57,10 @@ export default async function Home() {
           </HydrationBoundary>
 
           {/* mentoring */}
-          {/*<SectionHeader title="멘토링" path="/mentoring" />
+          <SectionHeader title="멘토링" path="/mentoring" />
           <HydrationBoundary state={dehydrate(queryclient)}>
             <MentoringPostList />
-          </HydrationBoundary>*/}
+          </HydrationBoundary>
         </article>
       </section>
     </div>
