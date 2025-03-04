@@ -1,38 +1,36 @@
 "use client";
 import React, { useEffect } from "react";
-import { myPageKeys, useGetMyInfo } from "@/hooks/queries/my";
-import { getMyMentoringTeam, getMyProjectTeam } from "@/service/api/my";
-import { useQuery } from "@tanstack/react-query";
+
 import { VscGithubProject } from "react-icons/vsc";
 import { PiStudentBold } from "react-icons/pi";
 import { FaChalkboardTeacher } from "react-icons/fa";
-import { useToast } from "@/hooks/useToast";
+
+import { queryclient } from "@/lib/getQueryClient";
+
+import { UserInfoFormValues } from "@/types/UserInfoFormValues";
+
 import useModal from "@/hooks/useModal";
 import useUpdateUserInfo from "@/hooks/user/useUpdateUserInfo";
-import { UserInfoFormValues } from "@/types/UserInfoFormValues";
+import { useGetMyInfo, useGetMyTeam } from "@/hooks/queries/my";
+import { useToast } from "@/hooks/useToast";
+
 import Modal from "@/components/Modal/Modal";
 import EditUserForm from "@/components/My/EditUserForm";
-import { queryclient } from "@/lib/getQueryClient";
 
 const Page = () => {
   const { toast } = useToast();
+
   const { modal: edit, openModal, closeModal } = useModal();
-  const { userInfo, isFetching } = useGetMyInfo();
+
   const { mutate, isSuccess } = useUpdateUserInfo();
 
-  const { data: mentoring } = useQuery({
-    queryKey: myPageKeys.team("mentoring"),
-    queryFn: getMyMentoringTeam,
-  });
-
-  const { data: projects } = useQuery({
-    queryKey: myPageKeys.team("project"),
-    queryFn: getMyProjectTeam,
-  });
+  const { userInfo, isFetching } = useGetMyInfo();
+  const { data: mentoring } = useGetMyTeam("mentoring");
+  const { data: projects } = useGetMyTeam("project");
 
   useEffect(() => {
     if (isSuccess) {
-      queryclient.invalidateQueries({ queryKey: ["My", "info"] });
+      queryclient.invalidateQueries({ queryKey: ["my", "info"] });
       closeModal();
       toast.success("정보가 수정되었습니다.");
     }
