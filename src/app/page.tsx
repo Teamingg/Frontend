@@ -32,8 +32,10 @@ export default async function Home() {
     }),
   ]);
 
-  const containerClass = clsx('max-w-xl md:max-w-5xl lg:max-w-6xl xl:max-w-7xl mx-auto');
-  const heroClass = clsx('py-32 text-center');
+  const containerClass = clsx(
+    "max-w-xl md:max-w-5xl lg:max-w-6xl xl:max-w-7xl mx-auto"
+  );
+  const heroClass = clsx("py-32 text-center");
 
   return (
     <div className={containerClass}>
@@ -47,9 +49,9 @@ export default async function Home() {
       {/* Todo 카테고리 카드 */}
       {/* Todo 인기 프로젝트 카드 */}
       {/* Todo 인기 멘토 카드 */}
-      <section className='py-10'>
+      <section className="md:py-10">
         <LocalNavigation />
-        <article className="w-full flex flex-col gap-4 md:gap-2">
+        <article className="w-full flex flex-col gap-4 md:gap-2 p-4">
           {/* Team-page project */}
           <SectionHeader title="팀 프로젝트" path="/project" />
           <HydrationBoundary state={dehydrate(queryclient)}>
