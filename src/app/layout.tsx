@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Header from "@/components/main/header";
-import Footer from "@/components/main/footer";
 
-import AppProvider from '@/components/provider/AppProvider';
-import checkCookie from '@/shared/auth/checkCookie';
+import { checkCookie } from "@/utils/cookies";
+
+import AppProvider from "@/components/provider/AppProvider";
+
+import Header from "@/layout/Header";
+import Footer from "@/layout/Footer";
+
+import React from "react";
+import ToastList from "@/components/Toast/ToastList";
 
 export const metadata: Metadata = {
-  title: '티밍',
+  title: "티밍",
   description:
-    '나와 함께 할 팀을 찾고, 가르침과 배움이 공존하는 티밍에서 다양한 팀원들과 함께 성장해보세요',
+    "나와 함께 할 팀을 찾고, 가르침과 배움이 공존하는 티밍에서 다양한 팀원들과 함께 성장해보세요",
 };
 
 export default async function RootLayout({
@@ -20,24 +25,23 @@ export default async function RootLayout({
   modal: React.ReactNode;
 }>) {
   // 로그인 상태 확인
-  const isLoggedIn = await checkCookie('accessToken');
+
   return (
     <html lang="ko">
-      <body className="w-full">
-        <div id="modal-root">{modal}</div>
-        <div className="mx-32 pt-[90px]">
-          <header className="fixed top-0 left-0 w-full z-50 bg-white">
-            <Header isLoggedIn={isLoggedIn} />
-          </header>
-
-          <main className="max-w-[1200px] mx-auto border border-black">
-            <AppProvider>{children}</AppProvider>
-          </main>
-
-          <footer>
-            <Footer />
-          </footer>
-        </div>
+      <body>
+        <div id="toast"></div>
+        <div id="modal-root"></div>
+        <Header/>
+        {/* min-h-[calc(100vh-40px-64px)]  */}
+        {/* max-w-2xl md:max-w-3xl lg:max-w-6xl mx-auto */}
+        <main className="w-[calc(100vw-10px] min-h-[calc(100vh-72px-64px)] mt-[72px]">
+          <AppProvider>
+            <ToastList />
+            {modal}
+            {children}
+          </AppProvider>
+        </main>
+        <Footer/>
       </body>
     </html>
   );
