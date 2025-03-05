@@ -1,11 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 
+import getMyProjectTeam from "@/service/api/my/getMyProjectTeam";
+import { getMyMentoringTeam } from "@/service/api/my";
+
 import TeamCategory from "@/types/teamCategory";
-import TeamType from "@/types/team/teamType";
+import { TeamType } from "@/types/user/myTeamRes";
 
 import myPageKeys from "./myPageKeys";
-import getMyMentoringTeam from "@/service/api/my/getMyMentoringTeam";
-import getMyProjectTeam from "@/service/api/my/getMyProjectTeam";
 
 const useGetMyTeam = <T extends TeamCategory>(category: T) => {
   return useQuery<TeamType<T>[]>({

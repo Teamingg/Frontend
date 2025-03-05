@@ -37,10 +37,10 @@ const SelectCheckBoxModal = ({
           <h4 className="text-lg md:text-2xl">{title}</h4>
           <CloseButton onClick={onClose} size={4} />
         </div>
-        <ul className="grid grid-cols-4 text-sm md:text-basetext-center md:flex md:flex-wrap gap-3  border-b pb-4 mb-4">
+        <ul className="grid grid-cols-4 text-sm md:text-basetext-center md:flex md:flex-wrap gap-3 border-b-gray-300 border-b pb-4 mb-4">
           {checkBoxList.map((item) => (
             <li
-              className="border rounded-md flex justify-between  hover:bg-gray-100 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary  has-[:checked]:text-white"
+              className="border border-gray-300 rounded-md flex justify-between  hover:bg-gray-100 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary  has-[:checked]:text-white"
               key={item.value}
             >
               <CheckBox
@@ -62,7 +62,7 @@ const SelectCheckBoxModal = ({
           <ul className="grid grid-cols-3 md:grid-cols-4 gap-2 mb-4">
             {selectValues.map((item) => (
               <li
-                className="rounded-md border text-black text-sm md:text-base px-2 py-2 flex items-center justify-center gap-2"
+                className="rounded-md border border-gray-300 text-black text-sm md:text-base px-2 py-2 flex items-center justify-center gap-2"
                 key={item.value}
               >
                 <span>{item.label}</span>
@@ -75,13 +75,13 @@ const SelectCheckBoxModal = ({
         <div className="flex gap-2 ">
           <button
             onClick={onReset}
-            className="w-1/4 py-2 md:py-3 border rounded-xl hover:bg-gray-100 transition-colors"
+            className="w-1/4 py-2 md:py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition-colors"
           >
             초기화
           </button>
           <button
             onClick={onClose}
-            className="w-full py-2 md:py-3 bg-primary text-white rounded-xl  hover:bg-black/90 transition-colors"
+            className="w-full py-2 md:py-3 bg-primary text-white rounded-lg  hover:opacity-90 hover:cursor-pointer transition-opacity"
           >
             선택완료
           </button>

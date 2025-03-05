@@ -6,7 +6,7 @@ import { cookies } from "next/headers";
 import handleError from "@/service/handleError";
 
 export async function createServerInstance() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const instance = axios.create({
     ...defaultInstanceOptions,
     headers: {
@@ -15,14 +15,16 @@ export async function createServerInstance() {
   });
 
   instance.interceptors.response.use(
-      (response) => response,
-      async (error) => await onResponse(error)
+    (response) => response,
+    async (error) => await onResponse(error)
   );
 
   return instance;
 }
 
-async function onResponse(error: AxiosError<{ status: number; message: string }>) {
+async function onResponse(
+  error: AxiosError<{ status: number; message: string }>
+) {
   const errorCode = error.response?.data.status;
   let errorMessage;
   try {

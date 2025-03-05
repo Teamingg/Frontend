@@ -78,7 +78,7 @@ const SelectCheckBox = ({
 
       <div
         onClick={() => setSelectModal(true)}
-        className="text-black text-opacity-50 border rounded-md bg-white text-center py-2"
+        className="text-black text-opacity-50 border border-gray-300 rounded-md bg-white text-center py-2"
       >
         {selectedList.length === 0 ? (
           `${placeholder}`
@@ -86,7 +86,7 @@ const SelectCheckBox = ({
           <ul className="grid grid-cols-3 gap-2 px-2 ">
             {selectedList.map((item) => (
               <li
-                className="border px-4 py-1 text-black text-center gap-2"
+                className="border border-gray-300 px-4 py-1 text-black text-center gap-2"
                 key={item.value}
               >
                 <span>{item.label}</span>

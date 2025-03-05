@@ -8,7 +8,11 @@ interface CloseButtonProps {
 
 const CloseButton = ({ onClick, size }: CloseButtonProps) => {
   return (
-    <button onClick={onClick} type="button" className={`size-${size}`}>
+    <button
+      onClick={onClick}
+      type="button"
+      className={`size-${size} cursor-pointer`}
+    >
       <Image
         src="/icons/close.svg"
         width={18}
