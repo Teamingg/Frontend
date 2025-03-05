@@ -1,5 +1,5 @@
 import { getMyInfo } from "./getMyInfo";
-import { getMyMentoringTeam } from "./getMyMentoringTeam";
+import {getMyMentoringTeam} from "./getMyMentoringTeam";
 import getMyProjectTeam from "./getMyProjectTeam";
 import { getMyReviews } from "./getMyReview";
 

@@ -44,7 +44,7 @@ const Page = async ({
             start={item.startDate}
             end={item.endDate}
             progress={item.progress ?? 0}
-            href={`/team/${type}/${item.id}/info`}
+            href={`/team/${type}/${item.id}/dashboard`}
           />
         ))}
       </TeamSection>
@@ -62,7 +62,7 @@ const Page = async ({
             start={item.startDate}
             end={item.endDate}
             progress={item.progress ?? 0}
-            href={`/team/${type}/${item.id}/info`}
+            href={`/team/${type}/${item.id}/dashboard`}
           />
         ))}
       </TeamSection>
