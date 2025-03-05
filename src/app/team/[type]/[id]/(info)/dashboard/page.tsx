@@ -7,14 +7,14 @@ import {useParams} from "next/navigation";
 
 const Page = () => {
   const { type, id } = useParams();
-  
+  console.log(id)
   const {
     data: projectData,
     isLoading: isProjectLoading,
     isError: isProjectError,
   } = useQuery({
     queryKey: ["projectInfo", id],
-    queryFn: getProjectInfo,
+    queryFn: () => getProjectInfo(+id),
     enabled: type === "project",});
   
   const {
@@ -23,7 +23,7 @@ const Page = () => {
     isError: isMentoringError,
   } = useQuery({
     queryKey: ["mentoringInfo", id],
-    queryFn: getTeamInfo,
+    queryFn: () => getTeamInfo(+id),
     enabled: type === "mentoring",
   });
   
@@ -46,7 +46,7 @@ const Page = () => {
     type === "project"
       ? projectData?.projectName || "프로젝트 정보 없음"
       : mentoringData?.dto?.teamName || "멘토링 정보 없음";
-  console.log(mentoringData)
+
   return (
     <>
       <div className="flex justify-between items-start mb-6">

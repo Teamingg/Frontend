@@ -1,6 +1,6 @@
 import {ReactNode} from 'react';
 import {queryclient} from "@/lib/getQueryClient";
-import {getProjectInfo, getTeamInfo} from "../../../../../service/api/team";
+import {getProjectInfo, getTeamInfo} from "@/service/api/team";
 import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
 
 const Layout = async ({
@@ -15,12 +15,12 @@ const Layout = async ({
   if (type === "project") {
     await queryclient.prefetchQuery({
       queryKey: ["projectInfo", id],
-      queryFn: getProjectInfo,
+      queryFn: () => getProjectInfo(+id),
     });
   } else if (type === 'mentoring') {
     await queryclient.prefetchQuery({
       queryKey: ["mentoringInfo", id],
-      queryFn: getTeamInfo,
+      queryFn: () => getTeamInfo(+id),
     });
   }
 

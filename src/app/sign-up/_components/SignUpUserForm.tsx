@@ -15,6 +15,7 @@ const SignUpUserForm = () => {
     introduce,
     stacksIds,
   }: UserInfoFormValues) => {
+    console.log(name, introduce);
     const response = await client.post(
       "/users",
       JSON.stringify({

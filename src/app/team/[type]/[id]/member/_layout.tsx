@@ -1,9 +1,11 @@
+/*
 import React, {ReactNode} from 'react';
 import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
 import {queryclient} from "@/lib/getQueryClient";
 import {getMentoringPost, getProjectPost} from "@/service/api/post";
+import {getTeamMembers} from "@/service/api/team";
 
-const Layout = async ({
+const _layout = async ({
   children,
   params,
 } : {
@@ -13,15 +15,21 @@ const Layout = async ({
   const { type, id } = await params;
   if (type === 'project') {
     await queryclient.prefetchQuery({
-      queryKey: ["mentoringPost", id],
-      queryFn: () => getProjectPost(id),
+      queryKey: ["projectMember", id],
+      queryFn: () => getTeamMembers(type, id),
     });
   } else if (type === 'mentoring') {
     await queryclient.prefetchQuery({
-      queryKey: ["mentoringPost", id],
-      queryFn: () => getMentoringPost(id),
+      queryKey: ["mentoringMember", id],
+      queryFn: () => getTeamMembers(type, id),
     });
   }
+  
+  /!*const data = await queryclient.fetchQuery({
+    queryKey: ['projectMember', id],
+    queryFn: () => getTeamMembers(type, id),
+  })
+  console.log(data)*!/
 
   return (
       <HydrationBoundary state={dehydrate(queryclient)}>
@@ -30,4 +38,15 @@ const Layout = async ({
   );
 };
 
-export default Layout;
+export default _layout;*/
+import React from 'react';
+
+const _layout = () => {
+  return (
+    <div>
+      
+    </div>
+  );
+};
+
+export default _layout;

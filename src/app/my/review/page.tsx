@@ -15,7 +15,7 @@ const Page = async () => {
         <h3 className='pb-6 text-xl md:text-2xl lg:text-3xl border-b border-b-gray-200'>리뷰 관리</h3>
 
         {/* 더미데이터 */}
-        <ReviewCard reviewer='더미데이터' date='2025-03-04' profileImage='null' rating={5} projectTitle="더미데이터 제목" reviewContent='더미데이터 내용'/>
+        {/*<ReviewCard reviewer='더미데이터' date='2025-03-04' profileImage='null' rating={5} projectTitle="더미데이터 제목" reviewContent='더미데이터 내용'/>*/}
 
         {!review || review.length > 0 ? (
             <ul className="space-y-4">

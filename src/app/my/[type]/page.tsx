@@ -33,36 +33,34 @@ const Page = async ({
       <TeamSection
         title={`진행중인 ${pageType}`}
         isEmpty={!data || data.length === 0}
-        pageType={type}
-      >
-        {data.map((item, index) => (
+        pageType={type}>
+        {data.map((item, index: number) => (
           <TeamCard
             key={index}
             title={item.name}
-            teamId={item.id}
+            teamId={type === 'project' ? item.projectTeamId : item.id}
             status={item.status}
             start={item.startDate}
             end={item.endDate}
             progress={item.progress ?? 0}
-            href={`/team/${type}/${item.id}/dashboard`}
+            href={`/team/${type}/${type === 'project' ? item.projectTeamId : item.id}/dashboard`}
           />
         ))}
       </TeamSection>
       <TeamSection
         title={`종료된 ${pageType}`}
         isEmpty={!data || data.length === 0}
-        pageType={type}
-      >
-        {data.map((item, index) => (
+        pageType={type}>
+        {data.map((item, index: number) => (
           <TeamCard
             key={index}
             title={item.name}
-            teamId={item.id}
+            teamId={type === 'project' ? item.projectTeamId : item.id}
             status={item.status}
             start={item.startDate}
             end={item.endDate}
             progress={item.progress ?? 0}
-            href={`/team/${type}/${item.id}/dashboard`}
+            href={`/team/${type}/${type === 'project' ? item.projectTeamId : item.id}/dashboard`}
           />
         ))}
       </TeamSection>
