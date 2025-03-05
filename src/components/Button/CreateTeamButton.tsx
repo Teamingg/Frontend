@@ -41,7 +41,7 @@ const CreateTeamButton = () => {
       )}
       <button
         onClick={() => setModal(true)}
-        className="bg-primary md:bg-transparent rounded-full md:rounded-none size-12 md:size-auto flex justify-center items-center md:gap-2 fixed md:static top-[92vh] right-8 "
+        className="bg-primary md:bg-transparent rounded-full md:rounded-none size-12 md:size-auto flex justify-center items-center md:gap-2 fixed md:static top-[92vh] right-8 cursor-pointer"
       >
         <FaPlus fill="#ffffff" size={24} className="md:hidden" />
         <CiCirclePlus size={28} className="hidden md:block" />
