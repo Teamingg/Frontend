@@ -2,43 +2,39 @@
 import React from 'react';
 import {FaSearch, FaUserPlus} from "react-icons/fa";
 import {MemberCard} from "@/components/Team";
-import {useQuery} from "@tanstack/react-query";
+import {useQueries, useQuery} from "@tanstack/react-query";
 import {useParams} from "next/navigation";
 import {getProjectPost} from "@/service/api/post";
-import {getTeamMembers} from "@/service/api/team";
-const members = [
-  {
-    name: '김지훈',
-    role: '팀장 / 멘토',
-    email: 'jihoon.kim@example.com',
-    field: '풀스택 개발',
-    joinDate: '2025.01.15',
-    skills: ['React', 'Node.js', 'TypeScript'],
-    image: '/api/placeholder/120/120',
-  },
-  {
-    name: '박소연',
-    role: '멘티',
-    email: 'soyeon.park@example.com',
-    field: '프론트엔드 개발',
-    joinDate: '2025.01.20',
-    skills: ['HTML/CSS', 'JavaScript', 'React'],
-    image: '/api/placeholder/120/120',
-  },
-];
+import {getProjectMembers, getTeamMembers} from "@/service/api/team";
 
-const invitations = [
-  { email: 'jongwoo.kim@example.com', date: '2025.03.01', role: '프론트엔드 개발자' },
-  { email: 'minjae.lee@example.com', date: '2025.02.28', role: '백엔드 개발자' },
-];
 const Page = () => {
   const { type, id } = useParams();
-  console.log(type)
-  const {data, isLoading, error} = useQuery({
-    queryKey: ["mentoringMember", id],
-    queryFn: () => getTeamMembers(type as string, +id),
+  const [mentoringMembers, memberStatus, projectMembers] = useQueries({
+    queries: [
+      {
+        queryKey: ["mentoringMember", id],
+        queryFn: () => getTeamMembers(type as string, +id),
+        enabled: type === 'mentoring',
+      },
+      {
+        queryKey: ["projectMemberStatus", id],
+        queryFn: () => getTeamMembers(type as string, +id),
+        enabled: type === 'project',
+      },
+      {
+        queryKey: ["projectMember", id],
+        queryFn: () => getProjectMembers(+id),
+        enabled: type === 'project',
+      }
+    ]
   });
-  console.log(data)
+  
+  const queries = [projectMembers, memberStatus, mentoringMembers]
+  const isLoading = queries.some(query => query.isLoading);
+  const error = queries.find(query => query.error)?.error;
+  const projectStatus = memberStatus.data;
+  const members = type === 'project' ? projectMembers.data : mentoringMembers.data;
+  
   // 로딩 상태 처리
   if (isLoading) {
     return <p className="text-center text-gray-600">로딩 중...</p>;
@@ -50,11 +46,10 @@ const Page = () => {
   }
   
   // 데이터가 없을 경우 처리
-  if (data) {
+  if (!members || !projectStatus) {
     return <p className="text-center text-gray-500">해당 정보를 찾을 수 없습니다.</p>;
   }
   
-  console.log(data);
   return (
       <>
         <div className="flex justify-between items-center mb-6">
@@ -70,9 +65,7 @@ const Page = () => {
           </div>
 
           <div className="ml-4">
-            <select
-                className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:outline-none"
-            >
+            <select className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:outline-none">
               <option value="전체">전체</option>
               <option value="멘토">멘토</option>
               <option value="멘티">멘티</option>
@@ -84,7 +77,7 @@ const Page = () => {
 
         <h2 className="text-lg font-semibold mb-4 mt-8">팀 멤버</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {members.map((member, index) => (
+          {members.map((member, index: number) => (
               <MemberCard key={index} member={member} />
           ))}
         </div>

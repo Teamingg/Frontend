@@ -7,3 +7,4 @@ export { getTeamPosts } from './board';
 
 // Mentoring / Project Participate
 export { getTeamMembers } from './participate';
+export { getProjectMembers } from './team';
