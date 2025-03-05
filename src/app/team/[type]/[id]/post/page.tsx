@@ -8,19 +8,6 @@ import {useParams} from "next/navigation";
 import {useQuery} from "@tanstack/react-query";
 import {getTeamPosts} from "@/service/api/team";
 
-const dummyPosts = [
-  {
-    id: 1,
-    title: "더미데이터",
-    status: "active",
-    date: "2025.03.02",
-    views: 124,
-    applies: 8,
-    description: "HTML, CSS, JavaScript 기초부터 React까지 웹 개발의 기본을 함께 배워나갈 멘티를 모집합니다.",
-    tags: ["웹개발", "프론트엔드"],
-  }
-];
-
 const Page = () => {
   const { type, id } = useParams();
   const typeStr = Array.isArray(type) ? type[0] : type;
@@ -35,7 +22,7 @@ const Page = () => {
       <>
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">팀 게시글</h1>
-          <Link href={''} className="px-4 py-2 bg-primary text-white rounded-lg flex items-center">
+          <Link href={`/post/${type}/${id}`} className="px-4 py-2 bg-primary text-white rounded-lg flex items-center">
             <FaRegPenToSquare className="mr-2"/>새 게시글 작성
           </Link>
         </div>
@@ -48,7 +35,7 @@ const Page = () => {
         </div>
 
         {/* 더미데이터 */}
-        <PostCard post={dummyPosts[0]}/>
+        {/*<PostCard post={dummyPosts[0]}/>*/}
 
         {/* 로딩 중일 때 */}
         {isLoading && <p className="text-center text-gray-500">로딩 중...</p>}
@@ -59,7 +46,7 @@ const Page = () => {
         {/* 데이터가 존재할 경우 */}
         {!posts && posts?.length > 0
             ? posts.map((post) => <PostCard key={post.id} post={post} />)
-            : <p className="text-center text-gray-500">게시글이 존재하지 않습니다.</p>
+            : <p className="min-h-96 flex items-center justify-center text-gray-500">게시글이 존재하지 않습니다.</p>
         }
       </>
   );
