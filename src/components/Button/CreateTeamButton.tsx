@@ -26,14 +26,12 @@ const CreateTeamButton = () => {
           <div className="text-base md:text-xl">
             <Link
               href="/form/create/project"
-              className="bg-white py-4 block text-center border rounded-md mb-4 hover:bg-gray-50 transition-colors md:w-[400px]"
-            >
+              className="bg-white py-4 block text-center border border-gray-200 rounded-md mb-4 hover:bg-gray-100 transition-colors md:w-[400px]">
               프로젝트
             </Link>
             <Link
               href="/form/create/mentoring"
-              className="bg-primary text-white py-4 block text-center rounded-md hover:bg-black/80 transition-colors md:w-[400px]"
-            >
+              className="bg-primary text-white py-4 block text-center rounded-md hover:bg-primary/80 transition-colors md:w-[400px]">
               멘토링
             </Link>
           </div>
