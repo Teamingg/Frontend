@@ -7,7 +7,6 @@ import {useParams} from "next/navigation";
 
 const Page = () => {
   const { type, id } = useParams();
-  console.log(id)
   const {
     data: projectData,
     isLoading: isProjectLoading,

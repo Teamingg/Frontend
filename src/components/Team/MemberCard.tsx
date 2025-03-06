@@ -3,18 +3,18 @@ import React from "react";
 import {FaEnvelope, FaUserTag, FaTrash, FaUser} from "react-icons/fa";
 import {useQuery} from "@tanstack/react-query";
 import {getUserInfoById} from "@/service/api/user";
+import LoadingSpinner from "@/components/loading/LoadingSpinner";
 
 const MemberCard = ({member}) => {
-  console.log(member.userId)
   const {data, isLoading, error} = useQuery({
     queryKey: ['user', member.userId],
     queryFn: () => getUserInfoById(member.userId),
   });
+  console.log('member')
+  console.log(member)
   
   // 로딩 상태 처리
-  if (isLoading) {
-    return <p className="text-center text-gray-600">로딩 중...</p>;
-  }
+  if (isLoading) return <LoadingSpinner/>
   
   // 에러 상태 처리
   if (error) {

@@ -6,9 +6,10 @@ import {useQueries, useQuery} from "@tanstack/react-query";
 import {useParams} from "next/navigation";
 import {getProjectPost} from "@/service/api/post";
 import {getProjectMembers, getTeamMembers} from "@/service/api/team";
+import LoadingSpinner from "@/components/loading/LoadingSpinner";
 
 const Page = () => {
-  const { type, id } = useParams();
+  const {type, id} = useParams();
   const [mentoringMembers, memberStatus, projectMembers] = useQueries({
     queries: [
       {
@@ -36,9 +37,7 @@ const Page = () => {
   const members = type === 'project' ? projectMembers.data : mentoringMembers.data;
   
   // 로딩 상태 처리
-  if (isLoading) {
-    return <p className="text-center text-gray-600">로딩 중...</p>;
-  }
+  if (isLoading) return <LoadingSpinner/>
   
   // 에러 상태 처리
   if (error) {
@@ -51,37 +50,52 @@ const Page = () => {
   }
   
   return (
-      <>
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">멤버 관리</h1>
-          {/*<button className="px-4 py-2 bg-primary text-white rounded-lg flex items-center">
+    <>
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">멤버 관리</h1>
+        {/*<button className="px-4 py-2 bg-primary text-white rounded-lg flex items-center">
             <FaUserPlus className="mr-2" /> 멤버 초대
           </button>*/}
+      </div>
+      <div className="flex mb-6">
+        <div
+          className="w-full flex items-center bg-white border border-gray-200 rounded-lg px-4 py-2">
+          <FaSearch className="text-gray-500"/>
+          <input type="text" placeholder="이름 또는 이메일로 검색"
+                 className="ml-2 w-full outline-none text-sm"/>
         </div>
-        <div className="flex mb-6">
-          <div className="w-full flex items-center bg-white border border-gray-200 rounded-lg px-4 py-2">
-            <FaSearch className="text-gray-500" />
-            <input type="text" placeholder="이름 또는 이메일로 검색" className="ml-2 w-full outline-none text-sm" />
-          </div>
-
-          <div className="ml-4">
-            <select className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:outline-none">
-              <option value="전체">전체</option>
-              <option value="멘토">멘토</option>
-              <option value="멘티">멘티</option>
-            </select>
-          </div>
+        
+        <div className="ml-4">
+          <select
+            className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg text-sm focus:ring-2 focus:ring-primary focus:outline-none">
+            <option value="전체">전체</option>
+            <option value="멘토">멘토</option>
+            <option value="멘티">멘티</option>
+          </select>
         </div>
-        {/* Todo 멤버 초대 기능 */}
-       {/* <InvitationList invitations={invitations} />*/}
-
-        <h2 className="text-lg font-semibold mb-4 mt-8">팀 멤버</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {members.map((member, index: number) => (
-              <MemberCard key={index} member={member} />
-          ))}
-        </div>
-      </>
+      </div>
+      {/* Todo 멤버 초대 기능 */}
+      {/* <InvitationList invitations={invitations} />*/}
+      
+      <h2 className="text-lg font-semibold mb-4 mt-8">팀 멤버</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {members.map((member, index: number) => (
+          <MemberCard key={index} member={member}/>
+        ))}
+      </div>
+      
+      {memberStatus.data.map((item, index) => (
+        item.role === 'OWNER' && (
+          <React.Fragment key={index}>
+            <h2 className="text-lg font-semibold mb-4 mt-8">멤버 관리</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {members.map((member, index: number) => (
+                <MemberCard key={index} member={member}/>
+              ))}
+            </div>
+          </React.Fragment>
+        )))}
+    </>
   );
 };
 
