@@ -2,7 +2,7 @@ import SignUpUserForm from "@/app/sign-up/_components/SignUpUserForm";
 
 const SignUpPage = () => {
   return (
-    <section className="flex justify-center items-center w-full h-full bg-[#f5f5f5]">
+    <section className="flex justify-center items-center w-full min-h-[100svh] bg-[#f5f5f5]">
       {/* Desc */}
       <div className="  rounded-xl md:bg-white md:p-24">
         <p className="text-center mb-4">
