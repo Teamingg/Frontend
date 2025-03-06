@@ -13,14 +13,14 @@ const SignUpUserForm = () => {
   const onSubmit = async ({
     name,
     introduce,
-    stacksIds,
+    stackIds,
   }: UserInfoFormValues) => {
     const response = await client.post(
       "/users",
       JSON.stringify({
         name,
         introduce,
-        stacksIds,
+        stackIds,
       })
     );
 
