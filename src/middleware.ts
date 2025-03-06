@@ -50,7 +50,7 @@ export async function middleware(request: NextRequest) {
   // 로그인이 되어 있지 않을 때 접근 할 수 없는 path
   if (!isLoggedIn) {
     // 마이페이지
-    if (url.pathname.includes("/My")) {
+    if (url.pathname.includes("/my")) {
       return NextResponse.redirect(new URL("/", request.url));
     }
     // 회원정보 입력
