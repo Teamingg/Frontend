@@ -80,7 +80,7 @@ const Page = () => {
   }, [formType]);
   
   const methods = useForm<ProjectFormData | MentoringFormData>({defaultValues,});
-  const {handleSubmit, control, setValue} = methods;
+  const {handleSubmit, control, setValue, watch} = methods;
   
   const onSubmit = async (data) => {
     console.log('폼 제출 데이터 - ', data);
@@ -121,10 +121,10 @@ const Page = () => {
             ? <ProjectForm
               currentStep={currentStep}
               control={control}
+              watch={watch}
               setValue={setValue}/>
             : <MentoringForm currentStep={currentStep} control={control}/>}
           <div className="my-12 text-center flex flex-col-reverse gap-2 md:flex-row">
-            <button>테스트 제출 버튼</button>
             {currentStep !== 1
               ? (<button className={prevClass} onClick={prevStep}>이전</button>)
               : (<Link href='/' className={`${prevClass} flex items-center justify-center`}>돌아가기</Link>)}
@@ -134,7 +134,7 @@ const Page = () => {
             )}
             
             {currentStep === 4 && (
-              <button type="submit" className={nextClass}>제출하기</button>
+              <button type="submit" className={nextClass}>팀 생성하기</button>
             )}
           </div>
         </form>

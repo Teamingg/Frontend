@@ -9,7 +9,6 @@ interface SelectProps {
 }
 
 const Select: React.FC<SelectProps> = ({ name, value, options = [], label, onChange }) => {
-  console.log(options)
   return (
     <div className='w-full flex flex-row-reverse items-center gap-1'>
       {label && <label htmlFor={name}>{label}</label>}

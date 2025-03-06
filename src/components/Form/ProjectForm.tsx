@@ -8,11 +8,24 @@ import Select from "@/components/Input/Select";
 import {formatDate, getSelectableDays, getSelectableMonths} from "@/service/date/date";
 import { useDateStore } from "@/store/useDateStore";
 
-const memberOptions = Array.from({ length: 10 }, (_, i) => i + 1);
+const memberOptions = Array.from({ length: 10 }, (_, i) => String(i + 1));
+
+const labelMap: Record<string, string> = {
+  projectName: "프로젝트 이름",
+  deadline: "마감일",
+  startDate: "시작 날짜",
+  endDate: "종료 날짜",
+  memberCnt: "모집 인원",
+  link: "관련 링크",
+  contents: "내용",
+  stackIds: "사용 기술 스택",
+  recruitCategoryIds: "모집 카테고리",
+};
 
 const ProjectForm = ({
   currentStep,
   control,
+  watch,
   setValue
 }) => {
   const { startMonth, startDay, endMonth, endDay, updateStartDate, updateEndDate } = useDateStore();
@@ -20,14 +33,13 @@ const ProjectForm = ({
   const months = getSelectableMonths() || [];
   const startDays = getSelectableDays(startMonth, 0) || [];
   const endDays = getSelectableDays(endMonth, 30, undefined, 30) || [];
-  console.log(startMonth, startDay, endDay, updateStartDate);
   
   // React Hook Form과 Zustand 동기화
   useEffect(() => {
     setValue("startDate", formatDate(new Date().getFullYear(), startMonth, startDay));
     setValue("endDate", formatDate(new Date().getFullYear(), endMonth, endDay));
   }, [startMonth, startDay, endMonth, endDay, setValue]);
-  
+  console.log(watch())
   return (
     <>
       {currentStep === 1 && PROJECT_STEP1.map(field => (
@@ -92,7 +104,7 @@ const ProjectForm = ({
               label="명"
               name='memberCnt'
               options={memberOptions}
-              control={control}
+              value={watch("memberCnt")}
               onChange={(value) => setValue("memberCnt", value)}/>
             </div>
           )}
@@ -119,10 +131,18 @@ const ProjectForm = ({
           control={control}/>
       )}
       
-      {currentStep === "submit" && (
-        <>
-          ㅅㄷㄴㅅ
-        </>
+      {currentStep === 4 &&  (
+        <div className="border border-gray-300 rounded-lg p-4">
+          <ul className="space-y-2">
+            {Object.entries(watch()).map(([key, value]) => (
+              <li key={key} className="flex justify-between border-b py-1">
+                <span className="font-medium">{labelMap[key] || key}</span>
+                {/* ✅ labelMap을 사용하여 키를 변환. 만약 매핑이 없으면 원래 키 출력 */}
+                <span>{Array.isArray(value) ? value.join(', ') || '없음' : String(value)}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </>
   );
