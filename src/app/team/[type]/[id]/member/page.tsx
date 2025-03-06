@@ -1,6 +1,11 @@
+'use client';
 import React from 'react';
 import {FaSearch, FaUserPlus} from "react-icons/fa";
 import {MemberCard} from "@/components/Team";
+import {useQuery} from "@tanstack/react-query";
+import {useParams} from "next/navigation";
+import {getProjectPost} from "@/service/api/post";
+import {getTeamMembers} from "@/service/api/team";
 const members = [
   {
     name: '김지훈',
@@ -27,6 +32,29 @@ const invitations = [
   { email: 'minjae.lee@example.com', date: '2025.02.28', role: '백엔드 개발자' },
 ];
 const Page = () => {
+  const { type, id } = useParams();
+  console.log(type)
+  const {data, isLoading, error} = useQuery({
+    queryKey: ["mentoringMember", id],
+    queryFn: () => getTeamMembers(type as string, +id),
+  });
+  console.log(data)
+  // 로딩 상태 처리
+  if (isLoading) {
+    return <p className="text-center text-gray-600">로딩 중...</p>;
+  }
+  
+  // 에러 상태 처리
+  if (error) {
+    return <p className="text-center text-red-500">데이터를 불러오는 중 오류가 발생했습니다.</p>;
+  }
+  
+  // 데이터가 없을 경우 처리
+  if (data) {
+    return <p className="text-center text-gray-500">해당 정보를 찾을 수 없습니다.</p>;
+  }
+  
+  console.log(data);
   return (
       <>
         <div className="flex justify-between items-center mb-6">

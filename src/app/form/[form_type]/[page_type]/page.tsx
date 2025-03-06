@@ -10,9 +10,9 @@ import {
   ProjectFormFields,
   defaultValues as projectDefaults
 } from "@/app/form/_data/createProject";
-import { MentoringCreationData, ProjectCreationData } from "@/app/form/_type/formDataTypes";
 import FormTitle from "@/app/form/_components/FormTitle";
 import CreateTeamForm from "@/app/form/_components/CreateTeamForm";
+import {MentoringCreationData, ProjectCreationData} from "@/types/form";
 
 const Page = () => {
   // 경로에 따라 다른 페이지 출력
@@ -20,7 +20,7 @@ const Page = () => {
   const isProject = page_type === "project";
   const formFields = isProject ? ProjectFormFields : MentoringFormFields;
   const defaultValues = isProject ? projectDefaults : mentoringDefaults;
-  const endPoints = isProject ? "/project/Team" : "/mentoring/teams"
+  const endPoints = isProject ? "/project/teams" : "/mentoring/teams"
 
   const { submit, isLoading, error } = useSubmit<ProjectCreationData | MentoringCreationData>({
     endpoint: endPoints,

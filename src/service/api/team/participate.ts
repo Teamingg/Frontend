@@ -2,7 +2,7 @@ import {client} from "@/service/api/instance/client";
 
 export const getTeamMembers = async (
     type: string,
-    id: string
+    id: number
 ) => {
   const { data } = await client.get(`/${type}/teams/${id}/status`);
   console.log('getTeamMembers');

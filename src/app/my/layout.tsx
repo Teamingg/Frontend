@@ -30,17 +30,17 @@ const myPagePaths = [
 
 const layout = async ({ children }: { children: ReactNode }) => {
   await Promise.all([
-    queryclient.prefetchQuery({
+    await queryclient.prefetchQuery({
       queryKey: myPageKeys.info,
       queryFn: getMyInfo,
     }),
-
-    queryclient.prefetchQuery({
+    
+    await queryclient.prefetchQuery({
       queryKey: myPageKeys.team("mentoring"),
       queryFn: getMyMentoringTeam,
     }),
-
-    queryclient.prefetchQuery({
+    
+    await queryclient.prefetchQuery({
       queryKey: myPageKeys.team("project"),
       queryFn: getMyProjectTeam,
     }),
