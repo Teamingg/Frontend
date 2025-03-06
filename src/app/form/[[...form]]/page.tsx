@@ -3,12 +3,14 @@ import {useParams, useRouter} from "next/navigation";
 import ProjectForm from "@/components/Form/ProjectForm";
 import MentoringForm from "@/components/Form/MentoringForm";
 import Logo from "@/components/Logo/Logo";
-import React, {useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {useForm} from "react-hook-form";
 import {useFormStore} from "@/store/formStore";
 import clsx from "clsx";
 import Link from "next/link";
 import {client} from "@/service/api/instance/client";
+import {addWeeksToDate} from "@/service/date/date";
+import {useDateStore} from "@/store/useDateStore";
 export interface ProjectFormData {
   projectName: string;
   deadline: string;
@@ -43,14 +45,18 @@ const Page = () => {
   const params = useParams();
   const router = useRouter();
   const formType = useMemo(() => params.form?.[1] || "project", [params]);
+  const header = formType === "project" ? '프로젝트' : '멘토링';
+  
   const currentStep = useFormStore(state => state.currentStep);
   const nextStep = useFormStore(state => state.nextStep);
   const prevStep = useFormStore(state => state.prevStep);
+  
+  const today = new Date().toISOString().split("T")[0];
   const defaultValues = useMemo(() => {
     if (formType === "project") {
       return {
         projectName: "",
-        deadline: "",
+        deadline: addWeeksToDate(today, 2),
         startDate: "",
         endDate: "",
         memberCnt: 0,
@@ -60,10 +66,10 @@ const Page = () => {
         recruitCategoryIds: [],
       } as ProjectFormData;
     }
-    
+   
     return {
       mentoringName: "",
-      deadline: "",
+      deadline: addWeeksToDate(today, 2),
       startDate: "",
       endDate: "",
       mentoringCnt: 0,
@@ -74,23 +80,26 @@ const Page = () => {
     } as MentoringFormData;
   }, [formType]);
   
-  const methods = useForm<ProjectFormData | MentoringFormData>({
-    defaultValues,
-  });
+  const methods = useForm<ProjectFormData | MentoringFormData>({defaultValues,});
+  const {handleSubmit, control, setValue} = methods;
   
-  const header = formType === "project" ? '프로젝트' : '멘토링';
-  const {handleSubmit, control} = methods;
+  // Zustand 스토어에서 상태 가져오기 및 react-hook-form과 Zustand 동기화
+  const { startMonth, startDay, endMonth, endDay, startDate, endDate, updateStartDate, updateEndDate } = useDateStore();
+  setValue("startDate", startDate);
+  setValue("endDate", endDate);
+ 
+  useEffect(() => {
+    console.log("🛠️ 업데이트된 종료 날짜 정보:", { endMonth, endDay, endDate });
+  }, [endMonth, endDay, endDate]);
   
   const onSubmit = async (data) => {
-    console.log("최종 데이터:", data);
-    console.log(`${params.form?.[1]}/teams`)
-    try {
+    console.log('폼 제출 데이터 - ', data);
+    /*try {
       const response = await client.post(`/${params.form?.[1]}/teams`, data);
-      console.log("서버 응답:", response.data);
       if (response.status === 200) router.push('/');
     } catch (error) {
       console.error("폼 제출 중 오류 발생:", error.response);
-    }
+    }*/
   };
   
   const prevClass = clsx('w-full h-[50px] rounded-xl border-1 border-gray-200 hover:bg-gray-300 cursor-pointer');
@@ -119,9 +128,19 @@ const Page = () => {
         </header>
         <form className='w-full max-w-sm mx-auto' onSubmit={handleSubmit(onSubmit)}>
           {formType === 'project'
-            ? <ProjectForm currentStep={currentStep} control={control}/>
+            ? <ProjectForm
+              currentStep={currentStep}
+              control={control}
+              setValue={setValue}
+              startMonth={startMonth}
+              startDay={startDay}
+              endMonth={endMonth}
+              endDay={endDay}
+              updateStartDate={updateStartDate}
+              updateEndDate={updateEndDate}/>
             : <MentoringForm currentStep={currentStep} control={control}/>}
           <div className="my-12 text-center flex flex-col-reverse gap-2 md:flex-row">
+            <button>테스트 제출 버튼</button>
             {currentStep !== 1
               ? (<button className={prevClass} onClick={prevStep}>이전</button>)
               : (<Link href='/' className={`${prevClass} flex items-center justify-center`}>돌아가기</Link>)}

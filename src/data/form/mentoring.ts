@@ -1,4 +1,3 @@
-import STACK_LIST from "@/constant/stackList";
 import {RECRUITE_CATEGORY} from "@/constant/recruiteCategory";
 
 export const MENTORING_STEP1: any = [
@@ -8,12 +7,12 @@ export const MENTORING_STEP1: any = [
     required: true,
     rules: { required: "팀 이름은 필수 항목입니다." },
   },
-  {
+  /*{
     label: "모집 마감일",
     name: "deadline",
     required: true,
     rules: { required: "모집 마감일은 필수 항목입니다." },
-  },
+  },*/
   {
     label: "멘토링 시작일",
     name: "startDate",
