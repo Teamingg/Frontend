@@ -5,6 +5,7 @@ import {getProjectMembers, getTeamMembers} from "@/service/api/team";
 import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
 import {myPageKeys} from "@/hooks/queries/my";
 import {getMyInfo} from "@/service/api/my";
+import {redirect} from "next/navigation";
 
 const Layout = async ({
   children,
@@ -39,13 +40,16 @@ const Layout = async ({
     {label: '게시글', path: `/team/${type}/${id}/post`},
   ];
   
-  /*console.log('로그인한 사용자')
+  console.log('로그인한 사용자')
   console.log(user)
   console.log('팀원')
-  console.log(members)*/
+  console.log(members)
   
   // ✅ 사용자가 팀원인지 확인 (서버에서 직접 체크)
   const isTeamMember = members.some((member) => member.userId === user?.id && (member.role === "MEMBER" || member.role === "OWNER"));
+  
+  // ❌ 팀원이 아니라면 서버에서 즉시 리디렉트
+  if (!isTeamMember) redirect(`/team/${type}/${id}/viewer`);
   console.log(isTeamMember)
   
   return (

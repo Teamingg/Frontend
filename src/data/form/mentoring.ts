@@ -3,7 +3,7 @@ import {RECRUITE_CATEGORY} from "@/constant/recruiteCategory";
 export const MENTORING_STEP1: any = [
   {
     label: "팀 이름",
-    name: "projectName",
+    name: "name",
     required: true,
     rules: { required: "팀 이름은 필수 항목입니다." },
   },
@@ -41,7 +41,7 @@ export const MENTORING_STEP2: any = [
   },
   {
     label: "모집인원",
-    name: "memberCnt",
+    name: "mentoringCnt",
     required: true,
     rules: { required: "모집인원은 필수 항목입니다." },
   },

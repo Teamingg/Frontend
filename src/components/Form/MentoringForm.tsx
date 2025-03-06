@@ -10,7 +10,7 @@ import Select from "@/components/Input/Select";
 const memberOptions = Array.from({ length: 10 }, (_, i) => String(i + 1));
 
 const labelMap: Record<string, string> = {
-  projectName: "프로젝트 이름",
+  name: "멘토링 이름",
   deadline: "마감일",
   startDate: "시작 날짜",
   endDate: "종료 날짜",
@@ -88,7 +88,7 @@ const MentoringForm = ({
       
       {currentStep === 2 && MENTORING_STEP2.map(field => (
         <React.Fragment key={field.name}>
-          {(field.name === 'role' || field.name === 'memberCnt') && (
+          {(field.name === 'role' || field.name === 'mentoringCnt') && (
             <div className='flex'>
               {field.name === "role" && (
                 <div key={field.name} className="w-full">
@@ -110,8 +110,8 @@ const MentoringForm = ({
                     label="명"
                     name="memberCnt"
                     options={memberOptions}
-                    value={watch("memberCnt")}
-                    onChange={(value) => setValue("memberCnt", value)}
+                    value={String(watch("memberCnt"))}
+                    onChange={(value) => setValue("memberCnt", Number(value))}
                   />
                 </div>
               )}
@@ -134,6 +134,7 @@ const MentoringForm = ({
                 checkBoxList={field.options}
                 control={control}
                 maximum={8}
+                onChange={(selected) => setValue("categories", selected.map(Number))}
               />
             </div>
           )}
@@ -143,7 +144,7 @@ const MentoringForm = ({
       {currentStep === 3 && (
         <TextareaField
           label="소개"
-          name={"contents"}
+          name="content"
           placeholder="멘토링 소개를 입력해 주세요."
           control={control}/>
       )}
