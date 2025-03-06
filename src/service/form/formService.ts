@@ -1,6 +1,5 @@
 import {FieldValues} from "react-hook-form";
-import {TeamInfoData} from "@/app/team/[page_type]/[team_id]/(member)/info/page";
-import {FormSchema} from "@/app/form/_type/formDataTypes";
+import {FormSchema} from "@/types/form";
 
 export const formatValue = (value: unknown) => {
   if (Array.isArray(value)) {
@@ -14,7 +13,7 @@ export const formatValue = (value: unknown) => {
 
 export const generateDefaultValues = <T extends FieldValues>(
     formFields: FormSchema[],
-    infoData?: TeamInfoData[]
+    infoData
 ): Record<string, string> => {
   return formFields.reduce<Record<string, string>>((acc, field) => {
     if ("row" in field) {
