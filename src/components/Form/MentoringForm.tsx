@@ -88,6 +88,35 @@ const MentoringForm = ({
       
       {currentStep === 2 && MENTORING_STEP2.map(field => (
         <React.Fragment key={field.name}>
+          {(field.name === 'role' || field.name === 'memberCnt') && (
+            <div className='flex'>
+              {field.name === "role" && (
+                <div key={field.name} className="w-full">
+                  <label htmlFor="stacks">{field.label}</label>
+                  <SelectCheckBox
+                    name={field.name}
+                    placeholder="사용가능한 기술스택을 선택해주세요."
+                    checkBoxList={field.options}
+                    control={control}
+                    maximum={8}
+                  />
+                </div>
+              )}
+              
+              {field.name === "memberCnt" && (
+                <div className="py-2 flex flex-col w-full">
+                  <p className="mb-2">모집 인원</p>
+                  <Select
+                    label="명"
+                    name="memberCnt"
+                    options={memberOptions}
+                    value={watch("memberCnt")}
+                    onChange={(value) => setValue("memberCnt", value)}
+                  />
+                </div>
+              )}
+            </div>
+          )}
           {!field.options && field.name !== 'memberCnt' && (
             <InputField
               name={field.name}
@@ -96,23 +125,12 @@ const MentoringForm = ({
               rules={field.rules}
             />
           )}
-          {field.name === 'memberCnt' && (
-            <div className="py-2 flex flex-col w-full">
-              <p className='mb-2'>모집 인원</p>
-              <Select
-                label="명"
-                name='memberCnt'
-                options={memberOptions}
-                value={watch("memberCnt")}
-                onChange={(value) => setValue("memberCnt", value)}/>
-            </div>
-          )}
-          {field.options && (
+          {field.name === 'categories' && (
             <div key={field.name} className="w-full">
               <label htmlFor="stacks">{field.label}</label>
               <SelectCheckBox
                 name={field.name}
-                placeholder="사용가능한 기술스택을 선택해주세요."
+                placeholder="포지션을 선택해 주세요."
                 checkBoxList={field.options}
                 control={control}
                 maximum={8}

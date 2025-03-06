@@ -4,7 +4,7 @@ import TeamBasicInfo from "@/components/Team/TeamBasicInfo";
 import Link from "next/link";
 import useDataMap from "@/hooks/useDataMap";
 import {RECRUITE_CATEGORY} from "@/constant/recruiteCategory";
-import ProgressBar from "@/components/ProgressBar";
+import ProgressBar from "@/components/DataDisplay/ProgressBar";
 import {getProgress} from "@/service/getProgress";
 
 const MentoringInfo: React.FC<MentoringInfo> = ({ data }) => {

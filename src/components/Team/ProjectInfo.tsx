@@ -7,7 +7,7 @@ import STACK_LIST from "@/constant/stackList";
 import {RECRUITE_CATEGORY} from "@/constant/recruiteCategory";
 import useDataMap from "@/hooks/useDataMap";
 import {getProgress} from "@/service/getProgress";
-import ProgressBar from "@/components/ProgressBar";
+import ProgressBar from "@/components/DataDisplay/ProgressBar";
 
 const ProjectInfo: React.FC<ProjectInfo> = ({data}) => {
   const tecStack = useDataMap(STACK_LIST, 'value');
