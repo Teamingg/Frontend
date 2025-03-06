@@ -84,12 +84,12 @@ const Page = () => {
   
   const onSubmit = async (data) => {
     console.log('폼 제출 데이터 - ', data);
-    /*try {
+    try {
       const response = await client.post(`/${params.form?.[1]}/teams`, data);
       if (response.status === 200) router.push('/');
     } catch (error) {
       console.error("폼 제출 중 오류 발생:", error.response);
-    }*/
+    }
   };
   
   const prevClass = clsx('w-full h-[50px] rounded-xl border-1 border-gray-200 hover:bg-gray-300 cursor-pointer');
@@ -123,7 +123,11 @@ const Page = () => {
               control={control}
               watch={watch}
               setValue={setValue}/>
-            : <MentoringForm currentStep={currentStep} control={control}/>}
+            : <MentoringForm
+              currentStep={currentStep}
+              control={control}
+              watch={watch}
+              setValue={setValue}/>}
           <div className="my-12 text-center flex flex-col-reverse gap-2 md:flex-row">
             {currentStep !== 1
               ? (<button className={prevClass} onClick={prevStep}>이전</button>)

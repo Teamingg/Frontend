@@ -39,7 +39,7 @@ const ProjectForm = ({
     setValue("startDate", formatDate(new Date().getFullYear(), startMonth, startDay));
     setValue("endDate", formatDate(new Date().getFullYear(), endMonth, endDay));
   }, [startMonth, startDay, endMonth, endDay, setValue]);
-  console.log(watch())
+  
   return (
     <>
       {currentStep === 1 && PROJECT_STEP1.map(field => (

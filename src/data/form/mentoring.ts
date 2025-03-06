@@ -15,12 +15,14 @@ export const MENTORING_STEP1: any = [
   },*/
   {
     label: "멘토링 시작일",
+    options: 'start',
     name: "startDate",
     required: true,
     rules: { required: "멘토링 시작일은 필수 항목입니다." },
   },
   {
     label: "멘토링 종료일",
+    options: 'end',
     name: "endDate",
     required: true,
     rules: { required: "멘토링 종료일은 필수 항목입니다." },
