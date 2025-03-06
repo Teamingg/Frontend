@@ -48,7 +48,8 @@ const Page = () => {
   if (!members || !projectStatus) {
     return <p className="text-center text-gray-500">해당 정보를 찾을 수 없습니다.</p>;
   }
-  
+  console.log('멤버 페이지')
+  console.log(members)
   return (
     <>
       <div className="flex justify-between items-center mb-6">
