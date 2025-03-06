@@ -44,8 +44,10 @@ export const getSelectableDays = (
 
 
 // 날짜를 ISO 형식(YYYY-MM-DD)으로 변환
-export const formatDate = (year: number, month: number | number[], day: number | number[]) => {
-  const date = new Date(year, month - 1, day);
+export const formatDate = (year: number, month: string, day: string) => {
+  const monthNum = parseInt(month, 10);
+  const dayNum = parseInt(day, 10);
+  const date = new Date(year, monthNum - 1, dayNum);
   if (isNaN(date.getTime())) throw new Error("잘못된 날짜 입니다.");
   return date.toISOString().split("T")[0];
 };

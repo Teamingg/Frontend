@@ -41,6 +41,7 @@ export const useDateStore = create<DateState>((set) => ({
   ),
   
   updateStartDate: (month, day) => {
+    // const newEndDate = addDays(parseInt(month, 10), parseInt(day, 10), 30);
     const newEndDate = addDays(parseInt(month), parseInt(day), 30);
     set({
       startMonth: month,
