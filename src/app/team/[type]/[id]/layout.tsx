@@ -12,22 +12,23 @@ const Layout = async ({
   params: Promise<{ type: string; id: string; }>;
 }) => {
   const { type, id } = await params;
+  const teamId = id.slice(0, -2);
   if (type === 'project') {
     await Promise.all([
       queryclient.prefetchQuery({
         queryKey: ["projectMemberStatus", id],
-        queryFn: () => getTeamMembers(type, +id),
+        queryFn: () => getTeamMembers(type, id),
       }),
       
       queryclient.prefetchQuery({
         queryKey: ["projectMember", id],
-        queryFn: () => getProjectMembers(+id),
+        queryFn: () => getProjectMembers(id),
       })
     ]);
   } else if (type === 'mentoring') {
     await queryclient.prefetchQuery({
       queryKey: ["mentoringMember", id],
-      queryFn: () => getTeamMembers(type, +id),
+      queryFn: () => getTeamMembers(type, id),
     });
   }
   

@@ -13,7 +13,7 @@ const Page = () => {
     isError: isProjectError,
   } = useQuery({
     queryKey: ["projectInfo", id],
-    queryFn: () => getProjectInfo(+id),
+    queryFn: () => getProjectInfo(id as string),
     enabled: type === "project",});
   
   const {
@@ -22,10 +22,10 @@ const Page = () => {
     isError: isMentoringError,
   } = useQuery({
     queryKey: ["mentoringInfo", id],
-    queryFn: () => getTeamInfo(+id),
+    queryFn: () => getTeamInfo(id as string),
     enabled: type === "mentoring",
   });
-  
+  console.log(projectData)
   // 로딩 상태 처리
   if (isProjectLoading || isMentoringLoading) {
     return <p className="text-center text-gray-600">로딩 중...</p>;

@@ -14,7 +14,6 @@ const TeamCard = ({
     {label: '시작일', date: start},
     {label: '종료 예정일', date: end},
   ];
-
   return (
       <Link href={href} className="border border-gray-200 rounded-lg p-4 shadow-sm">
         <div className="flex justify-between">

@@ -8,6 +8,7 @@ import {useForm} from "react-hook-form";
 import {useFormStore} from "@/store/formStore";
 import clsx from "clsx";
 import Link from "next/link";
+import {client} from "@/service/api/instance/client";
 export interface ProjectFormData {
   projectName: string;
   deadline: string;
@@ -40,6 +41,7 @@ const steps = [
 
 const Page = () => {
   const params = useParams();
+  const router = useRouter();
   const formType = useMemo(() => params.form?.[1] || "project", [params]);
   const currentStep = useFormStore(state => state.currentStep);
   const nextStep = useFormStore(state => state.nextStep);
@@ -79,8 +81,16 @@ const Page = () => {
   const header = formType === "project" ? '프로젝트' : '멘토링';
   const {handleSubmit, control} = methods;
   
-  const onSubmit = (data) => {
-    console.log("✅ 최종 데이터:", data);
+  const onSubmit = async (data) => {
+    console.log("최종 데이터:", data);
+    console.log(`${params.form?.[1]}/teams`)
+    try {
+      const response = await client.post(`/${params.form?.[1]}/teams`, data);
+      console.log("서버 응답:", response.data);
+      if (response.status === 200) router.push('/');
+    } catch (error) {
+      console.error("폼 제출 중 오류 발생:", error.response);
+    }
   };
   
   const prevClass = clsx('w-full h-[50px] rounded-xl border-1 border-gray-200 hover:bg-gray-300 cursor-pointer');

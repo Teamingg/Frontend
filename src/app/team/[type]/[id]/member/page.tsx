@@ -14,17 +14,17 @@ const Page = () => {
     queries: [
       {
         queryKey: ["mentoringMember", id],
-        queryFn: () => getTeamMembers(type as string, +id),
+        queryFn: () => getTeamMembers(type as string, id as string),
         enabled: type === 'mentoring',
       },
       {
         queryKey: ["projectMemberStatus", id],
-        queryFn: () => getTeamMembers(type as string, +id),
+        queryFn: () => getTeamMembers(type as string, id as string),
         enabled: type === 'project',
       },
       {
         queryKey: ["projectMember", id],
-        queryFn: () => getProjectMembers(+id),
+        queryFn: () => getProjectMembers(id as string),
         enabled: type === 'project',
       }
     ]

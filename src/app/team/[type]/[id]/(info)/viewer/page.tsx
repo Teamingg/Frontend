@@ -7,13 +7,14 @@ import {MentoringInfo, ProjectInfo} from "@/components/Team";
 
 const Page = () => {
   const { type, id } = useParams();
+  const teamId = id.slice(0, -2) as string;
   const {
     data: projectData,
     isLoading: isProjectLoading,
     isError: isProjectError,
   } = useQuery({
     queryKey: ["projectInfo", id],
-    queryFn: () => getProjectInfo(+id),
+    queryFn: () => getProjectInfo(teamId),
     enabled: type === "project",});
   
   const {
@@ -22,7 +23,7 @@ const Page = () => {
     isError: isMentoringError,
   } = useQuery({
     queryKey: ["mentoringInfo", id],
-    queryFn: () => getTeamInfo(+id),
+    queryFn: () => getTeamInfo(teamId),
     enabled: type === "mentoring",
   });
   

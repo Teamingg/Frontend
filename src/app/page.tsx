@@ -52,13 +52,13 @@ export default async function Home() {
       <section className="md:py-10">
         <LocalNavigation />
         <article className="w-full flex flex-col gap-4 md:gap-2 p-4">
-          {/* Team-page project */}
+           Team-page project
           <SectionHeader title="팀 프로젝트" path="/project" />
           <HydrationBoundary state={dehydrate(queryclient)}>
             <ProjectPostList />
           </HydrationBoundary>
 
-          {/* mentoring */}
+           mentoring
           <SectionHeader title="멘토링" path="/mentoring" />
           <HydrationBoundary state={dehydrate(queryclient)}>
             <MentoringPostList />
