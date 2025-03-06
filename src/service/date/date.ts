@@ -11,74 +11,35 @@ export const addWeeksToDate = (dateString: string, weeks: number) => {
   return date.toISOString().split("T")[0];  // YYYY-MM-DD 형식 반환
 }
 
-/**
- * 특정 기간 내에서 선택 가능한 월을 반환하는 함수
- * @param {number} limit - 최대 선택 가능 일수 (기본값: 90일)
- * @param {string} baseDate - 기준 날짜 (기본값: 오늘)
- * @returns {number[]} - 선택 가능한 월 리스트 (1~12)
- */
-export const getSelectableMonths = (limit: number = 90, baseDate: string = new Date().toISOString().split("T")[0]): number[] => {
-  const startDate = new Date(baseDate);
-  if (isNaN(startDate.getTime())) throw new Error("잘못된 날짜 형식입니다. (날짜 형식: YYYY-MM-DD)");
+
+export const getSelectableMonths = (baseDate: string = new Date().toISOString().split("T")[0]): string[] => {
+  const [year, currentMonth] = baseDate.split("-").map(Number);
   
-  const maxDate = new Date(startDate);
-  maxDate.setDate(startDate.getDate() + limit);
-  
-  const selectableMonths = new Set<number>();
-  let current = new Date(startDate);
-  
-  while (current <= maxDate) {
-    selectableMonths.add(current.getMonth() + 1); // getMonth()는 0부터 시작하므로 +1
-    current.setDate(current.getDate() + 1); // 하루 증가
-  }
-  
-  return [...selectableMonths].sort((a, b) => a - b);
+  // 오늘 이후의 월을 반환 (현재 월부터 12월까지)
+  return Array.from({ length: 12 - (currentMonth - 1) }, (_, i) =>
+    String(currentMonth + i).padStart(2, "0")
+  );
 };
 
-/**
- * 특정 월의 선택 가능한 날짜(일) 목록을 반환하는 함수
- * @param {number} month - 선택할 월 (1~12)
- * @param maxLimit
- * @param {string} baseDate - 기준 날짜 (기본값: 오늘)
- * @param minLimit
- * @returns {number[]} - 선택 가능한 일 리스트 (1~31)
- */
+
 export const getSelectableDays = (
-  month: number,
-  maxLimit: number = 90,
+  month?: string,
+  minDays?: number,
   baseDate: string = new Date().toISOString().split("T")[0],
-  minLimit: number = 0
-): number[] => {
-  const startDate = new Date(baseDate);
-  const minDate = new Date(startDate);
-  minDate.setDate(startDate.getDate() + minLimit); // 최소 minLimit 일 후부터 선택 가능
+  maxDays?: number
+): string[] => {
+  if (!month) return []; // 월이 없으면 빈 배열 반환
   
-  const maxDate = new Date(startDate);
-  maxDate.setDate(startDate.getDate() + maxLimit);
+  const [year, currentMonth, currentDay] = baseDate.split("-").map(Number);
+  const selectedMonth = parseInt(month, 10);
+  if (isNaN(selectedMonth)) return []; // 월이 숫자가 아니면 빈 배열 반환
   
-  const selectableDays: number[] = [];
-  let current = new Date(minDate);
-  while (current <= maxDate) {
-    if (current.getMonth() + 1 === month) {
-      selectableDays.push(current.getDate());
-    }
-    current.setDate(current.getDate() + 1);
-  }
+  const lastDay = maxDays || new Date(year, selectedMonth, 0).getDate();
+  const minDay = selectedMonth === currentMonth ? currentDay : 1;
   
-  // 만약 month의 최대일(예: 30일)보다 큰 날짜가 선택되었다면 자동으로 보정
-  const lastDayOfMonth = new Date(new Date().getFullYear(), month, 0).getDate();
-  return selectableDays.filter((day) => day <= lastDayOfMonth);
-};
-
-/**
- * startDate로부터 최소 30일 후의 날짜를 반환하는 함수
- * @param baseDate - 기준 날짜 (YYYY-MM-DD)
- * @returns 최소 30일 후 날짜 (YYYY-MM-DD)
- */
-export const getMinEndDate = (baseDate: string) => {
-  const date = new Date(baseDate + "T00:00:00");
-  date.setDate(date.getDate() + 30); // 30일 추가
-  return formatDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
+  return Array.from({ length: lastDay - minDay + 1 }, (_, i) =>
+    String(i + minDay).padStart(2, "0")
+  );
 };
 
 
@@ -88,6 +49,3 @@ export const formatDate = (year: number, month: number | number[], day: number |
   if (isNaN(date.getTime())) throw new Error("잘못된 날짜 입니다.");
   return date.toISOString().split("T")[0];
 };
-
-const testStartDate = "2025-03-06";
-console.log("테스트: getMinEndDate", getMinEndDate(testStartDate));

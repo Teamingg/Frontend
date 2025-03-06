@@ -1,33 +1,28 @@
-import React from 'react';
-import { useController, Control, FieldValues, Path } from "react-hook-form";
+import React from "react";
 
-interface DateSelectProps<T extends string | number, TFieldValues extends FieldValues> {
-  label: string;
-  name: Path<TFieldValues>;
-  data: T[];
-  control: Control<TFieldValues>;
-  onChange?: (value: T[]) => void;
+interface SelectProps {
+  name: string;
+  value: string;
+  options: string[];
+  label?: string;
+  onChange: (value: string) => void;
 }
 
-const Select = <T extends string | number, TFieldValues extends FieldValues>({
-  label,
-  name,
-  data,
-  control,
-  onChange,
-}: DateSelectProps<T, TFieldValues>) => {
-  const { field } = useController<TFieldValues>({ name, control });
+const Select: React.FC<SelectProps> = ({ name, value, options = [], label, onChange }) => {
+  console.log(options)
   return (
     <div className='w-full flex flex-row-reverse items-center gap-1'>
       {label && <label htmlFor={name}>{label}</label>}
-      <select {...field} className="border border-gray-300 rounded-lg p-2 w-full" onChange={(e) => {
-        const value = e.target.value as T;
-        field.onChange(value);
-        if (onChange) onChange(value as any);
-      }}>
-        {data.map((item, index) => (
-          <option key={index} value={item} >{item}</option>
-        ))}
+      <select value={value} onChange={(e) => onChange(e.target.value)} className="border border-gray-300 rounded-lg p-2 w-full">
+        {options.length > 0 ? (
+          options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))
+        ) : (
+          <option value="" disabled>선택할 수 있는 값이 없습니다</option>
+        )}
       </select>
     </div>
   );

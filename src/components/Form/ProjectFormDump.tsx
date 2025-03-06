@@ -1,32 +1,34 @@
 'use client';
-import React, {useEffect} from "react";
+import React from "react";
 import InputField from "@/components/Input/TextInput/InputField";
 import {PROJECT_STEP1, PROJECT_STEP2} from "@/data/form/project";
 import SelectCheckBox from "@/components/Input/SelectCheckBox/SelectCheckBox";
 import TextareaField from "@/components/Input/TextArea/TextareaField";
 import Select from "@/components/Input/Select";
 import {formatDate, getSelectableDays, getSelectableMonths} from "@/service/date/date";
-import { useDateStore } from "@/store/useDateStore";
 
 const memberOptions = Array.from({ length: 10 }, (_, i) => i + 1);
 
 const ProjectForm = ({
   currentStep,
   control,
-  setValue
+  setValue,
+  startMonth,
+  startDay,
+  endMonth,
+  endDay,
+  updateStartDate,
+  updateEndDate,
 }) => {
-  const { startMonth, startDay, endMonth, endDay, updateStartDate, updateEndDate } = useDateStore();
   
-  const months = getSelectableMonths() || [];
-  const startDays = getSelectableDays(startMonth, 0) || [];
-  const endDays = getSelectableDays(endMonth, 30, undefined, 30) || [];
-  console.log(startMonth, startDay, endDay, updateStartDate);
+  const date = new Date().toISOString().split("T")[0];
   
-  // React Hook Form과 Zustand 동기화
-  useEffect(() => {
-    setValue("startDate", formatDate(new Date().getFullYear(), startMonth, startDay));
-    setValue("endDate", formatDate(new Date().getFullYear(), endMonth, endDay));
-  }, [startMonth, startDay, endMonth, endDay, setValue]);
+  // 선택 가능한 월 / 일 동적으로 계산 (일은 start, end month 에 따라 동적으로 계산)
+  const months = getSelectableMonths(90, date);
+  const startDays = getSelectableDays(startMonth, 90, date);
+  const endDays = getSelectableDays(endMonth, 90, date, 30);
+  ;
+  console.log("🔍 endMonth in UI:", endMonth);
   
   return (
     <>
@@ -48,25 +50,31 @@ const ProjectForm = ({
                 <Select
                   label='월'
                   name={field.options === 'start' ? 'startMonth' : 'endMonth'}
-                  options={months}
+                  control={control}
+                  data={months}
                   value={field.options === "start" ? startMonth : endMonth}
                   onChange={(month) => {
                     if (field.options === "start") {
                       updateStartDate(month, startDay);
+                      setValue("startDate", formatDate(new Date().getFullYear(), month, startDay));
                     } else {
                       updateEndDate(month, endDay);
+                      setValue("endDate", formatDate(new Date().getFullYear(), month, endDay));
                     }
                   }}/>
                 <Select
-                  label="일"
-                  name={field.options === "start" ? "startDay" : "endDay"}
-                  options={field.options === "start" ? startDays : endDays}
+                  label='일'
+                  name={field.options === 'start' ? 'startDay' : 'endDay'}
+                  control={control}
+                  data={field.options === "start" ? startDays : endDays}
                   value={field.options === "start" ? startDay : endDay}
                   onChange={(day) => {
                     if (field.options === "start") {
                       updateStartDate(startMonth, day);
+                      setValue("startDate", formatDate(new Date().getFullYear(), startMonth, day));
                     } else {
                       updateEndDate(endMonth, day);
+                      setValue("endDate", formatDate(new Date().getFullYear(), endMonth, day));
                     }
                   }}/>
               </div>
@@ -91,7 +99,7 @@ const ProjectForm = ({
             <Select
               label="명"
               name='memberCnt'
-              options={memberOptions}
+              data={memberOptions}
               control={control}
               onChange={(value) => setValue("memberCnt", value)}/>
             </div>

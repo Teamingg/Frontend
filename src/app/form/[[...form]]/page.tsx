@@ -10,7 +10,6 @@ import clsx from "clsx";
 import Link from "next/link";
 import {client} from "@/service/api/instance/client";
 import {addWeeksToDate} from "@/service/date/date";
-import {useDateStore} from "@/store/useDateStore";
 export interface ProjectFormData {
   projectName: string;
   deadline: string;
@@ -83,15 +82,6 @@ const Page = () => {
   const methods = useForm<ProjectFormData | MentoringFormData>({defaultValues,});
   const {handleSubmit, control, setValue} = methods;
   
-  // Zustand 스토어에서 상태 가져오기 및 react-hook-form과 Zustand 동기화
-  const { startMonth, startDay, endMonth, endDay, startDate, endDate, updateStartDate, updateEndDate } = useDateStore();
-  setValue("startDate", startDate);
-  setValue("endDate", endDate);
- 
-  useEffect(() => {
-    console.log("🛠️ 업데이트된 종료 날짜 정보:", { endMonth, endDay, endDate });
-  }, [endMonth, endDay, endDate]);
-  
   const onSubmit = async (data) => {
     console.log('폼 제출 데이터 - ', data);
     /*try {
@@ -131,13 +121,7 @@ const Page = () => {
             ? <ProjectForm
               currentStep={currentStep}
               control={control}
-              setValue={setValue}
-              startMonth={startMonth}
-              startDay={startDay}
-              endMonth={endMonth}
-              endDay={endDay}
-              updateStartDate={updateStartDate}
-              updateEndDate={updateEndDate}/>
+              setValue={setValue}/>
             : <MentoringForm currentStep={currentStep} control={control}/>}
           <div className="my-12 text-center flex flex-col-reverse gap-2 md:flex-row">
             <button>테스트 제출 버튼</button>

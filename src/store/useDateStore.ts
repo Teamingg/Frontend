@@ -1,62 +1,62 @@
 import { create } from "zustand";
-import {formatDate, getMinEndDate} from "@/service/date/date";
-
 
 interface DateState {
-  startMonth: number;
-  startDay: number;
-  endMonth: number;
-  endDay: number;
+  startMonth: string;
+  startDay: string;
+  endMonth: string;
+  endDay: string;
   startDate: string;
   endDate: string;
-  updateStartDate: (month: number, day: number) => void;
-  updateEndDate: (month: number, day: number) => void;
+  updateStartDate: (month: string, day: string) => void;
+  updateEndDate: (month: string, day: string) => void;
 }
 
-export const useDateStore = create<DateState>((set) => {
-  const today = new Date();
-  const startDate = formatDate(today.getFullYear(), today.getMonth() + 1, today.getDate());
-  const endDate = getMinEndDate(startDate); // 최소 30일 후 날짜 설정
-  
+const currentYear = new Date().getFullYear();
+const today = new Date();
+const todayMonth = String(today.getMonth() + 1).padStart(2, "0");
+const todayDay = String(today.getDate()).padStart(2, "0");
+
+// 날짜 포맷 변환
+const formatDate = (month: string, day: string) => `${currentYear}-${month}-${day}`;
+
+// 날짜 +90일 계산
+const addDays = (month: number, day: number, daysToAdd: number) => {
+  const date = new Date(currentYear, month - 1, day);
+  date.setDate(date.getDate() + daysToAdd);
   return {
-    startMonth: today.getMonth() + 1,
-    startDay: today.getDate(),
-    endMonth: new Date(endDate).getMonth() + 1,
-    endDay: new Date(endDate).getDate(),
-    startDate,
-    endDate,
-    
-    updateStartDate: (month, day) =>
-      set(() => {
-        const newStartDate = formatDate(new Date().getFullYear(), month, day);
-        // startDate 변경 시 endDate 자동 조정
-        const newEndDate = getMinEndDate(newStartDate);
-        return {
-          startMonth: month,
-          startDay: day,
-          startDate: newStartDate,
-          endMonth: new Date(newEndDate).getMonth() + 1,
-          endDay: new Date(newEndDate).getDate(),
-          endDate: newEndDate,
-        };
-      }),
-    
-    updateEndDate: (month, day) =>
-      set((state) => {
-        const newEndDate = formatDate(new Date().getFullYear(), month, day);
-        // ✅ endDate가 startDate + 30일보다 빠르면 자동 조정
-        if (new Date(newEndDate) < new Date(getMinEndDate(state.startDate))) {
-          return {
-            endMonth: new Date(getMinEndDate(state.startDate)).getMonth() + 1,
-            endDay: new Date(getMinEndDate(state.startDate)).getDate(),
-            endDate: getMinEndDate(state.startDate),
-          };
-        }
-        return {
-          endMonth: month,
-          endDay: day,
-          endDate: newEndDate,
-        };
-      }),
+    month: String(date.getMonth() + 1).padStart(2, "0"),
+    day: String(date.getDate()).padStart(2, "0"),
   };
-});
+};
+
+export const useDateStore = create<DateState>((set) => ({
+  startMonth: todayMonth,
+  startDay: todayDay,
+  endMonth: addDays(today.getMonth() + 1, today.getDate(), 90).month,
+  endDay: addDays(today.getMonth() + 1, today.getDate(), 90).day,
+  startDate: formatDate(todayMonth, todayDay),
+  endDate: formatDate(
+    addDays(today.getMonth() + 1, today.getDate(), 90).month,
+    addDays(today.getMonth() + 1, today.getDate(), 90).day
+  ),
+  
+  updateStartDate: (month, day) => {
+    const newEndDate = addDays(parseInt(month), parseInt(day), 30);
+    set({
+      startMonth: month,
+      startDay: day,
+      startDate: formatDate(month, day),
+      endMonth: newEndDate.month,
+      endDay: newEndDate.day,
+      endDate: formatDate(newEndDate.month, newEndDate.day),
+    });
+  },
+  
+  updateEndDate: (month, day) => {
+    set({
+      endMonth: month,
+      endDay: day,
+      endDate: formatDate(month, day),
+    });
+  },
+}));
