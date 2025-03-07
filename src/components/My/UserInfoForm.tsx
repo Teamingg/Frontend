@@ -120,6 +120,7 @@ const UserInfoForm = ({
       <div className="py-2 flex flex-col w-full text-sm md:text-base">
         <div className="mb-2 md:text-lg">기술스택 (선택)</div>
         <SelectCheckBox
+          title='기술 스택'
           name="stacksIds"
           placeholder="사용가능한 기술스택을 선택해주세요."
           checkBoxList={STACK_LIST}
