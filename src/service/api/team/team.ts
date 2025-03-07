@@ -40,3 +40,14 @@ export const getProjectMembers = async (id: string) => {
     return handleApiError(error, "getProjectMembers");
   }
 };
+
+export const getServerMentoringTeam = async (id: string) => {
+  try {
+    const server = await createServerInstance();
+    const { data } = await server.get(`/mentoring/teams/${id}`);
+    console.log("✅ [getTeamInfo] 응답 데이터:", data);
+    return data.data;
+  } catch (error) {
+    return handleApiError(error, "getTeamInfo");
+  }
+};

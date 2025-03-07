@@ -45,7 +45,8 @@ const Page = () => {
     type === "project"
       ? projectData?.projectName || "프로젝트 정보 없음"
       : mentoringData?.dto?.teamName || "멘토링 정보 없음";
-
+  
+  console.log('팀 페이지 대시보드 진입')
   return (
     <>
       <div className="flex justify-between items-start mb-6">

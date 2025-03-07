@@ -3,7 +3,7 @@ import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
 import {queryclient} from "@/lib/getQueryClient";
 import {getProjectMembers, getTeamMembers} from "@/service/api/team";
 
-const Layout = async ({
+const LayoutDump = async ({
   children,
   params,
 } : {
@@ -37,4 +37,4 @@ const Layout = async ({
   );
 };
 
-export default Layout;
+export default LayoutDump;
