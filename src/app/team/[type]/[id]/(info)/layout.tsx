@@ -11,16 +11,15 @@ const Layout = async ({
   params: Promise<{ type: string; id: string; }>;
 }) => {
   const { type, id } = await params;
-
   if (type === "project") {
     await queryclient.prefetchQuery({
       queryKey: ["projectInfo", id],
-      queryFn: () => getProjectInfo(+id),
+      queryFn: () => getProjectInfo(id),
     });
   } else if (type === 'mentoring') {
     await queryclient.prefetchQuery({
       queryKey: ["mentoringInfo", id],
-      queryFn: () => getTeamInfo(+id),
+      queryFn: () => getTeamInfo(id),
     });
   }
 

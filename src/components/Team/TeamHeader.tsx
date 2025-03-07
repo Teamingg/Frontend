@@ -34,7 +34,7 @@ const TeamHeader = ({navigation}) => {
   ), [navigation, isFixed]);
   
   return (
-    <ul className={`w-2/3 border-b-2 border-b-primary flex transition-all duration-300 text-sm md:text-base ${isFixed ? "fixed top-[72px] left-0 w-full bg-primary text-white flex-start py-2 px-6 shadow-md" : "justify-between"}`}>
+    <ul className={`w-full border-b-2 border-b-primary flex transition-all duration-300 text-sm md:text-base ${isFixed ? "fixed top-[72px] left-0 w-full bg-primary text-white flex-start py-2 px-6 shadow-md" : "justify-between"}`}>
       {navItems}
     </ul>
   );

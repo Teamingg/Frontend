@@ -9,27 +9,21 @@ import { UserInfoFormValues } from "@/types/UserInfoFormValues";
 
 const SignUpUserForm = () => {
   const router = useRouter();
-
   const onSubmit = async ({
     name,
     introduce,
     stacksIds,
   }: UserInfoFormValues) => {
-    console.log(name, introduce);
-    const response = await client.post(
-      "/users",
-      JSON.stringify({
-        name,
-        introduce,
-        stacksIds,
-      })
-    );
-
+    const stacks = stacksIds.map((stackId) => +stackId);
+    const response = await client.post("/users", {
+      name, introduce, stackIds: stacks
+    });
+    
     if (response.status === 200) {
       router.replace("/");
     }
   };
-
+  
   return <UserInfoForm formActionHandler={onSubmit} />;
 };
 

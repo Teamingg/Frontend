@@ -12,6 +12,7 @@ interface InputFieldProps<TFieldValues extends FieldValues> {
   key?: string | number;
   // name: keyof TFieldValues; // name 은 TFieldValues(폼 값의 키) 여야 함
   name: Path<TFieldValues>;
+  year?: string
   control: Control<TFieldValues>;
   label: string;
   rules: object; // 해당 인풋의 validation
@@ -19,6 +20,7 @@ interface InputFieldProps<TFieldValues extends FieldValues> {
 }
 const InputField = <TFieldValues extends FieldValues>({
   name,
+  year,
   label,
   control,
   rules,defaultValue
@@ -33,9 +35,8 @@ const InputField = <TFieldValues extends FieldValues>({
   return (
     <div className="py-2 flex flex-col w-full">
       <label htmlFor={name as string} className="mb-2">
-        {label}
+        {label}{year && <span className='pl-1 text-sm'>({year}년)</span>}
       </label>
-
       <TextInput id={name} {...field} error={fieldState.invalid} />
 
       {/* 오류메세지 */}

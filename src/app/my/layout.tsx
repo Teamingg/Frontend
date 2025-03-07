@@ -52,7 +52,7 @@ const layout = async ({ children }: { children: ReactNode }) => {
         <div className="py-20 container mx-auto flex flex-col items-center gap-10">
           {/*<Aside navigation={myPagePaths}/>*/}
           <TeamHeader navigation={myPagePaths} />
-          <div className="w-2/3">{children}</div>
+          <div className="w-full max-w-3xl md:max-w-5xl">{children}</div>
         </div>
       </section>
     </HydrationBoundary>

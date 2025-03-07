@@ -7,7 +7,7 @@ import STACK_LIST from "@/constant/stackList";
 import {RECRUITE_CATEGORY} from "@/constant/recruiteCategory";
 import useDataMap from "@/hooks/useDataMap";
 import {getProgress} from "@/service/getProgress";
-import ProgressBar from "@/components/ProgressBar";
+import ProgressBar from "@/components/DataDisplay/ProgressBar";
 
 const ProjectInfo: React.FC<ProjectInfo> = ({data}) => {
   const tecStack = useDataMap(STACK_LIST, 'value');
@@ -75,10 +75,9 @@ const ProjectInfo: React.FC<ProjectInfo> = ({data}) => {
         {date >= data.startDate ? (
           <ProgressBar percentage={percentage} />
         ) : (
-          <p>프로젝트 시작 전</p>
+          <p>프로젝트가 시작되지 않았습니다.</p>
         )}
       </div>
-      <ProgressBar percentage={testProgress} />
       {/* 프로젝트 소개 */}
       <div className="mt-6">
         <h4 className="text-gray-500 text-sm">프로젝트 소개</h4>

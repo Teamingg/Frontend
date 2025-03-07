@@ -24,9 +24,7 @@ const Page = async ({
 
   const pageType = type === "project" ? "프로젝트" : "멘토링";
   const data = type === "project" ? project : mentoring;
-  console.log("data");
-  console.log(data);
-
+  console.log(data)
   return (
     <>
       {/* Todo 탭 네비게이션을 생성하여 선택한 카테고리 별로 출력 예정 */}
@@ -37,7 +35,7 @@ const Page = async ({
         {data.map((item, index: number) => (
           <TeamCard
             key={index}
-            title={item.name}
+            title={item.teamName}
             teamId={type === 'project' ? item.projectTeamId : item.id}
             status={item.status}
             start={item.startDate}
@@ -54,7 +52,7 @@ const Page = async ({
         {data.map((item, index: number) => (
           <TeamCard
             key={index}
-            title={item.name}
+            title={item.teamName}
             teamId={type === 'project' ? item.projectTeamId : item.id}
             status={item.status}
             start={item.startDate}
