@@ -24,13 +24,13 @@ export interface ProjectFormData {
 }
 
 export interface MentoringFormData {
-  mentoringName: string;
-  deadline: string;
+  name: string;
+  //deadline: string;
   startDate: string;
   endDate: string;
   mentoringCnt: number;
   link: string;
-  contents: string;
+  content: string;
   role: "MENTOR" | "MENTEE";
   categories: number[];
 }
@@ -62,13 +62,13 @@ const Page = () => {
     }
    
     return {
-      mentoringName: "",
-      deadline: addWeeksToDate(today, 2),
+      name: "",
+      //deadline: addWeeksToDate(today, 2),
       startDate: "",
       endDate: "",
       mentoringCnt: 0,
       link: "",
-      contents: "",
+      content: "",
       role: "MENTOR",
       categories: [],
     } as MentoringFormData;
@@ -79,8 +79,14 @@ const Page = () => {
   
   const onSubmit = async (data) => {
     console.log('폼 제출 데이터 - ', data);
+    const formattedData = {
+      ...data,
+      mentoringCnt: Number(data.mentoringCnt),
+      categories: data.categories.map(Number),
+    }
+    console.log(formattedData)
     try {
-      const response = await client.post(`/${params.form?.[1]}/teams`, data);
+      const response = await client.post(`/${params.form?.[1]}/teams`, formattedData);
       if (response.status === 200) router.push('/');
     } catch (error) {
       console.error("폼 제출 중 오류 발생:", error.response);

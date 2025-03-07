@@ -3,8 +3,8 @@ import "./globals.css";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 
 import { queryclient } from "@/lib/getQueryClient";
-import { getAllProjectPosts } from "@/service/api/post/getAllProjectPosts";
-import { getAllMentoringPosts } from "@/service/api/post/getAllMentoringPosts";
+import {getAllProjectPosts, getAllServerProjectPosts} from "@/service/api/post/getAllProjectPosts";
+import {getAllMentoringPosts, getAllServerMentoringPosts} from "@/service/api/post/getAllMentoringPosts";
 
 import SectionHeader from "@/layout/Main/CatrgoryHeader";
 import ProjectPostList from "@/components/post/ProjectPostList";
@@ -19,7 +19,7 @@ export default async function Home() {
     queryclient.prefetchInfiniteQuery({
       queryKey: ["project", "posts"],
       queryFn: async ({ pageParam }) =>
-        await getAllProjectPosts({ nextCursor: pageParam as number }),
+        await getAllServerProjectPosts({ nextCursor: pageParam as number }),
       initialPageParam: 0,
     }),
 
@@ -27,7 +27,7 @@ export default async function Home() {
     queryclient.prefetchInfiniteQuery({
       queryKey: ["mentoring", "posts"],
       queryFn: async ({ pageParam }) =>
-        await getAllMentoringPosts({ nextCursor: pageParam as number }),
+        await getAllServerMentoringPosts({ nextCursor: pageParam as number }),
       initialPageParam: 0,
     }),
   ]);

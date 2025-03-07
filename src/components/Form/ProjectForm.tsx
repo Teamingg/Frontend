@@ -87,7 +87,7 @@ const ProjectForm = ({
         </React.Fragment>
       ))}
       {/* Todo 프로젝트 시작 종료일 셀렉트 박스로 변경 */}
-      {currentStep === 2 && PROJECT_STEP2.map(field => (
+      {currentStep === 2 && PROJECT_STEP2.map((field, index) => (
         <React.Fragment key={field.name}>
           {!field.options && field.name !== 'memberCnt' && (
             <InputField
@@ -109,11 +109,12 @@ const ProjectForm = ({
             </div>
           )}
           {field.options && (
-            <div className="w-full">
-              <label htmlFor="stacks">기술스택</label>
+            <div className={`w-full ${index === PROJECT_STEP2.length - 1 ? "py-2" : ""}`}>
+              <label htmlFor="stacks">{field.label}</label>
               <SelectCheckBox
+                title={field.label}
                 name={field.name}
-                placeholder="사용가능한 기술스택을 선택해주세요."
+                placeholder={field.placeholder}
                 checkBoxList={field.options}
                 control={control}
                 maximum={8}

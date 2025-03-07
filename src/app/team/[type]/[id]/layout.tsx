@@ -1,34 +1,26 @@
 import {ReactNode} from "react";
-import TeamHeader from "@/components/Team/TeamHeader";
 import {queryclient} from "@/lib/getQueryClient";
-import {getProjectMembers, getTeamMembers} from "@/service/api/team";
 import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
+import {getServerMentoringTeam, getServerProjectInfo} from "@/service/api/team/team";
+import TeamContainer from "@/layout/Team/TeamContainer";
 
 const Layout = async ({
   children,
   params,
-} : {
+}: {
   children: ReactNode,
   params: Promise<{ type: string; id: string; }>;
 }) => {
-  const { type, id } = await params;
-  const teamId = id.slice(0, -2);
+  const {type, id} = await params;
   if (type === 'project') {
-    await Promise.all([
-      queryclient.prefetchQuery({
-        queryKey: ["projectMemberStatus", id],
-        queryFn: () => getTeamMembers(type, id),
-      }),
-      
-      queryclient.prefetchQuery({
-        queryKey: ["projectMember", id],
-        queryFn: () => getProjectMembers(id),
-      })
-    ]);
-  } else if (type === 'mentoring') {
-    await queryclient.prefetchQuery({
-      queryKey: ["mentoringMember", id],
-      queryFn: () => getTeamMembers(type, id),
+    await queryclient.fetchQuery({
+      queryKey: ["MentoringTeam", id],
+      queryFn: () => getServerMentoringTeam(id),
+    });
+  } else if (type === 'team') {
+    await queryclient.fetchQuery({
+      queryKey: ["ProjectTeam", id],
+      queryFn: () => getServerProjectInfo(id),
     });
   }
   
@@ -37,16 +29,13 @@ const Layout = async ({
     {label: '멤버', path: `/team/${type}/${id}/member`},
     {label: '게시글', path: `/team/${type}/${id}/post`},
   ];
-
+  console.log('팀페이지 최상위 레이아웃 실행 로그')
   return (
-      <div className='w-full min-h-[calc(100vh-72px-62px)] py-10 flex flex-col items-center max-w-sm md:max-w-3xl lg:max-w-5xl xl:max-w-7xl mx-auto md:mx-auto'>
-        <HydrationBoundary state={dehydrate(queryclient)}>
-          <TeamHeader navigation={navItems}/>
-          <section className="w-2/3 h-full min-h-full p-6 mx-auto">
-            {children}
-          </section>
-        </HydrationBoundary>
-      </div>
+    <HydrationBoundary state={dehydrate(queryclient)}>
+      <TeamContainer navItems={navItems} type={type} id={id}>
+        {children}
+      </TeamContainer>
+    </HydrationBoundary>
   );
 };
 
