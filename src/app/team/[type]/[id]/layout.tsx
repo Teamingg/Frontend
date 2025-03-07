@@ -12,19 +12,17 @@ const Layout = async ({
   params: Promise<{ type: string; id: string; }>;
 }) => {
   const {type, id} = await params;
-  let team = [];
-  
-  if (type === 'project') {
-    team = await queryclient.fetchQuery({
+  /*if (type === 'project') {
+    await queryclient.fetchQuery({
       queryKey: ["MentoringTeam", id],
       queryFn: () => getServerMentoringTeam(id),
     });
   } else if (type === 'team') {
-    team = await queryclient.fetchQuery({
+    await queryclient.fetchQuery({
       queryKey: ["ProjectTeam", id],
       queryFn: () => getServerProjectInfo(id),
     });
-  }
+  }*/
   
   const navItems = [
     {label: '대시보드', path: `/team/${type}/${id}/dashboard`},
@@ -32,11 +30,10 @@ const Layout = async ({
     {label: '게시글', path: `/team/${type}/${id}/post`},
   ];
   console.log('팀페이지 최상위 레이아웃 실행 로그')
-  
   return (
     <HydrationBoundary state={dehydrate(queryclient)}>
-      <TeamContainer team={team} navItems={navItems} type={type} id={id}>
-          {children}
+      <TeamContainer navItems={navItems}>
+        {children}
       </TeamContainer>
     </HydrationBoundary>
   );
