@@ -11,7 +11,7 @@ const Page = async () => {
   });
 
   return (
-      <div className='min-h-[calc(100vh-72px-62px-200px)] p-8 bg-white'>
+      <section className='w-full min-h-[calc(100vh-72px-62px-200px)] p-8 bg-white'>
         <h3 className='pb-6 text-xl md:text-2xl lg:text-3xl border-b border-b-gray-200'>리뷰 관리</h3>
 
         {/* 더미데이터 */}
@@ -30,7 +30,7 @@ const Page = async () => {
               <p className="text-gray-500 mb-4">리뷰가 존재하지 않습니다.</p>
             </div>
         )}
-      </div>
+      </section>
   );
 };
 

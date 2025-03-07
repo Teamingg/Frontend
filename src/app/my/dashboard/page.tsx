@@ -46,7 +46,7 @@ const Page = () => {
   const mentee = mentoring?.filter((item) => item.authority === "LEADER");
   return (
     <>
-      <article className="mb-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* 진행 중인 프로젝트 카드 */}
         <div className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center text-center">
           <VscGithubProject className="w-12 h-12 text-blue-500 bg-blue-100 p-3 rounded-full" />
@@ -69,7 +69,7 @@ const Page = () => {
         </div>
       </article>
 
-      <article className="bg-white shadow-md rounded-lg p-6">
+      <article className="w-full bg-white shadow-md rounded-lg p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold">내 프로필 정보</h2>
           <button

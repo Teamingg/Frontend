@@ -14,14 +14,14 @@ export const TeamSection = ({
   children: ReactNode;
 }) => {
   return (
-      <article className="min-h-96 p-8 mb-12 bg-white rounded-xl">
+      <article className="w-full p-8 bg-white rounded-xl">
         <h3 className="mb-4 text-2xl font-bold">{title}</h3>
         {!isEmpty ? (
-            <ul className='grid grid-cols-3 gap-2'>
+            <ul className='grid grid-cols-2 lg:grid-cols-4 gap-2'>
               {children}
             </ul>
         ) : (
-            <div className="text-center pt-16 pb-6">
+            <div className="text-center my-10">
               <p className="text-gray-500 mb-4">{title}가 존재하지 않습니다.</p>
               <div className="flex justify-center gap-4">
                 <Link
