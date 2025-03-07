@@ -42,6 +42,7 @@ export const MENTORING_STEP2: any = [
   {
     label: "모집인원",
     name: "mentoringCnt",
+    options: 'select',
     required: true,
     rules: { required: "모집인원은 필수 항목입니다." },
   },

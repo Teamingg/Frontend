@@ -1,13 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-
 import { refreshToken as reissue } from "./service/api/refreshToken";
-
 import { checkCookie, getCookie } from "./utils/cookies";
 
 export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
   const url = request.nextUrl;
-
+  
   // 로그인 상태
   const isLoggedIn =
     (await checkCookie("accessToken")) || (await checkCookie("refreshToken"));

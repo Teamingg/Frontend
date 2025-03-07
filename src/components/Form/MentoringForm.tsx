@@ -103,7 +103,7 @@ const MentoringForm = ({
                 </div>
               )}
               
-              {field.name === "memberCnt" && (
+              {field.name === "mentoringCnt" && (
                 <div className="py-2 flex flex-col w-full">
                   <p className="mb-2">모집 인원</p>
                   <Select
