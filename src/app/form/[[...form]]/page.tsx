@@ -11,6 +11,7 @@ import Link from "next/link";
 import {client} from "@/service/api/instance/client";
 import {addWeeksToDate} from "@/service/date/date";
 import StepProgress from "@/components/DataDisplay/StepProgress";
+import Button from "@/components/Button/Button";
 export interface ProjectFormData {
   projectName: string;
   deadline: string;
@@ -72,13 +73,12 @@ const Page = () => {
       role: "MENTOR",
       categories: [],
     } as MentoringFormData;
-  }, [formType]);
+  }, [formType, today]);
   
   const methods = useForm<ProjectFormData | MentoringFormData>({defaultValues,});
   const {handleSubmit, control, setValue, watch} = methods;
   
   const onSubmit = async (data) => {
-    console.log('폼 제출 데이터 - ', data);
     const formattedData = {
       ...data,
       mentoringCnt: Number(data.mentoringCnt),
@@ -93,14 +93,8 @@ const Page = () => {
     }
   };
   
-  const prevClass = clsx('w-full h-[50px] rounded-xl border-1 border-gray-200 hover:bg-gray-300 cursor-pointer');
-  const nextClass = clsx('w-full h-[50px] bg-blue-500 text-white rounded-xl hover:bg-blue-400 cursor-pointer');
-  const currentClass = clsx(
-    currentStep && 'text-green-500'
-  )
-  
   return (
-    <div className='h-full min-h-full flex items-center justify-center'>
+    <div className='h-full min-h-[calc(100vh-72px-64px)] flex items-center justify-center'>
       <section className='w-1/2 lg:w-2/3 lg:max-w-xl mx-auto min-h-1/2 p-8 border border-gray-200 rounded-xl shadow-xl '>
         <header className='mt-10 mb-5 mx-auto flex flex-col items-center justify-center gap-2'>
           <Logo/>
@@ -118,25 +112,16 @@ const Page = () => {
               currentStep={currentStep}
               control={control}
               watch={watch}
-              setValue={setValue}/>
+              setValue={setValue}
+              nextStep={nextStep}
+              prevStep={prevStep}/>
             : <MentoringForm
               currentStep={currentStep}
               control={control}
               watch={watch}
-              setValue={setValue}/>}
-          <div className="my-12 text-center flex flex-col-reverse gap-2 md:flex-row">
-            {currentStep !== 1
-              ? (<button className={prevClass} onClick={prevStep}>이전</button>)
-              : (<Link href='/' className={`${prevClass} flex items-center justify-center`}>돌아가기</Link>)}
-            
-            {currentStep < 4 && (
-              <button className={nextClass} onClick={nextStep}>다음</button>
-            )}
-            
-            {currentStep === 4 && (
-              <button type="submit" className={nextClass}>팀 생성하기</button>
-            )}
-          </div>
+              setValue={setValue}
+              nextStep={nextStep}
+              prevStep={prevStep}/>}
         </form>
       </section>
     </div>
