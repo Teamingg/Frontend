@@ -17,7 +17,7 @@ export async function middleware(request: NextRequest) {
   // 액세스 토큰 갱신 로직
   if (refreshToken && !accessToken) {
     try {
-      const newAccessToken = await reissue(await refreshToken);
+      const newAccessToken = await reissue(refreshToken);
 
       // 쿠키 옵션 set
       response.cookies.set("accessToken", newAccessToken, {
