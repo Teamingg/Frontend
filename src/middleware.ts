@@ -15,7 +15,7 @@ export async function middleware(request: NextRequest) {
   // 액세스 토큰 갱신 로직
   if (refreshToken && !accessToken) {
     try {
-      const newAccessToken = await reissue(await refreshToken);
+      const newAccessToken = await reissue(refreshToken);
 
       // 쿠키 옵션 set
       response.cookies.set("accessToken", newAccessToken, {
@@ -48,7 +48,7 @@ export async function middleware(request: NextRequest) {
   // 로그인이 되어 있지 않을 때 접근 할 수 없는 path
   if (!isLoggedIn) {
     // 마이페이지
-    if (url.pathname.includes("/My")) {
+    if (url.pathname.includes("/my")) {
       return NextResponse.redirect(new URL("/", request.url));
     }
     // 회원정보 입력

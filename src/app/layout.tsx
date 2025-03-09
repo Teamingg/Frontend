@@ -31,16 +31,17 @@ export default async function RootLayout({
       <body>
         <div id="toast"></div>
         <div id="modal-root"></div>
-        <Header />
-        {/* min-h-[calc(100vh-40px-64px)]  */}
-        {/* max-w-2xl md:max-w-3xl lg:max-w-6xl mx-auto */}
-        <main className="w-[calc(100vw-10px] min-h-[calc(100vh-72px-64px)] mt-[59px] md:mt-[71px]">
-          <AppProvider>
+        <AppProvider>
+          <Header />
+          {/* min-h-[calc(100vh-40px-64px)]  */}
+          {/* max-w-2xl md:max-w-3xl lg:max-w-6xl mx-auto */}
+          <main className="w-[calc(100vw-10px] min-h-[calc(100vh-72px-64px)] mt-[59px] md:mt-[71px]">
             <ToastList />
             {modal}
             {children}
-          </AppProvider>
-        </main>
+          </main>
+        </AppProvider>
+
         <Footer />
       </body>
     </html>

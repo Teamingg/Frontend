@@ -2,7 +2,7 @@
 
 import { MentoringTeam } from "@/types/user/myTeamRes";
 import { createServerInstance } from "../instance/server";
-import {handleServerError} from "@/service/handleServerError";
+import { handleServerError } from "@/service/handleServerError";
 
 export const getMyMentoringTeam = async (): Promise<MentoringTeam[]> => {
   try {
@@ -13,4 +13,9 @@ export const getMyMentoringTeam = async (): Promise<MentoringTeam[]> => {
   } catch (error) {
     return handleServerError(error, "getMyInfo");
   }
+  const server = await createServerInstance();
+  const { data } = await server.get("/users/mentoring/teams");
+  console.log("getMyMentoringTeam");
+  console.log(data);
+  return data.data;
 };
