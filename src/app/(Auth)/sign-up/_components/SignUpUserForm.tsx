@@ -12,18 +12,20 @@ const SignUpUserForm = () => {
   const onSubmit = async ({
     name,
     introduce,
-    stacksIds,
+    stackIds,
   }: UserInfoFormValues) => {
-    const stacks = stacksIds.map((stackId) => +stackId);
+    const stacks = stackIds.map((stackId) => +stackId);
     const response = await client.post("/users", {
-      name, introduce, stackIds: stacks
+      name,
+      introduce,
+      stackIds: stacks,
     });
-    
+
     if (response.status === 200) {
       router.replace("/");
     }
   };
-  
+
   return <UserInfoForm formActionHandler={onSubmit} />;
 };
 
