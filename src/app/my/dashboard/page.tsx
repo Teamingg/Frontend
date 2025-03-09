@@ -43,33 +43,33 @@ const Page = () => {
 
   if (isFetching) return <div>정보를 불러오는 중 ..</div>;
 
-  const mentee = mentoring.filter((item) => item.authority === "LEADER");
+  const mentee = mentoring?.filter((item) => item.authority === "LEADER");
   return (
     <>
-      <article className="mb-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <article className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* 진행 중인 프로젝트 카드 */}
         <div className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center text-center">
           <VscGithubProject className="w-12 h-12 text-blue-500 bg-blue-100 p-3 rounded-full" />
-          <h4 className="text-xl font-bold mt-3">{projects.length}</h4>
+          <h4 className="text-xl font-bold mt-3">{projects?.length}</h4>
           <p className="text-gray-600 text-sm">진행 중인 프로젝트</p>
         </div>
 
         {/* 멘토링 세션 카드 */}
         <div className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center text-center">
           <FaChalkboardTeacher className="w-12 h-12 text-green-500 text-4xl bg-green-100 p-3 rounded-full" />
-          <h4 className="text-xl font-bold mt-3">{mentoring.length}</h4>
+          <h4 className="text-xl font-bold mt-3">{mentoring?.length}</h4>
           <p className="text-gray-600 text-sm">총 진행한 멘토링 세션</p>
         </div>
 
         {/* 멘티 카드 */}
         <div className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center text-center">
           <PiStudentBold className="w-12 h-12 text-yellow-500 bg-yellow-100 p-3 rounded-full" />
-          <h4 className="text-xl font-bold mt-3">{mentee.length}</h4>
+          <h4 className="text-xl font-bold mt-3">{mentee?.length}</h4>
           <p className="text-gray-600 text-sm">현재 멘토링 중</p>
         </div>
       </article>
 
-      <article className="bg-white shadow-md rounded-lg p-6">
+      <article className="w-full bg-white shadow-md rounded-lg p-6">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-lg font-bold">내 프로필 정보</h2>
           <button
@@ -89,10 +89,10 @@ const Page = () => {
             <p className="text-gray-500 text-sm">이메일</p>
             <p className="font-medium">{userInfo.email}</p>
           </div>
-          <div>
+          {/*<div>
             <p className="text-gray-500 text-sm">분야</p>
             <p className="font-medium">웹 개발 / UX 디자인</p>
-          </div>
+          </div>*/}
           {/*<div>
                 <p className="text-gray-500 text-sm">경력</p>
                 <p className="font-medium">5년</p>

@@ -19,6 +19,7 @@ interface SelectCheckBoxProps<TFieldValues extends FieldValues> {
   checkBoxList: SelectBoxField[];
   placeholder: string;
   maximum?: number;
+  title?: string;
 }
 
 const SelectCheckBox = ({
@@ -27,6 +28,7 @@ const SelectCheckBox = ({
   checkBoxList,
   placeholder,
   maximum,
+  title,
 }: SelectCheckBoxProps<FieldValues>) => {
   const {
     field: { value: feildValue, onChange },
@@ -69,7 +71,7 @@ const SelectCheckBox = ({
           onReset={() => {
             onChange([]);
           }}
-          title="기술스택"
+          title={title}
           checkBoxList={checkBoxList}
           selectValues={selectedList}
           feildValue={feildValue}

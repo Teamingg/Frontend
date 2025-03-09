@@ -1,5 +1,6 @@
+import React from "react";
 import GlobalNavigation from "./Navigation/GlobalNavigation";
-import {checkCookie} from "@/utils/cookies";
+import {checkCookie} from "../utils/cookies";
 import Logo from "@/components/Logo/Logo";
 
 const Header = async () => {

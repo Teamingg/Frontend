@@ -44,7 +44,7 @@ const PostButtonGroup = ({
   return (
     <div className="w-full lg:w-1/3 flex flex-row lg:flex-col gap-4 text-sm md:text-base p-4 left-0">
       <Link
-        href={`/team/${postType}/${teamId}/info`}
+        href={`/team/${postType}/${teamId}/dashboard`}
         className="py-3 md:py-4 w-full border rounded-lg text-center">
         {`${category} 팀 보러가기`}
       </Link>

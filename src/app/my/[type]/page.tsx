@@ -4,6 +4,7 @@ import { myPageKeys } from "@/hooks/queries/my";
 import { getMyMentoringTeam, getMyProjectTeam } from "@/service/api/my";
 import { TeamSection } from "@/layout/my/TeamSection";
 import { TeamCard } from "@/components/Team";
+import {getProgress} from "@/service/getProgress";
 
 const Page = async ({
   params,
@@ -24,48 +25,83 @@ const Page = async ({
 
   const pageType = type === "project" ? "프로젝트" : "멘토링";
   const data = type === "project" ? project : mentoring;
-  console.log("data");
-  console.log(data);
-
+  
+  // 시작, 진행중, 종료일자 필터링
+  const now = new Date();
+  const upcomingData: typeof data = [];
+  const currentData: typeof data = [];
+  const completedData: typeof data = [];
+  
+  data.forEach(item => {
+    const startDate = new Date(item.startDate);
+    const endDate = new Date(item.endDate);
+    
+    if (startDate > now) {
+      upcomingData.push(item);
+    } else if (startDate <= now && now <= endDate) {
+      currentData.push(item);
+    } else {
+      completedData.push(item);
+    }
+  });
+  
   return (
     <>
-      {/* Todo 탭 네비게이션을 생성하여 선택한 카테고리 별로 출력 예정 */}
       <TeamSection
-        title={`진행중인 ${pageType}`}
-        isEmpty={!data || data.length === 0}
-        pageType={type}
-      >
-        {data.map((item, index) => (
+        title={`진행 예정인 ${pageType}`}
+        isEmpty={!data || data.length !== 0}
+        pageType={type}>
+        {upcomingData.map((item, index: number) => (
           <TeamCard
             key={index}
-            title={item.name}
-            teamId={item.id}
+            title={item.teamName}
+            teamId={type === 'project' ? item.projectTeamId : item.id}
             status={item.status}
             start={item.startDate}
             end={item.endDate}
-            progress={item.progress ?? 0}
-            href={`/team/${type}/${item.id}/info`}
+            progress={parseFloat(getProgress(item.startDate, item.endDate).toFixed(2)) ?? 0}
+            href={`/team/${type}/${type === 'project' ? item.projectTeamId : item.id}/dashboard`}
           />
         ))}
       </TeamSection>
-      <TeamSection
-        title={`종료된 ${pageType}`}
-        isEmpty={!data || data.length === 0}
-        pageType={type}
-      >
-        {data.map((item, index) => (
-          <TeamCard
-            key={index}
-            title={item.name}
-            teamId={item.id}
-            status={item.status}
-            start={item.startDate}
-            end={item.endDate}
-            progress={item.progress ?? 0}
-            href={`/team/${type}/${item.id}/info`}
-          />
-        ))}
-      </TeamSection>
+      {currentData.length > 0 && (
+        <TeamSection
+          title={`진행중인 ${pageType}`}
+          isEmpty={!data || data.length === 0}
+          pageType={type}>
+          {currentData.map((item, index: number) => (
+            <TeamCard
+              key={index}
+              title={item.teamName}
+              teamId={type === 'project' ? item.projectTeamId : item.id}
+              status={item.status}
+              start={item.startDate}
+              end={item.endDate}
+              progress={parseFloat(getProgress(item.startDate, item.endDate).toFixed(2)) ?? 0}
+              href={`/team/${type}/${type === 'project' ? item.projectTeamId : item.id}/dashboard`}
+            />
+          ))}
+        </TeamSection>
+      )}
+      {completedData.length > 0 && (
+        <TeamSection
+          title={`종료된 ${pageType}`}
+          isEmpty={!data || data.length === 0}
+          pageType={type}>
+          {completedData.map((item, index: number) => (
+            <TeamCard
+              key={index}
+              title={item.teamName}
+              teamId={type === 'project' ? item.projectTeamId : item.id}
+              status={item.status}
+              start={item.startDate}
+              end={item.endDate}
+              progress={parseFloat(getProgress(item.startDate, item.endDate).toFixed(2)) ?? 0}
+              href={`/team/${type}/${type === 'project' ? item.projectTeamId : item.id}/dashboard`}
+            />
+          ))}
+        </TeamSection>
+      )}
     </>
   );
 };
