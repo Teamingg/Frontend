@@ -67,6 +67,7 @@ const ProjectForm = ({
     setValue("endDate", formatDate(new Date().getFullYear(), endMonth, endDay));
   }, [startMonth, startDay, endMonth, endDay, setValue]);
   
+  console.log('watch("memberCnt") : ', watch("memberCnt"))
   console.log('formValue data : ', formValue);
   return (
     <>
