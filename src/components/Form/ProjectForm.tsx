@@ -1,5 +1,5 @@
 'use client';
-import React, {useEffect} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import InputField from "@/components/Input/TextInput/InputField";
 import {PROJECT_STEP1, PROJECT_STEP2} from "@/data/form/project";
 import SelectCheckBox from "@/components/Input/SelectCheckBox/SelectCheckBox";
@@ -7,6 +7,9 @@ import TextareaField from "@/components/Input/TextArea/TextareaField";
 import Select from "@/components/Input/Select";
 import {formatDate, getSelectableDays, getSelectableMonths} from "@/service/date/date";
 import { useDateStore } from "@/store/useDateStore";
+import Button from "@/components/Button/Button";
+import Link from "next/link";
+import {useWatch} from "react-hook-form";
 
 const memberOptions = Array.from({ length: 10 }, (_, i) => String(i + 1));
 
@@ -26,13 +29,37 @@ const ProjectForm = ({
   currentStep,
   control,
   watch,
-  setValue
+  setValue,
+  prevStep,
+  nextStep,
 }) => {
+  const [isNextDisabled, setIsNextDisabled] = useState(true);
+  const formValue = useWatch({ control });
   const { startMonth, startDay, endMonth, endDay, updateStartDate, updateEndDate } = useDateStore();
   
   const months = getSelectableMonths() || [];
   const startDays = getSelectableDays(startMonth, 0) || [];
   const endDays = getSelectableDays(endMonth, 30, undefined, 30) || [];
+  
+  // 버튼 활성화 설정
+  useEffect(() => {
+    const projectName = formValue.projectName;
+    const startDate = formValue.startDate;
+    const endDate = formValue.endDate;
+    const memberCnt = formValue.memberCnt;
+    const recruitCategoryIds = formValue.recruitCategoryIds;
+    const contents = formValue.contents;
+    
+    if (currentStep === 1) {
+      setIsNextDisabled(!projectName || !startDate || !endDate);
+    } else if (currentStep === 2) {
+      setIsNextDisabled(memberCnt <= 0 || !recruitCategoryIds || recruitCategoryIds.length === 0);
+    } else if (currentStep === 3) {
+      setIsNextDisabled(!contents);
+    } else {
+      setIsNextDisabled(false);
+    }
+  }, [watch, currentStep, formValue.projectName, formValue.startDate, formValue.endDate, formValue.memberCnt, formValue.recruitCategoryIds, formValue.contents]);
   
   // React Hook Form과 Zustand 동기화
   useEffect(() => {
@@ -86,7 +113,6 @@ const ProjectForm = ({
           )}
         </React.Fragment>
       ))}
-      {/* Todo 프로젝트 시작 종료일 셀렉트 박스로 변경 */}
       {currentStep === 2 && PROJECT_STEP2.map((field, index) => (
         <React.Fragment key={field.name}>
           {!field.options && field.name !== 'memberCnt' && (
@@ -123,7 +149,6 @@ const ProjectForm = ({
           )}
         </React.Fragment>
       ))}
-      
       {currentStep === 3 && (
         <TextareaField
           label="소개"
@@ -131,7 +156,6 @@ const ProjectForm = ({
           placeholder="프로젝트 소개를 입력해 주세요."
           control={control}/>
       )}
-      
       {currentStep === 4 &&  (
         <div className="border border-gray-300 rounded-lg p-4">
           <ul className="space-y-2">
@@ -145,6 +169,21 @@ const ProjectForm = ({
           </ul>
         </div>
       )}
+      
+      {/* 버튼 그룹 */}
+      <div className="my-12 text-center flex flex-col-reverse gap-2 md:flex-row">
+        {currentStep !== 1
+          ? (<Button color='secondary' className='w-full' onClick={prevStep}>이전</Button>)
+          : (<Link href='/' className={`w-full h-[50px] rounded-xl border-1 border-gray-200 hover:bg-gray-300 cursor-pointer flex items-center justify-center`}>돌아가기</Link>)}
+        
+        {currentStep < 4 && (
+          <Button color='primary' className='w-full' onClick={nextStep} disabled={isNextDisabled}>다음</Button>
+        )}
+        
+        {currentStep === 4 && (
+          <Button type="submit" className='w-full'>팀 생성하기</Button>
+        )}
+      </div>
     </>
   );
 };

@@ -3,6 +3,7 @@
 /* 테일윈드 css 커스텀 */
 @theme {
   --color-primary: #337CEB;
+  --color-secondary: #FFFAFA;
   --color-success: #10b981;
   --color-warning: #f59e0b;
   --color-danger: #ef4444;
