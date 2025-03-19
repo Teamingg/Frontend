@@ -39,3 +39,27 @@ interface MentoringInfo {
     authority: string;
   };
 }
+
+interface ProjectTeamData {
+  projectName: string;
+  deadline: string;
+  startDate: string;
+  endDate: string;
+  memberCnt: number;
+  link: string;
+  contents: string;
+  stackIds: number[];
+  recruitCategoryIds: number[];
+}
+
+interface MentoringTeamData {
+  name: string;
+  //deadline: string;
+  startDate: string;
+  endDate: string;
+  mentoringCnt: number;
+  link: string;
+  content: string;
+  role: "MENTOR" | "MENTEE";
+  categories: number[];
+}
