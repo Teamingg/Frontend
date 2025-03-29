@@ -1,5 +1,6 @@
 import { queryclient } from "@/lib/getQueryClient";
 import { client } from "@/service/api/instance/client";
+import { getUserMentoringTeam } from "@/service/api/user";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import React from "react";
 
@@ -14,10 +15,7 @@ const UserProfileMentoringTeamLayout = async ({
 
   await queryclient.prefetchQuery({
     queryKey: [userId, "team", "mentoring"],
-    queryFn: async () => {
-      const response = await client.get(`/users/${userId}/mentoring/teams`);
-      return response.data.data;
-    },
+    queryFn: async () => await getUserMentoringTeam(userId),
   });
 
   return (
