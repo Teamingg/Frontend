@@ -63,7 +63,7 @@ const MentoringPost = ({ id }: { id: string }) => {
         status={data.status}
       />
 
-      <div className="grid grid-cols-2 gap-4 bg-[#f5f5f5] p-6 rounded-lg">
+      <div className="flex flex-col md:grid md:grid-cols-2 gap-2 md:gap-4 bg-[#f5f5f5] p-6 rounded-lg w-full">
         <PostInfo
           label="멘토링기간"
           content={`${data.startDate} ~ ${data.endDate}`}
@@ -74,7 +74,7 @@ const MentoringPost = ({ id }: { id: string }) => {
         <PostInfo label="연락수단" content={data.link} type="link" />
       </div>
 
-      <p className="p-6">{data.contents}</p>
+      <p className="p-6 w-full">{data.contents}</p>
 
       {data.status === "RECRUITING" && (
         <PostButtonGroup
