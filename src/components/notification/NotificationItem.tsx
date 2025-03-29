@@ -18,7 +18,7 @@ const NotificationItem = ({
   const router = useRouter();
 
   const redirectToTeamPage = () => {
-    router.push(`team/${category}/${teamId}/info`);
+    router.push(`team/${category}/${teamId}/dashboard`);
   };
 
   const removeNotification = async () => {
