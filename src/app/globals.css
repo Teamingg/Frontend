@@ -2,8 +2,8 @@
 
 /* 테일윈드 css 커스텀 */
 @theme {
-  --color-primary: #337CEB;
-  --color-secondary: #FFFAFA;
+  --color-primary: #337ceb;
+  --color-secondary: #fffafa;
   --color-success: #10b981;
   --color-warning: #f59e0b;
   --color-danger: #ef4444;
@@ -32,7 +32,18 @@
   --container-7xl: 80rem;
 }
 
-html, body {
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+html,
+body {
   height: 100%;
   width: 100vw;
   min-height: 100vh;
