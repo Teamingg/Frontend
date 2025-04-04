@@ -26,6 +26,10 @@ const myPagePaths = [
     label: "리뷰 관리",
     path: "/my/review",
   },
+  {
+    label: "회원 탈퇴",
+    path: "/my/quit",
+  }
 ];
 
 const layout = async ({ children }: { children: ReactNode }) => {
