@@ -49,7 +49,7 @@ const Page = async ({
     <>
       <TeamSection
         title={`진행 예정인 ${pageType}`}
-        isEmpty={!data || data.length !== 0}
+        isEmpty={upcomingData.length === 0}
         pageType={type}>
         {upcomingData.map((item, index: number) => (
           <TeamCard
@@ -64,6 +64,7 @@ const Page = async ({
           />
         ))}
       </TeamSection>
+
       {currentData.length > 0 && (
         <TeamSection
           title={`진행중인 ${pageType}`}
