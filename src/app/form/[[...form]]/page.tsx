@@ -53,10 +53,13 @@ const Page = () => {
   const {handleSubmit, control, setValue, watch} = methods;
   
   const onSubmit = async (data) => {
+    const isMentoring = formType === "mentoring";
     const formattedData = {
       ...data,
-      mentoringCnt: Number(data.mentoringCnt),
-      categories: data.categories.map(Number),
+      ...(isMentoring && {
+        mentoringCnt: Number(data.mentoringCnt ?? 1),
+        categories: Array.isArray(data.categories) ? data.categories.map(Number) : [],
+      }),
     }
     console.log(formattedData)
     try {
