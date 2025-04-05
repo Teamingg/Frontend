@@ -1,5 +1,6 @@
 import { queryclient } from "@/lib/getQueryClient";
 import { client } from "@/service/api/instance/client";
+import { getUserProjectTeam } from "@/service/api/user";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import React from "react";
 
@@ -14,10 +15,7 @@ const UserProfileProjectTeamLayout = async ({
 
   await queryclient.prefetchQuery({
     queryKey: [userId, "team", "project"],
-    queryFn: async () => {
-      const response = await client.get(`/users/${userId}/project`);
-      return response.data.data;
-    },
+    queryFn: async () => getUserProjectTeam(userId),
   });
 
   return (

@@ -1,10 +1,10 @@
 "use client";
 
-import MyTeamItem from "@/app/my/(Team)/_components/MyTeamItem";
 import { useGetUserTeam } from "@/hooks/queries/user";
 
 import { useParams } from "next/navigation";
 import React from "react";
+import MyTeamItem from "../_components/MyTeamItem";
 
 const UserProfileMentoringTeamPage = () => {
   const { userId } = useParams();
@@ -18,21 +18,23 @@ const UserProfileMentoringTeamPage = () => {
     return null;
   }
 
-  console.log(teamList);
   return (
     <>
-      <ul className="flex flex-col gap-4 pt-4 max-h-[590px] overflow-y-scroll scrollbar-hide">
-        {teamList.map((team) => (
-          <MyTeamItem
-            name={team.name}
-            key={team.id}
-            id={team.id}
-            status={team.status}
-            role={team.authority}
-            category={"mentoring"}
-            // replace={true}
-          />
-        ))}
+      <ul className="flex flex-col gap-4 pt-4 max-h-[590px] overflow-y-scroll  no-scrollbar">
+        {teamList.length === 0 && (
+          <p className="p-4">참여중인 멘토링 팀이 없습니다.</p>
+        )}
+        {teamList.length > 0 &&
+          teamList.map((team) => (
+            <MyTeamItem
+              name={team.teamName}
+              key={team.id}
+              id={team.id}
+              status={team.status}
+              role={team.role}
+              category={"mentoring"}
+            />
+          ))}
       </ul>
     </>
   );

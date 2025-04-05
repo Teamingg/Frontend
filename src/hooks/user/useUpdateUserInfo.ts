@@ -13,7 +13,7 @@ const useUpdateUserInfo = () => {
         JSON.stringify({
           name: userInfo.name,
           introduce: userInfo.introduce,
-          stackIds: userInfo.stacksIds,
+          stackIds: userInfo.stackIds,
         })
       );
     },

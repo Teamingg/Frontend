@@ -13,10 +13,12 @@ const UserProfileModal = ({ children }: { children: React.ReactNode }) => {
       isOpen={path.includes("/user/profile")}
       onClose={() => router.back()}
     >
-      <section className="min-w-[350px] md:min-w-[700px] h-full bg-gray-100 rounded-lg p-4">
+      <section className="min-w-[350px] md:min-w-[700px] h-full bg-gray-100 rounded-lg p-4 z-10">
         <div className="flex justify-between items-center p-4">
           <h3 className="text-xl">유저프로필</h3>
-          <button onClick={() => router.back()}>닫기</button>
+          <button onClick={() => router.back()} className="cursor-pointer">
+            닫기
+          </button>
         </div>
 
         <UserProfileNav />

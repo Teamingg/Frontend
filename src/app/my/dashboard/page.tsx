@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/useToast";
 
 import Modal from "@/components/Modal/Modal";
 import EditUserForm from "@/components/My/EditUserForm";
+import DashBoardFallback from "./_components/DashBoardFallback";
 
 const Page = () => {
   const { toast } = useToast();
@@ -41,11 +42,41 @@ const Page = () => {
     mutate(data);
   };
 
-  if (isFetching) return <div>정보를 불러오는 중 ..</div>;
+  if (isFetching) return <DashBoardFallback />;
 
-  const mentee = mentoring?.filter((item) => item.authority === "LEADER");
+  const mentee = mentoring?.filter((item) => item.role === "LEADER");
   return (
     <>
+      <article className="w-full bg-white shadow-md rounded-lg p-6">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-bold">내 프로필 정보</h2>
+          <button
+            onClick={openModal}
+            className="text-blue-500 text-sm hover:underline cursor-pointer"
+          >
+            수정하기
+          </button>
+        </div>
+
+        <div className="space-y-3">
+          <div>
+            <p className="text-gray-500 text-sm">이름 (닉네임)</p>
+            <p className="font-medium">{userInfo.name}</p>
+          </div>
+          <div>
+            <p className="text-gray-500 text-sm">이메일</p>
+            <p className="font-medium">{userInfo.email}</p>
+          </div>
+        </div>
+
+        <div className="mt-6 pt-4 border-t border-gray-200">
+          <p className="text-gray-500 text-sm">소개</p>
+          <p className="font-medium text-gray-700 leading-relaxed">
+            {userInfo.introduce}
+          </p>
+        </div>
+      </article>
+
       <article className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* 진행 중인 프로젝트 카드 */}
         <div className="bg-white shadow-md rounded-lg p-6 flex flex-col items-center text-center">
@@ -69,43 +100,6 @@ const Page = () => {
         </div>
       </article>
 
-      <article className="w-full bg-white shadow-md rounded-lg p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-bold">내 프로필 정보</h2>
-          <button
-            onClick={openModal}
-            className="text-blue-500 text-sm hover:underline"
-          >
-            수정하기
-          </button>
-        </div>
-
-        <div className="space-y-3">
-          <div>
-            <p className="text-gray-500 text-sm">이름 (닉네임)</p>
-            <p className="font-medium">{userInfo.name}</p>
-          </div>
-          <div>
-            <p className="text-gray-500 text-sm">이메일</p>
-            <p className="font-medium">{userInfo.email}</p>
-          </div>
-          {/*<div>
-            <p className="text-gray-500 text-sm">분야</p>
-            <p className="font-medium">웹 개발 / UX 디자인</p>
-          </div>*/}
-          {/*<div>
-                <p className="text-gray-500 text-sm">경력</p>
-                <p className="font-medium">5년</p>
-              </div>*/}
-        </div>
-
-        <div className="mt-6 pt-4 border-t border-gray-200">
-          <p className="text-gray-500 text-sm">소개</p>
-          <p className="font-medium text-gray-700 leading-relaxed">
-            {userInfo.introduce}
-          </p>
-        </div>
-      </article>
       {/*<article>
             <h3 className={contentTitle}>최근 활동</h3>
           </article>*/}
@@ -117,7 +111,7 @@ const Page = () => {
             <h1 className="text-primary text-center text-2xl">회원정보 수정</h1>
             <button
               onClick={closeModal}
-              className=" border px-4 py-1 text-sm rounded-md hover:border-primary hover:border-opacity-30 transition-colors"
+              className="px-4 py-1 cursor-pointer rounded-md  transition-colors hover:text-black/80"
             >
               닫기
             </button>
@@ -127,7 +121,7 @@ const Page = () => {
             userInfo={{
               name: userInfo!.name,
               introduce: userInfo!.introduce,
-              stacksIds: userInfo!.stacks,
+              stackIds: userInfo!.stacks,
             }}
           />
         </Modal>

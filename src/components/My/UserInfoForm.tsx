@@ -76,7 +76,7 @@ const UserInfoForm = ({
     defaultValues: defaultValues || {
       name: "",
       introduce: "",
-      stacksIds: [],
+      stackIds: [],
     },
   });
 
@@ -120,8 +120,8 @@ const UserInfoForm = ({
       <div className="py-2 flex flex-col w-full text-sm md:text-base">
         <div className="mb-2 md:text-lg">기술스택 (선택)</div>
         <SelectCheckBox
-          title='기술 스택'
-          name="stacksIds"
+          title="기술 스택"
+          name="stackIds"
           placeholder="사용가능한 기술스택을 선택해주세요."
           checkBoxList={STACK_LIST}
           control={control as unknown as Control<FieldValues>}
@@ -131,7 +131,7 @@ const UserInfoForm = ({
 
       {/* 폼 전송 버튼 */}
       <button
-        className="bg-primary text-white w-full py-2 text-center mt-6 rounded-md hover:bg-black/85 disabled:bg-black/70 transition-colors disabled:cursor-not-allowed"
+        className="bg-primary text-white w-full py-2 text-center mt-6 rounded-md hover:bg-primary/85 hover:cursor-pointer disabled:bg-primary/70 transition-colors disabled:cursor-not-allowed"
         disabled={isSubmitting || !isValid}
       >
         {isEdit ? "수정하기" : "제출하기"}

@@ -38,12 +38,12 @@ const layout = async ({ children }: { children: ReactNode }) => {
       queryKey: myPageKeys.info,
       queryFn: getMyInfo,
     }),
-    
+
     await queryclient.prefetchQuery({
       queryKey: myPageKeys.team("mentoring"),
       queryFn: getMyMentoringTeam,
     }),
-    
+
     await queryclient.prefetchQuery({
       queryKey: myPageKeys.team("project"),
       queryFn: getMyProjectTeam,
@@ -52,11 +52,11 @@ const layout = async ({ children }: { children: ReactNode }) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryclient)}>
-      <section className="h-full min-h-[calc(100vh-72px-64px)] bg-gray-100">
-        <div className="h-full py-20 container mx-auto flex flex-col items-center gap-10">
+      <section className="h-full min-h-[calc(100vh-72px-64px)] bg-gray-100 ">
+        <div className="h-full py-20 container mx-auto flex flex-col items-center gap-10  max-w-[1280px]">
           {/*<Aside navigation={myPagePaths}/>*/}
           <TeamHeader navigation={myPagePaths} />
-          <div className="w-full h-full max-w-3xl md:max-w-5xl mb-10 flex flex-col items-center gap-10">
+          <div className="w-full h-full mb-10 flex flex-col items-center gap-10">
             {children}
           </div>
         </div>

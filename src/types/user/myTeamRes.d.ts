@@ -3,11 +3,11 @@ import { TeamStatus } from "../team/teamStatus";
 
 export interface MentoringTeam {
   id: number;
-  name: string;
+  teamName: string;
   startDate: string;
   endDate: string;
   status: TeamStatus;
-  authority: TeamRole;
+  role: TeamRole;
 }
 
 export interface ProjectTeam {

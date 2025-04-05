@@ -25,7 +25,7 @@ const UserProfileNav = () => {
 
   return (
     <nav>
-      <ul className="flex gap-4 px-4">
+      <ul className="flex gap-4 px-4 z-10">
         {navPaths.map((path) => (
           <li
             onClick={() => router.replace(path.path)}

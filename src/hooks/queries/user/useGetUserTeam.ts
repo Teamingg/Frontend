@@ -3,10 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import userKeys from "./userKeys";
 
 import TeamCategory from "@/types/teamCategory";
-import TeamType from "@/types/team/teamType";
 
 import getUserMentoringTeam from "@/service/api/user/getUserMentoringTeam";
 import getUserProjectTeam from "@/service/api/user/getUserProjectTeam";
+import { TeamType } from "@/types/user/myTeamRes";
 
 interface useGetUserTeamArg<T> {
   userId: string;
