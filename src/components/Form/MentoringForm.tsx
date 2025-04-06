@@ -9,6 +9,9 @@ import Select from "@/components/Input/Select";
 import {useWatch} from "react-hook-form";
 import Button from "@/components/Button/Button";
 import Link from "next/link";
+import {mapIdsToLabels} from "@/utils/mapIdsToLabels";
+import {RECRUITE_CATEGORY} from "@/constant/recruiteCategory";
+import STACK_LIST from "@/constant/stackList";
 
 const memberOptions = Array.from({ length: 10 }, (_, i) => String(i + 1));
 
@@ -17,11 +20,11 @@ const labelMap: Record<string, string> = {
   deadline: "마감일",
   startDate: "시작 날짜",
   endDate: "종료 날짜",
-  memberCnt: "모집 인원",
+  mentoringCnt: "모집 인원",
   link: "관련 링크",
-  contents: "내용",
-  stackIds: "사용 기술 스택",
-  recruitCategoryIds: "모집 카테고리",
+  role: "역할",
+  content: "내용",
+  categories: "모집 카테고리",
 };
 
 const MentoringForm = ({
@@ -172,20 +175,27 @@ const MentoringForm = ({
           placeholder="멘토링 소개를 입력해 주세요."
           control={control}/>
       )}
-      {currentStep === 4 &&  (
-        <div className="border border-gray-300 rounded-lg p-4">
-          <ul className="space-y-2">
-            {Object.entries(watch()).map(([key, value]) => (
-              <li key={key} className="flex justify-between border-b py-1">
-                <span className="font-medium">{labelMap[key] || key}</span>
-                {/* ✅ labelMap을 사용하여 키를 변환. 만약 매핑이 없으면 원래 키 출력 */}
-                <span>{Array.isArray(value) ? value.join(', ') || '없음' : String(value)}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+      {currentStep === 4 && (
+          <div className="border border-gray-300 rounded-lg p-4">
+            <ul className="space-y-2">
+              {Object.entries(watch()).map(([key, value]) => {
+                let displayValue: string | string[] = Array.isArray(value) ? value.join(', ') : String(value);
+
+                if (key === "categories") {
+                  displayValue = mapIdsToLabels(value, RECRUITE_CATEGORY).join(', ') || '없음';
+                }
+
+                return (
+                    <li key={key} className="flex justify-between border-b py-1">
+                      <span className="font-medium">{labelMap[key] || key}</span>
+                      <span>{displayValue}</span>
+                    </li>
+                );
+              })}
+            </ul>
+          </div>
       )}
-      
+
       {/* 버튼 그룹 */}
       <div className="my-12 text-center flex flex-col-reverse gap-2 md:flex-row">
         {currentStep !== 1
