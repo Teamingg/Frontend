@@ -22,7 +22,7 @@ const Page = () => {
       <>
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">팀 게시글</h1>
-          <Link href={`/post/${type}/${id}`} className="px-4 py-2 bg-primary text-white rounded-lg flex items-center">
+          <Link href={`/team/${type}/${id}/write`} className="px-4 py-2 bg-primary text-white rounded-lg flex items-center">
             <FaRegPenToSquare className="mr-2"/>새 게시글 작성
           </Link>
         </div>
