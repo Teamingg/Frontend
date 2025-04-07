@@ -3,7 +3,7 @@ import {useParams, useRouter} from "next/navigation";
 import ProjectForm from "@/components/Form/ProjectForm";
 import MentoringForm from "@/components/Form/MentoringForm";
 import Logo from "@/components/Logo/Logo";
-import React, {useMemo} from "react";
+import React, {useEffect, useMemo} from "react";
 import {useForm} from "react-hook-form";
 import {useFormStore} from "@/store/formStore";
 import {client} from "@/service/api/instance/client";
@@ -50,7 +50,13 @@ const Page = () => {
     defaultValues: useMemo(() => getDefaultValues(formType), [formType]),
   });
   
-  const {handleSubmit, control, setValue, watch} = methods;
+  const {handleSubmit, control, setValue, watch, reset} = methods;
+  
+  // 페이지 진입 시 기본값으로 리셋
+  useEffect(() => {
+    reset(getDefaultValues(formType));
+    useFormStore.getState().resetStep(); // currentStep 등 초기화
+  }, [formType]);
   
   const onSubmit = async (data) => {
     const isMentoring = formType === "mentoring";
