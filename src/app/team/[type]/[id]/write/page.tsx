@@ -5,16 +5,25 @@ import Select from "@/components/Input/Select";
 import Button from "@/components/Button/Button";
 import {Controller, useForm} from "react-hook-form";
 import {formatDate} from "@/service/date/date";
+import {client} from "@/service/api/instance/client";
+import {useParams} from "next/navigation";
+import {useRouter} from "next/navigation";
 
 type PostFormValues = {
   title: string;
   category: string;
   memberCnt: string;
+  deadline: string;
   contact: string;
   content: string;
 };
 
+
 const Page = () => {
+  const params = useParams();
+  const router = useRouter();
+  
+  console.log(params)
   const {
     handleSubmit,
     control,
@@ -33,10 +42,34 @@ const Page = () => {
     },
   });
   
-  const onSubmit = (data: PostFormValues) => {
-    console.log('📦 제출 데이터:', data);
-    // API 연동 예정
+  const onSubmit = async (data: PostFormValues) => {
+    const formType = params.type;
+    const formId = params.id;
+    const common = {
+      title: data.title,
+      link: data.contact,
+      contents: data.content,
+    };
+    
+    const payload =
+      formType === "mentoring"
+        ? {
+          ...common,
+          role: data.category === "mentor" ? "MENTOR" : "MENTEE",
+          mentoringCnt: Number(data.memberCnt),
+          deadLine: data.deadline,
+        }
+        : {
+          ...common,
+          memberCnt: Number(data.memberCnt),
+          deadline: data.deadline,
+        };
+    
+    console.log("최종 제출 데이터:", payload);
+    const res = await client.post(`/${formType}/teams/${formId}/posts`, payload);
+    if (res.status === 200) router.push('/');
   };
+  
   
   return (
     <div className="max-w-3xl mx-auto p-6">
@@ -91,12 +124,12 @@ const Page = () => {
         <div>
           <label className="block mb-2 text-sm font-medium text-gray-700">모집 마감일</label>
           <input
-            {...register("title", { required: true })}
+            {...register("deadline", { required: true })}
             type="text"
             className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="모집 마감일을 입력해주세요(2025-01-01)"
           />
-          {errors.title && <p className="text-red-500 text-sm mt-1">모집 마감일은 필수입니다.</p>}
+          {errors.deadline && <p className="text-red-500 text-sm mt-1">모집 마감일은 필수입니다.</p>}
         </div>
         {/*<div className="py-2 flex flex-col w-full">*/}
         {/*  <label className="mb-2 text-sm font-medium text-gray-700">모집 마감일</label>*/}
