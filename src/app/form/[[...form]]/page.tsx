@@ -9,6 +9,7 @@ import {useFormStore} from "@/store/formStore";
 import {client} from "@/service/api/instance/client";
 import {addWeeksToDate} from "@/service/date/date";
 import StepProgress from "@/components/DataDisplay/StepProgress";
+import { log } from "console";
 
 const getDefaultValues = (formType: string): ProjectTeamData | MentoringTeamData => {
   const today = new Date().toISOString().split("T")[0];
@@ -62,12 +63,17 @@ const Page = () => {
     const isMentoring = formType === "mentoring";
     const formattedData = {
       ...data,
-      ...(isMentoring && {
+      ...(isMentoring ? {
         mentoringCnt: Number(data.mentoringCnt ?? 1),
         categories: Array.isArray(data.categories) ? data.categories.map(Number) : [],
-      }),
+      } : {
+        memberCnt: Number(data.memberCnt ?? 1),
+        stackIds: Array.isArray(data.stackIds) ? data.stackIds.map(Number) : [],
+        recruitCategoryIds: Array.isArray(data.recruitCategoryIds) ? data.recruitCategoryIds.map(Number) : [],
+      })
     }
     console.log(formattedData)
+    console.log(params.form?.[1])
     try {
       const response = await client.post(`/${params.form?.[1]}/teams`, formattedData);
       if (response.status === 200) router.push('/');

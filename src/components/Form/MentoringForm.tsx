@@ -120,14 +120,22 @@ const MentoringForm = ({
             <div className='flex'>
               {field.name === "role" && (
                 <div key={field.name} className="w-full">
-                  <label htmlFor="stacks">{field.label}</label>
-                  <SelectCheckBox
-                    name={field.name}
-                    placeholder="사용가능한 기술스택을 선택해주세요."
-                    checkBoxList={field.options}
-                    control={control}
-                    maximum={8}
-                  />
+                  <label className="block mb-2">{field.label}</label>
+                  <div className="flex gap-4">
+                    {field.options.map((option) => (
+                      <label key={option.value} className="flex items-center gap-2">
+                        <input
+                          type="radio"
+                          name={field.name}
+                          value={option.value}
+                          checked={watch(field.name) === option.value}
+                          onChange={(e) => setValue(field.name, e.target.value)}
+                          className="w-4 h-4"
+                        />
+                        <span>{option.label}</span>
+                      </label>
+                    ))}
+                  </div>
                 </div>
               )}
               
@@ -136,16 +144,16 @@ const MentoringForm = ({
                   <p className="mb-2">모집 인원</p>
                   <Select
                     label="명"
-                    name="memberCnt"
+                    name="mentoringCnt"
                     options={memberOptions}
-                    value={String(watch("memberCnt"))}
-                    onChange={(value) => setValue("memberCnt", Number(value))}
+                    value={String(watch("mentoringCnt"))}
+                    onChange={(value) => setValue("mentoringCnt", Number(value))}
                   />
                 </div>
               )}
             </div>
           )}
-          {!field.options && field.name !== 'memberCnt' && (
+          {!field.options && field.name !== 'mentoringCnt' && (
             <InputField
               name={field.name}
               label={field.label}
