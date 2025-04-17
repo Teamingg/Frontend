@@ -9,13 +9,10 @@ export const getMyMentoringTeam = async (): Promise<MentoringTeam[]> => {
     const server = await createServerInstance();
     const { data } = await server.get("/users/mentoring/teams");
     if (!data || !data.data) throw new Error("서버 응답이 올바르지 않습니다.");
+    console.log("getMyMentoringTeam");
+    console.log(data);
     return data.data;
   } catch (error) {
     return handleServerError(error, "getMyInfo");
   }
-  const server = await createServerInstance();
-  const { data } = await server.get("/users/mentoring/teams");
-  console.log("getMyMentoringTeam");
-  console.log(data);
-  return data.data;
 };
