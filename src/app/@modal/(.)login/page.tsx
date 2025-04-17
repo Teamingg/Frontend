@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -23,6 +23,9 @@ const oAuthList = [
 
 const Page = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const error = searchParams.get("error");
+
   const closeModal = () => {
     router.back();
   };
@@ -58,11 +61,18 @@ const Page = () => {
         </div>
       </div>
 
+      {error && (
+        <div className="mb-4 p-4 bg-red-50 text-red-600 rounded-md text-center">
+          {error === "auth_failed" && "로그인에 실패했습니다. 다시 시도해주세요."}
+          {error === "invalid_params" && "잘못된 접근입니다."}
+        </div>
+      )}
+
       <ul className="space-y-2">
         {oAuthList.map((item) => (
           <li key={item.name}>
             <Link
-              href={`${process.env.NEXT_PUBLIC_AUTH_URL}/${item.name}`}
+              href={`${process.env.NEXT_PUBLIC_API_URL}/oauth2/authorization/${item.name}`}
               className="block"
             >
               <Image

@@ -11,12 +11,13 @@ import { getAllMentoringPosts } from "@/service/api/post/getAllMentoringPosts";
 import PostItem from "@/components/post/PostItem";
 import LoadingIndicator from "@/components/LoadingIndicator";
 import useInfinitePosts from "@/hooks/queries/post/useInfinitePosts";
+import AuthErrorFallback from "../ErrorBoundary/AuthErrorFallback";
 
 const MentoringPostList = () => {
   const path = usePathname();
   const { ref, isView } = useObserver();
 
-  const { fetchNextPage, hasNextPage, isFetchingNextPage, data } =
+  const { fetchNextPage, hasNextPage, isFetchingNextPage, data, error } =
     useInfinitePosts({
       category: "mentoring",
       getPosts: getAllMentoringPosts,
@@ -25,6 +26,11 @@ const MentoringPostList = () => {
   useEffect(() => {
     if (isView && hasNextPage && !isFetchingNextPage) fetchNextPage();
   }, [isView, hasNextPage, fetchNextPage, isFetchingNextPage]);
+
+  // 401 에러 처리
+  if (error?.message === "Unauthorized" || error?.message?.includes("401")) {
+    return <AuthErrorFallback />;
+  }
 
   return (
     <>

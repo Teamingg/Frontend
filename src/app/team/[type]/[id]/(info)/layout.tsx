@@ -8,9 +8,9 @@ const Layout = async ({
   params,
 } : {
   children: ReactNode;
-  params: Promise<{ type: string; id: string; }>;
+  params: { type: string; id: string; };
 }) => {
-  const { type, id } = await params;
+  const { type, id } = params;
   if (type === "project") {
     await queryclient.prefetchQuery({
       queryKey: ["projectInfo", id],
