@@ -57,7 +57,7 @@ const Page = () => {
   useEffect(() => {
     reset(getDefaultValues(formType));
     useFormStore.getState().resetStep(); // currentStep 등 초기화
-  }, [formType]);
+  }, [formType, reset]);
   
   const onSubmit = async (data) => {
     const isMentoring = formType === "mentoring";

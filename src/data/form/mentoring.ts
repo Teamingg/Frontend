@@ -1,6 +1,14 @@
 import {RECRUITE_CATEGORY} from "@/constant/recruiteCategory";
 
-export const MENTORING_STEP1: any = [
+interface FormField {
+  label: string;
+  name: string;
+  required: boolean;
+  rules?: { required: string };
+  options?: string | Array<{ value: string; label: string }>;
+}
+
+export const MENTORING_STEP1: FormField[] = [
   {
     label: "팀 이름",
     name: "name",
@@ -29,7 +37,7 @@ export const MENTORING_STEP1: any = [
   },
 ];
 
-export const MENTORING_STEP2: any = [
+export const MENTORING_STEP2: FormField[] = [
   {
     label: "내 역할",
     name: "role",
