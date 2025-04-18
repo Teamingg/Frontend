@@ -1,16 +1,20 @@
 import {ReactNode} from 'react';
+import dynamic from 'next/dynamic';
 import {queryclient} from "@/lib/getQueryClient";
 import {getProjectInfo, getTeamInfo} from "@/service/api/team";
-import {dehydrate, HydrationBoundary} from "@tanstack/react-query";
+
+const HydrationBoundary = dynamic(() => import("@tanstack/react-query").then(mod => mod.HydrationBoundary), {
+  ssr: false
+});
 
 const Layout = async ({
   children,
   params,
 } : {
   children: ReactNode;
-  params: { type: string; id: string; };
+  params: Promise<{ type: string; id: string; }>;
 }) => {
-  const { type, id } = params;
+  const { type, id } = await params;
   if (type === "project") {
     await queryclient.prefetchQuery({
       queryKey: ["projectInfo", id],
@@ -24,7 +28,7 @@ const Layout = async ({
   }
 
   return (
-      <HydrationBoundary state={dehydrate(queryclient)}>
+      <HydrationBoundary state={queryclient}>
         {children}
       </HydrationBoundary>
   );

@@ -1,4 +1,15 @@
-export const handleServerError = (error: any, functionName: string) => {
+interface ServerError {
+  response?: {
+    status: number;
+    data?: {
+      message?: string;
+    };
+  };
+  request?: XMLHttpRequest;
+  message?: string;
+}
+
+export const handleServerError = (error: ServerError, functionName: string) => {
   console.error(`[❌ ${functionName}] 서버 요청 중 오류 발생:`, error);
   
   if (error.response) {
