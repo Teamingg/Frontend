@@ -10,7 +10,6 @@ import SectionHeader from "@/layout/Main/CatrgoryHeader";
 import ProjectPostList from "@/components/post/ProjectPostList";
 import MentoringPostList from "@/components/post/MentoringPostList";
 import LocalNavigation from "@/layout/Navigation/LocalNavigation";
-import clsx from "clsx";
 
 export default async function Home() {
   const queryClient = getQueryClient();
@@ -32,11 +31,6 @@ export default async function Home() {
       initialPageParam: 0,
     }),
   ]);
-
-  const containerClass = clsx(
-    "max-w-xl md:max-w-5xl lg:max-w-6xl xl:max-w-7xl mx-auto"
-  );
-  const heroClass = clsx("py-32 text-center");
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
