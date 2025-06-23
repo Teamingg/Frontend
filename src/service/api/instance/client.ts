@@ -19,28 +19,31 @@ client.interceptors.response.use(
 
   // 응답에 실패했을 때
   async (error) => {
-    const token = await getCookie("refresehToken");
-
-    console.log(token);
-    // 원래 응답 객체
+    const token = await getCookie("refreshToken");
     const originalRequest = error.config;
-    // 액세스 토큰이 만료되었을 때 (401)
-    if (error.response.status === 401 && token && !originalRequest._retry) {
-      // retry 무한루프 방지
-      originalRequest._retry = true;
 
+    // 401 에러이고 토큰이 있고 재시도하지 않은 요청일 경우
+    if (error.response?.status === 401 && token && !originalRequest._retry) {
       try {
+        // retry 무한루프 방지
+        originalRequest._retry = true;
+
+        // 토큰 갱신 시도
         await refreshToken();
 
-        // refreshToken() 로 액세스토큰 재발급 후 원래 요청 다시시도
+        // 원래 요청 재시도
         return client(originalRequest);
-      } catch {
-        return handleError(error.response.status);
+      } catch (refreshError) {
+        // 토큰 갱신 실패 시 401 에러 throw
+        throw new Error("Unauthorized");
       }
     }
 
-    handleError(error.response.status);
+    // 다른 에러는 그대로 throw
+    if (error.response) {
+      handleError(error.response.status);
+    }
 
-    return Promise.reject(error.response.data);
+    return Promise.reject(error);
   }
 );

@@ -1,9 +1,18 @@
 import STACK_LIST from "@/constant/stackList";
 import {RECRUITE_CATEGORY} from "@/constant/recruiteCategory";
 
+interface FormField {
+  label?: string;
+  name: string;
+  required: boolean;
+  rules?: { required: string };
+  options?: string | Array<{ value: string; label: string }>;
+  placeholder?: string;
+}
+
 const currentYear = new Date().getFullYear().toString();
 console.log(currentYear)
-export const PROJECT_STEP1: any = [
+export const PROJECT_STEP1: FormField[] = [
   {
     label: "팀 이름",
     name: "projectName",
@@ -31,7 +40,7 @@ export const PROJECT_STEP1: any = [
   },
 ];
 
-export const PROJECT_STEP2: any = [
+export const PROJECT_STEP2: FormField[] = [
   {
     label: "모집인원",
     name: "memberCnt",

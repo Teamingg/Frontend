@@ -13,6 +13,7 @@ import {useWatch} from "react-hook-form";
 import {mapIdsToLabels} from "@/utils/mapIdsToLabels";
 import {RECRUITE_CATEGORY} from "@/constant/recruiteCategory";
 import STACK_LIST from "@/constant/stackList";
+import SelectBoxField from "@/types/selectBoxField";
 
 const memberOptions = Array.from({ length: 10 }, (_, i) => String(i + 1));
 
@@ -140,14 +141,18 @@ const ProjectForm = ({
           {field.options && (
             <div className={`w-full ${index === PROJECT_STEP2.length - 1 ? "py-2" : ""}`}>
               <label htmlFor="stacks">{field.label}</label>
-              <SelectCheckBox
-                title={field.label}
-                name={field.name}
-                placeholder={field.placeholder}
-                checkBoxList={field.options}
-                control={control}
-                maximum={8}
-              />
+              {Array.isArray(field.options) && field.options.every((option): option is SelectBoxField => 
+                typeof option === 'object' && 'value' in option && 'label' in option
+              ) && (
+                <SelectCheckBox
+                  title={field.label}
+                  name={field.name}
+                  placeholder={field.placeholder}
+                  checkBoxList={field.options}
+                  control={control}
+                  maximum={8}
+                />
+              )}
             </div>
           )}
         </React.Fragment>
@@ -166,11 +171,13 @@ const ProjectForm = ({
                 let displayValue: string | string[] = Array.isArray(value) ? value.join(', ') : String(value);
 
                 if (key === "recruitCategoryIds") {
-                  displayValue = mapIdsToLabels(value, RECRUITE_CATEGORY).join(', ') || '없음';
+                  const categories = Array.isArray(value) ? value : [];
+                  displayValue = mapIdsToLabels(categories, RECRUITE_CATEGORY).join(', ') || '없음';
                 }
 
                 if (key === "stackIds") {
-                  displayValue = mapIdsToLabels(value, STACK_LIST).join(', ') || '없음';
+                  const stacks = Array.isArray(value) ? value : [];
+                  displayValue = mapIdsToLabels(stacks, STACK_LIST).join(', ') || '없음';
                 }
 
                 return (

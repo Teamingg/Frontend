@@ -1,28 +1,31 @@
+'use client';
+import React, {memo} from 'react';
 import Image from "next/image";
-import React from "react";
 
 interface CloseButtonProps {
   onClick: () => void;
-  size: number;
 }
 
-const CloseButton = ({ onClick, size }: CloseButtonProps) => {
+const CloseButton = memo(({onClick}: CloseButtonProps) => {
   return (
-    <button
+    <button 
       onClick={onClick}
-      type="button"
-      className={`size-${size} cursor-pointer`}
+      className="absolute top-0 right-0 p-2 hover:bg-gray-100 rounded-full transition-colors"
+      aria-label="닫기"
     >
-      <Image
-        src="/icons/close.svg"
-        width={18}
-        height={18}
-        priority={false}
-        alt="아이콘"
-        className={`size-${size}`}
+      <Image 
+        src="/close.svg" 
+        width={24} 
+        height={24} 
+        alt="닫기" 
+        sizes="24px"
+        quality={75}
+        loading="eager"
+        className="object-contain"
       />
     </button>
   );
-};
+});
 
+CloseButton.displayName = "CloseButton";
 export default CloseButton;

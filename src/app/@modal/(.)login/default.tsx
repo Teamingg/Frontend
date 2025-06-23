@@ -1,5 +1,7 @@
+"use client";
+
 const Default = () => {
-  return null;
+  return <></>;
 };
 
 export default Default;

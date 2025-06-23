@@ -12,6 +12,7 @@ import Link from "next/link";
 import {mapIdsToLabels} from "@/utils/mapIdsToLabels";
 import {RECRUITE_CATEGORY} from "@/constant/recruiteCategory";
 import STACK_LIST from "@/constant/stackList";
+import SelectBoxField from "@/types/selectBoxField";
 
 const memberOptions = Array.from({ length: 10 }, (_, i) => String(i + 1));
 
@@ -122,7 +123,7 @@ const MentoringForm = ({
                 <div key={field.name} className="w-full">
                   <label className="block mb-2">{field.label}</label>
                   <div className="flex gap-4">
-                    {field.options.map((option) => (
+                    {Array.isArray(field.options) && field.options.map((option) => (
                       <label key={option.value} className="flex items-center gap-2">
                         <input
                           type="radio"
@@ -164,14 +165,17 @@ const MentoringForm = ({
           {field.name === 'categories' && (
             <div key={field.name} className="w-full">
               <label htmlFor="stacks">{field.label}</label>
-              <SelectCheckBox
-                name={field.name}
-                placeholder="포지션을 선택해 주세요."
-                checkBoxList={field.options}
-                control={control}
-                maximum={8}
-                //onChange={(selected) => setValue("categories", selected.map(Number))}
-              />
+              {Array.isArray(field.options) && field.options.every((option): option is SelectBoxField => 
+                typeof option === 'object' && 'value' in option && 'label' in option
+              ) && (
+                <SelectCheckBox
+                  name={field.name}
+                  placeholder="포지션을 선택해 주세요."
+                  checkBoxList={field.options}
+                  control={control}
+                  maximum={8}
+                />
+              )}
             </div>
           )}
         </React.Fragment>
@@ -190,7 +194,8 @@ const MentoringForm = ({
                 let displayValue: string | string[] = Array.isArray(value) ? value.join(', ') : String(value);
 
                 if (key === "categories") {
-                  displayValue = mapIdsToLabels(value, RECRUITE_CATEGORY).join(', ') || '없음';
+                  const categories = Array.isArray(value) ? value : [];
+                  displayValue = mapIdsToLabels(categories, RECRUITE_CATEGORY).join(', ') || '없음';
                 }
 
                 return (

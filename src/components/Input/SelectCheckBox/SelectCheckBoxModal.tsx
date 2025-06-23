@@ -35,7 +35,7 @@ const SelectCheckBoxModal = ({
       <div className="max-w-[500px] bg-white">
         <div className="flex justify-between mb-4">
           <h4 className="text-lg md:text-2xl">{title}</h4>
-          <CloseButton onClick={onClose} size={4} />
+          <CloseButton onClick={onClose} />
         </div>
         <ul className="grid grid-cols-4 text-sm md:text-basetext-center md:flex md:flex-wrap gap-3 border-b-gray-300 border-b pb-4 mb-4">
           {checkBoxList.map((item) => (
@@ -66,7 +66,7 @@ const SelectCheckBoxModal = ({
                 key={item.value}
               >
                 <span>{item.label}</span>
-                <CloseButton onClick={() => onSelect(item, false)} size={3} />
+                <CloseButton onClick={() => onSelect(item, false)} />
               </li>
             ))}
           </ul>
