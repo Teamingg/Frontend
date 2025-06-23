@@ -1,5 +1,7 @@
 "use client";
+export const dynamic = "force-dynamic";
 
+import { Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
@@ -21,8 +23,9 @@ const oAuthList = [
   },
 ];
 
-const Page = () => {
+const LoginModal = () => {
   const router = useRouter();
+
   const searchParams = useSearchParams();
   const error = searchParams.get("error");
 
@@ -63,7 +66,8 @@ const Page = () => {
 
       {error && (
         <div className="mb-4 p-4 bg-red-50 text-red-600 rounded-md text-center">
-          {error === "auth_failed" && "로그인에 실패했습니다. 다시 시도해주세요."}
+          {error === "auth_failed" &&
+            "로그인에 실패했습니다. 다시 시도해주세요."}
           {error === "invalid_params" && "잘못된 접근입니다."}
         </div>
       )}
@@ -88,6 +92,14 @@ const Page = () => {
         ))}
       </ul>
     </Modal>
+  );
+};
+
+const Page = () => {
+  return (
+    <Suspense>
+      <LoginModal />
+    </Suspense>
   );
 };
 
