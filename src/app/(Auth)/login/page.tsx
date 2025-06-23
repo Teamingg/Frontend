@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -9,7 +9,11 @@ const LoginPage = () => {
   useEffect(() => {
     router.back();
   }, [router]);
-  return null;
+  return (
+    <Suspense>
+      <></>
+    </Suspense>
+  );
 };
 
 export default LoginPage;

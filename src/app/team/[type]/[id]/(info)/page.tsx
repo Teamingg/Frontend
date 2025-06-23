@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
+import { useParams } from 'next/navigation';
 
 const ProjectForm = dynamic(() => import("@/components/Form/ProjectForm"), {
   loading: () => (
@@ -29,13 +30,14 @@ const MentoringForm = dynamic(() => import("@/components/Form/MentoringForm"), {
 });
 
 interface PageProps {
-  params: {
     type: string;
     id: string;
-  };
 }
 
-export default function Page({ params }: PageProps) {
+export default function Page() {
+
+  const params =  useParams()
+
   const [currentStep, setCurrentStep] = useState(1);
   const { control, watch, setValue } = useForm();
 
