@@ -10,7 +10,7 @@ interface PostHeaderProps {
 
 const PostHeader = ({ title, teamName, deadLine, status }: PostHeaderProps) => {
   return (
-    <div className="w-full p-4">
+    <div className="w-full p-2">
       <div className="flex items-center gap-2 mb-1">
         <h3 className="text-xl md:text-2xl">{title}</h3>
         <Status status={status} />
