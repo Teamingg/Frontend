@@ -32,7 +32,7 @@ const LogoutButton = () => {
     <button
       type="button"
       onClick={handleLogout}
-      className="flex items-center gap-2"
+      className="flex items-center gap-2 cursor-pointer"
     >
       <CiLogout size={26} />
       <span className="hidden md:inline">로그아웃</span>
