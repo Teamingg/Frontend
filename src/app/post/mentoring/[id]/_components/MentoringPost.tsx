@@ -56,25 +56,29 @@ const MentoringPost = ({ id }: { id: string }) => {
           isOpen={modal}
         />
       )}
-      <PostHeader
-        title={data.title}
-        teamName={data.mentoringTeamName}
-        deadLine={data.deadLine}
-        status={data.status}
-      />
-
-      <div className="flex flex-col md:grid md:grid-cols-2 gap-2 md:gap-4 bg-[#f5f5f5] p-6 rounded-lg w-full">
-        <PostInfo
-          label="멘토링기간"
-          content={`${data.startDate} ~ ${data.endDate}`}
+      <div>
+        <PostHeader
+          title={data.title}
+          teamName={data.mentoringTeamName}
+          deadLine={data.deadLine}
+          status={data.status}
         />
-        <PostInfo label="모집분야" content="멘티" />
-        <PostInfo label="모집인원" content={data.mentoringCnt.toString()} />
-        <PostInfo label="모집카테고리" content="개발/프로그래밍" />
-        <PostInfo label="연락수단" content={data.link} type="link" />
-      </div>
 
-      <p className="p-6 w-full">{data.contents}</p>
+        <div className="flex flex-col md:grid md:grid-cols-2 gap-2 md:gap-4 bg-[#f5f5f5] p-6 rounded-lg w-full">
+          <PostInfo
+            label="멘토링기간"
+            content={`${data.startDate} ~ ${data.endDate}`}
+          />
+          <PostInfo label="모집분야" content="멘티" />
+          <PostInfo label="모집인원" content={data.mentoringCnt.toString()} />
+          <PostInfo label="모집카테고리" content="개발/프로그래밍" />
+          <PostInfo label="연락수단" content={data.link} type="link" />
+        </div>
+
+        <p className="p-4 w-full overflow-scroll max-h-[180px] md:h-full no-scrollbar">
+          {data.contents}
+        </p>
+      </div>
 
       {data.status === "RECRUITING" && (
         <PostButtonGroup
