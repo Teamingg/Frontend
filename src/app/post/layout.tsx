@@ -3,13 +3,11 @@ import BackButton from "@/components/Button/BackButton";
 
 const PostDetailPageLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <section className="min-h-[100svh] pt-10 pb-20 relative max-w-sm md:max-w-3xl lg:max-w-7xl mx-auto md:mx-auto">
-      <div className="pl-4">
+    <section className="h-svh px-4 md:px-6 pt-[75px] md:pt-[100px] pb-6 ">
+      <div className="">
         <BackButton />
       </div>
-      <div className="w-full flex flex-col items-center justify-between gap-2 md:gap-4">
-        {children}
-      </div>
+      <div className="flex flex-col justify-between h-full">{children}</div>
     </section>
   );
 };

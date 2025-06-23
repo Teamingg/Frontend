@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-import { checkCookie } from "@/utils/cookies";
-
 import AppProvider from "@/components/provider/AppProvider";
 
 import Header from "@/layout/Header";
@@ -35,7 +33,7 @@ export default async function RootLayout({
           <Header />
           {/* min-h-[calc(100vh-40px-64px)]  */}
           {/* max-w-2xl md:max-w-3xl lg:max-w-6xl mx-auto */}
-          <main className="w-[calc(100vw-10px] min-h-[calc(100vh-72px-64px)] mt-[59px] md:mt-[80px]">
+          <main className="w-[calc(100vw-10px] h-svh no-scrollbar">
             <ToastList />
             {modal}
             {children}
