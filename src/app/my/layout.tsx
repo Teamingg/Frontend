@@ -15,21 +15,21 @@ const myPagePaths = [
     path: "/my/dashboard",
   },
   {
-    label: "프로젝트 관리",
+    label: "프로젝트",
     path: "/my/project",
   },
   {
-    label: "멘토링 관리",
+    label: "멘토링",
     path: "/my/mentoring",
   },
   {
-    label: "리뷰 관리",
+    label: "리뷰",
     path: "/my/review",
   },
   {
-    label: "회원 탈퇴",
+    label: "회원탈퇴",
     path: "/my/quit",
-  }
+  },
 ];
 
 const layout = async ({ children }: { children: ReactNode }) => {
@@ -52,11 +52,10 @@ const layout = async ({ children }: { children: ReactNode }) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryclient)}>
-      <section className="h-full min-h-[calc(100vh-72px-64px)] bg-gray-100 ">
-        <div className="h-full py-20 container mx-auto flex flex-col items-center gap-10  max-w-[1280px]">
-          {/*<Aside navigation={myPagePaths}/>*/}
+      <section className=" bg-gray-100 ">
+        <div className="h-full md:py-20 container mx-auto flex flex-col items-center gap-6  max-w-[1280px]">
           <TeamHeader navigation={myPagePaths} />
-          <div className="w-full h-full mb-10 flex flex-col items-center gap-10">
+          <div className="w-full h-full flex flex-col items-center gap-6 px-4 pb-4 md:p-0">
             {children}
           </div>
         </div>
