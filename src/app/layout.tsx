@@ -36,7 +36,7 @@ export default async function RootLayout({
           <main className="w-[calc(100vw-10px] h-svh no-scrollbar">
             <ToastList />
             {modal}
-            {children}
+            <div className="pt-[60px] md:pt-[75px]">{children}</div>
           </main>
         </AppProvider>
 
