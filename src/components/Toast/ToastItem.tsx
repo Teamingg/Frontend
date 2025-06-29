@@ -48,7 +48,7 @@ const ToastItem = ({ id, message, type }: ToastItemProps) => {
 
   return (
     <li
-      className={` py-2 md:py-4 pl-8 w-[400px] rounded-md flex gap-4 items-center text-base md:text-lg shadow-md ${typeColor} ${typeBgColor}`}
+      className={`py-2 md:py-4 pl-8 md:w-[400px] rounded-md flex gap-4 items-center text-base md:text-lg shadow-md ${typeColor} ${typeBgColor}`}
     >
       {alertIcon}
       <div>

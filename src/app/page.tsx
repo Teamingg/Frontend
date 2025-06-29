@@ -34,18 +34,20 @@ export default async function Home() {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <LocalNavigation />
-      <section className="p-4 md:p-8 bg-[#f5f5f5] md:max-w-[1400px] md:mx-auto md:rounded-2xl">
-        <article className="w-full flex flex-col gap-4 md:gap-2">
-          {/* Team-page project*/}
-          <SectionHeader title="팀 프로젝트" path="/project" />
-          <ProjectPostList />
+      <section>
+        <LocalNavigation />
+        <div className="p-4 md:p-8 bg-[#f5f5f5] md:max-w-[1400px] md:mx-auto md:rounded-2xl">
+          <article className="w-full flex flex-col gap-4 md:gap-2">
+            {/* Team-page project*/}
+            <SectionHeader title="팀 프로젝트" path="/project" />
+            <ProjectPostList />
 
-          {/* mentoring */}
-          <SectionHeader title="멘토링" path="/mentoring" />
+            {/* mentoring */}
+            <SectionHeader title="멘토링" path="/mentoring" />
 
-          <MentoringPostList />
-        </article>
+            <MentoringPostList />
+          </article>
+        </div>
       </section>
     </HydrationBoundary>
   );

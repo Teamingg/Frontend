@@ -19,7 +19,7 @@ const ToastList = () => {
   return createPortal(
     <>
       {toastList.length > 0 && (
-        <ul className="fixed z-[999] top-4 left-[50%] translate-x-[-50%]  space-y-4">
+        <ul className="fixed z-[999] top-2 md:top-4 left-[50%] translate-x-[-50%] space-y-4 p-4 md:p-0 w-full md:w-auto">
           {toastList.map((el) => (
             <ToastItem
               key={el.id}

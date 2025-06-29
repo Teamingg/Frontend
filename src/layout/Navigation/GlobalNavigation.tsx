@@ -1,26 +1,28 @@
 "use client";
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import Link from "next/link";
-import { PiBellThin, PiUserCircleThin } from "react-icons/pi";
+import { PiUserCircleThin } from "react-icons/pi";
 import LogoutButton from "@/components/Button/LogoutButton";
 import { useToast } from "@/hooks/useToast";
 import CreateTeamButton from "@/components/Button/CreateTeamButton";
 import { usePathname } from "next/navigation";
 import Notification from "@/components/Notification";
+import LoginModal from "@/components/Modal/LoginModal";
 
 const GlobalNavigation = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
+  const [modal, setModal] = useState<boolean>(false);
   const path = usePathname();
   const { toast } = useToast();
   return (
     <>
+      {modal && <LoginModal closeModal={() => setModal(false)} />}
       {!isLoggedIn && (
-        <Link
-          href="/login"
-          scroll={false}
-          className="block px-4 md:px-6 py-2 hover:button_hover bg-primary rounded-lg text-xs md:text-base text-white"
+        <button
+          onClick={() => setModal(true)}
+          className="cursor-pointer block px-4 md:px-6 py-2 hover:button_hover bg-primary rounded-lg text-xs md:text-base text-white"
         >
           로그인
-        </Link>
+        </button>
       )}
 
       {isLoggedIn && (
